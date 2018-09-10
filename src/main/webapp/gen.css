@@ -1,0 +1,35 @@
+.tools, .contacts, .wall{
+    height: 100%;
+    position: static;
+}
+header{
+    height: 10%;
+    min-width: 100%;
+    width: 100%;
+    position: absolute;
+}
+body{
+    height: 90%;
+}
+.container{
+    overflow: hidden;
+    width: 100%;
+}
+.tools{
+    background-color: #bdfa8a;
+    width: 20%;
+    float: left;
+
+}
+.wall{
+    background-color: antiquewhite;
+    width: 60%;
+    float: left;
+
+}
+.contacts{
+    background-color: #fae185;
+    width: 20%;
+    float: left;
+
+}
