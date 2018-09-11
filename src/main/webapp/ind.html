@@ -9,11 +9,15 @@
     <link rel="stylesheet" href="libs/jquery.arcticmodal-0.3/themes/simple.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"></script>
+    <script src="libs/ckeditor/ckeditor.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
-            $(function(){
-                $('#post_modal').arcticmodal();
+            CKEDITOR.replace('editor');
+            $(".post_submit").click(function () {
+                var data = CKEDITOR.instances.editor.getData();
+                alert(data);
             });
+
         });
     </script>
 
@@ -28,8 +32,18 @@
 </header>
 <body>
 <div class="container">
-<div class="tools">tools</div>
-<div class="wall">wall
+<div class="tools">
+    <div class="tool">Лента</div>
+    <div class="tool">Чат</div>
+    <div class="tool">Сотрудники</div>
+    <div class="tool">Группы</div>
+    <div class="tool">Хранилище</div>
+    <div class="tool">Заметки</div>
+    <div class="tool">Календарь</div>
+</div>
+<div class="wall">
+    <textarea name="editor" rows="10" cols="80"></textarea>
+    <button class="post_submit">send</button>
     <div style="display: none;">
         <div class="box-modal" id="post_modal">
             <div class="box-modal_close arcticmodal-close">закрыть</div>
