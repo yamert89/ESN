@@ -1,0 +1,26 @@
+.person_item{
+    overflow: hidden;
+    border: 3px inset rgba(56, 56, 56, 0.29);
+    border-radius: 15px;
+    margin: 5px;
+    padding: 2px 10px 2px 10px;
+    background-color: #bdfa8a;
+    vertical-align: middle;
+
+}
+.circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: blue;
+    display: inline-block;
+
+
+}
+.person_name{
+    display: inline-block;
+    float: right;
+}
+.person_photo_small{
+
+}
