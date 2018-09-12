@@ -23,3 +23,19 @@ display: none;
 .post_add:hover{
     width: 20em;
 }
+.post_submit{
+    width: 15em;
+    height: 2em;
+    font-size: large;
+    margin: 10px;
+    background-color: #bdfa8a;
+    border-radius: 20px;
+}
+.post_submit:hover{
+    width: 20em;
+}
+.post{
+    width: 100%;
+    background-color: blue;
+    box-shadow: 0 0 10px #000000;
+}

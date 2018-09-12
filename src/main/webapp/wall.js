@@ -9,7 +9,7 @@ function showEditor() {
     }
 
     $(".post_add").css("display", "none");
-    submit.css("display", "block");
+    submit.css({"display":"inline"});
     submit.click(function () {
         debugger;
         var data = CKEDITOR.instances.editor.getData();
