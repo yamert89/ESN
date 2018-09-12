@@ -1,0 +1,25 @@
+.editor{
+    display: none;
+}
+.sample_editor{
+    display: none;
+}
+.post_message{
+    margin-top: 10px;
+    width: 100%;
+}
+.post_submit{
+    display: none;
+}
+.post_add{
+    font-size: large;
+    height: 3em;
+    width: 15em;
+    background-color: #bdfa8a;
+    border-radius: 0 0 20px 20px;
+    outline: none;
+
+}
+.post_add:hover{
+    width: 20em;
+}

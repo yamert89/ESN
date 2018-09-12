@@ -63,28 +63,17 @@ iframe{
     display: inline-block;
     margin-left: 10px;
 }
-.tool{
-    border: 3px inset rgba(56, 56, 56, 0.29);
-    border-radius: 15px;
-    margin: 5px;
-    padding: 2px 10px 2px 10px;
 
-}
 .wall{
     background-color: antiquewhite;
     display: inline-block;
     width: 50%;
 }
+
 #post_modal{
     alignment: center;
 }
-.post_message{
-    margin-top: 10px;
-    width: 100%;
-}
-.post_submit{
 
-}
 .contacts{
     width: 15%;
     float: right;
