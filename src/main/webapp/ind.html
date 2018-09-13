@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.css">
     <link rel="stylesheet" href="libs/jquery.arcticmodal-0.3/themes/dark.css">
     <link rel="stylesheet" href="libs/jquery.arcticmodal-0.3/themes/simple.css">
-    <link rel="stylesheet" href="wall.css">
-    <link rel="stylesheet" href="contacts.css">
-    <link rel="stylesheet" href="tools.css">
+    <link rel="stylesheet" href="center/wall/wall.css">
+    <link rel="stylesheet" href="contacts/contacts.css">
+    <link rel="stylesheet" href="tools/tools.css">
+    <link rel="stylesheet" href="center/chat/chat.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"></script>
     <script src="libs/ckeditor/ckeditor.js"></script>
-    <script src="wall.js"></script>
+    <script src="center/wall/wall.js"></script>
 
     <script type="application/javascript">
         $(document).ready(function () {
@@ -49,11 +50,26 @@
     <div class="tool">Хранилище</div>
     <div class="tool">Заметки</div>
     <div class="tool">Календарь</div>
+    <div class="tool">Приложения</div>
 </div>
-<div class="wall">
-    <button class="post_add">Добавить новость</button>
-    <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
-    <button class="post_submit">Опубликовать новость</button>
+<div class="center">
+    <div class="chat_profile">
+        <div class="person_container">
+            <img src="" class="person_photo_chat"><br>
+            <div class="net_status_circle" style=""></div>
+            <span class="net_status">В сети</span>
+        </div>
+        <span class="person_name_chat">Иванов Иван Иванович</span><br>
+
+
+    </div>
+    <div class="chat" id="comment_bubble_left">Сообщение</div>
+    <div class="chat" id="comment_bubble_right">Сообщение2</div>
+</div>
+<div class="contacts">
+    <iframe src="contacts/contacts.html" frameborder="0"></iframe>
+</div>
+</div>
 <!--    <div style="display: none;">
         <div class="box-modal" id="post_modal">
             <div class="box-modal_close arcticmodal-close">закрыть</div>
@@ -61,12 +77,5 @@
             <button class="post_submit">Опубликовать</button>
         </div>
     </div>-->
-    <div class="post">post</div>
-    <textarea name="sample_editor" class="sample_editor" rows="10" cols="80"></textarea>
-</div>
-<div class="contacts">
-    <iframe src="contacts.html" frameborder="0"></iframe>
-</div>
-</div>
 </body>
 </html>

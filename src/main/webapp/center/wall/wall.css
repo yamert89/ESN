@@ -13,7 +13,7 @@ display: none;
 }
 .post_add{
     font-size: large;
-    height: 3em;
+    height: 2em;
     width: 15em;
     background-color: #bdfa8a;
     border-radius: 0 0 20px 20px;
@@ -32,10 +32,14 @@ display: none;
     border-radius: 20px;
 }
 .post_submit:hover{
-    width: 20em;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 5px;
 }
 .post{
+    margin: 30px 0 30px 0;
     width: 100%;
-    background-color: blue;
+    background-color: rgba(255, 237, 163, 0.39);
     box-shadow: 0 0 10px #000000;
+    border-radius: 5px;
 }

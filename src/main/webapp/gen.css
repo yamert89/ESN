@@ -1,4 +1,4 @@
-.tools, .contacts, .wall{
+.tools, .contacts, .center{
     height: 100%;
     position: relative;
 
@@ -64,10 +64,10 @@ iframe{
     margin-left: 10px;
 }
 
-.wall{
+.center{
     background-color: antiquewhite;
     display: inline-block;
-    width: 50%;
+    width: 65%;
 }
 
 #post_modal{
@@ -76,11 +76,19 @@ iframe{
 
 .contacts{
     width: 15%;
+    height: 90%;
+    min-height: 90%;
     float: right;
     border: 5px ridge burlywood;
     border-right: double black;
     border-left: double black;
     display: inline-block;
     margin-right: 10px;
+
+}
+.net_status{
+    display: inline-block;
+    margin: 10px;
+    margin-top: 2px;
 
 }

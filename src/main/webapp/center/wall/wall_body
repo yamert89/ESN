@@ -1,0 +1,4 @@
+<button class="post_add">Добавить новость</button>
+    <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
+    <button class="post_submit">Опубликовать новость</button>
+    <textarea name="sample_editor" class="sample_editor" rows="10" cols="80"></textarea>
