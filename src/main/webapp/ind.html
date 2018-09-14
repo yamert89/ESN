@@ -12,11 +12,16 @@
     <link rel="stylesheet" href="tools/tools.css">
     <link rel="stylesheet" href="center/chat/private_chat.css">
     <link rel="stylesheet" href="center/chat/gen_chat.css">
+    <link rel="stylesheet" href="center/staff/flowchart/block.css">
+    <link rel="stylesheet" href="libs/ECOTree-master/ECOTree.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"></script>
     <script src="libs/ckeditor/ckeditor.js"></script>
     <script src="center/wall/wall.js"></script>
     <script src="center/chat/gen_chat.js"></script>
+    <script src="libs/ECOTree-master/ECOTree.js"></script>
+    <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v"/>
+    <style>v\:*{ behavior:url(#default#VML);}</style>
 
     <script type="application/javascript">
         $(document).ready(function () {
@@ -24,6 +29,38 @@
             $('.post_add').click(function () {
                 showEditor();
             });
+            var tree = null;
+            createTree();
+
+           function createTree() {
+               tree = new ECOTree('tree','myTreeContainer');
+               tree.config.colorStyle = ECOTree.CS_LEVEL;
+               tree.config.nodeFill = ECOTree.NF_FLAT;
+               tree.config.useTarget = false;
+               tree.config.selectMode = ECOTree.SL_MULTIPLE;
+               tree.config.defaultNodeWidth = 65;
+               tree.config.defaultNodeHeight = 20;
+               tree.config.iSubtreeSeparation = 30;
+               tree.config.iSiblingSeparation = 20;
+               tree.config.iLevelSeparation = 30;
+               tree.add(1,-1,'Node O');
+               tree.add(2,1,'Node E',80,40);
+               tree.add(3,1,'Node F',45,45);
+               tree.add(4,1,'Node N',90,18);
+               tree.add(5,2,'Node A',120,30);
+               tree.add(6,2,'Node D',60,60);
+               tree.add(7,4,'Node G');
+               tree.add(8,4,'Node M',78,62);
+               tree.add(9,6,'Node B',40,75);
+               tree.add(10,6,'Node C',75,30);
+               tree.add(11,8,'Node H',55,55);
+               tree.add(12,8,'Node I',120,120);
+               tree.add(13,8,'Node J',80,80);
+               tree.add(14,8,'Node K',65,43);
+               tree.add(15,8,'Node L',90,35);
+               tree.UpdateTree();
+
+           }
 
 
         });
@@ -70,7 +107,13 @@
     <div class="tool">Приложения</div>
 </div>
 <div class="center">
-<
+    <!--
+    We will create a family tree using just CSS(3)
+    The markup will be simple nested lists
+    -->
+    <div class="tree_wrapper" id="myTreeContainer">
+
+    </div>
 </div>
 <div class="contacts">
     <iframe src="contacts/contacts.html" frameborder="0"></iframe>
