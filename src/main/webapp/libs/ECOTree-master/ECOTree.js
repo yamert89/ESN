@@ -706,7 +706,7 @@ ECOTree.prototype._drawTree = function () {
 					this.ctx.restore();
 					
 					//HTML part...
-					s.push('<div id="' + node.id + '" class="econode" style="top:'+(node.YPosition+this.canvasoffsetTop)+'; left:'+(node.XPosition+this.canvasoffsetLeft)+'; width:'+node.w+'; height:'+node.h+';" ');
+					s.push('<div id="' + node.id + '" class="econode" style="top:'+(node.YPosition+this.canvasoffsetTop)+'px'+'; left:'+(node.XPosition+this.canvasoffsetLeft)+'px'+'; width:'+node.w+'px'+'; height:'+node.h+'px'+';" ');
 					if (this.config.selectMode != ECOTree.SL_NONE)											
 						s.push('onclick="javascript:ECOTree._canvasNodeClickHandler('+this.obj+',event.target.id,\''+node.id+'\');" ');										
 					s.push('>');
@@ -733,7 +733,7 @@ ECOTree.prototype._drawTree = function () {
 					
 				case "VML":
 					s.push('<v:roundrect id="' + node.id + '" strokecolor="'+border+'" arcsize="0.18"	');
-					s.push('style="position:absolute; top:'+node.YPosition+'; left:'+node.XPosition+'; width:'+node.w+'; height:'+node.h+'" ');
+					s.push('style="position:absolute; top:'+node.YPosition+'px'+'; left:'+node.XPosition+'px'+'; width:'+node.w+'px'+'; height:'+node.h+'px'+'" ');
 					if (this.config.selectMode != ECOTree.SL_NONE)
 						s.push('href="javascript:'+this.obj+'.selectNode(\''+node.id+'\', true);" ');										
 					s.push('>');
