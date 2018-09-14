@@ -3,7 +3,7 @@
 }
 
 
-#comment_bubble_left {
+.comment_bubble_left {
     width: 70%;
     height: 100px;
     background: rgba(202, 214, 181, 0.57);
@@ -12,10 +12,11 @@
     -webkit-border-radius: 12px;
     border-radius: 12px;
     margin-bottom: 20px;
+    margin-left: 26px;
 
 }
 
-#comment_bubble_left:before {
+.comment_bubble_left:before {
     content: " ";
     width: 0;
     height: 0;
@@ -27,7 +28,7 @@
     border-bottom: 13px solid transparent;
 }
 
-#comment_bubble_right {
+.comment_bubble_right {
     width: 70%;
     height: 100px;
     background: rgba(205, 212, 214, 0.57);
@@ -36,10 +37,11 @@
     -webkit-border-radius: 12px;
     border-radius: 12px;
     margin-bottom: 20px;
+    margin-right: 26px;
     float: right;
 }
 
-#comment_bubble_right:before {
+.comment_bubble_right:before {
     content: " ";
     width: 0;
     height: 0;
@@ -73,4 +75,13 @@
 }
 .person_container{
     display: inline-block;
+
+}
+.chat_container{
+    overflow-y: scroll;
+    max-height: 70%;
+    background-color: #93c6ef;
+    border: 1px;
+    padding: 10px 0;
+
 }
