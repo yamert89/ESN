@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="center/wall/wall.css">
     <link rel="stylesheet" href="contacts/contacts.css">
     <link rel="stylesheet" href="tools/tools.css">
-    <link rel="stylesheet" href="center/chat/chat.css">
+    <link rel="stylesheet" href="center/chat/private_chat.css">
+    <link rel="stylesheet" href="center/chat/gen_chat.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"></script>
     <script src="libs/ckeditor/ckeditor.js"></script>
     <script src="center/wall/wall.js"></script>
+    <script src="center/chat/gen_chat.js"></script>
 
     <script type="application/javascript">
         $(document).ready(function () {
@@ -23,7 +25,22 @@
                 showEditor();
             });
 
+
         });
+
+        function setCurrentDate(el) {
+            var now = new Date();
+            var options = {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+            };
+
+            el.text(now.toLocaleString('ru', options));
+        }
         /*$(function(){
                 $('#exampleModal').arcticmodal();
 
@@ -53,30 +70,7 @@
     <div class="tool">Приложения</div>
 </div>
 <div class="center">
-    <div class="chat_profile">
-        <div class="person_container">
-            <img src="" class="person_photo_chat"><br>
-            <div class="net_status_circle" style=""></div>
-            <span class="net_status">В сети</span>
-        </div>
-        <span class="person_name_chat">Иванов Иван Иванович</span><br>
-    </div>
-    <div class="chat_container">
-    <div class="chat comment_bubble_left">Сообщение</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    <div class="chat comment_bubble_right">Сообщение2</div>
-    </div>
+<
 </div>
 <div class="contacts">
     <iframe src="contacts/contacts.html" frameborder="0"></iframe>

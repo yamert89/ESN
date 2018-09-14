@@ -1,0 +1,19 @@
+div class="chat_gen_container">
+    <div class="message">
+        <div class="message_text">Сообщение 1</div>
+        <div class="message_info">
+        <span class="message_time">10: 30 21.09.2018</span>
+        <img src="" class="person_photo_small">
+        <span class="person_name">Маша</span><br>
+        </div>
+    </div>
+    <div class="message">
+        <div class="message_text">Сообщение 1</div>
+        <div class="message_info">
+            <span class="message_time">10: 30 21.09.2018</span>
+            <img src="" class="person_photo_small">
+            <span class="person_name">Маша</span><br>
+        </div>
+    </div>
+
+</div>

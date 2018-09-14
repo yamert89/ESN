@@ -1,4 +1,4 @@
-.chat{
+.private_chat{
 
 }
 
@@ -52,7 +52,7 @@
     border-left: 26px solid rgba(205, 212, 214, 0.57);
     border-bottom: 13px solid transparent;
 }
-.chat_profile{
+.private_chat_profile{
     position: relative;
     margin: 20px;
 }
@@ -77,7 +77,7 @@
     display: inline-block;
 
 }
-.chat_container{
+.private_chat_container{
     overflow-y: scroll;
     max-height: 70%;
     background-color: #93c6ef;

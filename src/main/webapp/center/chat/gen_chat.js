@@ -1,0 +1,1 @@
+setCurrentDate($(".message_time"));

@@ -1,0 +1,23 @@
+.chat_gen_container{
+    border-radius: 10px;
+    background-color: rgba(60, 63, 65, 0.15);
+    overflow-y: auto;
+}
+.message{
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #bdfa8a;
+
+    /*text-align: left;*/
+}
+.message_text{
+    display: inline-block;
+    width: 65%;
+    text-align: left
+
+}
+.message_info{
+    width: 25%;
+    display: inline-block;
+}
