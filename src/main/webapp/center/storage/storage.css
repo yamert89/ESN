@@ -1,0 +1,33 @@
+.storage{
+    padding: 2% 5%;
+
+}
+.storage_public, .storage_private{
+    display: inline-block;
+    width: 45%;
+}
+.storage_public{
+    background-color: #2e9ad0;
+}
+.storage_private{
+    background-color: #bdfa8a;
+}
+.storage_header{
+    font-size: 1.2em;
+    margin: 10px;
+}
+.file{
+    margin: 10px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.fileName{
+    height: 64px;
+    line-height: 64px;
+    position: absolute;
+}
+.file_ico{
+    width: 64px;
+    height: 64px;
+}
