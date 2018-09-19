@@ -68,13 +68,16 @@ iframe{
 
 }
 .tools{
-    width: 15%;
+    width: 252px;
+    height: 90%;
     float: left;
     border: 5px ridge burlywood;
     border-right: double black;
     border-left: double black;
     display: inline-block;
     margin-left: 10px;
+    position: relative;
+
 }
 
 .center{
@@ -109,4 +112,11 @@ iframe{
 }
 .tree_wrapper{
 
+}
+
+.datepicker-here{
+    margin-top: 20px;
+    /*position: absolute!important;
+    left: 50%!important;
+    margin-left: -175px!important;*/
 }
