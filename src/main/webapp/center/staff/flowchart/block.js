@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    createTree();
+});
+
 function createTree() {
     myTree = new ECOTree('myTree','myTreeContainer');
     myTree.add(0,-1,"OOO Рога и копыта");

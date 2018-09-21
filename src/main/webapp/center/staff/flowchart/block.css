@@ -4,7 +4,7 @@
     background-color: #8ad5f4;
 }
 .staff_container{
-    width: calc(100% - 1050px);
+    width: 25%;
     overflow-y: auto;
     display: inline-block;
     background-color: #bdfa8a;
@@ -43,4 +43,15 @@ canvas{
 .person_name_staff{
 }
 .person_position{
+}
+
+.flowchart_frame{
+    display: inline-block;
+    width: 70%;
+    height: 100%;
+}
+
+.tree_wrapper{
+    margin: 5px;
+    height: 95%;
 }

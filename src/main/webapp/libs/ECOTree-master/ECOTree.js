@@ -781,7 +781,7 @@ ECOTree.prototype.toString = function () {
 	switch (this.render)
 	{
 		case "CANVAS":
-			s.push('<canvas id="ECOTreecanvas" width=1000 height=1000></canvas>');
+			s.push('<canvas id="ECOTreecanvas" width=2000 height=2000></canvas>');
 			break;
 			
 		case "HTML":
