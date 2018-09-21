@@ -1,0 +1,10 @@
+<div class="notes">
+        <div class="note">
+            <div class="date">17.08.2018</div>
+            <div class="note_text">Это обычный текст. И еще текст.</div>
+        </div>
+        <div class="note">
+            <div class="date">18.08.2018</div>
+            <div class="note_text">Это обычный текст. И еще текст. Это обычный текст. И еще текст. Это обычный текст. И еще текст. Это обычный текст. И еще текст.<br>Это обычный текст. И еще текст.</div>
+        </div>
+    </div>

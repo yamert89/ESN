@@ -1,0 +1,22 @@
+.notes{
+    padding: 20px 50px;
+}
+.date{
+    font-size: 2em;
+    line-height: 2em;
+    text-align: left;
+    border-radius: 10px 10px 0 0;
+    background-color: #dfffc7;
+}
+.note_text{
+    font-size: 1.6em;
+    line-height: 1.6em;
+    text-align: center;
+    padding: 10px 50px;
+}
+.note{
+    margin-top: 20px;
+    border: 2px solid #91c26d;
+    border-radius: 10px;
+    background-color: #bdfa8a;
+}
