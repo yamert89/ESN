@@ -296,12 +296,12 @@ ECOTree = function (obj, elm) {
 		useTarget : true,
 		searchMode : ECOTree.SM_DSC,
 		selectMode : ECOTree.SL_MULTIPLE,
-		defaultNodeWidth : 80,
-		defaultNodeHeight : 40,
+		defaultNodeWidth : 150,
+		defaultNodeHeight : 60,
 		defaultTarget : 'javascript:void(0);',
-		expandedImage : './img/less.gif',
-		collapsedImage : './img/plus.gif',
-		transImage : './img/trans.gif'
+		expandedImage : 'libs/ECOTree-master/img/less.gif',
+		collapsedImage : 'libs/ECOTree-master/img/plus.gif',
+		transImage : 'libs/ECOTree-master/img/trans.gif'
 	}
 	
 	this.version = "1.1";
@@ -710,7 +710,7 @@ ECOTree.prototype._drawTree = function () {
 					if (this.config.selectMode != ECOTree.SL_NONE)											
 						s.push('onclick="javascript:ECOTree._canvasNodeClickHandler('+this.obj+',event.target.id,\''+node.id+'\');" ');										
 					s.push('>');
-					s.push('<font face=Verdana size=1>');					
+					s.push('<div class="block_item_container">');
 					if (node.canCollapse) {
 						s.push('<a id="c' + node.id + '" href="javascript:'+this.obj+'.collapseNode(\''+node.id+'\', true);" >');
 						s.push('<img border=0 src="'+((node.isCollapsed) ? this.config.collapsedImage : this.config.expandedImage)+'" >');							
@@ -727,7 +727,7 @@ ECOTree.prototype._drawTree = function () {
 					{						
 						s.push(node.dsc);
 					}
-					s.push('</font>');
+					s.push('</div>');
 					s.push('</div>');		
 					break;
 					
@@ -737,7 +737,7 @@ ECOTree.prototype._drawTree = function () {
 					if (this.config.selectMode != ECOTree.SL_NONE)
 						s.push('href="javascript:'+this.obj+'.selectNode(\''+node.id+'\', true);" ');										
 					s.push('>');
-					s.push('<v:textbox inset="0.5px,0.5px,0.5px,0.5px" ><font face=Verdana size=1>');
+					s.push('<v:textbox inset="0.5px,0.5px,0.5px,0.5px" ><font face=Verdana>');
 					if (node.canCollapse) {
 						s.push('<a href="javascript:'+this.obj+'.collapseNode(\''+node.id+'\', true);" >');
 						s.push('<img border=0 src="'+((node.isCollapsed) ? this.config.collapsedImage : this.config.expandedImage)+'" >');							
@@ -781,7 +781,7 @@ ECOTree.prototype.toString = function () {
 	switch (this.render)
 	{
 		case "CANVAS":
-			s.push('<canvas id="ECOTreecanvas" width=2000 height=2000></canvas>');
+			s.push('<canvas id="ECOTreecanvas" width=1000 height=1000></canvas>');
 			break;
 			
 		case "HTML":

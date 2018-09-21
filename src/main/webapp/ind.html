@@ -15,13 +15,15 @@
     <link rel="stylesheet" href="center/chat/gen_chat.css">
     <link rel="stylesheet" href="libs/ECOTree-master/ECOTree.css">
     <link rel="stylesheet" href="libs/air-datepicker-master/dist/css/datepicker.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="center/staff/flowchart/block.css">
+    <script src="libs/jquery_3.1.0.js"></script>
     <script src="libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"></script>
     <script src="libs/ckeditor/ckeditor.js"></script>
     <script src="center/wall/wall.js"></script>
     <script src="center/chat/gen_chat.js"></script>
     <script src="libs/ECOTree-master/ECOTree.js"></script>
     <script src="libs/air-datepicker-master/dist/js/datepicker.js"></script>
+    <script src="center/staff/flowchart/block.js"></script>
     <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v"/>
     <style>v\:*{ behavior:url(#default#VML);}</style>
     <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v" />
@@ -36,15 +38,22 @@
             });
 
             createTree();
+            function createTree() {
+                myTree = new ECOTree('myTree','myTreeContainer');
+                myTree.add(0,-1,"OOO Рога и копыта");
+                myTree.add(1,0,"Left Child child Child");
+                myTree.add(2,0,"Right Child");
+                myTree.add(3,0,"Right Child");
+                myTree.add(4,0,"Right Child");
+                myTree.add(5,0,"Right Child");
+                myTree.add(6,0,"Right Child");
+                myTree.add(7,0,"Right Child");
+                myTree.add(8,0,"Right Child");
+                myTree.UpdateTree();
 
-           function createTree() {
-               myTree = new ECOTree('myTree','myTreeContainer');
-               myTree.add(0,-1,"Apex Node");
-               myTree.add(1,0,"Left Child");
-               myTree.add(2,0,"Right Child");
-               myTree.UpdateTree();
+            }
 
-           }
+
 
 
         });
@@ -96,6 +105,22 @@
 <div class="center">
     <div class="tree_wrapper">
         <div id="myTreeContainer"></div>
+        <div class="staff_container">
+
+            <table class="person_staff">
+                <tr>
+                    <td width="100px">
+                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                    <td valign="middle">
+                <div class="person_point">
+                    <div class="person_name_staff">Иванов Иван Иванович</div>
+                    <div class="person_position">Главный инженер</div>
+                </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
 </div>
 <div class="contacts">

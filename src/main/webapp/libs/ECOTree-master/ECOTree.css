@@ -16,8 +16,9 @@
 	position: absolute;
 	text-overflow: clip;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size: xx-small;
+	font-size: large!important;
 	padding: 2px;
+	vertical-align: middle;
 }
 
 a.ecolink:visited {
@@ -27,4 +28,7 @@ a.ecolink:visited {
 
 a.ecolink:hover {
 	text-decoration: underline;
+}
+font{
+	font-size: large;
 }
