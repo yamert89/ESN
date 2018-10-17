@@ -16,13 +16,20 @@ public class User {
     private String name;
 
     @Column
-    private int age;
-
-    @Column
     private boolean admin;
 
     @Column
-    private byte[] photo;
+    private String position;
+
+    @Column
+    private String department;
+
+    @Column
+    private byte[] photo; // TODO incorrect type
+
+
+
+
 
 
 
@@ -35,7 +42,7 @@ public class User {
     public User(long id, String name, int age) {
         this.id = id;
         this.name = name;
-        this.age = age;
+
     }
 
 
