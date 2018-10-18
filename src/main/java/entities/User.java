@@ -25,7 +25,11 @@ public class User {
     private String department;
 
     @Column
-    private byte[] photo; // TODO incorrect type
+    private byte[] photo; // TODO incorrect type ?
+
+
+
+
 
 
 

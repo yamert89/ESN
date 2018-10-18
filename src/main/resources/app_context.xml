@@ -13,7 +13,7 @@
     <context:annotation-config />
     <context:component-scan base-package="db" />
     <tx:annotation-driven/>
-    <import resource="dao.xml"/>
+    <import resource="userDao.xml"/>
 
     <bean id="user" class="entities.User">
         <constructor-arg name="id" value="1"/>

@@ -28,7 +28,7 @@
           p:entityManagerFactory-ref="emf"/>
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-    <bean id="dao" class="db.DAO"></bean>
+    <bean id="userDao" class="db.UserDAO"></bean>
 
 
 

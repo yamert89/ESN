@@ -18,9 +18,14 @@ public class Organization {
     @Column
     private String description;
 
-    private Set<String> departments;
-    private Set<String> employers;
+    private Set<Department> departments;
+
+    private Set<User> allEmployers;
+
     private Set<String> positions;
+
+    // wall
+    // chat
 
 
 }
