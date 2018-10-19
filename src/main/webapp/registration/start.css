@@ -2,9 +2,9 @@ body{
     text-align: center;
 }
 div{
-    width: 40%;
+    width: 50%;
     display: inline-block;
-    text-align: justify;
+    text-align: center;
     margin-left: 15%;
 
 }
@@ -16,7 +16,7 @@ label{
 }
 input, .input{
 
-    width: 500px;
+    width: 600px;
     font-size: 1em;
 }
 span{
