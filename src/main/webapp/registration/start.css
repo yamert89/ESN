@@ -1,7 +1,33 @@
-div{
+body{
     text-align: center;
 }
+div{
+    width: 40%;
+    display: inline-block;
+    text-align: justify;
+    margin-left: 15%;
+
+}
 label{
-    font-size: large;
+    font-size: 2em;
+    margin: 20px;
+
+
+}
+input, .input{
+
+    width: 500px;
+    font-size: 1em;
+}
+span{
+    font-size: 2em;
+}
+.reg_field{
+
+}
+.input{
+    display: inline-block;
+}
+.form_photo{
     margin: 20px;
 }
