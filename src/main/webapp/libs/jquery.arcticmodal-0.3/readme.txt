@@ -1,1 +1,1 @@
-Документация и примеры: http://arcticlab.ru/arcticmodal/
+Р”РѕРєСѓРјРµРЅС‚Р°С†РёСЏ Рё РїСЂРёРјРµСЂС‹: http://arcticlab.ru/arcticmodal/

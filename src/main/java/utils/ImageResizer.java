@@ -7,12 +7,12 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ImageResizer {
 
-    public static void resizeBig(Image originalImage){
-        resize(originalImage,128);
+    public static BufferedImage resizeBig(Image originalImage){
+        return resize(originalImage,128);
     }
 
-    public static void resizeSmall(Image originalImage){
-        resize(originalImage,16);
+    public static BufferedImage resizeSmall(Image originalImage){
+         return resize(originalImage,16);
     }
 
 

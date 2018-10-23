@@ -20,7 +20,7 @@
 |     References:
 |                                                                
 |     Walker II, J. Q., "A Node-Positioning Algorithm for General Trees"
-|	     			   Software — Practice and Experience 10, 1980 553-561.    
+|	     			   Software â€” Practice and Experience 10, 1980 553-561.    
 |                      (Obtained from C++ User's journal. Feb. 1991)                                                                              
 |					   
 |     Last updated: October 26th, 2006
