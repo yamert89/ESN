@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,15 +8,17 @@ import java.util.Set;
 @Table(name = "organizations")
 public class Organization {
     @Id
+    @GeneratedValue
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+
     private String description;
 
-    private Set<Department> departments;
+    @ElementCollection
+    private Set<Department> departments = new HashSet<>();
 
     private Set<User> allEmployers;
 

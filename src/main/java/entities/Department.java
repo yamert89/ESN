@@ -1,29 +1,38 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import db.DepartmentDAO;
+import db.converters.DepartmentParentConverter;
+
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Embeddable
 @Table(name = "departments")
 public class Department {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column
+    @Column(length = 1000)
     private String description;
 
-    private Set<User> employers;
+    @OneToMany
+    private Set<User> employers = new HashSet<>();
 
+    @Convert(converter = DepartmentParentConverter.class)
     private Department parent;
 
+    @Transient
     private Set<Department> children;
+
+    @Transient
+    DepartmentDAO departmentDAO; //TODO сильная связь. Можно избежать?
+
 
     public Department() {
     }
@@ -54,6 +63,12 @@ public class Department {
         this.children = children;
     }
 
+    public void addChildren(Department child){
+        if (children == null) children = new HashSet<>();
+        children.add(child);
+        departmentDAO.saveChildren(this, children); //TODO надо сохранять не каждый раз
+    }
+
     public int getId() {
         return id;
     }
@@ -75,6 +90,7 @@ public class Department {
     }
 
     public Set<Department> getChildren() {
-        return children;
+        if (children != null) return children;
+        return departmentDAO.getChildren(this);
     }
 }
