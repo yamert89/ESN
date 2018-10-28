@@ -11,15 +11,23 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
     <context:annotation-config />
-    <context:component-scan base-package="db" />
+   <!-- <context:component-scan base-package="java" />-->
     <tx:annotation-driven/>
     <import resource="dao.xml"/>
-
-    <bean id="user" class="entities.User">
-        <constructor-arg name="id" value="1"/>
-        <constructor-arg name="name" value="Vasya"/>
-        <constructor-arg name="age" value="18"/>
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean id="organiz" class="entities.Organization">
+        <constructor-arg name="name" value="Roslesinforg"/>
+        <constructor-arg name="description" value="tra la la"/>
     </bean>
+    <bean id="user" class="entities.User">
+        <constructor-arg name="name" value="Vasya"/>
+        <constructor-arg name="userDAO" ref="userDao"/>
+    </bean>
+    <bean id="department" class="entities.Department">
+        <constructor-arg name="name" value="Главный отдел"/>
+        <constructor-arg name="description" value="tra lal a"/>
+    </bean>
+
 
 
 

@@ -1,5 +1,6 @@
 package entities;
 
+import db.converters.UserConverter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,13 +14,13 @@ public class PrivateChatMessage {
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Convert(converter = UserConverter.class)
     private User sender;
 
-    @Column(nullable = false)
+    @Convert(converter = UserConverter.class)
     private User recipient;
 
-    @Temporal(TemporalType.TIMESTAMP)
+
     @Column(updatable = false)
     @CreationTimestamp
     private Timestamp time;

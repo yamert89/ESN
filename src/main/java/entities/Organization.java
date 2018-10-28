@@ -17,12 +17,14 @@ public class Organization {
 
     private String description;
 
-    @ElementCollection
-    private Set<Department> departments = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+                , fetch = FetchType.EAGER)
+    private Set<Department> departments = new HashSet<>(0);
 
-    private Set<User> allEmployers;
-
-    private Set<String> positions;
+    @Transient
+    private Set<User> allEmployers = new HashSet<>();
+    @Transient
+    private Set<String> positions = new HashSet<>();;
 
     // wall
     // chat
@@ -34,9 +36,7 @@ public class Organization {
     public Organization(String name, String description) {
         this.name = name;
         this.description = description;
-        departments = new HashSet<>(0);
-        allEmployers = new HashSet<>();
-        positions = new HashSet<>();
+
     }
 
     public void setName(String name) {
@@ -69,5 +69,9 @@ public class Organization {
 
     public Set<String> getPositions() {
         return positions;
+    }
+
+    public void addDepartment(Department department){
+        departments.add(department);
     }
 }

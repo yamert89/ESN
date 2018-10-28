@@ -20,8 +20,14 @@ public class DepartmentDAO {
     private EntityManager em;
 
     @Transactional
-    public Department getDepartmentById(int id){
-        return (Department) em.createQuery("select d from departments d where d.id = ?1").setParameter(1, id).getSingleResult();
+    public void persistDepartment(Department department){
+        em.persist(department);
+    }
+
+    @Transactional
+    public Department getDepartmentById(Integer id){
+        return em.find(Department.class, id);
+
     }
     @Transactional
     public Set<Department> getChildren(Department parent){

@@ -1,13 +1,12 @@
 package entities;
 
 import db.DepartmentDAO;
-import db.converters.DepartmentParentConverter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Embeddable
+@Entity
 @Table(name = "departments")
 public class Department {
 
@@ -21,11 +20,13 @@ public class Department {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<User> employers = new HashSet<>();
 
-    @Convert(converter = DepartmentParentConverter.class)
+    @Transient
     private Department parent;
+
+    private String parentId;
 
     @Transient
     private Set<Department> children;
@@ -41,6 +42,13 @@ public class Department {
         this.name = name;
         this.description = description;
         this.parent = parent;
+        parentId = String.valueOf(parent.getId());
+    }
+
+    public Department(String name, String description) {
+        this.name = name;
+        this.description = description;
+
     }
 
     public void setName(String name) {
@@ -86,11 +94,16 @@ public class Department {
     }
 
     public Department getParent() {
+        if (parentId != null) return departmentDAO.getDepartmentById(Integer.valueOf(parentId));
         return parent;
     }
 
     public Set<Department> getChildren() {
         if (children != null) return children;
         return departmentDAO.getChildren(this);
+    }
+
+    public void addEmployer(User employer){
+        employers.add(employer);
     }
 }

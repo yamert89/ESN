@@ -5,7 +5,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="username" value="user"/>
         <property name="password" value="yamert"/>
     </bean>
@@ -14,13 +14,21 @@
         <property name="database" value="MYSQL"/>
         <property name="showSql" value="true"/>
         <property name="generateDdl" value="true"/>
-        <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQL57Dialect"/>
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="packagesToScan" value="db"/>
+        <property name="packagesToScan" value="entities"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.connection.CharSet">UTF-8</prop>
+                <prop key="hibernate.connection.CharacterEncoding">UTF-8</prop>
+                <prop key="hibernate.connection.Useunicode">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
     </bean>
 
     <bean id="transactionManager"
@@ -28,7 +36,12 @@
           p:entityManagerFactory-ref="emf"/>
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <bean id="orgDao" class="db.OrganizationDAO"></bean>
     <bean id="userDao" class="db.UserDAO"></bean>
+    <bean id="departmentDao" class="db.DepartmentDAO"></bean>
+
+
 
 
 

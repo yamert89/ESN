@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
 
     @Column(nullable = false)
     private String name;
@@ -37,14 +37,13 @@ public class User {
     public User() {
     }
 
-    public User(long id, String name, int age, UserDAO userDAO) {
-        this.id = id;
+    public User(String name, UserDAO userDAO) {
         this.name = name;
         this.userDAO = userDAO;
 
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

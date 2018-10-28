@@ -16,8 +16,13 @@ public class UserDAO {
     private EntityManager em;
 
     @Transactional
-    public void addUser(User user){
+    public void persistUser(User user){
         em.persist(user);
+    }
+
+    @Transactional
+    public User getUserById(Integer id){
+        return em.find(User.class, id);
     }
 
     @Transactional
