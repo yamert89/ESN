@@ -4,6 +4,7 @@ import db.DepartmentDAO;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -103,7 +104,25 @@ public class Department {
         return departmentDAO.getChildren(this);
     }
 
+
+
     public void addEmployer(User employer){
         employers.add(employer);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+        Department that = (Department) o;
+        return getId() == that.getId() &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(parentId, that.parentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getDescription(), parentId);
     }
 }

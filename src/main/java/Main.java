@@ -1,8 +1,10 @@
 import db.DepartmentDAO;
 import db.OrganizationDAO;
+import db.PrivateChatMessageDAO;
 import db.UserDAO;
 import entities.Department;
 import entities.Organization;
+import entities.PrivateChatMessage;
 import entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,7 +16,29 @@ public class Main {
 
     public static void main(String[] args) {
         //beanTest();
-        restoreObjects();
+        //restoreObjects();
+        privateChat();
+
+    }
+
+    private static void privateChat() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        UserDAO userDao = (UserDAO) context.getBean("userDao");
+        PrivateChatMessageDAO messageDao = (PrivateChatMessageDAO) context.getBean("messageDao");
+        //User user1 = (User) context.getBean("user1");
+        //User user2 = (User) context.getBean("user2");
+        /*userDao.persistUser(user1);
+        userDao.persistUser(user2);*/
+        //PrivateChatMessage message = (PrivateChatMessage) context.getBean("privateMessage");
+        User user1 = userDao.getUserById(3);
+        User user2 = userDao.getUserById(4);
+        PrivateChatMessage message = new PrivateChatMessage("сообщение", user1, user2, messageDao);
+        messageDao.persist(message);
+
+
+
+
+        System.out.println();
 
     }
 

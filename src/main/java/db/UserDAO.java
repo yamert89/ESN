@@ -27,6 +27,9 @@ public class UserDAO {
 
     @Transactional
     public Department getDepartment(User user){
-        return (Department) em.createQuery("select d from departments d where d.employers = ?1").setParameter(1, user.getId()).getSingleResult();
+        return (Department) em.createQuery("select d from Department d, in(d.employers) e where e.id = :user").setParameter("user", user.getId()).getSingleResult();
+
+        /*"select d from Department d where d.id = (" +
+                "select d.departments_id from departments_users d where d.employers_id = :user)"*/
     }
 }

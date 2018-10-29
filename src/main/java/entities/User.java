@@ -3,6 +3,7 @@ package entities;
 import db.UserDAO;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -40,7 +41,6 @@ public class User {
     public User(String name, UserDAO userDAO) {
         this.name = name;
         this.userDAO = userDAO;
-
     }
 
     public int getId() {
@@ -60,6 +60,7 @@ public class User {
     }
 
     public Department getDepartment() {
+        if (department != null) return department;
         return userDAO.getDepartment(this);
     }
 
@@ -70,4 +71,40 @@ public class User {
     public UserSettings getSettings() {
         return settings;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return getId() == user.getId() &&
+                isAdmin() == user.isAdmin() &&
+                Objects.equals(getName(), user.getName()) &&
+                Objects.equals(getPosition(), user.getPosition()) &&
+                Objects.equals(getDepartment(), user.getDepartment()) &&
+                Objects.equals(getSettings(), user.getSettings());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), isAdmin(), getPosition(), getDepartment(), getSettings());
+    }
+
+
 }

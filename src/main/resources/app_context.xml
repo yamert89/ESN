@@ -19,14 +19,30 @@
         <constructor-arg name="name" value="Roslesinforg"/>
         <constructor-arg name="description" value="tra la la"/>
     </bean>
-    <bean id="user" class="entities.User">
+    <bean id="user1" class="entities.User">
         <constructor-arg name="name" value="Vasya"/>
         <constructor-arg name="userDAO" ref="userDao"/>
+        <property name="department" ref="department"/>
     </bean>
+
+    <bean id="user2" class="entities.User">
+        <constructor-arg name="name" value="Kolya"/>
+        <constructor-arg name="userDAO" ref="userDao"/>
+        <property name="department" ref="department"/>
+    </bean>
+
     <bean id="department" class="entities.Department">
         <constructor-arg name="name" value="Главный отдел"/>
         <constructor-arg name="description" value="tra lal a"/>
     </bean>
+
+    <bean id="privateMessage" class="entities.PrivateChatMessage">
+        <constructor-arg name="text" value="text"/>
+        <constructor-arg name="recipient" ref="user1"/>
+        <constructor-arg name="sender" ref="user2"/>
+        <constructor-arg name="messageDAO" ref="messageDao"/>
+    </bean>
+
 
 
 
