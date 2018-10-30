@@ -22,6 +22,7 @@ public class Department {
     private String description;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+
     private Set<User> employers = new HashSet<>();
 
     @Transient

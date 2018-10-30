@@ -21,6 +21,11 @@ public class OrganizationDAO {
     }
 
     @Transactional
+    public void update(Organization org){
+        em.merge(org);
+    }
+
+    @Transactional
     public Organization getOrgById(Integer id){
 
        return em.find(Organization.class, id);

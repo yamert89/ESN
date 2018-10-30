@@ -20,9 +20,12 @@ public class Organization {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private Set<Department> departments = new HashSet<>(0);
 
-    @Transient
-    private Set<User> allEmployers = new HashSet<>();
-    @Transient
+    @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
+    private Set<User> allEmployers = new HashSet<>(); //TODO
+
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
+    @Column(name = "POSITION")
     private Set<String> positions = new HashSet<>();;
 
     // wall

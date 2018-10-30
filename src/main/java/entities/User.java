@@ -25,11 +25,17 @@ public class User {
     @Transient
     private Department department;
 
+    @ManyToOne
+    @JoinColumn(name = "ORG_ID", nullable = false)
+    private Organization organization;
+
 
     private byte[] photo; // TODO incorrect type ?
 
 
     private UserSettings settings;
+
+
 
     @Transient
     private UserDAO userDAO; //TODO сильная связь. Можно избежать?
@@ -38,9 +44,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, UserDAO userDAO) {
+    public User(String name, Organization org, UserDAO userDAO) {
         this.name = name;
         this.userDAO = userDAO;
+        this.organization = org;
     }
 
     public int getId() {
@@ -101,6 +108,12 @@ public class User {
                 Objects.equals(getSettings(), user.getSettings());
     }
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", department=" + department +
+                ", organization=" + organization +
+                '}';
+    }
 }

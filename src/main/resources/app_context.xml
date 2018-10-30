@@ -21,12 +21,14 @@
     </bean>
     <bean id="user1" class="entities.User">
         <constructor-arg name="name" value="Vasya"/>
+        <constructor-arg name="org" ref="organiz"/>
         <constructor-arg name="userDAO" ref="userDao"/>
         <property name="department" ref="department"/>
     </bean>
 
     <bean id="user2" class="entities.User">
         <constructor-arg name="name" value="Kolya"/>
+        <constructor-arg name="org" ref="organiz"/>
         <constructor-arg name="userDAO" ref="userDao"/>
         <property name="department" ref="department"/>
     </bean>

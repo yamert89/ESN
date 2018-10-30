@@ -19,8 +19,25 @@ public class Main {
         //restoreObjects();
         //privateChat();
         //saveChildren();
-        getChildren();
+        //getChildren();
+        org_users();
 
+    }
+
+    private static void org_users() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
+        UserDAO userDao = (UserDAO) context.getBean("userDao");
+        Organization org = organizationDAO.getOrgById(1);
+       /* User olga = new User("Olga", org, userDao);
+        User anna = new User("Anna", org, userDao);
+
+        userDao.persistUser(olga);
+        userDao.persistUser(anna);
+        org.getAllEmployers().add(olga);
+        org.getAllEmployers().add(anna);
+        organizationDAO.update(org);*/
+        System.out.println(org.getAllEmployers());
     }
 
     private static void getChildren() {
