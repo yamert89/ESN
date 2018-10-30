@@ -17,14 +17,53 @@ public class Main {
     public static void main(String[] args) {
         //beanTest();
         //restoreObjects();
-        privateChat();
+        //privateChat();
+        //saveChildren();
+        getChildren();
 
     }
+
+    private static void getChildren() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
+        Department lesoustr = departmentDAO.getDepartmentByName("Гил");
+        lesoustr.setDepartmentDAO(departmentDAO);
+        Department department = lesoustr.getParent();
+
+
+
+        System.out.println();
+    }
+
+    private static void saveChildren() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
+        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
+        Organization org = organizationDAO.getOrgById(1);
+        Department lesoustr = departmentDAO.getDepartmentByName("Отдел лесоустройства");
+        Department gil = departmentDAO.getDepartmentByName("ГИЛ");
+        Department monitoring = departmentDAO.getDepartmentByName("Мониторинг");
+        gil.setDepartmentDAO(departmentDAO);
+        monitoring.setDepartmentDAO(departmentDAO);
+        lesoustr.setDepartmentDAO(departmentDAO);
+        lesoustr.addChildren(gil);
+        lesoustr.addChildren(monitoring);
+        departmentDAO.merge(lesoustr);
+
+
+
+
+
+
+    }
+
+
 
     private static void privateChat() {
         ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         PrivateChatMessageDAO messageDao = (PrivateChatMessageDAO) context.getBean("messageDao");
+
         //User user1 = (User) context.getBean("user1");
         //User user2 = (User) context.getBean("user2");
         /*userDao.persistUser(user1);

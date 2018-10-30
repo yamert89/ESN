@@ -3,7 +3,6 @@ package db;
 import entities.Department;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import sun.plugin2.message.SetAppletSizeMessage;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,27 +24,39 @@ public class DepartmentDAO {
     }
 
     @Transactional
+    public void merge(Department department){
+        em.merge(department);
+    }
+
+    @Transactional
     public Department getDepartmentById(Integer id){
         return em.find(Department.class, id);
+    }
 
+    @Transactional
+    public Department getDepartmentByName(String name){
+        return (Department) em.createQuery("select d from Department d where d.name = :name")
+                .setParameter("name", name).getSingleResult();
     }
     @Transactional
     public Set<Department> getChildren(Department parent){
-        Set<Department> set = new HashSet<>();
-        List result = em.createQuery("select c from CHILDREN_DEPARTMENTS c where c.dep_id = :parent").setParameter("parent", parent).getResultList();
-        for (Object ob :
-                result) {
-            set.add((Department) ob);
+        List result = em.createNativeQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = ?").setParameter(1, parent).getResultList(); //TODO
+        HashSet<Department> set = new HashSet<>();
+        for (Object i: result) {
+            set.add(getDepartmentById((Integer)i));
+
         }
         return set;
     }
 
     @Transactional
     public void saveChildren(Department department, Set<Department> children){
-        em.createNativeQuery("create table if not exists CHILDREN_DEPARTMENTS (dep_id int not null, children int)");
+        em.createNativeQuery("create table if not exists CHILDREN_DEPARTMENTS (dep_id int not null, children int unique)").executeUpdate();
+        Set<Department> savedDepartments = getChildren(department);
         for (Department child:
               children) {
-            em.createNativeQuery("insert into CHILDREN_DEPARTMENTS values (?, ?)").setParameter(1, department).setParameter(2, child);
+            if (savedDepartments.contains(child)) continue;
+            em.createNativeQuery("insert into CHILDREN_DEPARTMENTS values (?, ?)").setParameter(1, department).setParameter(2, child).executeUpdate();
         }
     }
 

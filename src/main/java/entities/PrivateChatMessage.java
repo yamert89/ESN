@@ -1,7 +1,6 @@
 package entities;
 
 import db.PrivateChatMessageDAO;
-import db.converters.UserConverter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -15,16 +14,19 @@ public class PrivateChatMessage {
     @GeneratedValue
     private long id;
 
+    @Column(nullable = false)
     private String text;
 
     @Transient
     private User sender;
 
+    @Column(nullable = false)
     private int sender_id;
 
     @Transient
     private User recipient;
 
+    @Column(nullable = false)
     private int recipient_id;
 
     @Column(updatable = false)
@@ -41,6 +43,7 @@ public class PrivateChatMessage {
         this.sender = sender;
         this.recipient = recipient;
         this.messageDAO = messageDAO;
+        this.text = text;
         sender_id = sender.getId();
         recipient_id = recipient.getId();
     }

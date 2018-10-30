@@ -101,10 +101,6 @@ public class User {
                 Objects.equals(getSettings(), user.getSettings());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), isAdmin(), getPosition(), getDepartment(), getSettings());
-    }
 
 
 }

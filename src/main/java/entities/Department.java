@@ -33,7 +33,7 @@ public class Department {
     private Set<Department> children;
 
     @Transient
-    DepartmentDAO departmentDAO; //TODO сильная связь. Можно избежать?
+    private DepartmentDAO departmentDAO; //TODO сильная связь. Можно избежать?
 
 
     public Department() {
@@ -104,7 +104,9 @@ public class Department {
         return departmentDAO.getChildren(this);
     }
 
-
+    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
+        this.departmentDAO = departmentDAO;
+    }
 
     public void addEmployer(User employer){
         employers.add(employer);
