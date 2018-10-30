@@ -1,6 +1,5 @@
 package db;
 
-import entities.Department;
 import entities.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,25 +15,18 @@ public class UserDAO {
     private EntityManager em;
 
     @Transactional
-    public void persistUser(User user){
+    public void persistUser(User user) {
         em.persist(user);
     }
 
     @Transactional
-    public void updateUser(User user){
+    public void updateUser(User user) {
         em.merge(user);
     }
 
     @Transactional
-    public User getUserById(Integer id){
+    public User getUserById(Integer id) {
         return em.find(User.class, id);
     }
 
-    @Transactional
-    public Department getDepartment(User user){
-        return (Department) em.createQuery("select d from Department d, in(d.employers) e where e.id = :user").setParameter("user", user.getId()).getSingleResult();
-
-        /*"select d from Department d where d.id = (" +
-                "select d.departments_id from departments_users d where d.employers_id = :user)"*/
-    }
 }
