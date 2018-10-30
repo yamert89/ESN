@@ -23,7 +23,7 @@ public class Organization {
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
     private Set<User> allEmployers = new HashSet<>(); //TODO
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
     @Column(name = "POSITION")
     private Set<String> positions = new HashSet<>();;
@@ -71,6 +71,10 @@ public class Organization {
 
     public Set<String> getPositions() {
         return positions;
+    }
+
+    public void addPosition(String position){
+        positions.add(position);
     }
 
     public void addDepartment(Department department){

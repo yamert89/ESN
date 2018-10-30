@@ -22,7 +22,8 @@ public class User {
 
     private String position;
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
     @ManyToOne
@@ -66,9 +67,13 @@ public class User {
         return position;
     }
 
-    public Department getDepartment() {
+    /*public Department getDepartment() {
         if (department != null) return department;
         return userDAO.getDepartment(this);
+    }*/
+
+    public Department getDepartment() {
+        return department;
     }
 
     public byte[] getPhoto() {

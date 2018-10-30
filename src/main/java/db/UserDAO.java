@@ -21,6 +21,11 @@ public class UserDAO {
     }
 
     @Transactional
+    public void updateUser(User user){
+        em.merge(user);
+    }
+
+    @Transactional
     public User getUserById(Integer id){
         return em.find(User.class, id);
     }

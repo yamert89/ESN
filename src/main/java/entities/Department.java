@@ -21,8 +21,7 @@ public class Department {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "department")
     private Set<User> employers = new HashSet<>();
 
     @Transient

@@ -20,8 +20,35 @@ public class Main {
         //privateChat();
         //saveChildren();
         //getChildren();
-        org_users();
+        //org_users();
+        //positions();
+        refDepartment_users();
 
+    }
+
+    private static void refDepartment_users() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
+        UserDAO userDao = (UserDAO) context.getBean("userDao");
+        User olga = userDao.getUserById(2);
+        User anna = userDao.getUserById(3);
+        Department department = departmentDAO.getDepartmentById(8);
+        olga.setDepartment(department);
+        anna.setDepartment(department);
+        department.addEmployer(olga);
+        department.addEmployer(anna);
+        departmentDAO.merge(department);
+    }
+
+    private static void positions() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
+        Organization org = organizationDAO.getOrgById(1);
+        org.addPosition("Сварщик");
+        org.addPosition("Бухгалтер");
+        org.addPosition("Таксатор");
+        org.addPosition("Таксатор");
+        organizationDAO.update(org);
     }
 
     private static void org_users() {
