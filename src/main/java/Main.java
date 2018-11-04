@@ -16,18 +16,18 @@ public class Main {
 
     public static void main(String[] args) {
         //beanTest();
-        //restoreObjects();
+        restoreObjects();
         //privateChat();
         //saveChildren();
         //getChildren();
         //org_users();
         //positions();
-        refDepartment_users();
+        //refDepartment_users();
 
     }
 
     private static void refDepartment_users() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         User olga = userDao.getUserById(2);
@@ -41,7 +41,7 @@ public class Main {
     }
 
     private static void positions() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
         Organization org = organizationDAO.getOrgById(1);
         org.addPosition("Сварщик");
@@ -52,7 +52,7 @@ public class Main {
     }
 
     private static void org_users() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         Organization org = organizationDAO.getOrgById(1);
@@ -68,7 +68,7 @@ public class Main {
     }
 
     private static void getChildren() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
         Department lesoustr = departmentDAO.getDepartmentByName("Гил");
         lesoustr.setDepartmentDAO(departmentDAO);
@@ -80,7 +80,7 @@ public class Main {
     }
 
     private static void saveChildren() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
         DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
         Organization org = organizationDAO.getOrgById(1);
@@ -104,7 +104,7 @@ public class Main {
 
 
     private static void privateChat() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         PrivateChatMessageDAO messageDao = (PrivateChatMessageDAO) context.getBean("messageDao");
 
@@ -126,11 +126,11 @@ public class Main {
     }
 
     private static void beanTest(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         User user = (User) context.getBean("user");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
-        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
+        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("department_dao");
         Organization organization = (Organization) context.getBean("organiz");
         Department department = (Department) context.getBean("department");
         department.addEmployer(user);
@@ -147,8 +147,8 @@ public class Main {
     private static void restoreObjects(){
         ApplicationContext context = new ClassPathXmlApplicationContext("app_context.xml");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
-        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
-        UserDAO userDao = (UserDAO) context.getBean("userDao");
+        DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("department_dao");
+        UserDAO userDao = (UserDAO) context.getBean("user_dao");
         Organization org = organizationDAO.getOrgById(1);
         Set<Department> departments = org.getDepartments();
         Department department = departments.iterator().next();

@@ -37,10 +37,10 @@
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-    <bean id="orgDao" class="db.OrganizationDAO"></bean>
+    <!--<bean id="orgDao" class="db.OrganizationDAO"></bean>
     <bean id="userDao" class="db.UserDAO"></bean>
     <bean id="departmentDao" class="db.DepartmentDAO"></bean>
-    <bean id="messageDao" class="db.PrivateChatMessageDAO"></bean>
+    <bean id="messageDao" class="db.PrivateChatMessageDAO"></bean>-->
 
 
 

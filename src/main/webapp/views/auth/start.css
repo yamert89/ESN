@@ -1,0 +1,54 @@
+body{
+    text-align: center;
+    /*vertical-align: middle;*/
+    display: flex;
+    height: 800px;
+}
+div{
+    width: 560px;
+    display: inline-block;
+    text-align: center;
+}
+label{
+    font-size: 1.2em;
+    margin-right: 10px;
+
+}
+img{
+    height: 15px;
+}
+
+input, .input_avatar{
+    width: 300px;
+
+}
+
+span{
+    font-size: 1.2em;
+}
+.reg_container{
+    margin: auto;
+}
+.reg_block{
+    margin: 30px 0;
+    display: block;
+    text-align: right;
+}
+.input, .avatar_container{
+    display: inline-block;
+}
+.form_photo{
+
+}
+.select_avatar{
+    width: 300px;
+}
+.send_avatar{
+    width: 80px;
+}
+.avatar_container{
+    width: 300px;
+}
+.input_avatar{
+    font-size: 0.5em;
+}

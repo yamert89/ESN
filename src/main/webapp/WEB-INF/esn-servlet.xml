@@ -5,11 +5,12 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
-    <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:annotation-driven/>
+        http://www.springframework.org/schema/context/spring-context.xsd">
+   <!-- <mvc:resources mapping="/resources/**" location="/resources/" />-->
+    <!--<mvc:annotation-driven/>-->
     <context:component-scan base-package="mvc"/>
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>-->
@@ -17,7 +18,7 @@
     <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <list>
-                <value>/views.xml</value>
+                <value>/views/auth/view.xml</value>
             </list>
         </property>
     </bean>

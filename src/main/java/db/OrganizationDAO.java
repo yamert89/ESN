@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 
-@Repository
+@Repository("orgDao")
 @Transactional
 public class OrganizationDAO {
 

@@ -3,6 +3,7 @@ package entities;
 import db.UserDAO;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -13,8 +14,12 @@ public class User {
     @GeneratedValue
     private int id;
 
+    @Size(min = 4, max = 50, message = "Имя должно быть не короче 4 и не длиннее 50 символов")
     @Column(nullable = false)
     private String name;
+
+    @Size(min = 6, max = 20, message = "От 6 до 20 символов")
+    private String password;
 
 
     private boolean admin;
@@ -32,6 +37,8 @@ public class User {
 
 
     private byte[] photo; // TODO incorrect type ?
+
+    private byte[] photo_small;
 
 
     private UserSettings settings;
@@ -65,6 +72,10 @@ public class User {
 
     public String getPosition() {
         return position;
+    }
+
+    public String getPassword(){
+        return password;
     }
 
     /*public Department getDepartment() {
@@ -105,12 +116,16 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getId() == user.getId() &&
-                isAdmin() == user.isAdmin() &&
+        return isAdmin() == user.isAdmin() &&
                 Objects.equals(getName(), user.getName()) &&
                 Objects.equals(getPosition(), user.getPosition()) &&
                 Objects.equals(getDepartment(), user.getDepartment()) &&
                 Objects.equals(getSettings(), user.getSettings());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, admin, position, department, organization, settings);
     }
 
     @Override
@@ -120,5 +135,21 @@ public class User {
                 ", department=" + department +
                 ", organization=" + organization +
                 '}';
+    }
+
+    public String getNickName() {
+        String name = getName().toLowerCase();
+        String rusAlph = "абвгдеёжзиклмнопрстуфхцчшщъыьэюя "; //TODO придумать получше
+        String engAlph = "abvgdeezziklmnoprstufhccss1i1euy_";
+        char[] engArr = engAlph.toCharArray();
+        char[] arr = name.toCharArray();
+        for(int i = 0; i < arr.length; i++){
+            char[] charArray = rusAlph.toCharArray();
+            for (int i1 = 0; i1 < charArray.length; i1++) {
+                char ch = charArray[i1];
+                if (arr[i] == ch) name = name.replace(ch, engArr[i1]);
+            }
+        }
+        return name;
     }
 }

@@ -1,6 +1,11 @@
+import entities.User;
+
 public class SimpleTests {
     public static void main(String[] args) {
-        System.out.println(111);
+
+        User user = new User();
+        user.setName("Порохин Александр Акимович");
+        System.out.println(user.getNickName());
     }
 
 }

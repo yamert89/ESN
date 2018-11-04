@@ -29,4 +29,9 @@ public class UserDAO {
         return em.find(User.class, id);
     }
 
+    @Transactional
+    public User getUserByName(String username) {
+        return (User) em.createQuery("select u from User u where u.name = :name").setParameter("name", username).getSingleResult();
+
+    }
 }
