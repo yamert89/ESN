@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("user")
 public class UserController {
 
     private UserDAO userDAO;
@@ -33,10 +34,21 @@ public class UserController {
         return "reg";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String addUserFromForm(@Valid User user, BindingResult bindingResult){
+    @RequestMapping(value = "/r", method = RequestMethod.POST)
+    public String addUserFromForm(@ModelAttribute User user, BindingResult bindingResult,
+                                  @RequestParam(value = "image", required = false)MultipartFile image){
+        System.out.println(bindingResult.getFieldErrors().size());
         if (bindingResult.hasErrors()) return "reg";
+        if (!image.isEmpty()) {
+            try {
+                System.out.println(image.getBytes().length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(user);
         userDAO.persistUser(user);
+
         return "redirect:/user/" + user.getNickName();
     }
 

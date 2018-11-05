@@ -14,11 +14,11 @@ public class User {
     @GeneratedValue
     private int id;
 
-    @Size(min = 4, max = 50, message = "Имя должно быть не короче 4 и не длиннее 50 символов")
+    //@Size(min = 4, max = 50, message = "Имя должно быть не короче 4 и не длиннее 50 символов")
     @Column(nullable = false)
     private String name;
 
-    @Size(min = 6, max = 20, message = "От 6 до 20 символов")
+    //@Size(min = 6, max = 20, message = "От 6 до 20 символов")
     private String password;
 
 
@@ -111,6 +111,10 @@ public class User {
         this.photo = photo;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,6 +136,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
+                "passw=" + password +
                 ", department=" + department +
                 ", organization=" + organization +
                 '}';

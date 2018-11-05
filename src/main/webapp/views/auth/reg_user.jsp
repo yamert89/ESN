@@ -17,7 +17,7 @@
     <div class="reg_block">
         <label class="reg_field">
             Введите Ваше имя:
-            <sf:input path="name" type="text"/>
+            <sf:input path="name" size="50" maxlength="50"/>
             <img src="../../resources/checkbox.jpg">
             <sf:errors path="name" cssClass="error"/>
         </label>
@@ -25,7 +25,7 @@
     <div class="reg_block">
         <label class="reg_field">
             Введите пароль:
-            <sf:input path="password" type="password"/>
+            <sf:password path="password" size="20"/>
             <img src="../../resources/checkbox.jpg">
             <sf:errors path="password" cssClass="error"/>
         </label>
@@ -39,10 +39,13 @@
     </div>
     <div class="form_photo reg_block">
         <label class="reg_field">Загрузите фото:
-            <input type="file" name="avatar" accept="image/*" class="select_avatar">
+            <input type="file" name="image" class="select_avatar">
             <img src="../../resources/checkbox.jpg">
         </label>
     </div>
+        <div class="reg_block">
+            <input name="commit" type="submit" >
+        </div>
     </sf:form>
 </div>
 </body>

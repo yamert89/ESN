@@ -9,9 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
-Base Template
 <div id="content">
-    <t:insertAttribute name="reg" /> <!--<co id="co_tile_content" />-->
+    <!--<co id="co_tile_content" />-->
 </div>
 </body>
 </html>

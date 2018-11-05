@@ -3,9 +3,11 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-    <definition name="template" template="/views/base_template.jsp">
-    </definition>
+    <definition name="template" template="/views/auth/base_auth_reg.jsp"/>
     <definition name="reg" extends="template">
-        <put-attribute name="reg" value="/views/auth/reg_user.jsp" />
+        <put-attribute name="auth_reg" value="/views/auth/reg_user.jsp" />
+    </definition>
+    <definition name="auth" extends="template">
+        <put-attribute name="auth_reg" value="/views/auth/auth.jsp" />
     </definition>
 </tiles-definitions>
