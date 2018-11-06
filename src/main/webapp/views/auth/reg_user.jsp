@@ -15,7 +15,7 @@
 <div class="reg_container">
     <sf:form enctype="multipart/form-data" method="post" modelAttribute="user">
     <div class="reg_block">
-        <label class="reg_field">
+        <label>
             Введите Ваше имя:
             <sf:input path="name" size="50" maxlength="50"/>
             <img src="../../resources/checkbox.jpg">
@@ -23,7 +23,7 @@
         </label>
     </div>
     <div class="reg_block">
-        <label class="reg_field">
+        <label>
             Введите пароль:
             <sf:password path="password" size="20"/>
             <img src="../../resources/checkbox.jpg">
@@ -31,14 +31,14 @@
         </label>
     </div>
     <div class="reg_block">
-        <label class="reg_field">
+        <label>
             Повторите пароль:
             <input type="password">
             <img src="../../resources/checkbox.jpg">
         </label>
     </div>
     <div class="form_photo reg_block">
-        <label class="reg_field">Загрузите фото:
+        <label>Загрузите фото:
             <input type="file" name="image" class="select_avatar">
             <img src="../../resources/checkbox.jpg">
         </label>

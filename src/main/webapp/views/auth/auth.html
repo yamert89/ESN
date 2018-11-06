@@ -6,17 +6,28 @@
     <link rel="stylesheet" href="../../resources/static/auth/start.css">
 </head>
 <body>
-<div>
-    <label class="reg_field">
-        Введите Ваше имя
-        <input type="text">
-        <img src="/resources/checkbox.jpg">
-    </label><br>
-    <label class="reg_field">
-        Введите пароль&nbsp&nbsp&nbsp&nbsp&nbsp
-        <input type="password">
-        <img src="/resources/checkbox.jpg">
-    </label><br>
+
+<div class="reg_container">
+    <form>
+    <div class="reg_block">
+        <label>
+            Введите Ваше имя:&nbsp
+            <input type="text">
+            <img src="/resources/checkbox.jpg">
+        </label>
+    </div>
+    <div class="reg_block">
+        <label>
+            Введите пароль:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="password">
+            <img src="/resources/checkbox.jpg">
+        </label>
+    </div>
+    <div class="reg_block">
+        <input type="submit" class="auth_submit_button">
+    </div>
+    </form>
 </div>
+
 </body>
 </html>
