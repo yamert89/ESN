@@ -1,9 +1,10 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import db.DepartmentDAO;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,19 +12,29 @@ import java.util.Set;
 public class Department {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column
+    @Column(length = 1000)
     private String description;
 
-    private Set<User> employers;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "department")
+    private Set<User> employers = new HashSet<>();
 
+    @Transient
     private Department parent;
 
+    private String parentId;
+
+    @Transient
     private Set<Department> children;
+
+    @Transient
+    private DepartmentDAO departmentDAO; //TODO сильная связь. Можно избежать?
+
 
     public Department() {
     }
@@ -32,6 +43,13 @@ public class Department {
         this.name = name;
         this.description = description;
         this.parent = parent;
+        parentId = String.valueOf(parent.getId());
+    }
+
+    public Department(String name, String description) {
+        this.name = name;
+        this.description = description;
+
     }
 
     public void setName(String name) {
@@ -54,6 +72,12 @@ public class Department {
         this.children = children;
     }
 
+    public void addChildren(Department child){
+        if (children == null) children = new HashSet<>();
+        children.add(child);
+        departmentDAO.saveChildren(this, children); //TODO надо сохранять не каждый раз
+    }
+
     public int getId() {
         return id;
     }
@@ -71,10 +95,35 @@ public class Department {
     }
 
     public Department getParent() {
+        if (parentId != null) return departmentDAO.getDepartmentById(Integer.valueOf(parentId));
         return parent;
     }
 
     public Set<Department> getChildren() {
-        return children;
+        if (children != null) return children;
+        return departmentDAO.getChildren(this);
+    }
+
+    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
+        this.departmentDAO = departmentDAO;
+    }
+
+    public void addEmployer(User employer){
+        employers.add(employer);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+        Department that = (Department) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(parentId, that.parentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getDescription(), parentId);
     }
 }

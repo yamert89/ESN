@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
     <context:component-scan base-package="mvc"/>
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>-->
@@ -17,10 +18,17 @@
     <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <list>
-                <value>/views.xml</value>
+                <value>/views/auth/view.xml</value>
             </list>
         </property>
     </bean>
+    <bean id="multipartResolver" class=
+            "org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="500000"/>
+        <property name="defaultEncoding" value="utf8"/>
+            </bean>
+
+
 
 
 </beans>

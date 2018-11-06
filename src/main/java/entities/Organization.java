@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,19 +8,25 @@ import java.util.Set;
 @Table(name = "organizations")
 public class Organization {
     @Id
+    @GeneratedValue
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+
     private String description;
 
-    private Set<Department> departments;
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    private Set<Department> departments = new HashSet<>(0);
 
-    private Set<User> allEmployers;
+    @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
+    private Set<User> allEmployers = new HashSet<>(); //TODO
 
-    private Set<String> positions;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
+    @Column(name = "POSITION")
+    private Set<String> positions = new HashSet<>();;
 
     // wall
     // chat
@@ -35,9 +38,7 @@ public class Organization {
     public Organization(String name, String description) {
         this.name = name;
         this.description = description;
-        departments = new HashSet<>(0);
-        allEmployers = new HashSet<>();
-        positions = new HashSet<>();
+
     }
 
     public void setName(String name) {
@@ -70,5 +71,13 @@ public class Organization {
 
     public Set<String> getPositions() {
         return positions;
+    }
+
+    public void addPosition(String position){
+        positions.add(position);
+    }
+
+    public void addDepartment(Department department){
+        departments.add(department);
     }
 }

@@ -15,7 +15,23 @@ public class UserDAO {
     private EntityManager em;
 
     @Transactional
-    public void addUser(User user){
+    public void persistUser(User user) {
         em.persist(user);
+    }
+
+    @Transactional
+    public void updateUser(User user) {
+        em.merge(user);
+    }
+
+    @Transactional
+    public User getUserById(Integer id) {
+        return em.find(User.class, id);
+    }
+
+    @Transactional
+    public User getUserByName(String username) {
+        return (User) em.createQuery("select u from User u where u.name = :name").setParameter("name", username).getSingleResult();
+
     }
 }
