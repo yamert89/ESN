@@ -44,7 +44,7 @@
         </label>
     </div>
         <div class="reg_block">
-            <input name="commit" type="submit" >
+            <input name="commit" type="submit" value="Зарегистрировать">
         </div>
     </sf:form>
 </div>

@@ -20,6 +20,9 @@ img{
     /*height: 15px;*/
     width: 17px;
 }
+a{
+    margin-right: 30px;
+}
 textarea{
     width: 300px;
     height: 4em;
