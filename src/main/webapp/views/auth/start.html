@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../../resources/static/auth/start.css">
+    <script src="../../libs/jquery_3.1.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(":button").click(function () {
+                $(this).addClass("clicked");
+                var input = $(".department_adder");
+                $(".l").append("<option>" + input.val() + '</option>');
+                setTimeout(unselect, 200);
+                input.val('');
+            });
+        });
+        function unselect() {
+            $(":button").removeClass("clicked");
+        }
+    </script>
 </head>
 <body>
 <div class="reg_container reg_org_container">
@@ -24,11 +39,18 @@
     <div class="reg_block">
         <label>
             Добавьте отделы / структурные подразделения:
-            <input type="text">
-            <button>добавить</button>
-            <img src="../../resources/checkbox.jpg">
+            <input list="list" class="department_adder">
+            <button class="but">добавить</button>
+            <datalist id="list" class="l">
+                <option>Первый отдел</option>
+                <option>Бухгалтерия</option>
+            </datalist>
         </label>
     </div>
+    <div class="reg_block">
+        <input type="submit" class="auth_submit_button">
+    </div>
+
 </div>
 </body>
 </html>

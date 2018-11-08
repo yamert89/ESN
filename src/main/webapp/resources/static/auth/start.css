@@ -17,12 +17,23 @@ label{
 
 }
 img{
-    height: 15px;
+    /*height: 15px;*/
+    width: 17px;
 }
 textarea{
     width: 300px;
-    height: 3em;
+    height: 4em;
 }
+button{
+    margin-right: 15px;
+
+}
+
+.clicked{
+    background-color: rgba(189, 250, 138, 0.4);
+    transition: background-color 0.1s ease;
+}
+
 
 input, .input_avatar{
     width: 300px;
@@ -68,5 +79,10 @@ span{
     width: 150px;
 }
 .reg_org_container{
-    width: 650px;
+    width: 700px;
 }
+.department_adder{
+    width: 200px;
+}
+
+
