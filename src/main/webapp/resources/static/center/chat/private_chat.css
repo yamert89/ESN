@@ -1,18 +1,19 @@
 .private_chat{
-
+    font-size: 1.2em;
 }
-
 
 .comment_bubble_left {
     width: 70%;
-    height: 100px;
-    background: rgba(202, 214, 181, 0.57);
+    /*height: 100px;*/
+    background: rgba(104, 201, 0, 0.2);
     position: relative;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
     margin-bottom: 20px;
     margin-left: 26px;
+    text-align: left;
+    padding: 15px;
 
 }
 
@@ -21,17 +22,17 @@
     width: 0;
     height: 0;
     right: 100%;
-    top: 38px;
+    /*top: 38px;*/
     position: absolute;
-    border-top: 13px solid transparent;
-    border-right: 26px solid rgba(202, 214, 181, 0.57);
+    border-top: 6px solid transparent;
+    border-right: 26px solid rgba(104, 201, 0, 0.2);
     border-bottom: 13px solid transparent;
 }
 
 .comment_bubble_right {
     width: 70%;
-    height: 100px;
-    background: rgba(205, 212, 214, 0.57);
+    /*height: 100px;*/
+    background: rgba(107, 199, 206, 0.2);
     position: relative;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
@@ -39,6 +40,8 @@
     margin-bottom: 20px;
     margin-right: 26px;
     float: right;
+    text-align: right;
+    padding: 15px;
 }
 
 .comment_bubble_right:before {
@@ -46,10 +49,10 @@
     width: 0;
     height: 0;
     left: 100%;
-    top: 38px;
+    /*top: 38px;*/
     position: absolute;
-    border-top: 13px solid transparent;
-    border-left: 26px solid rgba(205, 212, 214, 0.57);
+    border-top: 6px solid transparent;
+    border-left: 26px solid rgba(107, 199, 206, 0.2);
     border-bottom: 13px solid transparent;
 }
 .private_chat_profile{
@@ -61,7 +64,7 @@
     display: block;
     height: 100px;
     width: 100px;
-    background-color: #2e9ad0;
+    background-color: white;
 
 }
 .person_name_chat{
@@ -76,12 +79,14 @@
 .person_container{
     display: inline-block;
 
+
 }
 .private_chat_container{
     overflow-y: scroll;
-    max-height: 70%;
-    background-color: #93c6ef;
-    border: 1px;
+    max-height: 80%;
+    /*background-color: white;*/
+    border: 1px solid rgba(138, 138, 138, 0.33);
     padding: 10px 0;
+    border-radius: 5px;
 
 }
