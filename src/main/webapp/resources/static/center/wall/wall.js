@@ -23,10 +23,16 @@ function hideEditor() {
     submit.css("display", "none");
     $(".post_add").css("display", "inline");
 
+
     /*CKEDITOR.instances.editor.setData( '<p>Some other editor data.</p>', function()
     {
         CKEDITOR.instances.editor.resetDirty();
     } );*/
     CKEDITOR.instances.editor.destroy();
 
+}
+
+function postAdd() {
+    var content = $(".editor").val();
+    $(".posts").append('<post>' + content + '</post>');
 }
