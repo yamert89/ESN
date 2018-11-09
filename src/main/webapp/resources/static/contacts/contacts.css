@@ -22,5 +22,6 @@
     float: right;
 }
 .person_photo_small{
-
+    width: 32px;
+    height: 32px;
 }
