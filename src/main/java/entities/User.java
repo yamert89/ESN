@@ -14,11 +14,11 @@ public class User {
     @GeneratedValue
     private int id;
 
-    //@Size(min = 4, max = 50, message = "Имя должно быть не короче 4 и не длиннее 50 символов")
+    @Size(min = 4, max = 50, message = "Имя должно быть не короче 4 и не длиннее 50 символов")
     @Column(nullable = false)
     private String name;
 
-    //@Size(min = 6, max = 20, message = "От 6 до 20 символов")
+    @Size(min = 6, max = 20, message = "От 6 до 20 символов")
     private String password;
 
 
@@ -142,19 +142,5 @@ public class User {
                 '}';
     }
 
-    public String getNickName() {
-        String name = getName().toLowerCase();
-        String rusAlph = "абвгдеёжзиклмнопрстуфхцчшщъыьэюя "; //TODO придумать получше
-        String engAlph = "abvgdeezziklmnoprstufhccss1i1euy_";
-        char[] engArr = engAlph.toCharArray();
-        char[] arr = name.toCharArray();
-        for(int i = 0; i < arr.length; i++){
-            char[] charArray = rusAlph.toCharArray();
-            for (int i1 = 0; i1 < charArray.length; i1++) {
-                char ch = charArray[i1];
-                if (arr[i] == ch) name = name.replace(ch, engArr[i1]);
-            }
-        }
-        return name;
-    }
+
 }

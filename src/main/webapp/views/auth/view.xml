@@ -10,4 +10,7 @@
     <definition name="auth" extends="template">
         <put-attribute name="auth_reg" value="/views/auth/auth.jsp" />
     </definition>
+    <definition name="neworg" extends="template">
+        <put-attribute name="auth_reg" value="/views/auth/neworg.jsp"/>
+    </definition>
 </tiles-definitions>

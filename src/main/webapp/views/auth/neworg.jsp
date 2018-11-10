@@ -1,5 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Пендальф Синий
+  Date: 10.11.2018
+  Time: 19:30
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -21,27 +29,29 @@
     </script>
 </head>
 <body>
-
 <div class="reg_container reg_org_container">
-    <form>
+    <sf:form method="post" modelAttribute="organization">
     <div class="reg_block">
         <label>
             Введите название организации:
-            <input type="text">
+            <sf:input path="name" type="text"/>
+            <sf:errors path="name" cssClass="error"/>
             <img src="../../resources/checkbox.jpg">
         </label>
     </div>
     <div class="reg_block">
         <label>
             Добавьте описание:
-            <textarea></textarea>
+            <sf:textarea path="description"></sf:textarea>
+            <sf:errors path="description" cssClass="error"/>
             <img src="../../resources/checkbox.jpg">
         </label>
     </div>
     <div class="reg_block">
         <label>
             Добавьте отделы / структурные подразделения:
-            <input list="list" class="department_adder">
+            <sf:input list="list" class="department_adder" path="departments"/>
+            <sf:errors path="departments" cssClass="error"/>
             <button>добавить</button>
             <datalist id="list" class="l"></datalist>
         </label>
@@ -49,8 +59,9 @@
     <div class="reg_block">
         <input type="submit" class="auth_submit_button" value="Зарегистрировать">
     </div>
-    </form>
+    </sf:form>
 
 </div>
+
 </body>
 </html>

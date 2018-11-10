@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ public class Organization {
     @GeneratedValue
     private int id;
 
+    @NotNull
     @Column(nullable = false)
     private String name;
 

@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import utils.SimpleUtils;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/r", method = RequestMethod.POST)
-    public String addUserFromForm(@ModelAttribute User user, BindingResult bindingResult,
+    public String addUserFromForm(@Valid User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false)MultipartFile image){
         System.out.println(bindingResult.getFieldErrors().size());
         if (bindingResult.hasErrors()) return "reg";
@@ -49,7 +51,7 @@ public class UserController {
         System.out.println(user);
         userDAO.persistUser(user);
 
-        return "redirect:/user/" + user.getNickName();
+        return "redirect:/user/" + SimpleUtils.getNickName(user.getName());
     }
 
    /* @RequestMapping(value = "/{username}", method = RequestMethod.GET)
