@@ -1,4 +1,4 @@
-<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="springform" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -19,7 +19,7 @@
             $(":button").click(function () {
                 $(this).addClass("clicked");
                 var input = $(".department_adder");
-                $(".l").append("<option>" + input.val() + '</option>');
+                input.append("<option value='dep'>" + input.val() + '</option>');
                 setTimeout(unselect, 200);
                 input.val('');
             });
@@ -31,37 +31,37 @@
 </head>
 <body>
 <div class="reg_container reg_org_container">
-    <sf:form method="post" modelAttribute="organization">
+    <springform:form method="post" modelAttribute="organization">
     <div class="reg_block">
         <label>
             Введите название организации:
-            <sf:input path="name" type="text"/>
-            <sf:errors path="name" cssClass="error"/>
+            <springform:input path="name" type="text"/>
+            <springform:errors path="name" cssClass="error"/>
             <img src="../../resources/checkbox.jpg">
         </label>
     </div>
     <div class="reg_block">
         <label>
             Добавьте описание:
-            <sf:textarea path="description"></sf:textarea>
-            <sf:errors path="description" cssClass="error"/>
+            <springform:textarea path="description"></springform:textarea>
+            <springform:errors path="description" cssClass="error"/>
             <img src="../../resources/checkbox.jpg">
         </label>
     </div>
     <div class="reg_block">
         <label>
             Добавьте отделы / структурные подразделения:
-            <input name="list" list="list" class="department_adder"/>
+            <springform:select path="departments" cssClass="department_adder" size="1">
+                <springform:option value="dep">Без названия</springform:option>
+            </springform:select>
             <button type="button">добавить</button>
-            <datalist id="list" class="l"></datalist>
         </label>
+
     </div>
     <div class="reg_block">
-        <input type="submit" class="auth_submit_button" value="Зарегистрировать">
+        <input type="submit" value="Зарегистрировать">
     </div>
-
-    </sf:form>
-
+    </springform:form>
 </div>
 
 </body>

@@ -8,12 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import utils.SimpleUtils;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @SessionAttributes("organization")
@@ -34,11 +32,10 @@ public class OrgController {
     }
 
     @RequestMapping(value = "/neworg", method = RequestMethod.POST)
-    public String regOrgFromForm(@Valid Organization org, BindingResult result,
-                                 @RequestParam(value = "list", required = false) List<String> departments){
+    public String regOrgFromForm(@Valid Organization org, BindingResult result){
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
-        System.out.println(departments);
+        System.out.println();
         orgDao.persistOrg(org);
         return SimpleUtils.getNickName(org.getName()) + "/info"; //TODO mapping
     }
