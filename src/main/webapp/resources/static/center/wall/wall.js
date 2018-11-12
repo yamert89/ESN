@@ -2,6 +2,7 @@ function showEditor() {
     var submit = $(".post_submit");
     try{
         var editor = CKEDITOR.replace('editor');
+        /*editor.config.autoParagraph = false;*/
         CKEDITOR.instances.editor.setData('<p></p>');
     }catch (e) {
         /*CKEDITOR.instances.editor.updateElement();
@@ -11,9 +12,10 @@ function showEditor() {
     $(".post_add").css("display", "none");
     submit.css({"display":"inline"});
     submit.click(function () {
-        debugger;
         var data = CKEDITOR.instances.editor.getData();
         hideEditor();
+
+        $(".posts").append('<div class="post">' + data + '</div>');
     });
 }
 
@@ -32,7 +34,3 @@ function hideEditor() {
 
 }
 
-function postAdd() {
-    var content = $(".editor").val();
-    $(".posts").append('<post>' + content + '</post>');
-}

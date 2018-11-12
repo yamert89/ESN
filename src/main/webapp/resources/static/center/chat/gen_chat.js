@@ -1,1 +1,1 @@
-setCurrentDate($(".message_time"));
+
