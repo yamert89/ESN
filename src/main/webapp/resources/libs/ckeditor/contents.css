@@ -80,7 +80,8 @@ hr
 img.right
 {
 	border: 1px solid #ccc;
-	float: right;
+	/*float: right;*/
+	overflow: hidden;
 	margin-left: 15px;
 	padding: 5px;
 }
