@@ -15,7 +15,7 @@ function showEditor() {
         var data = CKEDITOR.instances.editor.getData();
         hideEditor();
 
-        $(".posts").append('<div class="post">' + data + '</div>');
+        $(".posts").prepend('<div class="post">' + data + '</div>');
     });
 }
 
