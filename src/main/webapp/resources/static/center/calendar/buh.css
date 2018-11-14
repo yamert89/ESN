@@ -2,7 +2,10 @@ body
 {
     font-family: Verdana, "Trebuchet MS";
 }
-
+html{
+    width: 890px;
+    overflow-x: hidden;
+}
 .nav > li > a
 {
     text-decoration: none;

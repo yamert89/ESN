@@ -61,3 +61,6 @@ div.calendar_annotation a.dtype16477, .kvartal-block .kvartal-item table tr td a
     margin-left: 80px;
     margin-top: 20px;
 }
+.calendar_annotation{
+    margin: 10px;
+}
