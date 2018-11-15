@@ -37,6 +37,14 @@
                 showEditor();
             });
 
+            var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
+            cell.click(function () {
+                var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
+                cell.removeClass("-selected-");
+                cell.addClass("date_noted");
+            });
+
+
 
 
         });
@@ -89,7 +97,7 @@
 
 </div>
 <div class="center">
-    <iframe src="resources/static/center/calendar/calendar.html" class="calendar_frame" frameborder="0"></iframe>
+
 </div>
 <div class="contacts">
     <iframe src="resources/static/contacts/contacts.html" frameborder="0"></iframe>
