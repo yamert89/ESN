@@ -91,7 +91,7 @@ table {
 }
 body {
     height: 100%;
-    background: #ffffff;
+    background: rgba(0, 0, 0, 0.1);
     width: 875px;
     font: 14px/18px Tahoma;
     color: #6b6b6b;
