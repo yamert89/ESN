@@ -41,7 +41,7 @@
             maxDate: '',
             disableNavWhenOutOfRange: true,
 
-            multipleDates: true, // Boolean or Number
+            multipleDates: false, // Boolean or Number
             multipleDatesSeparator: ',',
             range: false,
 
@@ -981,7 +981,9 @@
         },
 
         _trigger: function (event, args) {
-            this.$el.trigger(event, args)
+            this.$el.trigger(event, args);
+
+
         },
 
         _focusNextCell: function (keyCode, type) {
@@ -1798,10 +1800,23 @@
 
             if (!alreadySelected) {
                 dp._trigger('clickCell', selectedDate);
+
+                /////TODO modified--------------
+                dateOfNoteColorize();
+
+
+                /////////////----------------
                 return;
             }
 
             dp._handleAlreadySelectedDates.bind(dp, alreadySelected, selectedDate)();
+
+
+
+            /*window.listOfDatesNoted.forEach( function( currentValue, index, arr ) {
+                //alert(index);
+                currentValue.addClass("date_noted");
+            });*/
 
         },
 
@@ -1814,6 +1829,7 @@
                 var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
                 $el.removeClass("-selected-");
                 $el.addClass("date_noted");
+                window.listOfDatesNoted.push([$el.attr("data-date"), $el.attr("data-month"), $el.attr("data-year")]);
                 return;
             }
             //////---------------------------------end
@@ -1821,6 +1837,10 @@
             if ($el.hasClass('-disabled-')) return;
 
             this._handleClick.bind(this)($el);
+
+
+
+
         }
     };
 })();
