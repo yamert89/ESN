@@ -1276,13 +1276,13 @@
                 date.setHours(this.timepicker.hours);
                 date.setMinutes(this.timepicker.minutes);
             }
-            var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
-            cell.click(function () {
-                if (!cell.hasClass("-selected-")) return;
-                var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
-                cell.removeClass("-selected-");
-                cell.addClass("date_noted");
-            });
+            /*var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
+
+            if (!cell.hasClass("-selected-")) return;
+            var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
+            cell.removeClass("-selected-");
+            cell.addClass("date_noted");*/
+
             this.selectDate(date);
         },
 

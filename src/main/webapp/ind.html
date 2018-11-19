@@ -39,10 +39,13 @@
 
             /*var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
             cell.click(function () {
-                if (!cell.hasClass("-selected-")) return;
-                var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
-                cell.removeClass("-selected-");
-                cell.addClass("date_noted");
+                if ($(this).hasClass("-selected-")){
+                    var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
+                    $(this).removeClass("-selected-");
+                    $(this).addClass("date_noted");
+                }
+
+
             });*/
 
 
