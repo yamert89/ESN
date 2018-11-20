@@ -1279,16 +1279,6 @@
                 date.setMinutes(this.timepicker.minutes);
             }
 
-           /* var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
-
-            if (cell.hasClass("-selected-")){
-                var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
-                cell.removeClass("-selected-");
-                cell.addClass("date_noted");
-                return;
-            }*/
-
-
             this.selectDate(date);
         },
 
@@ -1823,7 +1813,7 @@
         _onClickCell: function (e) {
             var $el = $(e.target).closest('.datepicker--cell');
 
-            //TODO modified
+            // modified
             //////---------------------------------start
             if ($el.hasClass("-selected-")){
                 var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
@@ -1975,7 +1965,12 @@
             var $el = $(e.target).closest('[data-action]'),
                 action = $el.data('action');
 
+
             this.d[action]();
+
+            //---------------------- modified ----------------
+            dateOfNoteColorize();
+            //----------------end
         },
 
         _onClickNavTitle: function (e) {
