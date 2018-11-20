@@ -1,20 +1,39 @@
+.file_ico{
+    display: inline-block;
+}
 .storage{
-    padding: 2% 5%;
+    /*padding: 2% 5%;*/
+    display: table;
+    width: 100%;
+    height: calc(100% - 10px);
 
 }
+.storage_wrapper{
+    overflow-y: scroll;
+    height: calc(100% - 3em - 12px);
+}
 .storage_public, .storage_private{
-    display: inline-block;
+    display: table-cell;
     width: 45%;
+
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    overflow-y: visible;
+
 }
 .storage_public{
-    background-color: #2e9ad0;
+    background-color: rgba(219, 255, 91, 0.09);
 }
 .storage_private{
-    background-color: #bdfa8a;
+    background-color: rgba(0, 255, 208, 0.09);
 }
 .storage_header{
     font-size: 1.2em;
-    margin: 10px;
+    height: 2em;
+    /*margin-bottom: 10px;*/
+    background-color: rgba(189, 255, 133, 0.38);
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    padding-top: 1em;
+
 }
 .file{
     margin: 10px;
@@ -25,9 +44,12 @@
 .fileName{
     height: 64px;
     line-height: 64px;
-    position: absolute;
+   /* position: absolute;*/
+
 }
 .file_ico{
     width: 64px;
     height: 64px;
 }
+
+
