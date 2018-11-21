@@ -16,3 +16,10 @@
 .groups_container{
     height: 100%;
 }
+.staff_container{
+    overflow-y: scroll;
+    height: inherit;
+}
+.person_staff{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
