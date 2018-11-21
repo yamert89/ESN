@@ -10,7 +10,9 @@
 }
 .storage_wrapper{
     overflow-y: scroll;
-    height: calc(100% - 3em - 12px);
+    height: calc(100% - 3.5em - 32px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+
 }
 .storage_public, .storage_private{
     display: table-cell;
@@ -27,29 +29,46 @@
     background-color: rgba(0, 255, 208, 0.09);
 }
 .storage_header{
-    font-size: 1.2em;
-    height: 2em;
+    font-size: 1.3em;
+    height: 1.5em;
     /*margin-bottom: 10px;*/
     background-color: rgba(189, 255, 133, 0.38);
     border: 1px solid rgba(0, 0, 0, 0.09);
-    padding-top: 1em;
+    padding-top: 0.5em;
 
 }
 .file{
     margin: 10px;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     text-align: left;
 }
 
 .fileName{
     height: 64px;
     line-height: 64px;
+    transform: translateY(-27px);
+    display: inline-block;
    /* position: absolute;*/
 
+}
+.file_author{
+    display: inline-block;
+    height: 64px;
+    line-height: 64px;
+    transform: translateY(-27px);
+    float: right;
 }
 .file_ico{
     width: 64px;
     height: 64px;
+    display: inline-block;
+    line-height: 64px;
+}
+
+.btn_load_file{
+    height: 1.5em;
+    margin: 10px 0;
+
 }
 
 
