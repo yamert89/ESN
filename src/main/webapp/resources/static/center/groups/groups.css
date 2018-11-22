@@ -1,25 +1,89 @@
 .group{
-    font-size: large;
+    font-size: 1.5em;
     background-color: #8ad5f4;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    height: 2em;
+    padding-top: 1em;
+    width: 10em;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
+}
+.group:hover{
+    background-color: rgba(135, 202, 232, 0.86);
+
+}
+.group_selected{
+    background-color: #cbf4da;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.74);
+
+
+
 }
 
 .groups{
-    display: inline-block;
-    margin-right: 30%;
-    vertical-align: middle;
-    height: 100%;
+    /*display: inline-block;*/
+   /* margin: 0 10% 40px 10%;
+    overflow-y: auto;
+    max-height: 95%;*/
+
+    /*vertical-align: middle;*/
+    overflow-y: auto;
+    float: bottom;
+    max-height: 80%;
 
 }
 
 .groups_container{
     height: 100%;
+    vertical-align: middle;
 }
 .staff_container{
-    overflow-y: scroll;
+    overflow-y: auto;
     height: inherit;
+    border-left: 4px double rgba(0, 0, 0, 0.1);
+    border-right: 4px double rgba(0, 0, 0, 0.1);
+
 }
-.person_staff{
+.person_staff {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+tr{
+    background-color: rgba(245, 255, 215, 0.71);
+}
+tr:hover{
+    background-color: rgba(226, 236, 200, 0.85);
+}
+.person_selected{
+    background-color: rgba(195, 255, 255, 0.77);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
+}
+td{
+    padding: 0;
+    height: 100px;
+}
+table{
+    border-spacing: 0;
+    padding: 0;
+    border-collapse: collapse;
+
+}
+.central_wrapper{
+    display: inline-block;
+    margin: 0 10% 40px 10%;
+
+    max-height: 95%;
+
+
+
+}
+.arrow{
+
+    height: 80px;
+    margin: 10px auto 40px auto;
+
+}
+.left_arrow{
+    transform: rotate(180deg);
 }
