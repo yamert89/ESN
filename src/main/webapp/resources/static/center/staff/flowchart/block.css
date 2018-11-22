@@ -25,6 +25,9 @@ canvas{
 }
 .person_photo_staff:hover{
     opacity: 0.5;
+    border: 2px solid rgba(0, 0, 0, 0.51);
+    width: 96px;
+
 }
 
 .person_staff{

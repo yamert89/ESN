@@ -28,14 +28,14 @@
 
     /*vertical-align: middle;*/
     overflow-y: auto;
-    float: bottom;
-    max-height: 80%;
+    max-height: 60vh;
 
 }
 
 .groups_container{
     height: 100%;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
 }
 .staff_container{
     overflow-y: auto;
@@ -71,15 +71,16 @@ table{
 }
 .central_wrapper{
     display: inline-block;
-    margin: 0 10% 40px 10%;
+    margin: 0 10% 10px 10%;
 
     max-height: 95%;
+    min-height: 95%;
 
 
 
 }
 .arrow{
-
+    display: block;
     height: 80px;
     margin: 10px auto 40px auto;
 
