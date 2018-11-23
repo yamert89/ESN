@@ -15,21 +15,15 @@
 .group_selected{
     background-color: #cbf4da;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.74);
+}
 
-
-
+.group_add{
+    margin: 20px;
 }
 
 .groups{
-    /*display: inline-block;*/
-   /* margin: 0 10% 40px 10%;
-    overflow-y: auto;
-    max-height: 95%;*/
-
-    /*vertical-align: middle;*/
     overflow-y: auto;
     max-height: 60vh;
-
 }
 
 .groups_container{
@@ -83,8 +77,10 @@ table{
     display: block;
     height: 80px;
     margin: 10px auto 40px auto;
-
 }
-.left_arrow{
+.arrow:hover{
+    opacity: 0.7;
+}
+#left_arrow{
     transform: rotate(180deg);
 }

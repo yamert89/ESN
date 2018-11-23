@@ -49,24 +49,6 @@
 
             });*/
 
-            $(".person_staff").click(function () {
-                $(this).toggleClass('person_selected');
-            });
-
-            groupOnClick();
-
-
-
-            $(".group_add").click(function () {
-                var title = prompt("Введите название группы", "Без названия");
-                $(".groups").prepend("<div class='group'>" + title + "</div>");
-                groupOnClick();
-            });
-
-
-
-
-            // func TODO on click to profile
 
 
 
@@ -101,13 +83,7 @@
             return now.toLocaleString('ru', options);
         }
 
-        function groupOnClick() {
-            var group = $(".group");
-            group.click(function () {
-                group.removeClass("group_selected");
-                $(this).addClass("group_selected");
-            });
-        }
+
         /*$(function(){
                 $('#exampleModal').arcticmodal();
 
@@ -140,79 +116,7 @@
 
 </div>
 <div class="center">
-    <div class="groups_container">
-        <div class="staff_container">
-            <table class="person_staff">
-                <tr>
-                    <td width="100px">
-                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                    <td valign="middle">
-                        <div class="person_point">
-                            <div class="person_name_staff">Иванов Иван Иванович</div>
-                            <div class="person_position">Главный инженер</div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
 
-            <table class="person_staff">
-                <tr>
-                    <td width="100px">
-                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                    <td valign="middle">
-                        <div class="person_point">
-                            <div class="person_name_staff">Иванов Иван Иванович</div>
-                            <div class="person_position">Главный инженер</div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-
-            <table class="person_staff">
-                <tr>
-                    <td width="100px">
-                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                    <td valign="middle">
-                        <div class="person_point">
-                            <div class="person_name_staff">Иванов Иван Иванович</div>
-                            <div class="person_position">Главный инженер</div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-
-            <table class="person_staff">
-                <tr>
-                    <td width="100px">
-                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                    <td valign="middle">
-                        <div class="person_point">
-                            <div class="person_name_staff">Иванов Иван Иванович</div>
-                            <div class="person_position">Главный инженер</div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="central_wrapper">
-            <img src="resources/next.png" class="arrow">
-            <img src="resources/next.png" class="arrow left_arrow">
-
-            <div class="groups">
-                <div class="group">Группа 1</div>
-                <div class="group">Группа 2</div>
-                <button class="group_add">Добавить группу</button>
-            </div>
-
-        </div>
-        <div class="staff_container">
-
-
-
-
-
-        </div>
-    </div>
 
 </div>
 <div class="contacts">
