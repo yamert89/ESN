@@ -18,11 +18,13 @@
     <link rel="stylesheet" href="resources/static/center/staff/flowchart/block.css">
     <link rel="stylesheet" href="resources/static/center/calendar/frame_style.css">
     <link rel="stylesheet" href="resources/static/center/groups/groups.css">
+
     <script src="resources/libs/jquery_3.1.0.js"></script>
     <script src="resources/libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"></script>
     <script src="resources/libs/ckeditor/ckeditor.js"></script>
     <script src="resources/static/center/wall/wall.js"></script>
     <script src="resources/static/center/chat/gen_chat.js"></script>
+
 
     <script src="resources/libs/air-datepicker-master/dist/js/datepicker.js"></script>
     <script src="resources/static/center/notes/notes.js"></script>
@@ -57,6 +59,8 @@
 
 
         });
+        
+
         function dateOfNoteColorize() {
             window.listOfDatesNoted.forEach(function (value) {
                 var el34 = $(".datepicker--cells").children("[data-date=\'" + value[0] + "\']" +
@@ -116,7 +120,29 @@
 
 </div>
 <div class="center">
+    <div class="tree_wrapper">
 
+        <iframe src="block.html" class="flowchart_frame"></iframe>
+
+
+
+        <div class="staff_container">
+
+            <table class="person_staff">
+                <tr>
+                    <td width="100px">
+                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                    <td valign="middle">
+                        <div class="person_point">
+                            <div class="person_name_staff">Иванов Иван Иванович</div>
+                            <div class="person_position">Главный инженер</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
 
 </div>
 <div class="contacts">

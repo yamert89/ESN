@@ -20,7 +20,7 @@
 |     References:
 |                                                                
 |     Walker II, J. Q., "A Node-Positioning Algorithm for General Trees"
-|	     			   Software — Practice and Experience 10, 1980 553-561.    
+|	     			   Software ï¿½ Practice and Experience 10, 1980 553-561.    
 |                      (Obtained from C++ User's journal. Feb. 1991)                                                                              
 |					   
 |     Last updated: October 26th, 2006
@@ -281,8 +281,8 @@ ECOTree = function (obj, elm) {
 		iSubtreeSeparation : 80,
 		iRootOrientation : ECOTree.RO_TOP,
 		iNodeJustification : ECOTree.NJ_TOP,
-		topXAdjustment : 0,
-		topYAdjustment : 0,		
+		topXAdjustment : 100,
+		topYAdjustment : 0,
 		render : "AUTO",
 		linkType : "M",
 		linkColor : "blue",
@@ -299,9 +299,9 @@ ECOTree = function (obj, elm) {
 		defaultNodeWidth : 150,
 		defaultNodeHeight : 60,
 		defaultTarget : 'javascript:void(0);',
-		expandedImage : 'libs/ECOTree-master/img/less.gif',
-		collapsedImage : 'libs/ECOTree-master/img/plus.gif',
-		transImage : 'libs/ECOTree-master/img/trans.gif'
+		expandedImage : 'resources/libs/ECOTree-master/img/less.gif',
+		collapsedImage : 'resources/libs/ECOTree-master/img/plus.gif',
+		transImage : 'resources/libs/ECOTree-master/img/trans.gif'
 	}
 	
 	this.version = "1.1";
@@ -728,6 +728,12 @@ ECOTree.prototype._drawTree = function () {
 						s.push(node.dsc);
 					}
 					s.push('</div>');
+					//TODO modified-----------------------------
+
+					s.push('<div class="node_arrows"><img src="resources/right.png" class="node_arrow left_arrow"><img src="resources/right.png" class="node_arrow"></div>');
+
+
+					//------------------------end---------------
 					s.push('</div>');		
 					break;
 					

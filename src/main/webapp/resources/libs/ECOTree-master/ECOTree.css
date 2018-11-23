@@ -2,14 +2,14 @@
 	position: absolute;
 	width: 980px;
 	height: 570px;
-	overflow: scroll;	
+	overflow: auto;
 }
 
 .maindiv {
 	position: relative;
 	width: 980px;
 	height: 570px;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .econode {
@@ -19,6 +19,7 @@
 	font-size: large!important;
 	padding: 2px;
 	vertical-align: middle;
+	text-align: center;
 }
 
 a.ecolink:visited {
