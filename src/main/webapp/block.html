@@ -13,23 +13,31 @@
     <script>
         $(document).ready(function () {
             createTree();
+            nodePlusOnClick();
         });
 
         function createTree() {
             myTree = new ECOTree('myTree','myTreeContainer');
-           createSomeNode(0, -1, "ООО Рога и Копыта");
-           createSomeNode(1, 0, "ООО РКалинушки");
-           createSomeNode(2, 0, "ООО Рога и Копыта Оторванные у быка");
-           createSomeNode(3, 2, "ООО");
+           createSomeNode(0, -1, "Корневое имя"); //TODO получить имя организации
+        }
 
-
-            myTree.UpdateTree();
-
+        function addChild(parent) {
+            var name = prompt("Введите название подраздела", "");
+            createSomeNode(Date.now(), parent, name);
         }
         
         function createSomeNode(id, parent, name) {
             var l = name.length * 13;
+            if (l < 68) l = 68;
             myTree.add(id, parent, name, l);
+            myTree.UpdateTree();
+
+        }
+
+        function nodePlusOnClick() {
+            $("#node_plus").click(function () {
+                addChild($(this).parent().parent().attr('id'));
+            });
         }
     </script>
 </head>

@@ -63,14 +63,15 @@ canvas{
     margin: 5px;
     height: 95%;
 }
-.node_arrow{
+.node_tool{
     height: 24px;
     margin: 0 5px;
 }
-.left_arrow{
-    transform: rotate(180deg);
+.node_tool:hover{
+    opacity: 0.7;
 }
-.node_arrows{
+
+.node_tools{
 
 }
 .block_item_container{
