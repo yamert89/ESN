@@ -13,7 +13,6 @@
     <script>
         $(document).ready(function () {
             createTree();
-            nodePlusOnClick();
         });
 
         function createTree() {
@@ -31,11 +30,12 @@
             if (l < 68) l = 68;
             myTree.add(id, parent, name, l);
             myTree.UpdateTree();
+            nodePlusOnClick();
 
         }
 
         function nodePlusOnClick() {
-            $("#node_plus").click(function () {
+            $(".node_plus").click(function () {
                 addChild($(this).parent().parent().attr('id'));
             });
         }
