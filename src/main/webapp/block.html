@@ -13,12 +13,7 @@
     <script>
         $(document).ready(function () {
             createTree();
-            $(".clear_flowchart").click(function () {
-               var resp = confirm("Вы уверены, что хотите удалить текущую структуру и построить её заново?");
-               if (!resp) return;
-               //TODO Удалить текущую структуру и обновить страницу с родительским нодом
-                createTree();
-            });
+
 
             $("img").not(".node_plus").click(function () {
                nodePlusOnClick();
