@@ -31,7 +31,7 @@
             myTree.add(id, parent, name, l);
             myTree.UpdateTree();
             nodePlusOnClick();
-            nodeCrossOnClick();
+
 
         }
 
@@ -41,15 +41,7 @@
             });
         }
 
-        function nodeCrossOnClick() {
-            $(".node_cross").click(function () {
-                deleteNode($(this));
-            });
-        }
 
-        function deleteNode(node) {
-            node.parent().parent().remove();
-        }
     </script>
 </head>
 <body>
