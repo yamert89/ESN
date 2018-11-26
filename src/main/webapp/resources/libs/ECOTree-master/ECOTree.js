@@ -297,7 +297,7 @@ ECOTree = function (obj, elm) {
 		searchMode : ECOTree.SM_DSC,
 		selectMode : ECOTree.SL_MULTIPLE,
 		defaultNodeWidth : 150,
-		defaultNodeHeight : 60,
+		defaultNodeHeight : 74,
 		defaultTarget : 'javascript:void(0);',
 		expandedImage : 'resources/libs/ECOTree-master/img/less.gif',
 		collapsedImage : 'resources/libs/ECOTree-master/img/plus.gif',
