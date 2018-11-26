@@ -52,16 +52,20 @@ canvas{
 }
 .person_position{
 }
-
-.flowchart_frame{
+.flowchart_wrapper{
     display: inline-block;
     width: 70%;
+    height: calc(100% - 41px);
+}
+.flowchart_frame{
+    width: 100%;
     height: 100%;
+    margin-bottom: 7px;
 }
 
 .tree_wrapper{
     margin: 5px;
-    height: 95%;
+    height: calc(100% - 10px);
 }
 .node_tool{
     height: 24px;

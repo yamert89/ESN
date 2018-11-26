@@ -295,7 +295,7 @@ ECOTree = function (obj, elm) {
 		colorStyle : ECOTree.CS_NODE,
 		useTarget : true,
 		searchMode : ECOTree.SM_DSC,
-		selectMode : ECOTree.SL_MULTIPLE,
+		selectMode : ECOTree.SL_NONE,
 		defaultNodeWidth : 150,
 		defaultNodeHeight : 74,
 		defaultTarget : 'javascript:void(0);',
@@ -909,6 +909,7 @@ ECOTree.prototype.collapseNode = function (nodeid, upd) {
 	var dbindex = this.mapIDs[nodeid];
 	this.nDatabaseNodes[dbindex].isCollapsed = !this.nDatabaseNodes[dbindex].isCollapsed;
 	if (upd) this.UpdateTree();
+	nodePlusOnClick(); //TODO modified
 }
 
 ECOTree.prototype.selectNode = function (nodeid, upd) {		
