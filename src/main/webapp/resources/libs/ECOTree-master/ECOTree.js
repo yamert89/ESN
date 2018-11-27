@@ -293,9 +293,9 @@ ECOTree = function (obj, elm) {
 		levelColors : ["#5555FF","#8888FF","#AAAAFF","#CCCCFF"],
 		levelBorderColors : ["#5555FF","#8888FF","#AAAAFF","#CCCCFF"],
 		colorStyle : ECOTree.CS_NODE,
-		useTarget : true,
+		useTarget : false,
 		searchMode : ECOTree.SM_DSC,
-		selectMode : ECOTree.SL_NONE,
+		selectMode : ECOTree.SL_SINGLE,
 		defaultNodeWidth : 150,
 		defaultNodeHeight : 74,
 		defaultTarget : 'javascript:void(0);',
@@ -915,6 +915,7 @@ ECOTree.prototype.collapseNode = function (nodeid, upd) {
 ECOTree.prototype.selectNode = function (nodeid, upd) {		
 	this._selectNodeInt(this.mapIDs[nodeid], true);
 	if (upd) this.UpdateTree();
+	nodePlusOnClick(); //TODO modified
 }
 
 ECOTree.prototype.setNodeTitle = function (nodeid, title, upd) {

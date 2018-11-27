@@ -35,7 +35,7 @@
         }
         
         function createSomeNode(id, parent, name) {
-            var l = name.length * 13;
+            var l = (name.length * 14) + 9;
             if (l < 68) l = 68;
             myTree.add(id, parent, name, l);
             myTree.UpdateTree();
