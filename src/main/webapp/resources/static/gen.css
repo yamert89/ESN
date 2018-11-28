@@ -1,0 +1,9 @@
+.checkbox{
+    opacity: 0;
+}
+.checkbox_on{
+    opacity: 1;
+}
+.user_profile{
+    display: none;
+}
