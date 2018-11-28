@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link rel="stylesheet" href="contacts.css">
+    <script type="text/javascript">
+        function contactsFill() {
+
+        }
+
+        function renderGroup(groups) {
+            //TODO server side
+            var body = $("body");
+            body.append("<details open='open'><summary>" + groups.ITEMNAME + "</summary>");
+            for (var i = 0; i < groups.length; i++){
+                body.append(renderItem(groups.ITEMNAME, groups.STATUS));
+            }
+            body.append("</details>");
+        }
+
+        function renderItem(name, status) {
+            var idStat = status ? 'net_status_on' : 'net_status_off';
+            return "<div class='person_item'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'" + name + "</div></div>"
+        }
+    </script>
 </head>
 <body>
 <details open="open">
@@ -15,7 +35,7 @@
 </div>
 <div class="person_item">
     <div class="net_status_circle"></div>
-    <img src="" class="person_photo_small">
+    <!--<img src="" class="person_photo_small">-->
     <div class="person_name">Юзер2</div>
 </div>
 </details>

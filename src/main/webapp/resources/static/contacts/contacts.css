@@ -14,9 +14,11 @@
     border-radius: 5px;
     background-color: blue;
     display: inline-block;
-
-
 }
+#net_status_off{
+    opacity: 0;
+}
+
 .person_name{
     display: inline-block;
     float: right;
