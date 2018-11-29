@@ -33,6 +33,7 @@ img{
     width: 390px;
     display: inline-table;
     margin: 0 10px 0 10px;
+
 }
 .message_time{
     display: table-cell;
@@ -42,6 +43,5 @@ img{
     float: none;
     display: table-cell;
     vertical-align: middle;
-
 }
 

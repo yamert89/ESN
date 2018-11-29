@@ -49,12 +49,12 @@ display: none;
 }
 .post{
     margin: 15px 0 15px 0;
-    padding: 10px;
-    width: calc(100% - 20px);
+    width: 100%;
     background-color: rgba(255, 237, 163, 0.39);
     box-shadow: 0 0 10px #000000;
     font-size: 1.2em;
     clear:both; float: right;
+    text-align: left;
 }
 .posts{
     overflow: auto;
@@ -64,5 +64,34 @@ display: none;
     margin-top: 20px;
 }
 p{
-    margin: 0 0 0 0 ;
+    margin: 10px;
 }
+
+.message_info_w{
+    /*width: 390px;*/
+    display: table;
+    border-spacing: 20px 0;
+
+
+}
+.message_info_wrapper{
+    background-color: #bdfa8a;
+    padding: 5px;
+}
+.message_time_w{
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 32px;
+}
+.person_name_w{
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 32px;
+
+}
+
+.person_photo_small{
+    display: table-cell;
+}
+

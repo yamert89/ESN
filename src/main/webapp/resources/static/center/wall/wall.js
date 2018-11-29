@@ -15,7 +15,18 @@ function showEditor() {
         var data = CKEDITOR.instances.editor.getData();
         hideEditor();
 
-        $(".posts").prepend('<div class="post">' + data + '</div>');
+        var NAME = ''; //TODO server
+        var IMG = ''; //TODO server
+        var TIME = getCurrentDate();
+
+        $(".posts").prepend('<div class="post">' +
+            '<div class="message_info_wrapper">' +
+                '<div class="message_info_w">' +
+                    '<img src="'+ IMG +'" class="person_photo_small">' +
+                    '<div class="person_name_w">' + NAME + '</div>' +
+                    '<div class="message_time_w">' + TIME + '</div>' +
+                '</div>' +
+            '</div>' + data + '</div');
     });
 }
 
@@ -33,4 +44,12 @@ function hideEditor() {
     CKEDITOR.instances.editor.destroy();
 
 }
+
+/*<div class="message_info_wrapper">
+    <div class="message_info_w">
+    <img src="" class="person_photo_small">
+    <div class="person_name_w">Булыгина Мария Ивановна</div>
+<div class="message_time_w">10: 30 21.09.2018</div>
+</div>
+</div>*/
 
