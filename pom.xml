@@ -139,6 +139,9 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
+          <configuration>
+            <testSource>${project.basedir}/src/main/test</testSource>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>

@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "private_chat_history")
-public class PrivateChatMessage {
+public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
 
     @Id
     @GeneratedValue
@@ -56,5 +56,11 @@ public class PrivateChatMessage {
     public User getRecipient() {
         if (recipient != null) return recipient;
         return messageDAO.getRecipient(recipient_id);
+    }
+
+
+    @Override
+    public int compareTo(PrivateChatMessage o) {
+        return this.time.compareTo(o.time);
     }
 }

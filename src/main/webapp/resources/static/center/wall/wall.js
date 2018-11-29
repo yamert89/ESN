@@ -27,6 +27,8 @@ function showEditor() {
                     '<div class="message_time_w">' + TIME + '</div>' +
                 '</div>' +
             '</div>' + data + '</div');
+
+        //TODO server save
     });
 }
 
