@@ -10,13 +10,18 @@ import java.util.stream.Stream;
 public class DaoTests {
 
     @Test
-    public void getPrivateMessages(){
-        Timestamp time1 = new Timestamp(5345123124212312L);
-        Timestamp time2 = new Timestamp(93451236124212312L);
-        Timestamp time3 = new Timestamp(53451231242612312L);
-        Timestamp time4 = new Timestamp(5364533124212312L);
-        Timestamp time5 = new Timestamp(53451224212312L);
-        Timestamp time6 = new Timestamp(534512316212312L);
+    public void getPrivateMessages() throws InterruptedException{
+        Timestamp time1 = new Timestamp(System.currentTimeMillis());
+        Thread.sleep(1000);
+        Timestamp time2 = new Timestamp(System.currentTimeMillis());
+        Thread.sleep(1000);
+        Timestamp time3 = new Timestamp(System.currentTimeMillis());
+        Thread.sleep(1000);
+        Timestamp time4 = new Timestamp(System.currentTimeMillis());
+        Thread.sleep(1000);
+        Timestamp time5 = new Timestamp(System.currentTimeMillis());
+        Thread.sleep(1000);
+        Timestamp time6 = new Timestamp(System.currentTimeMillis());
         List res1 = new ArrayList();
         List res2 = new ArrayList();
         Collections.addAll(res1, time1, time2, time3);
