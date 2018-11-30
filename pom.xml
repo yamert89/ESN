@@ -19,6 +19,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -125,6 +126,10 @@
 
   <build>
     <finalName>ESN</finalName>
+
+    <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -139,9 +144,6 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
-          <configuration>
-            <testSource>${project.basedir}/src/main/test</testSource>
-          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>

@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DaoTests {
+public class DaoTest {
 
     @Test
     public void getPrivateMessages() throws InterruptedException{
@@ -30,4 +30,6 @@ public class DaoTests {
         Assert.assertEquals(set.size(), 6);
         set.stream().forEach(System.out::println);
     }
+
+
 }
