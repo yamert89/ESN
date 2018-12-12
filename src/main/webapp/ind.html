@@ -33,73 +33,73 @@
 
 
     <script type="text/javascript">
-        var myTree = null;
-        window.listOfDatesNoted = [];
-        $(document).ready(function () {
+    var myTree = null;
+    window.listOfDatesNoted = [];
+    $(document).ready(function () {
 
-            $('.post_add').click(function () {
-                showEditor();
-            });
-
-            /*var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
-            cell.click(function () {
-                if ($(this).hasClass("-selected-")){
-                    var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
-                    $(this).removeClass("-selected-");
-                    $(this).addClass("date_noted");
-                }
-
-
-            });*/
-
-
-
-
-
-
-
-
-
-
+        $('.post_add').click(function () {
+            showEditor();
         });
-        
 
-        function dateOfNoteColorize() {
-            window.listOfDatesNoted.forEach(function (value) {
-                var el34 = $(".datepicker--cells").children("[data-date=\'" + value[0] + "\']" +
-                    "[data-month=\'" + value[1] + "\']" +
-                    "[data-year=\'" + value[2] + "\']");
-                el34.addClass("date_noted");
-            });
-        }
+        /*var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
+        cell.click(function () {
+            if ($(this).hasClass("-selected-")){
+                var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
+                $(this).removeClass("-selected-");
+                $(this).addClass("date_noted");
+            }
 
-        function setCurrentDate(el) {
-            el.text(getCurrentDate());
-        }
-        
-        function getCurrentDate() {
-            var now = new Date();
-            var options = {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric'
-            };
-            return now.toLocaleString('ru', options);
-        }
+
+        });*/
 
 
 
 
-        /*$(function(){
-                $('#exampleModal').arcticmodal();
-
-            });*/
 
 
-    </script>
+
+
+
+
+    });
+
+
+    function dateOfNoteColorize() {
+        window.listOfDatesNoted.forEach(function (value) {
+            var el34 = $(".datepicker--cells").children("[data-date=\'" + value[0] + "\']" +
+                "[data-month=\'" + value[1] + "\']" +
+                "[data-year=\'" + value[2] + "\']");
+            el34.addClass("date_noted");
+        });
+    }
+
+    function setCurrentDate(el) {
+        el.text(getCurrentDate());
+    }
+
+    function getCurrentDate() {
+        var now = new Date();
+        var options = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        };
+        return now.toLocaleString('ru', options);
+    }
+
+
+
+
+    /*$(function(){
+            $('#exampleModal').arcticmodal();
+
+        });*/
+
+
+</script>
 
 </head>
 <header>

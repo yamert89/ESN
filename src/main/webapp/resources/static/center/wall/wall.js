@@ -8,28 +8,31 @@ function showEditor() {
         /*CKEDITOR.instances.editor.updateElement();
         CKEDITOR.replace('editor');*/
     }
+    $(document).ready(function () {
+        $(".post_add").css("display", "none");
+        submit.css({"display":"inline"});
+        submit.click(function () {
+            var data = CKEDITOR.instances.editor.getData();
+            hideEditor();
 
-    $(".post_add").css("display", "none");
-    submit.css({"display":"inline"});
-    submit.click(function () {
-        var data = CKEDITOR.instances.editor.getData();
-        hideEditor();
+            var NAME = ''; //TODO server
+            var IMG = ''; //TODO server
+            var TIME = getCurrentDate();
 
-        var NAME = ''; //TODO server
-        var IMG = ''; //TODO server
-        var TIME = getCurrentDate();
-
-        $(".posts").prepend('<div class="post">' +
-            '<div class="message_info_wrapper">' +
+            $(".posts").prepend('<div class="post">' +
+                '<div class="message_info_wrapper">' +
                 '<div class="message_info_w">' +
-                    '<img src="'+ IMG +'" class="person_photo_small">' +
-                    '<div class="person_name_w">' + NAME + '</div>' +
-                    '<div class="message_time_w">' + TIME + '</div>' +
+                '<img src="'+ IMG +'" class="person_photo_small">' +
+                '<div class="person_name_w">' + NAME + '</div>' +
+                '<div class="message_time_w">' + TIME + '</div>' +
                 '</div>' +
-            '</div>' + data + '</div');
+                '</div>' + data + '</div');
 
-        //TODO server save
+            //TODO server save
+        });
     });
+
+
 }
 
 function hideEditor() {
