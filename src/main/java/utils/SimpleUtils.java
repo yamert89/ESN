@@ -2,7 +2,7 @@ package utils;
 
 public class SimpleUtils {
 
-    public static  String getNickName(String input) {
+    public static String getNickName(String input) {
         String name = input.toLowerCase();
         String rusAlph = "абвгдеёжзиклмнопрстуфхцчшщъыьэюя "; //TODO придумать получше
         String engAlph = "abvgdeezziklmnoprstufhccss1i1euy_";

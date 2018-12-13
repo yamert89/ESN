@@ -1,4 +1,4 @@
-package mvc;
+package viewControllers;
 
 import db.UserDAO;
 import entities.User;
@@ -25,10 +25,10 @@ public class UserController {
         this.userDAO = userDAO;
     }
 
-   /* @RequestMapping("/auth")
+    @RequestMapping("/auth")
     public String showAuthPage(){
         return "auth";
-    }*/
+    }
 
     @RequestMapping(value = "/r", method = RequestMethod.GET)
     public String regUser(Model model){
@@ -51,7 +51,7 @@ public class UserController {
         System.out.println(user);
         userDAO.persistUser(user);
 
-        return "redirect:/user/" + SimpleUtils.getNickName(user.getName());
+        return "redirect:/user/" + user.getNickName();
     }
 
    /* @RequestMapping(value = "/{username}", method = RequestMethod.GET)
@@ -59,6 +59,8 @@ public class UserController {
         model.addAttribute(userDAO.getUserByName(username));
         return "/profile";
     }*/
+
+
 
 
 }

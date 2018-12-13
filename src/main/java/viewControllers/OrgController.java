@@ -1,4 +1,4 @@
-package mvc;
+package viewControllers;
 
 import db.OrganizationDAO;
 import entities.Organization;

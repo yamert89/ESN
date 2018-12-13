@@ -1,8 +1,11 @@
 package entities;
 
 import db.UserDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import utils.SimpleUtils;
 
 import javax.persistence.*;
+import javax.rmi.CORBA.Util;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -20,6 +23,8 @@ public class User {
 
     @Size(min = 6, max = 20, message = "От 6 до 20 символов")
     private String password;
+
+    private String nickName;
 
 
     private boolean admin;
@@ -46,16 +51,20 @@ public class User {
 
 
     @Transient
-    private UserDAO userDAO; //TODO сильная связь. Можно избежать?
+    private UserDAO userDAO; //TODO прописать в бинах
 
 
     public User() {
     }
 
-    public User(String name, Organization org, UserDAO userDAO) {
+    public User(String name, Organization org) {
         this.name = name;
-        this.userDAO = userDAO;
         this.organization = org;
+    }
+
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     public int getId() {
@@ -93,6 +102,15 @@ public class User {
 
     public UserSettings getSettings() {
         return settings;
+    }
+
+    public String getNickName() {
+        if (nickName == null) nickName = SimpleUtils.getNickName(name);
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public void setName(String name) {

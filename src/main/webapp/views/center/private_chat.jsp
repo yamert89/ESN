@@ -1,4 +1,4 @@
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<core:url value="/resources/static/center/chat/private_chat.css"/>">
-    <link rel="stylesheet" href="<core:url value="/resources/static/index.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/private_chat.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/index.css"/>">
 </head>
 <body>
 <div class="private_chat_profile">
@@ -23,6 +23,9 @@
     <span class="person_name_chat">Иванов Иван Иванович</span><br>
 </div>
 <div class="private_chat_container">
+    <c:forEach var="mes" items="${messages}">
+        <div class="private_chat comment_bubble_right">${mes}</div>
+    </c:forEach>
     <div class="private_chat comment_bubble_left">Сообщение</div>
     <div class="private_chat comment_bubble_right">Сообщение2</div>
     <div class="private_chat comment_bubble_right">Сообщение2</div>
