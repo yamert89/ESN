@@ -1,15 +1,17 @@
 package viewControllers;
 
 import db.PrivateChatMessageDAO;
+import entities.Organization;
+import entities.PrivateChatMessage;
+import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/index")
@@ -25,10 +27,12 @@ public class MainPageController {
         this.privateChatMessageDAO = privateChatMessageDAO;
     }
 
+    private Organization org; //TODO inject
 
 
-    @RequestMapping(value = "/wall", method = RequestMethod.GET)
-    public String wall(Model model){
+
+    @RequestMapping(value = "/wall/{user}", method = RequestMethod.GET)
+    public String wall(@PathVariable String user, Model model){
         return "wall";
     }
 
@@ -42,10 +46,22 @@ public class MainPageController {
         return "gen_chat";
     }
 
-    @RequestMapping(value = "/private-chat")
-    public String privateChat(Model model){
+    @RequestMapping(value = "/private-chat/{user}")
+    public String privateChat(@PathVariable String user,
+                              @RequestParam(value = "companion") String companion, Model model){
+        User usr = org.getUserByNickName(user);
+        User compan = org.getUserByNickName(companion);
+        model.addAttribute("net_status", compan.netStatus());
+        model.addAttribute("companion_name", compan.getName());
+        model.addAttribute("companion_avatar", compan.getPhoto()); //TODO photo url
+        Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(usr, compan);
+        Map<String, Boolean> messages = new TreeMap<>();
+        for (PrivateChatMessage mes :
+                privateMessages) {
+            Boolean userMessage = mes.getSender() == usr;
+            messages.put(mes.getText(), userMessage);
+        }
 
-        Set<String> messages = privateChatMessageDAO.getMessages();
         model.addAttribute("messages", messages);
         return "private_chat";
     }

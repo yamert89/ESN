@@ -48,6 +48,10 @@ public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
         recipient_id = recipient.getId();
     }
 
+    public String getText() {
+        return text;
+    }
+
     public User getSender() {
         if (sender != null) return sender;
         return messageDAO.getSender(sender_id);

@@ -8,4 +8,15 @@
     display: none;
 }
 
+.net_status_circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: blue;
+    display: inline-block;
+}
+#net_status_off{
+    opacity: 0;
+}
+
 /*wall and chat*/

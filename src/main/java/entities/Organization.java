@@ -82,4 +82,12 @@ public class Organization {
     public void addDepartment(Department department){
         departments.add(department);
     }
+
+    public User getUserByNickName(String nickname){
+        for (User user:
+             allEmployers) {
+            if (user.getNickName().equals(nickname)) return user;
+        }
+        return null;
+    }
 }

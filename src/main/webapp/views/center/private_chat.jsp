@@ -24,7 +24,12 @@
 </div>
 <div class="private_chat_container">
     <c:forEach var="mes" items="${messages}">
-        <div class="private_chat comment_bubble_right">${mes}</div>
+        <c:if test="messages.value == true">
+            <div class="private_chat comment_bubble_right">${mes.key}</div>
+        </c:if>
+        <c:if test="messages.value == false">
+            <div class="private_chat comment_bubble_left">${mes.key}</div>
+        </c:if>
     </c:forEach>
     <div class="private_chat comment_bubble_left">Сообщение</div>
     <div class="private_chat comment_bubble_right">Сообщение2</div>

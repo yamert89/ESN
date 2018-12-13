@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import utils.SimpleUtils;
 
 import javax.persistence.*;
-import javax.rmi.CORBA.Util;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -47,6 +46,9 @@ public class User {
 
 
     private UserSettings settings;
+
+    @Transient
+    private boolean netStatus;
 
 
 
@@ -107,6 +109,10 @@ public class User {
     public String getNickName() {
         if (nickName == null) nickName = SimpleUtils.getNickName(name);
         return nickName;
+    }
+
+    public boolean netStatus() {
+        return netStatus;
     }
 
     public void setNickName(String nickName) {
