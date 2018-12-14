@@ -16,11 +16,17 @@
 <body>
 <div class="private_chat_profile">
     <div class="person_container">
-        <img src="" class="person_photo_chat"><br>
-        <div class="net_status_circle" style=""></div>
-        <span class="net_status">В сети</span>
+        <img src="${companion_avatar}" class="person_photo_chat"><br>
+        <c:if test="net_status == false">
+            <div class="net_status_circle" id="net_status_off"></div>
+            <span class="net_status">не в сети</span>
+        </c:if>
+        <c:if test="net_status == true">
+            <div class="net_status_circle"></div>
+            <span class="net_status">в сети</span>
+        </c:if>
     </div>
-    <span class="person_name_chat">Иванов Иван Иванович</span><br>
+    <span class="person_name_chat">${companion_name}</span><br>
 </div>
 <div class="private_chat_container">
     <c:forEach var="mes" items="${messages}">
