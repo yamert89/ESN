@@ -1,9 +1,10 @@
-package viewControllers;
+package esn.viewControllers;
 
-import db.PrivateChatMessageDAO;
-import entities.Organization;
-import entities.PrivateChatMessage;
-import entities.User;
+import esn.db.PrivateChatMessageDAO;
+import esn.entities.Organization;
+import esn.entities.PrivateChatMessage;
+import esn.entities.User;
+import esn.utils.GeneralSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,7 @@ public class MainPageController {
         User compan = org.getUserByNickName(companion);
         model.addAttribute("net_status", compan.netStatus());
         model.addAttribute("companion_name", compan.getName());
-        model.addAttribute("companion_avatar", compan.getPhoto()); //TODO photo url
+        model.addAttribute("companion_avatar", GeneralSettings.AVATAR_PATH.concat(compan.getPhoto()));
         Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(usr, compan);
         Map<String, Boolean> messages = new TreeMap<>();
         for (PrivateChatMessage mes :

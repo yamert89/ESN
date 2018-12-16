@@ -1,4 +1,4 @@
-package db;
+package esn.db;
 
 import org.springframework.stereotype.Repository;
 

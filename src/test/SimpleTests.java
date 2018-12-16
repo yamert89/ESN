@@ -1,13 +1,17 @@
-import utils.ImageResizer;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import esn.utils.GeneralSettings;
 
 public class SimpleTests {
     public static void main(String[] args) {
+        try{
+            props();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+
+   /* public static void imageResizer(){
         try {
             BufferedImage image = ImageIO.read(new File("C:/2.jpg"));
             BufferedImage image1 = ImageResizer.resizeBig(image);
@@ -15,6 +19,10 @@ public class SimpleTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }*/
+
+    public static  void props(){
+        System.out.println(GeneralSettings.AVATAR_PATH);
     }
 
 }

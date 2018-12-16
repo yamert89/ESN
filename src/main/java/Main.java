@@ -1,11 +1,11 @@
-import db.DepartmentDAO;
-import db.OrganizationDAO;
-import db.PrivateChatMessageDAO;
-import db.UserDAO;
-import entities.Department;
-import entities.Organization;
-import entities.PrivateChatMessage;
-import entities.User;
+import esn.db.DepartmentDAO;
+import esn.db.OrganizationDAO;
+import esn.db.PrivateChatMessageDAO;
+import esn.db.UserDAO;
+import esn.entities.Department;
+import esn.entities.Organization;
+import esn.entities.PrivateChatMessage;
+import esn.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

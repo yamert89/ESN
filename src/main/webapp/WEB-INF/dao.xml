@@ -20,7 +20,7 @@
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="packagesToScan" value="entities"/>
+        <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.connection.CharSet">UTF-8</prop>
@@ -37,10 +37,10 @@
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
-    <!--<bean id="orgDao" class="db.OrganizationDAO"></bean>
-    <bean id="userDao" class="db.UserDAO"></bean>
-    <bean id="departmentDao" class="db.DepartmentDAO"></bean>
-    <bean id="messageDao" class="db.PrivateChatMessageDAO"></bean>-->
+    <!--<bean id="orgDao" class="esn.db.OrganizationDAO"></bean>
+    <bean id="userDao" class="esn.db.UserDAO"></bean>
+    <bean id="departmentDao" class="esn.db.DepartmentDAO"></bean>
+    <bean id="messageDao" class="esn.db.PrivateChatMessageDAO"></bean>-->
 
 
 

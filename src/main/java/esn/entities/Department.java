@@ -1,6 +1,6 @@
-package entities;
+package esn.entities;
 
-import db.DepartmentDAO;
+import esn.db.DepartmentDAO;
 
 import javax.persistence.*;
 import java.util.HashSet;

@@ -1,8 +1,8 @@
-package entities;
+package esn.entities;
 
-import db.UserDAO;
+import esn.db.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import utils.SimpleUtils;
+import esn.utils.SimpleUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -40,9 +40,9 @@ public class User {
     private Organization organization;
 
 
-    private byte[] photo; // TODO incorrect type ?
+    private String photo;  //filename
 
-    private byte[] photo_small;
+    private String photo_small; //filename
 
 
     private UserSettings settings;
@@ -53,7 +53,7 @@ public class User {
 
 
     @Transient
-    private UserDAO userDAO; //TODO прописать в бинах
+    private UserDAO userDAO; //TODO delete if unnecessary
 
 
     public User() {
@@ -98,8 +98,12 @@ public class User {
         return department;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
+    }
+
+    public String getPhoto_small() {
+        return photo_small;
     }
 
     public UserSettings getSettings() {
@@ -131,8 +135,12 @@ public class User {
         this.department = department;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public void setPhoto_small(String photo_small) {
+        this.photo_small = photo_small;
     }
 
     public void setPassword(String password) {

@@ -1,4 +1,4 @@
-import entities.PrivateChatMessage;
+import esn.entities.PrivateChatMessage;
 import org.junit.Test;
 import org.junit.Assert;
 

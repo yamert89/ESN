@@ -16,7 +16,7 @@
 <body>
 <div class="private_chat_profile">
     <div class="person_container">
-        <img src="${companion_avatar}" class="person_photo_chat"><br>
+        <img src="/resources/avatars/${companion_avatar}" class="person_photo_chat"><br>
         <c:if test="net_status == false">
             <div class="net_status_circle" id="net_status_off"></div>
             <span class="net_status">не в сети</span>

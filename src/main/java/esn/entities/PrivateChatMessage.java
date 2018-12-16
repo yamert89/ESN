@@ -1,6 +1,6 @@
-package entities;
+package esn.entities;
 
-import db.PrivateChatMessageDAO;
+import esn.db.PrivateChatMessageDAO;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;

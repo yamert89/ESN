@@ -1,6 +1,6 @@
-package db;
+package esn.db;
 
-import entities.Department;
+import esn.entities.Department;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

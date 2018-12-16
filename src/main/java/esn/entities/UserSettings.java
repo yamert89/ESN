@@ -1,4 +1,4 @@
-package entities;
+package esn.entities;
 
 import javax.persistence.Embeddable;
 

@@ -1,7 +1,7 @@
-package db.converters;
+package esn.db.converters;
 
-import db.UserDAO;
-import entities.User;
+import esn.db.UserDAO;
+import esn.entities.User;
 
 import javax.persistence.AttributeConverter;
 
