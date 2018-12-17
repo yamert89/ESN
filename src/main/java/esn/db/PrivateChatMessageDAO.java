@@ -31,7 +31,7 @@ public class PrivateChatMessageDAO {
         List res1 = query.getResultList();
         List res2 = query.setParameter("sender", companion).setParameter("recipient", owner).getResultList();
 
-        return (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream()).collect(Collectors.toCollection(TreeSet::new));
+        return (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream()).collect(Collectors.toCollection(TreeSet::new)); //TODO получать по 50 записей
 
 
     }

@@ -14,6 +14,8 @@ public class GeneralSettings {
             InputStream inputStream = GeneralSettings.class.getClassLoader().getResourceAsStream("properties");
 
 
+
+
             properties.load(inputStream);
 
             AVATAR_PATH = properties.getProperty("avatar_dir");

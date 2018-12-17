@@ -1,6 +1,7 @@
 package esn.viewControllers;
 
 import esn.db.UserDAO;
+import esn.entities.Organization;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
 import esn.utils.ImageResizer;
@@ -69,14 +70,15 @@ public class UserController {
                     user.setPhoto_small(fileNameSmall);
                 }
 
-                System.out.println(image.getBytes().length);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         System.out.println(user);
 
-        //TODO organization null
+
+        user.setOrganization(new Organization("MockOrg", "mockorg"));//TODO do not work  - organization null
         userDAO.persistUser(user);
 
         return "redirect:/user/" + user.getNickName();

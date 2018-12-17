@@ -5,6 +5,7 @@ img{
     border-radius: 10px;
    /* background-color: rgba(107, 199, 206, 0.15);*/
     overflow-y: auto;
+    text-align: center;
 
 }
 .message{
@@ -43,5 +44,17 @@ img{
     float: none;
     display: table-cell;
     vertical-align: middle;
+}
+
+.new_genchat_message{
+    font-size: 1.2em;
+    width: 40%;
+    border-radius: 10px;
+    outline: 0;
+}
+.new_genchat_message_btn{
+    font-size: 1.2em;
+    border-radius: 10px;
+    outline: 0;
 }
 

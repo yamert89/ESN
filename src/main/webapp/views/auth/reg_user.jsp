@@ -12,6 +12,7 @@
     <title>Registration</title>
 </head>
 <body>
+
 <div class="reg_container">
     <sf:form enctype="multipart/form-data" method="post" modelAttribute="user">
     <div class="reg_block">

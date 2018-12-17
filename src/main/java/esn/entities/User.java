@@ -147,6 +147,10 @@ public class User {
         this.password = password;
     }
 
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
