@@ -23,6 +23,7 @@
                 if (text.isEmpty()) return;
                 var time = getCurrentDate();
                 addMessage(me, time, text);
+                $.ajax({type:"POST", url:"/savemessage", data:[USERID, text, time]})
             })
         });
 
