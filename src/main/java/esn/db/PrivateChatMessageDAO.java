@@ -2,6 +2,7 @@ package esn.db;
 
 import esn.entities.PrivateChatMessage;
 import esn.entities.User;
+import esn.utils.GeneralSettings;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,9 @@ public class PrivateChatMessageDAO {
         List res1 = query.getResultList();
         List res2 = query.setParameter("sender", companion).setParameter("recipient", owner).getResultList();
 
-        return (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream()).collect(Collectors.toCollection(TreeSet::new)); //TODO получать по 50 записей
+        return (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream())
+                .limit(GeneralSettings.AMOUNT_PRIVATECHAT_MESSAGES)
+                .collect(Collectors.toCollection(TreeSet::new));
 
 
     }

@@ -1,5 +1,6 @@
 package esn.viewControllers;
 
+import esn.db.GlobalDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.entities.Organization;
 import esn.entities.PrivateChatMessage;
@@ -22,11 +23,19 @@ public class MainPageController {
 
 
     private PrivateChatMessageDAO privateChatMessageDAO;
+    private GlobalDAO globalDAO;
 
     @Autowired
     public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
         this.privateChatMessageDAO = privateChatMessageDAO;
     }
+    @Autowired
+    public void setGlobalDAO(GlobalDAO globalDAO) {
+        this.globalDAO = globalDAO;
+    }
+
+
+
 
     private Organization org; //TODO inject
 
@@ -42,8 +51,12 @@ public class MainPageController {
         return "calendar";
     }
 
-    @RequestMapping(value = "/chat")
-    public String genChat(){
+    @RequestMapping(value = "/chat/{user}")
+    public String genChat(@PathVariable String user, Model model){
+        User usr = org.getUserByNickName(user);
+        model.addAttribute("name", usr.getName());
+        model.addAttribute("photo", usr.getPhoto_small());
+        model.addAttribute("messages", globalDAO.getGenMessages());
         return "gen_chat";
     }
 

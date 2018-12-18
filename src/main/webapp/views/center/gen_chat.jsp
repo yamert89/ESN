@@ -13,12 +13,33 @@
     <link rel="stylesheet" href="<core:url value="/resources/static/center/chat/gen_chat.css"/>">
     <script type="text/javascript">
         $(document).ready(function () {
-            setCurrentDate($(".message_time"));
+            var textField = $(".new_genchat_message");
+            var me = {name:textField.getAttribute("data-name"),photo:textField.getAttribute("data-photo")};
+
+            $(".new_genchat_message_btn").click(function () {
+                var text = textField.val();
+                if (text.isEmpty()) return;
+                var time = getCurrentDate();
+                addMessage(me, time, text);
+            })
         });
+
+        function addMessage(user, time, text) {
+            $(".new_genchat_message_btn").after('<div class="message">\n' +
+                '        <div class="message_text">' + text + '</div>\n' +
+                '        <div class="message_info">\n' +
+                '            <img src="' + user.photo + '" class="person_photo_small">\n' +
+                '            <div class="person_name">' + user.name + '</div>\n' +
+                '            <div class="message_time">' + time + '</div>\n' +
+                '        </div>\n' +
+                '    </div>')
+        }
     </script>
 </head>
 <body>
 <div class="chat_gen_container">
+    <input type="text" placeholder="Добавить сообщение" class="new_genchat_message" data-name="${name}" data-photo="${photo}">
+    <button class="new_genchat_message_btn">Отправить</button>
     <div class="message">
         <div class="message_text">Сообщение 1</div>
         <div class="message_info">
