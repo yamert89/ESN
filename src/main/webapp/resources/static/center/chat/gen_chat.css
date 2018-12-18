@@ -48,11 +48,13 @@ img{
 
 .new_genchat_message{
     font-size: 1.2em;
-    width: 40%;
+    width: 87%;
     border-radius: 10px;
     outline: 0;
+    padding: 0 1em;
 }
 .new_genchat_message_btn{
+    width: 10%;
     font-size: 1.2em;
     border-radius: 10px;
     outline: 0;
