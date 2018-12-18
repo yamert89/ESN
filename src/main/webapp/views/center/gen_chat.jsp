@@ -1,4 +1,5 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -15,6 +16,7 @@
         $(document).ready(function () {
             var textField = $(".new_genchat_message");
             var me = {name:textField.getAttribute("data-name"),photo:textField.getAttribute("data-photo")};
+            $(".person_photo_small").attr("src", me.photo);
 
             $(".new_genchat_message_btn").click(function () {
                 var text = textField.val();
@@ -40,6 +42,16 @@
 <div class="chat_gen_container">
     <input type="text" placeholder="Добавить сообщение" class="new_genchat_message" data-name="${name}" data-photo="${photo}">
     <button class="new_genchat_message_btn">Отправить</button>
+    <c:forEach var="mes" items="${messages} ">
+        <div class="message">
+            <div class="message_text">${mes.text}</div>
+            <div class="message_info">
+                <img src="" class="person_photo_small">
+                <div class="person_name">${mes.nameAuthor}</div>
+                <div class="message_time">${mes.time}</div>
+            </div>
+        </div>
+    </c:forEach>
     <div class="message">
         <div class="message_text">Сообщение 1</div>
         <div class="message_info">
