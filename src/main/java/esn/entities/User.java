@@ -1,6 +1,7 @@
 package esn.entities;
 
 import esn.db.UserDAO;
+import esn.db.converters.PasswordConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import esn.utils.SimpleUtils;
 
@@ -20,7 +21,10 @@ public class User {
     @Column(nullable = false)
     private String name;
 
+    private String login;
+
     @Size(min = 6, max = 20, message = "От 6 до 20 символов")
+    @Convert(converter = PasswordConverter.class)
     private String password;
 
     private String nickName;

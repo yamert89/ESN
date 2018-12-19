@@ -1,4 +1,5 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Пендальф Синий
@@ -12,17 +13,29 @@
     <title>Auth</title>
 </head>
 <body>
-<sf:form method="post" modelAttribute="">
-    <label class="reg_field">
-        Введите Ваше имя
-        <sf:input path="userName" type="text" name="name"/>
-        <img src="${pageContext.request.contextPath}/resources/checkbox.jpg">
-    </label><br>
-    <label class="reg_field">
-        Введите пароль&nbsp&nbsp&nbsp&nbsp&nbsp
-        <sf:input path="userPassword" type="password" name="password"/>
-        <img src="${pageContext.request.contextPath}/resources/checkbox.jpg">
-    </label><br>
-</sf:form>
+<div class="reg_container">
+    <sf:form method="post">
+        <div class="reg_block">
+            <label>
+                Введите Ваше имя:&nbsp
+                <sf:input type="text" path="login"/>
+                <img src="${pageContext.request.contextPath}/resources/checkbox.jpg">
+            </label>
+        </div>
+        <div class="reg_block">
+            <label>
+                Введите пароль:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <sf:password path="userPassword"/>
+                <img src="${pageContext.request.contextPath}/resources/checkbox.jpg">
+            </label>
+        </div>
+        <div class="reg_block">
+            <a href="/user/reg">Регистрация</a>
+            <input type="submit" class="auth_submit_button" value="Войти">
+        </div>
+        <div>${error}</div> //TODO
+    </sf:form>
+</div>
+
 </body>
 </html>

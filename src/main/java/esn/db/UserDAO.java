@@ -34,4 +34,9 @@ public class UserDAO {
         return (User) em.createQuery("select u from User u where u.name = :name").setParameter("name", username).getSingleResult();
 
     }
+
+    @Transactional
+    public String getPassword(String login){
+        return (String) em.createQuery("select u.password from User u where u.login = :login").setParameter("login", login).getSingleResult();
+    }
 }

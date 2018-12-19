@@ -10,16 +10,16 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
 
 @Controller
 @RequestMapping("/user")
@@ -33,18 +33,34 @@ public class UserController {
         this.userDAO = userDAO;
     }
 
-    @RequestMapping("/auth")
+    @GetMapping("/auth")
     public String showAuthPage(){
         return "auth";
     }
 
-    @RequestMapping(value = "/r", method = RequestMethod.GET)
+    @PostMapping("/auth")
+    public String confirmAuth(@ModelAttribute String login, @ModelAttribute String password, Model model){
+        if (userDAO.getPassword(login).equals(SimpleUtils.getEncodedString(password))) return "redirect:/authorized";
+        model.addAttribute("error", "Пароль или логин введены не верно");
+        return "redirect:/auth";
+    }
+
+    @GetMapping(value = "/authorized")
+    public ModelAndView authorized(ModelMap model){
+
+        long userId = 0; //TODO get userId
+        model.addAttribute("userId", userId);
+        return new ModelAndView("redirect:/wall/", model);
+    }
+
+
+    @GetMapping("/reg")
     public String regUser(Model model){
         model.addAttribute(new User());
         return "reg";
     }
 
-    @RequestMapping(value = "/r", method = RequestMethod.POST)
+    @PostMapping("/r")
     public String addUserFromForm(@Valid User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false)MultipartFile image){
         System.out.println(bindingResult.getFieldErrors().size());
@@ -83,6 +99,8 @@ public class UserController {
 
         return "redirect:/user/" + user.getNickName();
     }
+
+
 
 
 
