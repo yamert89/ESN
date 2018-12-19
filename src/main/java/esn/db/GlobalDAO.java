@@ -21,10 +21,10 @@ public class GlobalDAO {
     private EntityManager em;
 
     @Transactional
-    public void saveGenMessage(String message, String nameAuthor, Timestamp time){
+    public void saveGenMessage(String message, long userId, Timestamp time){
         Query query = em.createNativeQuery("insert into generalchat values (null, ?, ?, ?)")
                 .setParameter(1, message)
-                .setParameter(2, nameAuthor)
+                .setParameter(2, userId)
                 .setParameter(3, time);
         query.executeUpdate();
     }
@@ -37,7 +37,7 @@ public class GlobalDAO {
                 .getResultList();
         for (Object[] row :
                 arr) {
-            list.add(new GenChatMessage((String) row[0], (String) row[1], (Timestamp) row[2]));
+            list.add(new GenChatMessage((String) row[0], (long) row[1], (Timestamp) row[2]));
         }
         return list;
 

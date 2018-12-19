@@ -4,18 +4,18 @@ import java.sql.Timestamp;
 
 public class GenChatMessage {
 
-    private String nameAuthor;
+    private long userId;
     private String text;
     private Timestamp time;
 
-    public GenChatMessage(String text, String nameAuthor, Timestamp time) {
-        this.nameAuthor = nameAuthor;
+    public GenChatMessage(String text, long userId, Timestamp time) {
+        this.userId = userId;
         this.text = text;
         this.time = time;
     }
 
-    public String getNameAuthor() {
-        return nameAuthor;
+    public long getUserId() {
+        return userId;
     }
 
     public String getText() {

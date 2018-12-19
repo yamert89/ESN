@@ -41,8 +41,9 @@ public class MainPageController {
 
 
 
-    @RequestMapping(value = "/wall/{user}", method = RequestMethod.GET)
-    public String wall(@PathVariable String user, Model model){
+    @GetMapping(value = "/wall")
+    public String wall(@RequestParam String userId, Model model){
+        model.addAttribute("userId", userId);
         return "wall";
     }
 

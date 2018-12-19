@@ -1,4 +1,3 @@
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -11,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<core:url value="/resources/static/center/chat/gen_chat.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/gen_chat.css"/>">
     <script type="text/javascript">
         $(document).ready(function () {
             var textField = $(".new_genchat_message");
@@ -23,7 +22,7 @@
                 if (text.isEmpty()) return;
                 var time = getCurrentDate();
                 addMessage(me, time, text);
-                $.ajax({type:"POST", url:"/savemessage", data:[USERID, text, time]})
+                $.ajax({type:"POST", url:"/savemessage", data:{"userId":userId, "text":text, "time":time}})
             })
         });
 
