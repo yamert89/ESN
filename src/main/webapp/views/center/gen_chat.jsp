@@ -47,7 +47,7 @@
             <div class="message_text">${mes.text}</div>
             <div class="message_info">
                 <img src="" class="person_photo_small">
-                <div class="person_name">${mes.nameAuthor}</div>
+                <div class="person_name">${mes.userId}</div>
                 <div class="message_time">${mes.time}</div>
             </div>
         </div>

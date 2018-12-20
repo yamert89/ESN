@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class GlobalDAO {
                 .getResultList();
         for (Object[] row :
                 arr) {
-            list.add(new GenChatMessage((String) row[0], (long) row[1], (Timestamp) row[2]));
+            list.add(new GenChatMessage((String) row[0], (int) row[1], (Timestamp) row[2]));
         }
         return list;
 

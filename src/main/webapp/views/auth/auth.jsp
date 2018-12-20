@@ -14,27 +14,27 @@
 </head>
 <body>
 <div class="reg_container">
-    <sf:form method="post">
+    <form method="post" id="send" action="/rosles/auth">
         <div class="reg_block">
             <label>
                 Введите Ваше имя:&nbsp
-                <sf:input type="text" path="login"/>
-                <img src="${pageContext.request.contextPath}/resources/checkbox.jpg">
+                <input type="text" form="send" name="login"/>
+
             </label>
         </div>
         <div class="reg_block">
             <label>
                 Введите пароль:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <sf:password path="userPassword"/>
-                <img src="${pageContext.request.contextPath}/resources/checkbox.jpg">
+                <input type="password" form="send" name="password">
+
             </label>
         </div>
         <div class="reg_block">
-            <a href="/user/reg">Регистрация</a>
+
             <input type="submit" class="auth_submit_button" value="Войти">
         </div>
-        <div>${error}</div> //TODO
-    </sf:form>
+
+    </form>
 </div>
 
 </body>

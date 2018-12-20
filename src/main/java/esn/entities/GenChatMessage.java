@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 public class GenChatMessage {
 
-    private long userId;
+    private int userId; //TODO передать имя
     private String text;
     private Timestamp time;
 
-    public GenChatMessage(String text, long userId, Timestamp time) {
+    public GenChatMessage(String text, int userId, Timestamp time) {
         this.userId = userId;
         this.text = text;
         this.time = time;

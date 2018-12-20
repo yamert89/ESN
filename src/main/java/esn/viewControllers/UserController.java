@@ -1,7 +1,7 @@
 package esn.viewControllers;
 
+import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.entities.Organization;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
 import esn.utils.ImageResizer;
@@ -19,34 +19,47 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.security.MessageDigest;
 
 @Controller
-
+@SessionAttributes("user")
 public class UserController {
 
     private UserDAO userDAO;
+    private OrganizationDAO orgDAO;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
-    @GetMapping("/auth")
-    public String showAuthPage(){
+    @Autowired
+    public void setOrgDAO(OrganizationDAO orgDAO) {
+        this.orgDAO = orgDAO;
+    }
+
+
+    @GetMapping("/{org}/auth")
+    public String showAuthPage(@PathVariable String org){
         return "auth";
     }
 
-    @PostMapping("/auth")
-    public String confirmAuth(@ModelAttribute String login, @ModelAttribute String password, Model model){
+    @PostMapping("/{org}/auth")
+    public String confirmAuth(@RequestParam String login, @RequestParam String password,
+                              Model model, @PathVariable String org){
+        try {
+            System.out.println(login);
+            System.out.println(password);
 
-        if (userDAO.getPassword(login).equals(SimpleUtils.getEncodedString(password))) {
-            User user = userDAO.getUserByLogin(login);
-            model.addAttribute(user);
-            return "redirect:/authorized";
+            if (userDAO.getPassword(login).equals(SimpleUtils.getEncodedString(password))) {
+                User user = userDAO.getUserByLogin(login);
+                model.addAttribute(user);
+                return "redirect:/authorized";
+            }
+
+            model.addAttribute("command", "Пароль или логин введены не верно");
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        model.addAttribute("error", "Пароль или логин введены не верно");
 
         return "redirect:/auth";
     }
@@ -60,15 +73,15 @@ public class UserController {
     }
 
 
-    @GetMapping("/reg")
-    public String regUser(Model model){
+    @GetMapping("/{org}/reg")
+    public String regUser(Model model, @PathVariable String org){
         model.addAttribute(new User());
         return "reg";
     }
 
-    @PostMapping("/reg")
+    @PostMapping("/{org}/reg")
     public String addUserFromForm(@Valid User user, BindingResult bindingResult,
-                                  @RequestParam(value = "image", required = false)MultipartFile image){
+                                  @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
         System.out.println(bindingResult.getFieldErrors().size());
         if (bindingResult.hasErrors()) return "reg";
         if (!image.isEmpty()) {
@@ -100,7 +113,7 @@ public class UserController {
         System.out.println(user);
 
 
-        user.setOrganization(new Organization("MockOrg", "mockorg"));//TODO do not work  - organization null
+        user.setOrganization(orgDAO.getOrgByURL(org));//TODO do not work  - organization null
         userDAO.persistUser(user);
 
         return "redirect:/user/" + user.getNickName();

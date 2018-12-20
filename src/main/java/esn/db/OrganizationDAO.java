@@ -27,8 +27,13 @@ public class OrganizationDAO {
 
     @Transactional
     public Organization getOrgById(Integer id){
-
        return em.find(Organization.class, id);
+    }
+
+    @Transactional
+    public Organization getOrgByURL(String url){
+        return (Organization) em.createQuery("select org from Organization org where org.urlName = :url")
+                .setParameter("url", url).getSingleResult();
     }
 
 }

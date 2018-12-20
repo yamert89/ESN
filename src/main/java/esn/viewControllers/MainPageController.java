@@ -17,7 +17,7 @@ import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/{organization}")
-
+@SessionAttributes
 public class MainPageController {
 
 

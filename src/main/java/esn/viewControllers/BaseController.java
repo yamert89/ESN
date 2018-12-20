@@ -1,30 +1,34 @@
 package esn.viewControllers;
 
 import esn.db.GlobalDAO;
-import esn.db.PrivateChatMessageDAO;
+import esn.db.OrganizationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
 
 @Controller
+@SessionAttributes
 public class BaseController {
 
     private GlobalDAO globalDAO;
+    private OrganizationDAO orgDAO;
 
     @Autowired
     public void setGlobalDAO(GlobalDAO globalDAO) {
         this.globalDAO = globalDAO;
     }
+    @Autowired
+    public void setOrgDAO(OrganizationDAO orgDAO) {
+        this.orgDAO = orgDAO;
+    }
 
-    @GetMapping(value = "/")
-    public String start(){
+    @GetMapping(value = "/{organization}")
+    public String start(@PathVariable String organization){
+
         //TODO get cookies
-       return "redirect:/user/auth";
+       return "redirect:/" + organization + "/auth";
     }
 
 
