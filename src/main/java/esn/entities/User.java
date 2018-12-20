@@ -93,6 +93,10 @@ public class User {
         return password;
     }
 
+    public Organization getOrganization() {
+        return organization;
+    }
+
     /*public Department getDepartment() {
         if (department != null) return department;
         return userDAO.getDepartment(this);

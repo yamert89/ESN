@@ -15,14 +15,15 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
+        //refDepartment_users();
         //beanTest();
-        restoreObjects();
+        //restoreObjects();
         //privateChat();
         //saveChildren();
         //getChildren();
-        //org_users();
+        org_users();
         //positions();
-        //refDepartment_users();
+
 
     }
 
@@ -52,18 +53,18 @@ public class Main {
     }
 
     private static void org_users() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("/app_context.xml");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         Organization org = organizationDAO.getOrgById(1);
-       /* User olga = new User("Olga", org, userDao);
-        User anna = new User("Anna", org, userDao);
+        User olga = new User("Olga", org);
+        User anna = new User("Anna", org);
 
         userDao.persistUser(olga);
         userDao.persistUser(anna);
         org.getAllEmployers().add(olga);
         org.getAllEmployers().add(anna);
-        organizationDAO.update(org);*/
+        organizationDAO.update(org);
         System.out.println(org.getAllEmployers());
     }
 

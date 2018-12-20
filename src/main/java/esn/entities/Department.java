@@ -1,6 +1,7 @@
 package esn.entities;
 
 import esn.db.DepartmentDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ public class Department {
     private Set<Department> children;
 
     @Transient
-    private DepartmentDAO departmentDAO; //TODO сильная связь. Можно избежать?
+    private DepartmentDAO departmentDAO;
 
 
     public Department() {
@@ -51,6 +52,8 @@ public class Department {
         this.description = description;
 
     }
+
+
 
     public void setName(String name) {
         this.name = name;
@@ -103,7 +106,7 @@ public class Department {
         if (children != null) return children;
         return departmentDAO.getChildren(this);
     }
-
+    @Autowired
     public void setDepartmentDAO(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
     }

@@ -30,8 +30,8 @@ public class UserDAO {
     }
 
     @Transactional
-    public User getUserByName(String username) {
-        return (User) em.createQuery("select u from User u where u.name = :name").setParameter("name", username).getSingleResult();
+    public User getUserByLogin(String login) {
+        return (User) em.createQuery("select u from User u where u.login = :login").setParameter("login", login).getSingleResult();
 
     }
 

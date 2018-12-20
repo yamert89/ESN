@@ -16,6 +16,7 @@ public class Organization {
     @Column(nullable = false)
     private String name;
 
+    private String urlName;
 
     private String description;
 
@@ -49,6 +50,14 @@ public class Organization {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUrlName() {
+        return urlName;
+    }
+
+    public void setUrlName(String urlName) {
+        this.urlName = urlName;
     }
 
     public int getId() {

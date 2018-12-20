@@ -16,8 +16,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 @Controller
-@RequestMapping("/index")
-@SessionAttributes("index")
+@RequestMapping("/{organization}")
+
 public class MainPageController {
 
 
@@ -42,8 +42,9 @@ public class MainPageController {
 
 
     @GetMapping(value = "/wall")
-    public String wall(@RequestParam String userId, Model model){
+    public String wall(@RequestParam String userId, Model model, @PathVariable String organization){
         model.addAttribute("userId", userId);
+        model.addAttribute("organization", organization);
         return "wall";
     }
 

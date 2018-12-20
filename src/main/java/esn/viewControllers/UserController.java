@@ -22,8 +22,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 
 @Controller
-@RequestMapping("/user")
-@SessionAttributes("user")
+
 public class UserController {
 
     private UserDAO userDAO;
@@ -40,17 +39,24 @@ public class UserController {
 
     @PostMapping("/auth")
     public String confirmAuth(@ModelAttribute String login, @ModelAttribute String password, Model model){
-        if (userDAO.getPassword(login).equals(SimpleUtils.getEncodedString(password))) return "redirect:/authorized";
+
+        if (userDAO.getPassword(login).equals(SimpleUtils.getEncodedString(password))) {
+            User user = userDAO.getUserByLogin(login);
+            model.addAttribute(user);
+            return "redirect:/authorized";
+        }
+
         model.addAttribute("error", "Пароль или логин введены не верно");
+
         return "redirect:/auth";
     }
 
     @GetMapping(value = "/authorized")
-    public ModelAndView authorized(ModelMap model){
+    public ModelAndView authorized(ModelMap model, @ModelAttribute User user){
 
-        long userId = 0; //TODO get userId
+        long userId = user.getId(); //TODO get userId
         model.addAttribute("userId", userId);
-        return new ModelAndView("redirect:/wall/", model);
+        return new ModelAndView("redirect:/" + user.getOrganization().getUrlName() + "/wall/", model);
     }
 
 
@@ -60,7 +66,7 @@ public class UserController {
         return "reg";
     }
 
-    @PostMapping("/r")
+    @PostMapping("/reg")
     public String addUserFromForm(@Valid User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false)MultipartFile image){
         System.out.println(bindingResult.getFieldErrors().size());
