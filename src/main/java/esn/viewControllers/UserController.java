@@ -56,7 +56,10 @@ public class UserController {
             if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  {
 
                 System.out.println(password);
-                System.out.println(user.getPassword());
+                for (byte b :
+                        user.getPassword()) {
+                    System.out.println(b);
+                }
                 System.out.println(SimpleUtils.getEncodedPassword(password.getBytes()));
                 model.addAttribute("error", "Пароль введен неверно");
                 return "auth";
@@ -119,7 +122,7 @@ public class UserController {
         System.out.println(user.getPassword()); //[B@20823413
         for (byte b :
                 user.getPassword()) {
-            System.out.print(b);
+            System.out.println(b);
         }
 
 
