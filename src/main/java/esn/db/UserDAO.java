@@ -40,4 +40,5 @@ public class UserDAO {
     public String getPassword(String login) throws Exception{
         return (String) em.createQuery("select u.password from User u where u.login = :login").setParameter("login", login).getSingleResult();
     }
+
 }

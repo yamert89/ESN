@@ -3,7 +3,16 @@ import esn.utils.GeneralSettings;
 public class SimpleTests {
     public static void main(String[] args) {
         try{
-            props();
+            //props();
+            String s = "fuck234".intern();
+            String s1 = "fuck234";
+            String s2 = "fuck234";
+            String s3 = "fuck234";
+
+            System.out.println(s == s1);
+            System.out.println(s == s2);
+            System.out.println(s3 == s2);
+
         }catch (Exception e){
             e.printStackTrace();
         }

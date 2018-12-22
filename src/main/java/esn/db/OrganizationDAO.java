@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 @Repository("orgDao")
@@ -34,6 +35,20 @@ public class OrganizationDAO {
     public Organization getOrgByURL(String url){
         return (Organization) em.createQuery("select org from Organization org where org.urlName = :url")
                 .setParameter("url", url).getSingleResult();
+    }
+
+    @Transactional
+    public List<String> getNickNames(){
+        List<String> list = em.createQuery("select u.nickName from User u").getResultList();
+        list.forEach(item -> item = item.intern());
+        return list;
+    }
+
+    @Transactional
+    public List<String> getLogins(){
+        List<String> list = em.createQuery("select u.login from User u").getResultList();
+        list.forEach(item -> item = item.intern());
+        return list;
     }
 
 }

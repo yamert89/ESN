@@ -91,7 +91,8 @@ public class UserController {
     public String addUserFromForm(@Valid User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
         System.out.println(bindingResult.getFieldErrors().size());
-        if (bindingResult.hasErrors()) return "reg";
+        if (bindingResult.hasErrors() || orgDAO.getLogins().contains(user.getLogin()) ||
+                                            orgDAO.getNickNames().contains(user.getNickName())) return "reg";
         if (!image.isEmpty()) {
             try {
                 String expansion = SimpleUtils.getExpansion(image);
@@ -126,10 +127,10 @@ public class UserController {
         }
 
 
-        user.setOrganization(orgDAO.getOrgByURL(org));//TODO do not work  - organization null
+        user.setOrganization(orgDAO.getOrgByURL(org));
         userDAO.persistUser(user);
 
-        return "redirect:/user/" + user.getNickName();
+        return "redirect:/" + org + "/user/" + user.getNickName(); //TODO user settings page
     }
 
 
