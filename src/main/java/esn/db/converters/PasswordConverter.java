@@ -3,17 +3,16 @@ package esn.db.converters;
 import esn.utils.SimpleUtils;
 
 import javax.persistence.AttributeConverter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
-public class PasswordConverter implements AttributeConverter<String, String> {
+public class PasswordConverter implements AttributeConverter<byte[], byte[]> {
     @Override
-    public String convertToDatabaseColumn(String s) {
-        return SimpleUtils.getEncodedString(s);
+    public byte[] convertToDatabaseColumn(byte[] input) {
+        return SimpleUtils.getEncodedPassword(input);
     }
 
     @Override
-    public String convertToEntityAttribute(String fromBD) {
+    public byte[] convertToEntityAttribute(byte[] fromBD) {
         return fromBD;
+
     }
 }

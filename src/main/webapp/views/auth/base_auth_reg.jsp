@@ -12,6 +12,7 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="<core:url value="/resources/static/auth/start.css"/>">
+    <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
 </head>
 <body>
 <t:insertAttribute name="auth_reg"/>

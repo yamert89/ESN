@@ -6,6 +6,7 @@ import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.PrivateChatMessage;
 import esn.entities.User;
+import esn.utils.SimpleUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,13 +16,14 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println(SimpleUtils.getEncodedPassword("password".getBytes()));
         //refDepartment_users();
         //beanTest();
         //restoreObjects();
         //privateChat();
         //saveChildren();
         //getChildren();
-        org_users();
+        //org_users();
         //positions();
 
 

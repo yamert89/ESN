@@ -20,7 +20,15 @@
             Введите Ваше имя:
             <sf:input path="name" size="50" maxlength="50"/>
             <img src="resources/checkbox.jpg">
-            <sf:errors path="name" cssClass="error"/>
+            <sf:errors path="name" cssClass="jspError"/>
+        </label>
+    </div>
+    <div class="reg_block">
+        <label>
+            Введите логин:
+            <sf:input path="login" size="20" maxlength="20"/>
+            <img src="resources/checkbox.jpg">
+            <sf:errors path="name" cssClass="jspError"/>
         </label>
     </div>
     <div class="reg_block">
@@ -28,7 +36,7 @@
             Введите пароль:
             <sf:password path="password" size="20"/>
             <img src="${pageContext.request.contextPath}resources/checkbox.jpg">
-            <sf:errors path="password" cssClass="error"/>
+            <sf:errors path="password" cssClass="jspError"/>
         </label>
     </div>
     <div class="reg_block">

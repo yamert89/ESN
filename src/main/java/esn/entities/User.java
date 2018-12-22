@@ -2,8 +2,8 @@ package esn.entities;
 
 import esn.db.UserDAO;
 import esn.db.converters.PasswordConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import esn.utils.SimpleUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -24,8 +24,9 @@ public class User {
     private String login;
 
     @Size(min = 6, max = 20, message = "От 6 до 20 символов")
+    @Lob
     @Convert(converter = PasswordConverter.class)
-    private String password;
+    private byte[] password;
 
     private String nickName;
 
@@ -89,7 +90,7 @@ public class User {
         return position;
     }
 
-    public String getPassword(){
+    public byte[] getPassword(){
         return password;
     }
 
@@ -151,12 +152,20 @@ public class User {
         this.photo_small = photo_small;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(byte[] password) {
         this.password = password;
     }
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override

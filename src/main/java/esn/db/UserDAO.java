@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Repository("user_dao")
@@ -30,13 +31,13 @@ public class UserDAO {
     }
 
     @Transactional
-    public User getUserByLogin(String login) {
+    public User getUserByLogin(String login) throws NoResultException {
         return (User) em.createQuery("select u from User u where u.login = :login").setParameter("login", login).getSingleResult();
 
     }
 
     @Transactional
-    public String getPassword(String login){
+    public String getPassword(String login) throws Exception{
         return (String) em.createQuery("select u.password from User u where u.login = :login").setParameter("login", login).getSingleResult();
     }
 }

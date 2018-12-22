@@ -10,15 +10,16 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Controller
 @SessionAttributes("user")
@@ -39,37 +40,41 @@ public class UserController {
 
 
     @GetMapping("/{org}/auth")
-    public String showAuthPage(@PathVariable String org){
+    public String showAuthPage(@PathVariable String org, Model model){
+        model.addAttribute("org", org);
         return "auth";
     }
 
     @PostMapping("/{org}/auth")
     public String confirmAuth(@RequestParam String login, @RequestParam String password,
-                              Model model, @PathVariable String org){
+                              Model model, @PathVariable String org, RedirectAttributes attributes){
+        User user = null;
         try {
-            System.out.println(login);
-            System.out.println(password);
+            user = userDAO.getUserByLogin(login);
 
-            if (userDAO.getPassword(login).equals(SimpleUtils.getEncodedString(password))) {
-                User user = userDAO.getUserByLogin(login);
-                model.addAttribute(user);
-                return "redirect:/authorized";
+
+            if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  {
+
+                System.out.println(password);
+                System.out.println(user.getPassword());
+                System.out.println(SimpleUtils.getEncodedPassword(password.getBytes()));
+                model.addAttribute("error", "Пароль введен неверно");
+                return "auth";
             }
 
-            model.addAttribute("command", "Пароль или логин введены не верно");
+
+        }catch (NoResultException e){
+            System.out.println("NO RESULT");
+            model.addAttribute("error", "Логин введен неверно");
+            return "auth";
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        return "redirect:/auth";
-    }
-
-    @GetMapping(value = "/authorized")
-    public ModelAndView authorized(ModelMap model, @ModelAttribute User user){
-
+        /*attributes.addAttribute(user);
+        attributes.addAttribute(org);*/
         long userId = user.getId(); //TODO get userId
-        model.addAttribute("userId", userId);
-        return new ModelAndView("redirect:/" + user.getOrganization().getUrlName() + "/wall/", model);
+        attributes.addAttribute("userId", userId);
+        return "redirect:/" + org + "/wall/";
     }
 
 
@@ -111,6 +116,11 @@ public class UserController {
             }
         }
         System.out.println(user);
+        System.out.println(user.getPassword()); //[B@20823413
+        for (byte b :
+                user.getPassword()) {
+            System.out.print(b);
+        }
 
 
         user.setOrganization(orgDAO.getOrgByURL(org));//TODO do not work  - organization null

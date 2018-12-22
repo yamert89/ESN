@@ -19,4 +19,13 @@
     background-color: #ded9dd;
 }
 
+.jspError{
+    color: red;
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+form{
+    margin-bottom: 0;
+}
+
 /*wall and chat*/

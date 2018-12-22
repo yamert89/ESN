@@ -39,14 +39,14 @@ public class SimpleUtils {
         }
     }
 
-    public static String getEncodedString(String s){
+    public static byte[] getEncodedPassword(byte[] input){
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return md.digest(s.getBytes()).toString();
+        return md.digest(input);
     }
 
 

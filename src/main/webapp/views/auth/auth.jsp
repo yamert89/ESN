@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="reg_container">
-    <form method="post" id="send" action="/rosles/auth">
+    <form method="post" id="send" action="/${org}/auth">
         <div class="reg_block">
             <label>
                 Введите Ваше имя:&nbsp
@@ -30,11 +30,12 @@
             </label>
         </div>
         <div class="reg_block">
-
+            <a href="/${org}/reg">Регистрация</a>
             <input type="submit" class="auth_submit_button" value="Войти">
         </div>
 
     </form>
+    <div class="jspError">${error}</div>
 </div>
 
 </body>
