@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -75,7 +76,7 @@ public class UserController {
         }
         /*attributes.addAttribute(user);
         attributes.addAttribute(org);*/
-        long userId = user.getId(); //TODO get userId
+        long userId = user.getId();
         attributes.addAttribute("userId", userId);
         return "redirect:/" + org + "/wall/";
     }
@@ -88,11 +89,15 @@ public class UserController {
     }
 
     @PostMapping("/{org}/reg")
-    public String addUserFromForm(@Valid User user, BindingResult bindingResult,
+    public String addUserFromForm(@Valid @ModelAttribute("user")User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
         System.out.println(bindingResult.getFieldErrors().size());
-        if (bindingResult.hasErrors() || orgDAO.getLogins().contains(user.getLogin()) ||
-                                            orgDAO.getNickNames().contains(user.getNickName())) return "reg";
+        if (bindingResult.hasErrors()) return "reg";
+        if (orgDAO.getLogins().contains(user.getLogin())) {
+            bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
+            return "reg";
+        }
+       /* if (orgDAO.getNickNames().contains(user.getNickName())) return "reg";*/ //TODO need to move
         if (!image.isEmpty()) {
             try {
                 String expansion = SimpleUtils.getExpansion(image);

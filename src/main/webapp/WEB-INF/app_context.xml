@@ -15,6 +15,8 @@
     <tx:annotation-driven/>
     <import resource="dao.xml"/>
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
     <bean id="organiz" class="esn.entities.Organization">
         <constructor-arg name="name" value="Roslesinforg"/>
         <constructor-arg name="description" value="tra la la"/>

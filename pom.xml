@@ -104,6 +104,14 @@
       <version>2.0.0.Final</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.0.13.Final</version>
+    </dependency>
+
+
     <!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
     <dependency>
       <groupId>org.apache.tiles</groupId>

@@ -10,6 +10,24 @@
 <html>
 <head>
     <title>Registration</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var pass1 = $("#pass1");
+            $(".reg_field").keyup(function () {
+                var th = $(this);
+                if (th.val().length > 6 && th === pass1) th.next().removeClass("checkbox");
+                else th.next().addClass("checkbox");
+                if (th.val().length > 3 && th !== pass1) th.next().removeClass("checkbox");
+                else th.next().addClass("checkbox");
+
+                if (pass1.val() == $("#pass2").val()) $("#error_pass").text("");
+                else {
+                    $("#error_pass").text("Пароли не совпадают");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -18,42 +36,42 @@
     <div class="reg_block">
         <label>
             Введите Ваше имя:
-            <sf:input path="name" size="50" maxlength="50"/>
-            <img src="resources/checkbox.jpg">
+            <sf:input path="name" size="50" maxlength="50" cssClass="reg_field"/>
+            <img src="/resources/checkbox.jpg" class="checkbox">
             <sf:errors path="name" cssClass="jspError"/>
         </label>
     </div>
     <div class="reg_block">
         <label>
             Введите логин:
-            <sf:input path="login" size="20" maxlength="20"/>
-            <img src="resources/checkbox.jpg">
-            <sf:errors path="name" cssClass="jspError"/>
+            <sf:input path="login" size="20" maxlength="20" cssClass="reg_field"/>
+            <img src="/resources/checkbox.jpg" class="checkbox">
+            <sf:errors path="login" cssClass="jspError"/>
         </label>
     </div>
     <div class="reg_block">
         <label>
             Введите пароль:
-            <sf:password path="password" size="20"/>
-            <img src="${pageContext.request.contextPath}resources/checkbox.jpg">
+            <sf:password path="password" size="20" cssClass="reg_field" id="pass1"/>
+            <img src="/resources/checkbox.jpg" class="checkbox">
             <sf:errors path="password" cssClass="jspError"/>
         </label>
     </div>
     <div class="reg_block">
         <label>
             Повторите пароль:
-            <input type="password">
-            <img src="../../resources/checkbox.jpg">
+            <input type="password" class="reg_field" id="pass2">
+            <img src="/resources/checkbox.jpg" class="checkbox">
+            <span class="jspError" id="error_pass"></span>
         </label>
     </div>
     <div class="form_photo reg_block">
         <label>Загрузите фото:
             <input type="file" name="image" class="select_avatar">
-            <img src="../../resources/checkbox.jpg">
         </label>
     </div>
         <div class="reg_block">
-            <input name="commit" type="submit" value="Зарегистрировать">
+            <input class="commit" type="submit" value="Зарегистрировать">
         </div>
     </sf:form>
 </div>

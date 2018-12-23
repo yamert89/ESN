@@ -40,14 +40,18 @@ public class OrganizationDAO {
     @Transactional
     public List<String> getNickNames(){
         List<String> list = em.createQuery("select u.nickName from User u").getResultList();
-        list.forEach(item -> item = item.intern());
+        list.forEach(String::intern);
         return list;
     }
 
     @Transactional
     public List<String> getLogins(){
         List<String> list = em.createQuery("select u.login from User u").getResultList();
-        list.forEach(item -> item = item.intern());
+        System.out.println(list.size());
+        for (String s :
+                list) {
+            s.intern();
+        }
         return list;
     }
 

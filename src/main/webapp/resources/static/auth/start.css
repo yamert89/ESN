@@ -36,6 +36,9 @@ button{
     background-color: rgba(189, 250, 138, 0.4);
     transition: background-color 0.1s ease;
 }
+.commit{
+    margin-right: 30px;
+}
 
 
 input, .input_avatar{

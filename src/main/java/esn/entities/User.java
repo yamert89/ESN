@@ -6,6 +6,7 @@ import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
@@ -17,15 +18,19 @@ public class User {
     @GeneratedValue
     private int id;
 
-    @Size(min = 4, max = 50, message = "Имя должно быть не короче 4 и не длиннее 50 символов")
+    @Size(min = 4, max = 50, message = "От 4х до 50 символов")
     @Column(nullable = false)
+    @NotNull(message = "Имя не должно быть пустым")
     private String name;
 
+    @Size(min = 4, max = 20, message = "От 3х до 20 символов")
+    @NotNull(message = "Логин не может быть пустым")
     private String login;
 
     @Size(min = 6, max = 20, message = "От 6 до 20 символов")
     @Lob
     @Convert(converter = PasswordConverter.class)
+    @NotNull(message = "Пароль не может быть пустым")
     private byte[] password;
 
     private String nickName;
