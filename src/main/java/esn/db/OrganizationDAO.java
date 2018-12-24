@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Repository("orgDao")
@@ -33,8 +34,16 @@ public class OrganizationDAO {
 
     @Transactional
     public Organization getOrgByURL(String url){
-        return (Organization) em.createQuery("select org from Organization org where org.urlName = :url")
-                .setParameter("url", url).getSingleResult();
+        Organization organization = null;
+
+        try {
+            organization = (Organization) em.createQuery("select org from Organization org where org.urlName = :url")
+                    .setParameter("url", url).getSingleResult();
+        }catch (NoSuchElementException e){
+            System.out.println("URL " + url);
+            e.printStackTrace();
+        }
+        return organization;
     }
 
     @Transactional
@@ -48,10 +57,7 @@ public class OrganizationDAO {
     public List<String> getLogins(){
         List<String> list = em.createQuery("select u.login from User u").getResultList();
         System.out.println(list.size());
-        for (String s :
-                list) {
-            s.intern();
-        }
+        list.forEach(item -> item = item.intern());
         return list;
     }
 
