@@ -42,9 +42,10 @@ public class MainPageController {
 
 
     @GetMapping(value = "/wall")
-    public String wall(@RequestParam String userId, Model model, @PathVariable String organization){
-        model.addAttribute("userId", userId);
+    public String wall(/*@RequestParam String userId, */Model model, @PathVariable String organization){
+        //model.addAttribute("userId", userId); //TODO uncomment
         model.addAttribute("organization", organization);
+
         return "wall";
     }
 

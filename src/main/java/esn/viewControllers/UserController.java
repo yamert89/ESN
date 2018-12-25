@@ -20,7 +20,6 @@ import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 @Controller
 @SessionAttributes("user")
@@ -54,7 +53,8 @@ public class UserController {
             user = userDAO.getUserByLogin(login);
 
 
-            if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  {
+            //if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  { //TODO uncomment
+                if (false)  {
 
                 System.out.println(password);
                 for (byte b :
@@ -77,7 +77,7 @@ public class UserController {
         /*attributes.addAttribute(user);
         attributes.addAttribute(org);*/
         long userId = user.getId();
-        attributes.addAttribute("userId", userId);
+        //attributes.addAttribute("userId", userId); TODO uncomment
         return "redirect:/" + org + "/wall/";
     }
 
@@ -135,12 +135,17 @@ public class UserController {
         user.setOrganization(orgDAO.getOrgByURL(org));
         userDAO.persistUser(user);
 
-        return "redirect:/" + org + "/user/" + user.getLogin(); //TODO user settings page
+        return "redirect:/" + org + "/user/" + user.getLogin();
     }
 
     @GetMapping("/{org}/user/{login}")
     public String userProfile(@PathVariable String org, @PathVariable String login, Model model){
-        User user = userDAO.getUserByLogin(login);
+        User user = null;
+        try {
+            user = userDAO.getUserByLogin(login);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         model.addAttribute(user);
         return ""; //TODO
 

@@ -1,39 +1,46 @@
+$(document).ready(function () {
+    $('.post_add').click(function () {
+        showEditor();
+    });
+});
+
 function showEditor() {
     var submit = $(".post_submit");
-    try{
+    try {
         var editor = CKEDITOR.replace('editor');
         /*editor.config.autoParagraph = false;*/
         CKEDITOR.instances.editor.setData('<p></p>');
-    }catch (e) {
+    } catch (e) {
         /*CKEDITOR.instances.editor.updateElement();
         CKEDITOR.replace('editor');*/
     }
-    $(document).ready(function () {
-        $(".post_add").css("display", "none");
-        submit.css({"display":"inline"});
-        submit.click(function () {
-            var data = CKEDITOR.instances.editor.getData();
-            hideEditor();
 
-            var NAME = ''; //TODO server
-            var IMG = ''; //TODO server
-            var TIME = getCurrentDate();
 
-            $(".posts").prepend('<div class="post">' +
-                '<div class="message_info_wrapper">' +
-                '<div class="message_info_w">' +
-                '<img src="'+ IMG +'" class="person_photo_small">' +
-                '<div class="person_name_w">' + NAME + '</div>' +
-                '<div class="message_time_w">' + TIME + '</div>' +
-                '</div>' +
-                '</div>' + data + '</div');
+    $(".post_add").css("display", "none");
+    submit.css({"display": "inline"});
+    submit.click(function () {
+        var data = CKEDITOR.instances.editor.getData();
+        hideEditor();
 
-            //TODO server save
-        });
+        var NAME = ''; //TODO server
+        var IMG = ''; //TODO server
+        var TIME = getCurrentDate();
+
+        $(".posts").prepend('<div class="post">' +
+            '<div class="message_info_wrapper">' +
+            '<div class="message_info_w">' +
+            '<img src="' + IMG + '" class="person_photo_small">' +
+            '<div class="person_name_w">' + NAME + '</div>' +
+            '<div class="message_time_w">' + TIME + '</div>' +
+            '</div>' +
+            '</div>' + data + '</div');
+
+        //TODO server save
     });
-
-
 }
+
+
+
 
 function hideEditor() {
     var submit = $(".post_submit");

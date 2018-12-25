@@ -2,7 +2,6 @@ package esn.entities;
 
 import esn.db.UserDAO;
 import esn.db.converters.PasswordConverter;
-import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -24,10 +23,10 @@ public class User {
     private String name;
 
     @Size(min = 4, max = 20, message = "От 3х до 20 символов")
-    @NotNull(message = "Логин не может быть пустым")
+    @NotNull
     private String login;
 
-    @Size(min = 6, max = 20, message = "От 6 до 20 символов")
+    @Size(min = 6, max = 32, message = "От 6 до 32 символов")
     @Lob
     @Convert(converter = PasswordConverter.class)
     @NotNull(message = "Пароль не может быть пустым")

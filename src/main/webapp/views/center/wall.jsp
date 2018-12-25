@@ -12,6 +12,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="<core:url value="/resources/static/center/wall/wall.css"/>">
     <script type="text/javascript" src="<core:url value="/resources/static/center/wall/wall.js"/>"></script>
+    <script type="text/javascript" src="<core:url value="/resources/static/center/wall/wall.js"/>"></script>
 </head>
 <body>
 <div class="post_add_wrapper">
