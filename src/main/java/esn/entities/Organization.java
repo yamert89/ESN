@@ -92,10 +92,10 @@ public class Organization {
         departments.add(department);
     }
 
-    public User getUserByNickName(String nickname){
+    public User getUserByLogin(String nickname){
         for (User user:
              allEmployers) {
-            if (user.getNickName().equals(nickname)) return user;
+            if (user.getLogin().equals(nickname)) return user;
         }
         return null;
     }

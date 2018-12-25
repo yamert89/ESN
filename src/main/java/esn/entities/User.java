@@ -33,9 +33,6 @@ public class User {
     @NotNull(message = "Пароль не может быть пустым")
     private byte[] password;
 
-    private String nickName;
-
-
     private boolean admin;
 
 
@@ -124,17 +121,8 @@ public class User {
         return settings;
     }
 
-    public String getNickName() {
-        if (nickName == null) nickName = SimpleUtils.getNickName(name);
-        return nickName;
-    }
-
     public boolean netStatus() {
         return netStatus;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     public void setName(String name) {

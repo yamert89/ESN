@@ -103,8 +103,8 @@ public class UserController {
                 String expansion = SimpleUtils.getExpansion(image);
                 if (expansion != null) {
 
-                    String fileName = user.getNickName().concat(".").concat(expansion);
-                    String fileNameSmall = user.getNickName().concat("_small").concat(".").concat(expansion);
+                    String fileName = user.getLogin().concat(".").concat(expansion);
+                    String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(expansion);
                     byte[] bytes = image.getBytes();
                     byte[] bigImage = ImageResizer.resizeBig(bytes, expansion);
                     byte[] smallImage = ImageResizer.resizeSmall(bytes, expansion);
@@ -135,7 +135,15 @@ public class UserController {
         user.setOrganization(orgDAO.getOrgByURL(org));
         userDAO.persistUser(user);
 
-        return "redirect:/" + org + "/user/" + user.getNickName(); //TODO user settings page
+        return "redirect:/" + org + "/user/" + user.getLogin(); //TODO user settings page
+    }
+
+    @GetMapping("/{org}/user/{login}")
+    public String userProfile(@PathVariable String org, @PathVariable String login, Model model){
+        User user = userDAO.getUserByLogin(login);
+        model.addAttribute(user);
+        return ""; //TODO
+
     }
 
 

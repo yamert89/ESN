@@ -55,7 +55,7 @@ public class MainPageController {
 
     @RequestMapping(value = "/chat/{user}")
     public String genChat(@PathVariable String user, Model model){
-        User usr = org.getUserByNickName(user);
+        User usr = org.getUserByLogin(user);
         model.addAttribute("name", usr.getName());
         model.addAttribute("photo", usr.getPhoto_small());
         model.addAttribute("messages", globalDAO.getGenMessages());
@@ -65,8 +65,8 @@ public class MainPageController {
     @RequestMapping(value = "/private-chat/{user}")
     public String privateChat(@PathVariable String user,
                               @RequestParam(value = "companion") String companion, Model model){
-        User usr = org.getUserByNickName(user);
-        User compan = org.getUserByNickName(companion);
+        User usr = org.getUserByLogin(user);
+        User compan = org.getUserByLogin(companion);
         model.addAttribute("net_status", compan.netStatus());
         model.addAttribute("companion_name", compan.getName());
         model.addAttribute("companion_avatar", GeneralSettings.AVATAR_PATH.concat(compan.getPhoto()));
