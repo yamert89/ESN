@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="resources/libs/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="resources/libs/jquery_3.1.0.js"></script>
+
+    <script type="text/javascript">
+        var CKEDITOR_BASEPATH = '/resources/ckeditor/';
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        $(document).ready(function () {
+            CKEDITOR.replace( 'editor1' );
+        });
+
+
+    </script>
+
+</head>
+<body>
+<textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+
+</body>
+</html>
