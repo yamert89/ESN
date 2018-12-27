@@ -9,25 +9,11 @@
     <script src="<core:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
-        var userId = ${userId}; //TODO
+        var userId = null; //${userId}; //TODO
         window.listOfDatesNoted = [];
         $(document).ready(function () {
 
 
-            $('.post_add').click(function () {
-                showEditor();
-            });
-
-            /*var cell = $(".datepicker--cell-day"); //datepicker--cell datepicker--cell-day
-            cell.click(function () {
-                if ($(this).hasClass("-selected-")){
-                    var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
-                    $(this).removeClass("-selected-");
-                    $(this).addClass("date_noted");
-                }
-
-
-            });*/
 
         });
 
