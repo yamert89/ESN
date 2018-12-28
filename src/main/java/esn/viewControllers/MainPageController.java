@@ -2,6 +2,7 @@ package esn.viewControllers;
 
 import esn.db.GlobalDAO;
 import esn.db.PrivateChatMessageDAO;
+import esn.entities.GenChatMessage;
 import esn.entities.Organization;
 import esn.entities.PrivateChatMessage;
 import esn.entities.User;
@@ -37,14 +38,14 @@ public class MainPageController {
 
 
 
-    private Organization org; //TODO inject
+    private Organization org; //TODO универсальный контроллер - заменить на параметр запроса или другой способ
 
 
 
     @GetMapping(value = "/wall")
-    public String wall(/*@RequestParam String userId, */Model model, @PathVariable String organization){
-        //model.addAttribute("userId", userId); //TODO uncomment
-        model.addAttribute("organization", organization);
+    public String wall(@RequestParam String userId, Model model, @PathVariable String organization){
+        model.addAttribute("userId", userId);
+        model.addAttribute("orgUrl", organization);//TODO and genChat needs modifying
 
         return "wall";
     }
@@ -55,11 +56,11 @@ public class MainPageController {
     }
 
     @RequestMapping(value = "/chat/{user}")
-    public String genChat(@PathVariable String user, Model model){
+    public String genChat(@PathVariable String user, Model model, @PathVariable String organization){
         User usr = org.getUserByLogin(user);
         model.addAttribute("name", usr.getName());
         model.addAttribute("photo", usr.getPhoto_small());
-        model.addAttribute("messages", globalDAO.getGenMessages());
+        model.addAttribute("messages", globalDAO.getMessages(organization, GenChatMessage.class));
         return "gen_chat";
     }
 

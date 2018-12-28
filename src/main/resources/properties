@@ -1,3 +1,4 @@
 avatar_dir=D:/test2/
-gen_chat_amount=50
-private_chat_amount=50
+gen_chat_messages_amount=50
+private_chat_messages_amount=50
+wall_messages_amount=25

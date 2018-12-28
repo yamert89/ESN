@@ -77,7 +77,7 @@ public class UserController {
         /*attributes.addAttribute(user);
         attributes.addAttribute(org);*/
         long userId = user.getId();
-        //attributes.addAttribute("userId", userId); TODO uncomment
+        attributes.addAttribute("userId", userId); //TODO uncomment
         return "redirect:/" + org + "/wall/";
     }
 

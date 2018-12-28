@@ -10,6 +10,7 @@
     <script type="text/javascript">
         var myTree = null;
         var userId = null; //${userId}; //TODO
+        var orgUrl = null; //${orgUrl}; //TODO
         window.listOfDatesNoted = [];
         $(document).ready(function () {
 
