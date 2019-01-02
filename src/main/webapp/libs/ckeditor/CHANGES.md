@@ -997,7 +997,7 @@ Fixed Issues:
 * [#11861](https://dev.ckeditor.com/ticket/11861): [WebKit/Blink] Fixed: Span elements created while joining adjacent elements. **Note:** This patch only covers cases when *Backspace* or *Delete* is pressed on a collapsed (empty) selection. The remaining case, with a non-empty selection, will be fixed in the next release.
 * [#10714](https://dev.ckeditor.com/ticket/10714): [iOS] Fixed: Selection and drop-downs are broken if a touch event listener is used due to a [WebKit bug](https://bugs.webkit.org/show_bug.cgi?id=128924). Thanks to [Arty Gus](https://github.com/artygus)!
 * [#11911](https://dev.ckeditor.com/ticket/11911): Fixed setting the `dir` attribute for a preloaded language in [CKEDITOR.lang](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.lang). Thanks to [Akash Mohapatra](https://github.com/akashmohapatra)!
-* [#11926](https://dev.ckeditor.com/ticket/11926): Fixed: [Code Snippet](https://ckeditor.com/cke4/addon/codesnippet) does not decode HTML esn.entities when loading code from the `<code>` element.
+* [#11926](https://dev.ckeditor.com/ticket/11926): Fixed: [Code Snippet](https://ckeditor.com/cke4/addon/codesnippet) does not decode HTML entities when loading code from the `<code>` element.
 * [#11223](https://dev.ckeditor.com/ticket/11223): Fixed: Issue when [Protected Source](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-protectedSource) was not working in the `<title>` element.
 * [#11859](https://dev.ckeditor.com/ticket/11859): Fixed: Removed the [Source Dialog](https://ckeditor.com/cke4/addon/sourcedialog) plugin dependency from the [Code Snippet](https://ckeditor.com/cke4/addon/codesnippet) sample.
 * [#11754](https://dev.ckeditor.com/ticket/11754): [Chrome] Fixed: Infinite loop when content includes not closed attributes.
@@ -1053,7 +1053,7 @@ New Features:
 * [#10480](https://dev.ckeditor.com/ticket/10480): Introduced code snippets with code highlighting. There are two versions available so far &mdash; the default [Code Snippet](https://ckeditor.com/cke4/addon/codesnippet) which uses the [highlight.js](http://highlightjs.org) library and the [Code Snippet GeSHi](https://ckeditor.com/cke4/addon/codesnippetgeshi) which uses the [GeSHi](http://qbnz.com/highlighter/) library.
 * [#11737](https://dev.ckeditor.com/ticket/11737): Introduced an option to prevent [filtering](https://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_advanced_content_filter) of an element that matches custom criteria (see [`filter.addElementCallback()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.filter-method-addElementCallback)).
 * [#11532](https://dev.ckeditor.com/ticket/11532): Introduced the [`editor.addContentsCss()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-method-addContentsCss) method that can be used for [adding custom CSS files](https://docs.ckeditor.com/ckeditor4/docs/#!/guide/plugin_sdk_styles).
-* [#11536](https://dev.ckeditor.com/ticket/11536): Added the [`CKEDITOR.tools.htmlDecode()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-method-htmlDecode) method for decoding HTML esn.entities.
+* [#11536](https://dev.ckeditor.com/ticket/11536): Added the [`CKEDITOR.tools.htmlDecode()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-method-htmlDecode) method for decoding HTML entities.
 * [#11225](https://dev.ckeditor.com/ticket/11225): Introduced the [`CKEDITOR.tools.transparentImageData`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.tools-property-transparentImageData) property which contains transparent image data to be used in CSS or as image source.
 
 Other Changes:
@@ -1119,7 +1119,7 @@ Fixed Issues:
 * [#11493](https://dev.ckeditor.com/ticket/11493): Fixed: The [`selection.getRanges()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.dom.selection-method-getRanges) method does not override cached ranges when used with the `onlyEditables` argument.
 * [#11390](https://dev.ckeditor.com/ticket/11390): [IE] All [XML](https://ckeditor.com/cke4/addon/xml) plugin [methods](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.xml) now work in IE10+.
 * [#11542](https://dev.ckeditor.com/ticket/11542): [IE11] Fixed: Blurry toolbar icons when Right-to-Left UI language is set.
-* [#11504](https://dev.ckeditor.com/ticket/11504): Fixed: When [`config.fullPage`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-fullPage) is set to `true`, esn.entities are not encoded in editor output.
+* [#11504](https://dev.ckeditor.com/ticket/11504): Fixed: When [`config.fullPage`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.config-cfg-fullPage) is set to `true`, entities are not encoded in editor output.
 * [#11004](https://dev.ckeditor.com/ticket/11004): Integrated [Enhanced Image](https://ckeditor.com/cke4/addon/image2) dialog window with [Advanced Content Filter](https://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_advanced_content_filter).
 * [#11439](https://dev.ckeditor.com/ticket/11439): Fixed: Properties get cloned in the Cell Properties dialog window if multiple cells are selected.
 
@@ -1193,7 +1193,7 @@ Fixed Issues:
 * [#11011](https://dev.ckeditor.com/ticket/11011): Fixed: The [`editor.applyStyle()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-method-applyStyle) method removes attributes from nested elements.
 * [#11179](https://dev.ckeditor.com/ticket/11179): Fixed: [`editor.destroy()`](https://docs.ckeditor.com/ckeditor4/docs/#!/api/CKEDITOR.editor-method-destroy) does not cleanup content generated by the [Table Resize](https://ckeditor.com/cke4/addon/tableresize) plugin for inline editors.
 * [#11237](https://dev.ckeditor.com/ticket/11237): Fixed: Table border attribute value is deleted when pasting content from Microsoft Word.
-* [#11250](https://dev.ckeditor.com/ticket/11250): Fixed: HTML esn.entities inside the `<textarea>` element are not encoded.
+* [#11250](https://dev.ckeditor.com/ticket/11250): Fixed: HTML entities inside the `<textarea>` element are not encoded.
 * [#11260](https://dev.ckeditor.com/ticket/11260): Fixed: Initially disabled buttons are not read by JAWS as disabled.
 * [#11200](https://dev.ckeditor.com/ticket/11200):  Added [Clipboard](https://ckeditor.com/cke4/addon/clipboard) plugin as a dependency for [Widget](https://ckeditor.com/cke4/addon/widget) to fix drag and drop.
 

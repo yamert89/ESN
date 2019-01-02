@@ -2,6 +2,8 @@ package esn.viewControllers;
 
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
+import esn.entities.GenChatMessage;
+import esn.entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,13 @@ public class BaseController {
 
     @PostMapping(value = "/savemessage")
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time){
-        globalDAO.saveGenMessage(text, Long.valueOf(userId), Timestamp.valueOf(time));
+                            @RequestParam String time, @RequestParam String orgUrl){
+        globalDAO.saveGenMessage(Integer.valueOf(userId), text, Timestamp.valueOf(time), orgUrl, GenChatMessage.class);
+    }
+
+    @PostMapping(value = "/savepost")
+    public void savePost(@RequestParam String userId, @RequestParam String text,
+                            @RequestParam String time, @RequestParam String orgUrl){
+        globalDAO.saveGenMessage(Integer.valueOf(userId), text, Timestamp.valueOf(time), orgUrl, Post.class);
     }
 }

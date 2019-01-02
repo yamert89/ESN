@@ -22,7 +22,7 @@
                 if (text.isEmpty()) return;
                 var time = getCurrentDate();
                 addMessage(me, time, text);
-                $.ajax({type:"POST", url:"/savemessage", data:{"userId":userId, "text":text, "time":time}})
+                $.ajax({type:"POST", url:"/savemessage", data:{"userId":userId, "text":text, "time":time, "orgUrl":orgUrl}})
             })
         });
 
