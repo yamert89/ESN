@@ -14,9 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class UserController {
 
     @PostMapping("/{org}/auth")
     public String confirmAuth(@RequestParam String login, @RequestParam String password,
-                              Model model, @PathVariable String org, RedirectAttributes attributes){
+                              Model model, @PathVariable String org, HttpSession session){
         User user = null;
         try {
             user = userDAO.getUserByLogin(login);
@@ -76,9 +76,18 @@ public class UserController {
         }
         /*attributes.addAttribute(user);
         attributes.addAttribute(org);*/
-        long userId = user.getId();
-        attributes.addAttribute("userId", userId); //TODO uncomment
+
+        session.setAttribute("user", user); //TODO убрать?
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("orgUrl", org);
+        session.setAttribute("userName", user.getName());
+        session.setAttribute("userPhoto", user.getPhoto());
+        //request.getSessionScope().put("user", user);
+
+        //attributes.addFlashAttribute("userId", userId); //TODO uncomment
+        //model.addAttribute("userId", userId);
         return "redirect:/" + org + "/wall/";
+        //return "wall";
     }
 
 

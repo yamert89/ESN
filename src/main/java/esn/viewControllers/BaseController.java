@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @SessionAttributes
@@ -40,12 +42,15 @@ public class BaseController {
     @PostMapping(value = "/savemessage")
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
-        globalDAO.saveGenMessage(Integer.valueOf(userId), text, Timestamp.valueOf(time), orgUrl, GenChatMessage.class);
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss")));
+        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
     }
 
     @PostMapping(value = "/savepost")
     public void savePost(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
-        globalDAO.saveGenMessage(Integer.valueOf(userId), text, Timestamp.valueOf(time), orgUrl, Post.class);
+
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss")));
+        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, Post.class);
     }
 }

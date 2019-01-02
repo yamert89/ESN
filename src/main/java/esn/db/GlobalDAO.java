@@ -22,20 +22,26 @@ public class GlobalDAO {
     private EntityManager em;
 
     @Transactional
-    public void saveGenMessage(int userId, String message, Timestamp time, String org_url, Class<? extends AbstractMessage> mesClass){
-        String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
-        em.createNativeQuery("create table if not exists " + tableName +
-                " (user_id int primary key auto_increment, " +
-                "message varchar(500) ," +
-                "time timestamp ," +
-                "org_url varchar(20)") //TODO Учесть ограничения базы (везде) !!!
-        .executeUpdate();
-        Query query = em.createNativeQuery("insert into ".concat(tableName).concat("values (null, ?, ?, ?, ?)"))
-                .setParameter(1, message)
-                .setParameter(2, userId)
-                .setParameter(3, time)
-                .setParameter(4, org_url);
-        query.executeUpdate();
+    public void saveMessage(int userId, String message, Timestamp time, String org_url, Class<? extends AbstractMessage> mesClass){
+        try {
+            String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
+
+            em.createNativeQuery("create table if not exists " + tableName +
+                    " (id int not null auto_increment primary key, " +
+                    "message varchar(500), " +
+                    "userId int, " +
+                    "time timestamp, " +
+                    "org_url varchar(20))") //TODO Учесть ограничения базы (везде) !!!
+                    .executeUpdate();
+            Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(id, message, userId, time, org_url) values (null, ?, ?, ?, ?)"))
+                    .setParameter(1, message)
+                    .setParameter(2, userId)
+                    .setParameter(3, time)
+                    .setParameter(4, org_url);
+            query.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Transactional

@@ -2,6 +2,7 @@ package esn.viewControllers;
 
 import esn.db.GlobalDAO;
 import esn.db.PrivateChatMessageDAO;
+import esn.db.UserDAO;
 import esn.entities.GenChatMessage;
 import esn.entities.Organization;
 import esn.entities.PrivateChatMessage;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -25,6 +27,7 @@ public class MainPageController {
 
     private PrivateChatMessageDAO privateChatMessageDAO;
     private GlobalDAO globalDAO;
+    private UserDAO userDAO;
 
     @Autowired
     public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
@@ -34,8 +37,10 @@ public class MainPageController {
     public void setGlobalDAO(GlobalDAO globalDAO) {
         this.globalDAO = globalDAO;
     }
-
-
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
 
     private Organization org; //TODO универсальный контроллер - заменить на параметр запроса или другой способ
@@ -43,9 +48,7 @@ public class MainPageController {
 
 
     @GetMapping(value = "/wall")
-    public String wall(@RequestParam String userId, Model model, @PathVariable String organization){
-        model.addAttribute("userId", userId);
-        model.addAttribute("orgUrl", organization);//TODO and genChat needs modifying
+    public String wall(Model model, @PathVariable String organization, HttpSession session){
 
         return "wall";
     }

@@ -14,8 +14,14 @@
     <script type="text/javascript" src="<core:url value="/resources/static/center/wall/wall.js"/>"></script>
     <script type="text/javascript">
         var submit;
+
         $(document).ready(function () {
-            $('.post_add').click(function () {
+            var addButton = $('.post_add').first();
+            window.userId = addButton.attr("data-userId");
+            window.orgUrl = addButton.attr("data-ogrUrl");
+            window.avatar = addButton.attr("data-img");
+            window.userName = addButton.attr("data-name");
+            addButton.click(function () {
                 showEditor();
             });
             submit = $(".post_submit");
@@ -29,15 +35,15 @@
 
                 hideEditor();
 
-                var NAME = ''; //TODO server
-                var IMG = ''; //TODO server
+                var name = window.userName;
+                var img = window.avatar;
                 var time = window.getCurrentDate();
 
                 $(".posts").prepend('<div class="post">' +
                     '<div class="message_info_wrapper">' +
                     '<div class="message_info_w">' +
-                    '<img src="' + IMG + '" class="person_photo_small">' +
-                    '<div class="person_name_w">' + NAME + '</div>' +
+                    '<img src="' + img + '" class="person_photo_small">' +
+                    '<div class="person_name_w">' + name + '</div>' +
                     '<div class="message_time_w">' + time + '</div>' +
                     '</div>' +
                     '</div>' + data + '</div>');
@@ -82,7 +88,8 @@
 </head>
 <body>
 <div class="post_add_wrapper">
-    <button class="post_add" data-name="" data-img="">Добавить новость</button></div>
+    <button class="post_add" data-name="${sessionScope.get("userName")}" data-img="${sessionScope.get("userPhoto")}"
+            data-userId="${sessionScope.get("userId")}" data-ogrUrl="${sessionScope.get("orgUrl")}">Добавить новость</button></div>
 <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
 <button class="post_submit">Опубликовать новость</button>
 <textarea name="sample_editor" class="sample_editor" rows="10" cols="80"></textarea>
