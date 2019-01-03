@@ -1,10 +1,10 @@
 package esn.viewControllers;
 
 import esn.db.GlobalDAO;
+import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.GenChatMessage;
-import esn.entities.Organization;
 import esn.entities.PrivateChatMessage;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
@@ -28,6 +28,7 @@ public class MainPageController {
     private PrivateChatMessageDAO privateChatMessageDAO;
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
+    private OrganizationDAO orgDao;
 
     @Autowired
     public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
@@ -41,11 +42,10 @@ public class MainPageController {
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
-
-
-    private Organization org; //TODO универсальный контроллер - заменить на параметр запроса или другой способ
-
-
+    @Autowired
+    public void setOrgDao(OrganizationDAO orgDao) {
+        this.orgDao = orgDao;
+    }
 
     @GetMapping(value = "/wall")
     public String wall(Model model, @PathVariable String organization, HttpSession session){
@@ -60,18 +60,18 @@ public class MainPageController {
 
     @RequestMapping(value = "/chat/{user}")
     public String genChat(@PathVariable String user, Model model, @PathVariable String organization){
-        User usr = org.getUserByLogin(user);
-        model.addAttribute("name", usr.getName());
+        User usr = orgDao.getOrgByURL(organization).getUserByLogin(user);
+       // globalDAO.saveMessage(43,"ПРивет", new Timestamp(1234443354542L), "rosles", GenChatMessage.class);
         model.addAttribute("photo", usr.getPhoto_small());
         model.addAttribute("messages", globalDAO.getMessages(organization, GenChatMessage.class));
         return "gen_chat";
     }
 
     @RequestMapping(value = "/private-chat/{user}")
-    public String privateChat(@PathVariable String user,
+    public String privateChat(@PathVariable String user, @PathVariable String organization,
                               @RequestParam(value = "companion") String companion, Model model){
-        User usr = org.getUserByLogin(user);
-        User compan = org.getUserByLogin(companion);
+        User usr = orgDao.getOrgByURL(organization).getUserByLogin(user);
+        User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("net_status", compan.netStatus());
         model.addAttribute("companion_name", compan.getName());
         model.addAttribute("companion_avatar", GeneralSettings.AVATAR_PATH.concat(compan.getPhoto()));

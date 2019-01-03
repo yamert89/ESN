@@ -6,7 +6,6 @@ import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.PrivateChatMessage;
 import esn.entities.User;
-import esn.utils.SimpleUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,7 +15,7 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(SimpleUtils.getEncodedPassword("password".getBytes()));
+        //System.out.println(SimpleUtils.getEncodedPassword("password".getBytes()));
         //refDepartment_users();
         //beanTest();
         //restoreObjects();
@@ -161,6 +160,10 @@ public class Main {
         System.out.println("user " + user.getId() + " " + user.getName());
         System.out.println("department " + department.getId() + " " + department.getName());
         System.out.println("organ " + org.getId() + " " + org.getName());
+    }
+
+    private static void saveMes(){
+
     }
 
 }

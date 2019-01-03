@@ -93,10 +93,15 @@ public class Organization {
     }
 
     public User getUserByLogin(String nickname){
-        for (User user:
-             allEmployers) {
-            if (user.getLogin().equals(nickname)) return user;
+        try {
+            for (User user:
+                    allEmployers) {
+                if (user.getLogin().equals(nickname)) return user;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
         return null;
     }
 }

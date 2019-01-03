@@ -1,15 +1,26 @@
 package esn.entities;
 
+import esn.db.UserDAO;
+
 import java.sql.Timestamp;
 
-public abstract class AbstractMessage {
-    private int userId; //TODO передать имя
-    private String text;
-    private Timestamp time;
-    private String orgUrl;
 
-    public AbstractMessage(int userId, String text, Timestamp time, String orgUrl) {
+public abstract class AbstractMessage {
+    public int userId;
+    public String userName;
+    public String imgUrl;
+    public String text;
+    public Timestamp time;
+    public String orgUrl;
+    public UserDAO userDAO;
+
+
+    public AbstractMessage(int userId, String text, Timestamp time, String orgUrl, UserDAO userDAO) {
+        this.userDAO = userDAO;
         this.userId = userId;
+        User user = userDAO.getUserById(userId);
+        userName = user.getName(); //TODO mb needs optimizing
+        imgUrl = user.getPhoto_small();
         this.text = text;
         this.time = time;
         this.orgUrl = orgUrl;
@@ -29,5 +40,17 @@ public abstract class AbstractMessage {
 
     public String getOrgUrl() {
         return orgUrl;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public UserDAO getUserDAO() {
+        return userDAO;
     }
 }

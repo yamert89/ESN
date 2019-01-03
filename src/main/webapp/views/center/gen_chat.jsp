@@ -14,40 +14,38 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var textField = $(".new_genchat_message");
-            var me = {name:textField.getAttribute("data-name"),photo:textField.getAttribute("data-photo")};
-            $(".person_photo_small").attr("src", me.photo);
-
-            $(".new_genchat_message_btn").click(function () {
+            var messBtn = $(".new_genchat_message_btn");
+            messBtn.click(function () {
                 var text = textField.val();
                 if (text.isEmpty()) return;
-                var time = getCurrentDate();
-                addMessage(me, time, text);
+                var name = window.userName;
+                var img = window.avatar;
+                var time = window.getCurrentDate();
+                messBtn.after('<div class="message">\n' +
+                    '        <div class="message_text">' + text + '</div>\n' +
+                    '        <div class="message_info">\n' +
+                    '            <img src="' + img + '" class="person_photo_small">\n' +
+                    '            <div class="person_name">' + name + '</div>\n' +
+                    '            <div class="message_time">' + time + '</div>\n' +
+                    '        </div>\n' +
+                    '    </div>');
                 $.ajax({type:"POST", url:"/savemessage", data:{"userId":userId, "text":text, "time":time, "orgUrl":orgUrl}})
             })
         });
 
-        function addMessage(user, time, text) {
-            $(".new_genchat_message_btn").after('<div class="message">\n' +
-                '        <div class="message_text">' + text + '</div>\n' +
-                '        <div class="message_info">\n' +
-                '            <img src="' + user.photo + '" class="person_photo_small">\n' +
-                '            <div class="person_name">' + user.name + '</div>\n' +
-                '            <div class="message_time">' + time + '</div>\n' +
-                '        </div>\n' +
-                '    </div>')
-        }
+
     </script>
 </head>
 <body>
 <div class="chat_gen_container">
-    <input type="text" placeholder="Добавить сообщение" class="new_genchat_message" data-name="${name}" data-photo="${photo}">
+    <input type="text" placeholder="Добавить сообщение" class="new_genchat_message" data-img="${photo}">
     <button class="new_genchat_message_btn">Отправить</button>
-    <c:forEach var="mes" items="${messages} ">
+    <c:forEach var="mes" items="${messages}">
         <div class="message">
             <div class="message_text">${mes.text}</div>
             <div class="message_info">
-                <img src="" class="person_photo_small">
-                <div class="person_name">${mes.userId}</div>
+                <img src="${mes.imgUrl}" class="person_photo_small">
+                <div class="person_name">${mes.userName}</div>
                 <div class="message_time">${mes.time}</div>
             </div>
         </div>

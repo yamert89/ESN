@@ -88,7 +88,7 @@
 </head>
 <body>
 <div class="post_add_wrapper">
-    <button class="post_add" data-name="${sessionScope.get("userName")}" data-img="${sessionScope.get("userPhoto")}"
+    <button class="post_add" data-name="${sessionScope.get('userName')}" data-img="${sessionScope.get('userPhoto')}"
             data-userId="${sessionScope.get("userId")}" data-ogrUrl="${sessionScope.get("orgUrl")}">Добавить новость</button></div>
 <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
 <button class="post_submit">Опубликовать новость</button>

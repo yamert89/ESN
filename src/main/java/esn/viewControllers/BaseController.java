@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Controller
 @SessionAttributes
 public class BaseController {
+    private static final String TIME_PATTERN = "dd.MM.yyyy, HH:mm:ss";
 
     private GlobalDAO globalDAO;
     private OrganizationDAO orgDAO;
@@ -42,7 +43,7 @@ public class BaseController {
     @PostMapping(value = "/savemessage")
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss")));
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
     }
 
@@ -50,7 +51,7 @@ public class BaseController {
     public void savePost(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
 
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm:ss")));
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, Post.class);
     }
 }

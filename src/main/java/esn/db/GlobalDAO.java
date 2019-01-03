@@ -4,6 +4,7 @@ import esn.entities.AbstractMessage;
 import esn.entities.GenChatMessage;
 import esn.entities.Post;
 import esn.utils.GeneralSettings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,12 @@ public class GlobalDAO {
 
     @PersistenceContext
     private EntityManager em;
+
+    private UserDAO userDAO;
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Transactional
     public void saveMessage(int userId, String message, Timestamp time, String org_url, Class<? extends AbstractMessage> mesClass){
@@ -48,23 +55,30 @@ public class GlobalDAO {
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
         List<AbstractMessage> list = new ArrayList<>(GeneralSettings.AMOUNT_GENCHAT_MESSAGES);
         List<Object[]> arr = null;
-        if (mesClass == GenChatMessage.class){
-            arr = em.createNativeQuery("select * from generalchat limit ? where org_url =?")
-                    .setParameter(1, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
-                    .setParameter(2, orgUrl)
-                    .getResultList();
-            for (Object[] row :
-                    arr) {
-                list.add(new GenChatMessage((int) row[1], (String) row[0], (Timestamp) row[2], (String) row[3]));
+        try {
+            if (mesClass == GenChatMessage.class) {
+                Query query = em.createNativeQuery("select * from generalchat where org_url = ? limit ?")
+                        .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
+                        .setParameter(1, orgUrl);
+                arr = query.getResultList();
+
+                for (Object[] row :
+                        arr) {
+
+                    list.add(new GenChatMessage((int) row[2], (String) row[1], (Timestamp) row[3], (String) row[4], userDAO));
+                }
+            } else if (mesClass == Post.class) {
+                arr = em.createNativeQuery("select * from wall where org_url = ? limit ?")
+                        .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
+                        .setParameter(1, orgUrl)
+                        .getResultList();
+                for (Object[] row :
+                        arr) {
+                    list.add(new Post((int) row[2], (String) row[1], (Timestamp) row[3], (String) row[4], userDAO));
+                }
             }
-        }else if (mesClass == Post.class){
-            arr = em.createNativeQuery("select * from wall limit ?")
-                    .setParameter(1, GeneralSettings.AMOUNT_WALL_MESSAGES)
-                    .getResultList();
-            for (Object[] row :
-                    arr) {
-                list.add(new Post((int) row[1], (String) row[0], (Timestamp) row[2], (String) row[3]));
-            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         return list;
