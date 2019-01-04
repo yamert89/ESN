@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class GlobalDAO {
+public class GlobalDAO { //TODO сортировка в обратном порядке
 
     @PersistenceContext
     private EntityManager em;

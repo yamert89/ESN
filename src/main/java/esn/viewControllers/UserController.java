@@ -52,19 +52,15 @@ public class UserController {
         try {
             user = userDAO.getUserByLogin(login);
 
+            System.out.println(user.getPassword());
+            System.out.println(SimpleUtils.getEncodedPassword(password.getBytes()));
 
-            //if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  { //TODO uncomment
-                if (false)  {
 
-                System.out.println(password);
-                for (byte b :
-                        user.getPassword()) {
-                    System.out.println(b);
-                }
-                System.out.println(SimpleUtils.getEncodedPassword(password.getBytes()));
+            /*if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  { //TODO uncomment
+
                 model.addAttribute("error", "Пароль введен неверно");
                 return "auth";
-            }
+            }*/
 
 
         }catch (NoResultException e){
@@ -82,6 +78,7 @@ public class UserController {
         session.setAttribute("orgUrl", org);
         session.setAttribute("userName", user.getName());
         session.setAttribute("userPhoto", user.getPhoto());
+        session.setAttribute("userPhotoSmall", user.getPhoto_small());
         //request.getSessionScope().put("user", user);
 
         //attributes.addFlashAttribute("userId", userId); //TODO uncomment
@@ -106,7 +103,7 @@ public class UserController {
             bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
             return "reg";
         }
-       /* if (orgDAO.getNickNames().contains(user.getNickName())) return "reg";*/ //TODO need to move
+
         if (!image.isEmpty()) {
             try {
                 String expansion = SimpleUtils.getExpansion(image);
@@ -156,7 +153,7 @@ public class UserController {
             e.printStackTrace();
         }
         model.addAttribute(user);
-        return ""; //TODO
+        return "redirect:/" + org + "/auth"; //TODO
 
     }
 

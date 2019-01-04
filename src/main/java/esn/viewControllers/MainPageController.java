@@ -5,6 +5,7 @@ import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.GenChatMessage;
+import esn.entities.Post;
 import esn.entities.PrivateChatMessage;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
@@ -49,6 +50,7 @@ public class MainPageController {
 
     @GetMapping(value = "/wall")
     public String wall(Model model, @PathVariable String organization, HttpSession session){
+        model.addAttribute("messages", globalDAO.getMessages(organization, Post.class));
 
         return "wall";
     }

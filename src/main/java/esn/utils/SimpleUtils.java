@@ -34,7 +34,7 @@ public class SimpleUtils {
             case "image/bmp":
                 return "bmp";
 
-            default: return null;
+            default: return "jpg";
 
         }
     }

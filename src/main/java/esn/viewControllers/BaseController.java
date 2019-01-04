@@ -43,7 +43,7 @@ public class BaseController {
     @PostMapping(value = "/savemessage")
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));   //TODO ошибка 500. вернуть статус
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
     }
 

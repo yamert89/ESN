@@ -1,4 +1,5 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -20,6 +21,7 @@
             window.userId = addButton.attr("data-userId");
             window.orgUrl = addButton.attr("data-ogrUrl");
             window.avatar = addButton.attr("data-img");
+            window.avatar_small = addButton.attr("data-img-small");
             window.userName = addButton.attr("data-name");
             addButton.click(function () {
                 showEditor();
@@ -36,7 +38,7 @@
                 hideEditor();
 
                 var name = window.userName;
-                var img = window.avatar;
+                var img = window.avatar_small;
                 var time = window.getCurrentDate();
 
                 $(".posts").prepend('<div class="post">' +
@@ -89,11 +91,23 @@
 <body>
 <div class="post_add_wrapper">
     <button class="post_add" data-name="${sessionScope.get('userName')}" data-img="${sessionScope.get('userPhoto')}"
-            data-userId="${sessionScope.get("userId")}" data-ogrUrl="${sessionScope.get("orgUrl")}">Добавить новость</button></div>
+            data-userId="${sessionScope.get("userId")}" data-ogrUrl="${sessionScope.get("orgUrl")}"  data-img-small="${sessionScope.get('userPhotoSmall')}">Добавить новость</button></div>
 <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
 <button class="post_submit">Опубликовать новость</button>
 <textarea name="sample_editor" class="sample_editor" rows="10" cols="80"></textarea>
 <div class="posts">
+    <c:forEach var="mes" items="${messages}">
+        <div class="post">
+            <div class="message_info_wrapper">
+                <div class="message_info_w">
+                    <img src='<c:url value="${mes.imgUrl}"/>' class="person_photo_small">
+                    <div class="person_name_w">${mes.userName}</div>
+                    <div class="message_time_w">${mes.time}</div>
+                </div>
+            </div>
+            ${mes.text}
+        </div>
+    </c:forEach>
     <div class="post">
         <div class="message_info_wrapper">
             <div class="message_info_w">

@@ -17,7 +17,7 @@
             var messBtn = $(".new_genchat_message_btn");
             messBtn.click(function () {
                 var text = textField.val();
-                if (text.isEmpty()) return;
+                if (text == "") return;
                 var name = window.userName;
                 var img = window.avatar;
                 var time = window.getCurrentDate();
@@ -29,7 +29,7 @@
                     '            <div class="message_time">' + time + '</div>\n' +
                     '        </div>\n' +
                     '    </div>');
-                $.ajax({type:"POST", url:"/savemessage", data:{"userId":userId, "text":text, "time":time, "orgUrl":orgUrl}})
+                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time, "orgUrl":window.orgUrl}})
             })
         });
 
@@ -44,7 +44,7 @@
         <div class="message">
             <div class="message_text">${mes.text}</div>
             <div class="message_info">
-                <img src="${mes.imgUrl}" class="person_photo_small">
+                <img src='<c:url value="${mes.imgUrl}"/>' class="person_photo_small">
                 <div class="person_name">${mes.userName}</div>
                 <div class="message_time">${mes.time}</div>
             </div>
