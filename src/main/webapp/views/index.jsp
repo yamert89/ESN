@@ -1,9 +1,11 @@
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <header>
     <link rel="stylesheet" href="<core:url value="/resources/static/index.css"/>">
     <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
+    <link rel="stylesheet" href="<core:url value="/resources/static/tools/tools.css"/>">
     <script src="<core:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
     <script src="<core:url value="/resources/libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"/>"></script>
     <script src="<core:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
