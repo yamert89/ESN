@@ -52,8 +52,10 @@ public class UserController {
         try {
             user = userDAO.getUserByLogin(login);
 
+
+
             System.out.println(user.getPassword());
-            System.out.println(SimpleUtils.getEncodedPassword(password.getBytes()));
+            System.out.println(SimpleUtils.getEncodedPassword(password));
 
 
             /*if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  { //TODO uncomment
@@ -132,13 +134,11 @@ public class UserController {
         }
         System.out.println(user);
         System.out.println(user.getPassword()); //[B@20823413
-        for (byte b :
-                user.getPassword()) {
-            System.out.println(b);
-        }
+
 
 
         user.setOrganization(orgDAO.getOrgByURL(org));
+        user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));
         userDAO.persistUser(user);
 
         return "redirect:/" + org + "/user/" + user.getLogin();

@@ -27,10 +27,8 @@ public class User {
     private String login;
 
     @Size(min = 6, max = 32, message = "От 6 до 32 символов")
-    @Lob
-    @Convert(converter = PasswordConverter.class)
     @NotNull(message = "Пароль не может быть пустым")
-    private byte[] password;
+    private String password;
 
     private boolean admin;
 
@@ -91,7 +89,7 @@ public class User {
         return position;
     }
 
-    public byte[] getPassword(){
+    public String getPassword(){
         return password;
     }
 
@@ -144,7 +142,7 @@ public class User {
         this.photo_small = photo_small;
     }
 
-    public void setPassword(byte[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

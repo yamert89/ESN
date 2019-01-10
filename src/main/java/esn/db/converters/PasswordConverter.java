@@ -4,14 +4,16 @@ import esn.utils.SimpleUtils;
 
 import javax.persistence.AttributeConverter;
 
-public class PasswordConverter implements AttributeConverter<byte[], byte[]> {
+public class PasswordConverter implements AttributeConverter<String, String> {
     @Override
-    public byte[] convertToDatabaseColumn(byte[] input) {
-        return SimpleUtils.getEncodedPassword(input);
+    public String convertToDatabaseColumn(String input) {
+        String b = new String(SimpleUtils.getEncodedPassword(input));
+        return b;
     }
 
     @Override
-    public byte[] convertToEntityAttribute(byte[] fromBD) {
+    public String convertToEntityAttribute(String fromBD) {
+        //String s = new String(fromBD);
         return fromBD;
 
     }
