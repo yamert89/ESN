@@ -58,7 +58,7 @@ public class UserController {
             System.out.println(SimpleUtils.getEncodedPassword(password));
 
 
-            if (password.equals(user.getPassword()))  { //TODO uncomment
+            if (password.equals(user.getPassword()))  {
 
                 model.addAttribute("error", "Пароль введен неверно");
                 return "auth";
