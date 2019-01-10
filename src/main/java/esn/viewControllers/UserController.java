@@ -58,11 +58,11 @@ public class UserController {
             System.out.println(SimpleUtils.getEncodedPassword(password));
 
 
-            /*if (!Arrays.equals(user.getPassword(), SimpleUtils.getEncodedPassword(password.getBytes())))  { //TODO uncomment
+            if (password.equals(user.getPassword()))  { //TODO uncomment
 
                 model.addAttribute("error", "Пароль введен неверно");
                 return "auth";
-            }*/
+            }
 
 
         }catch (NoResultException e){

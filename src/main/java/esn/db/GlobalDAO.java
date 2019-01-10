@@ -39,7 +39,7 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
                     "userId int, " +
                     "time timestamp, " +
                     "org_url varchar(20))") //TODO Учесть ограничения базы (везде) !!!
-                    .executeUpdate();
+                    .executeUpdate();  //TODO Создать таблицу до её чтения в wall
             Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(id, message, userId, time, org_url) values (null, ?, ?, ?, ?)"))
                     .setParameter(1, message)
                     .setParameter(2, userId)
