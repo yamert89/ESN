@@ -53,6 +53,10 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
 
     @Transactional
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
+
+
+
+
         List<AbstractMessage> list = new ArrayList<>(GeneralSettings.AMOUNT_GENCHAT_MESSAGES);
         List<Object[]> arr = null;
         try {
@@ -78,7 +82,7 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return list;

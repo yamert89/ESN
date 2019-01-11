@@ -77,7 +77,7 @@
         <t:insertAttribute name="center"/>
     </div>
     <div class="contacts">
-        <iframe src="resources/static/contacts/contacts.html" frameborder="0"></iframe>
+        <iframe src="<core:url value='/resources/static/contacts/contacts.html'/>" frameborder="0"></iframe>
     </div>
 
 </div>
