@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.sql.Timestamp;
@@ -53,6 +54,13 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
 
     @Transactional
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
+
+        try {
+            em.createNativeQuery("show tables like 'wall'").getSingleResult();
+            //em.createNativeQuery("show tables like 'generalchat'").getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
 
 
 
