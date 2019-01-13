@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 @Controller
 @SessionAttributes
@@ -69,7 +70,17 @@ public class BaseController {
                            HttpSession session){
         try {
             User user = (User) session.getAttribute("user");
+
             user.getGroups().put(groupName, personIds.split(","));
+
+            for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()) {
+                System.out.println("группа : " + entry.getKey());
+                for (String s :
+                        entry.getValue()) {
+                    System.out.print("значения : " + s + " ");
+                }
+                System.out.println();
+            }
             userDAO.updateUser(user); //TODO обновить при выходе?
         }catch (Exception e){
             e.printStackTrace();

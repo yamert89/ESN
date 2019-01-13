@@ -52,6 +52,9 @@ public class User {
     private UserSettings settings;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "groups")
+    @MapKeyColumn(name = "GROUP_NAME")
+    @Column(name = "U_IDS")
     private Map<String, String[]> groups = new HashMap<>();
 
     @Transient

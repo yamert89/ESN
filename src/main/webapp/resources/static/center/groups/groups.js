@@ -72,7 +72,7 @@ function groupOnClick() {
     group.on("click", function () {
         var gr_name = $(".group_selected").text();
         saveGroup(gr_name);
-        group.removeClass("group_selected");
+        group.removeClass().addClass("group");
         $(this).addClass("group_selected");
 
         groupList.names.push(gr_name);
@@ -120,7 +120,7 @@ function saveGroup(gr_name){
 
 }
 
-$(window).on("unload", function () {
+/*$(window).on("unload", function () {
     saveGroup();
-});
+});*/
 
