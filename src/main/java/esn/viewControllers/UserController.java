@@ -45,25 +45,26 @@ public class UserController {
         return "auth";
     }
 
-    @PostMapping("/{org}/auth")
-    public String confirmAuth(@RequestParam String login, @RequestParam String password,
+    /*@PostMapping("/{org}/auth")*/
+    @GetMapping("/{org}/auth1")
+    public String confirmAuth(/*@RequestParam String login, @RequestParam String password,*/
                               Model model, @PathVariable String org, HttpSession session){
         User user = null;
         try {
-            user = userDAO.getUserByLogin(login);
-
-
+            user= userDAO.getUserByLogin("yamert"); //TODO  вернуть аутентификацию
+            /*user = userDAO.getUserByLogin(login);
 
             System.out.println(user.getPassword());
             System.out.println(SimpleUtils.getEncodedPassword(password));
+            *//*user.setPassword(SimpleUtils.getEncodedPassword(password));
+            userDAO.updateUser(user);*//*
 
 
-            if (password.equals(user.getPassword()))  {
+            if (!SimpleUtils.getEncodedPassword(password).equals(user.getPassword()))  {
 
                 model.addAttribute("error", "Пароль введен неверно");
                 return "auth";
-            }
-
+            }*/
 
         }catch (NoResultException e){
             System.out.println("NO RESULT");
@@ -156,6 +157,7 @@ public class UserController {
         return "redirect:/" + org + "/auth"; //TODO
 
     }
+
 
 
 

@@ -1,12 +1,13 @@
 package esn.entities;
 
 import esn.db.UserDAO;
-import esn.db.converters.PasswordConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -32,8 +33,7 @@ public class User {
 
     private boolean admin;
 
-
-    private String position;
+    private String position = "";
 
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID")
@@ -50,6 +50,9 @@ public class User {
 
 
     private UserSettings settings;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Map<String, String[]> groups = new HashMap<>();
 
     @Transient
     private boolean netStatus;
@@ -156,6 +159,10 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public Map<String, String[]> getGroups() {
+        return groups;
     }
 
     @Override

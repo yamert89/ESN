@@ -97,6 +97,11 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
 
     }
 
+    @Transactional
+    public void saveGroup(){
+
+    }
+
 
 
 }

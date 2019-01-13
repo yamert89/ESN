@@ -29,5 +29,8 @@
 form{
     margin-bottom: 0;
 }
+.shadow{
+    display: none;
+}
 
 /*wall and chat*/

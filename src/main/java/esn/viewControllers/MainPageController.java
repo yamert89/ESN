@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 @Controller
 @RequestMapping("/{organization}")
@@ -89,8 +87,25 @@ public class MainPageController {
         return "private_chat";
     }
 
-    @RequestMapping(value = "/groups")
-    public String groups(){
+    @GetMapping("/groups/{user}")
+    public String groups(@PathVariable String user, @PathVariable String organization, Model model, HttpSession session){
+        Set<User> employers = orgDao.getOrgByURL(organization).getAllEmployers();
+        model.addAttribute("employers", employers);
+        User user1 = (User) session.getAttribute("user");
+        model.addAttribute("groupsNames", user1.getGroups().keySet());
+        Map<String, Set<User>> resMap = new HashMap<>();
+        for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
+            int len = entry.getValue().length;
+            Set<User> resVal = new HashSet<>(len);
+            for (int i = 0; i < len; i++) {
+                User u = userDAO.getUserById(Integer.valueOf(entry.getValue()[i]));
+                resVal.add(u);
+            }
+            resMap.put(entry.getKey(), resVal);
+
+        }
+        model.addAttribute("groups", resMap);
+
         return "groups";
     }
 

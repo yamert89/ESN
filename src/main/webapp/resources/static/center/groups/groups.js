@@ -1,11 +1,50 @@
+
+var groupList = {};
+groupList.names = [];
+groupList.contents = [];
+
+var container;
+
 $(document).ready(function () {
-    personOnClick();
+    container = $("#group_staff_cont");
+    var db_groups = $(".group_temp");
+    db_groups.each(function (i) {
+        groupList.names.push($(this).attr("data-name"));
+        groupList.contents.push($(this).html());
+    });
+
+    var firstGroup =  $(".group").first();
+
+    firstGroup.addClass("group_selected");
+    var idx = groupList.names.indexOf(firstGroup.text());
+    container.html(groupList.contents[idx]);
+
+
+
 
     groupOnClick();
 
+    $(".person_staff").on("click", function () {
+        $(this).toggleClass('person_selected');
+    });
+
+    $("#del_group").on("click", function () {
+        var gr = $(".group_selected");
+        var idx = groupList.names.indexOf(gr.text());
+        if (idx > -1) {
+            groupList.names[idx] = undefined;
+            groupList.contents[idx] = undefined;
+        }
+        gr.remove();
+
+    });
 
 
-    $(".group_add").click(function () {
+
+
+
+
+    $(".group_btn").click(function () {
         var title = prompt("Введите название группы", "Без названия");
         $(".groups").prepend("<div class='group'>" + title + "</div>");
         groupOnClick();
@@ -19,7 +58,9 @@ $(document).ready(function () {
         removeUsersFromGroup();
     });
 
-    $(".group").first().addClass("group_selected");
+
+
+
 
 
     // func TODO on click to profile
@@ -28,18 +69,25 @@ $(document).ready(function () {
 
 function groupOnClick() {
     var group = $(".group");
-    group.click(function () {
+    group.on("click", function () {
+        var gr_name = $(".group_selected").text();
+        saveGroup(gr_name);
         group.removeClass("group_selected");
         $(this).addClass("group_selected");
 
+        groupList.names.push(gr_name);
+        groupList.contents.push(container.html());
+        container.empty();
+        var idx = groupList.names.indexOf($(this).text());
+        if (idx > -1) container.html(groupList.contents[idx]);
     });
 }
 
 function personOnClick() {
-    $(".person_staff").click(function () {
-        $(this).toggleClass('person_selected');
-    });
+
 }
+
+
 function insertUsersInGroup() {
     var gr_st = $("#group_staff_cont");
     var all_st = $("#all_staff_cont");
@@ -54,3 +102,25 @@ function insertUsersInGroup() {
 function removeUsersFromGroup() {
     $("#group_staff_cont").children(".person_selected").remove();
 }
+
+function saveGroup(gr_name){
+
+    var persons = $("#group_staff_cont").children();
+    var p_ids = [];
+
+    persons.each(function (i) {
+        p_ids[i] = $(this).find($(".person_point")).attr("data-p-id");
+    });
+    $.ajax({type:"POST", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")}})
+
+
+
+
+
+
+}
+
+$(window).on("unload", function () {
+    saveGroup();
+});
+
