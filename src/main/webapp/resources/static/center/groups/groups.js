@@ -72,7 +72,7 @@ function groupOnClick() {
     group.on("click", function () {
         var gr_name = $(".group_selected").text();
         saveGroup(gr_name);
-        group.removeClass().addClass("group");
+        $(".group.group_selected").removeClass("group_selected");
         $(this).addClass("group_selected");
 
         groupList.names.push(gr_name);
@@ -105,6 +105,8 @@ function removeUsersFromGroup() {
 
 function saveGroup(gr_name){
 
+    if (groupList.names.indexOf(gr_name) !== -1) return;
+
     var persons = $("#group_staff_cont").children();
     var p_ids = [];
 
@@ -120,7 +122,7 @@ function saveGroup(gr_name){
 
 }
 
-/*$(window).on("unload", function () {
-    saveGroup();
-});*/
+$(window).on("beforeunload", function () {
+    saveGroup($(".group.group_selected").first().text());
+});
 

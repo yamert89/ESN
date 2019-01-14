@@ -19,7 +19,7 @@ import java.util.Map;
 @Controller
 @SessionAttributes
 public class BaseController {
-    private static final String TIME_PATTERN = "dd.MM.yyyy, HH:mm:ss";
+    private static final String TIME_PATTERN = "dd.MM.yyyy, HH:mm:ss"; //TODO settings
 
     private GlobalDAO globalDAO;
     private OrganizationDAO orgDAO;
