@@ -2,3 +2,4 @@ avatar_dir=resources/avatars/
 gen_chat_messages_amount=50
 private_chat_messages_amount=50
 wall_messages_amount=25
+date_time_pattern=dd.MM.yyyy, HH:mm:ss

@@ -16,10 +16,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static esn.utils.GeneralSettings.TIME_PATTERN;
+
 @Controller
 @SessionAttributes
 public class BaseController {
-    private static final String TIME_PATTERN = "dd.MM.yyyy, HH:mm:ss"; //TODO settings
 
     private GlobalDAO globalDAO;
     private OrganizationDAO orgDAO;
@@ -51,13 +52,15 @@ public class BaseController {
 
 
     @PostMapping("/savemessage")
+    @ResponseBody
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));   //TODO ошибка 500. вернуть статус
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
     }
 
     @PostMapping("/savepost")
+    @ResponseBody
     public void savePost(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
 
@@ -66,6 +69,7 @@ public class BaseController {
     }
 
     @PostMapping("/savegroup")
+    @ResponseBody
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
                            HttpSession session){
         try {

@@ -92,9 +92,6 @@ public class MainPageController {
         Set<User> employers = orgDao.getOrgByURL(organization).getAllEmployers();
         model.addAttribute("employers", employers);
         User user1 = (User) session.getAttribute("user");
-
-        user1.getGroups().put("1", new String[]{"43"});//TODO  убрать
-
         model.addAttribute("groupsNames", user1.getGroups().keySet());
         Map<String, Set<User>> resMap = new HashMap<>();
         for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){

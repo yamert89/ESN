@@ -134,7 +134,7 @@ public class UserController {
             }
         }
         System.out.println(user);
-        System.out.println(user.getPassword()); //[B@20823413
+        System.out.println(user.getPassword());
 
 
 
