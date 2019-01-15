@@ -132,10 +132,10 @@ public class MainPageController {
         for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
             int len = entry.getValue().length;
 
-            json = json.append("{").append("\"name:").append(entry.getKey()).append("\"") //TODO
+            json = json.append("{").append("\"name:").append(entry.getKey()).append("\", \"data\":[");
 
             for (int i = 0; i < len; i++) {
-
+                json = json.append()
             }
 
 
