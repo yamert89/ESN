@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link rel="stylesheet" href="contacts.css">
+    <script type="text/javascript" src=""></script>
     <script type="text/javascript">
-        function contactsFill() {
+        $.get("/contacts", contactsFill, "json");
 
+        function contactsFill(data) {
+            var array = JSON.parse(data);
+            array.foreach(function (item) {
+                renderGroup(item);
+            });
         }
 
-        function renderGroup(groups) {
-            //TODO server side
+        function renderGroup(group) {
             var body = $("body");
-            body.append("<details open='open'><summary>" + groups.ITEMNAME + "</summary>");
-            for (var i = 0; i < groups.length; i++){
-                body.append(renderItem(groups.ITEMNAME, groups.STATUS));
+            body.append("<details open='open'><summary>" + group.name + "</summary>");
+            for (var i = 0; i < group.users.length; i++){
+                body.append(renderItem(group.users[i]));
             }
             body.append("</details>");
         }
 
-        function renderItem(name, status) {
-            var idStat = status ? 'net_status_on' : 'net_status_off';
-            return "<div class='person_item'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'" + name + "</div></div>"
+        function renderItem(user) {
+            var idStat = user.status ? 'net_status_on' : 'net_status_off';
+            return "<div class='person_item'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'" + user.name + "</div></div>"
         }
     </script>
 </head>

@@ -124,5 +124,23 @@ public class MainPageController {
         return "storage";
     }
 
+    @GetMapping("/contacts/{user}")
+    @ResponseBody()
+    public void fullContactsList(@PathVariable String user, HttpSession session){
+        User user1 = (User) session.getAttribute("user");
+        StringBuilder json = new StringBuilder("[");
+        for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
+            int len = entry.getValue().length;
+
+            json = json.append("{").append("\"name:").append(entry.getKey()).append("\"") //TODO
+
+            for (int i = 0; i < len; i++) {
+
+            }
+
+
+        }
+    }
+
 
 }
