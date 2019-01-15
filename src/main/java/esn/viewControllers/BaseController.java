@@ -42,6 +42,7 @@ public class BaseController {
 
     @GetMapping(value = "/{organization}")
     public String start(@PathVariable String organization){
+        //TODO проверка на сущестование орг юрл
 
         //TODO get cookies
        return "redirect:/" + organization + "/auth1";

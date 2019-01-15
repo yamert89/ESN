@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link rel="stylesheet" href="contacts.css">
-    <script type="text/javascript" src=""></script>
+    <script type="text/javascript" src="../../libs/jquery_3.1.0.js"></script>
     <script type="text/javascript">
-        $.get("/contacts", contactsFill, "json");
+        $(document).ready(function () {
+            $.ajax({url:"http://localhost:8080/rosles/contacts",
+                type:"GET", contentType:"application/json", success:contactsFill}); //TODO получить название орг
+        });
+
 
         function contactsFill(data) {
             var array = JSON.parse(data);
-            array.foreach(function (item) {
+            array.forEach(function (item) {
                 renderGroup(item);
             });
         }
@@ -26,21 +30,21 @@
 
         function renderItem(user) {
             var idStat = user.status ? 'net_status_on' : 'net_status_off';
-            return "<div class='person_item'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'" + user.name + "</div></div>"
+            return "<div class='person_item'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
         }
     </script>
 </head>
 <body>
-<details open="open">
+<!--<details open="open">
     <summary>Группа1</summary>
 <div class="person_item">
     <div class="net_status_circle"></div>
-    <!--<img src="" class="person_photo_small">-->
+    &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
     <div class="person_name">Иванов Иван Иванович</div>
 </div>
 <div class="person_item">
     <div class="net_status_circle"></div>
-    <!--<img src="" class="person_photo_small">-->
+    &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
     <div class="person_name">Юзер2</div>
 </div>
 </details>
@@ -48,14 +52,14 @@
     <summary>Группа2</summary>
     <div class="person_item">
         <div class="net_status_circle"></div>
-        <!--<img src="" class="person_photo_small">-->
+        &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
         <div class="person_name">Иванов Иван Иванович</div>
     </div>
     <div class="person_item">
         <div class="net_status_circle"></div>
-        <!--<img src="" class="person_photo_small">-->
+        &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
         <div class="person_name">Юзер2</div>
     </div>
-</details>
+</details>-->
 </body>
 </html>

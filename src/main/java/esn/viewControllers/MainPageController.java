@@ -124,22 +124,28 @@ public class MainPageController {
         return "storage";
     }
 
-    @GetMapping("/contacts/{user}")
-    @ResponseBody()
-    public void fullContactsList(@PathVariable String user, HttpSession session){
+    @GetMapping("/contacts")
+    @ResponseBody
+    public String fullContactsList(HttpSession session){
         User user1 = (User) session.getAttribute("user");
         StringBuilder json = new StringBuilder("[");
         for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
             int len = entry.getValue().length;
 
-            json = json.append("{").append("\"name:").append(entry.getKey()).append("\", \"data\":[");
+            json.append("{").append("\"name\":\"").append(entry.getKey()).append("\",\"users\":[");
 
             for (int i = 0; i < len; i++) {
-                json = json.append()
+                User u = userDAO.getUserById(Integer.valueOf(entry.getValue()[i]));
+                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":\"").append(u.netStatus()).append("\"},");
             }
-
-
+            json.append("]},");
         }
+        json.append("]");
+        return json.toString().replaceAll(",]", "]");
+
+        //[{"name:1", "users":[{"name:??????? ????????? ????????","status:false"}]},
+        //{"name:2", "users":[{"name:test6","status:false"}{"name:test","status:false"}{"name:Anna","status:false"}]},{"name:3", "users":[{"name:Anna","status:false"}{"name:test3","status:false"}]}]
+
     }
 
 
