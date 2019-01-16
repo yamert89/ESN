@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link rel="stylesheet" href="contacts.css">
+    <link rel="stylesheet" href="../gen.css">
     <script type="text/javascript" src="../../libs/jquery_3.1.0.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -13,20 +14,23 @@
 
 
         function contactsFill(data) {
-            var array = JSON.parse(data);
+            /*alert(data);
+            alert(data.toString());
+            var array = JSON.parse(data);*/
 
-            array.forEach(function (item) {
+            data.forEach(function (item) {
                 renderGroup(item);
             });
         }
 
         function renderGroup(group) {
             var body = $("body");
-            body.append("<details open='open'><summary>" + group.name + "</summary>");
+            var details = '<details open="open"><summary>' + group.name + '</summary>';
             for (var i = 0; i < group.users.length; i++){
-                body.append("p"/*renderItem(group.users[i])*/);
+                details += renderItem(group.users[i]);
             }
-            body.append("</details>");
+            details += '</details>';
+            body.append(details);
         }
 
         function renderItem(user) {

@@ -10,6 +10,8 @@ import esn.entities.PrivateChatMessage;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -124,9 +126,10 @@ public class MainPageController {
         return "storage";
     }
 
+
     @GetMapping(value = "/contacts")
     @ResponseBody
-    public String fullContactsList(HttpSession session){
+    public ResponseEntity<String> fullContactsList(HttpSession session){
         User user1 = (User) session.getAttribute("user");
         StringBuilder json = new StringBuilder("[");
         for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
@@ -136,14 +139,18 @@ public class MainPageController {
 
             for (int i = 0; i < len; i++) {
                 User u = userDAO.getUserById(Integer.valueOf(entry.getValue()[i]));
-                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":\"").append(u.netStatus()).append("\"},");
+                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus()).append("},");
             }
             json.append("]},");
         }
         json.append("]");
-        return json.toString().replaceAll(",]", "]");
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type",
+                "application/json; charset=UTF-8");
 
-
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(json.toString().replaceAll(",]", "]"));
     }
 
 

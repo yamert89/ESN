@@ -168,6 +168,14 @@ public class User {
         return groups;
     }
 
+    public boolean isNetStatus() {
+        return netStatus;
+    }
+
+    public void setNetStatus(boolean netStatus) {
+        this.netStatus = netStatus;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

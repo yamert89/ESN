@@ -72,20 +72,16 @@ public class UserController {
             return "auth";
         }catch (Exception e){
             e.printStackTrace();
+            model.addAttribute("error", "Ошибка на сервере");
+            return "auth";
         }
-        /*attributes.addAttribute(user);
-        attributes.addAttribute(org);*/
 
+        user.setNetStatus(true);
+        session.setMaxInactiveInterval(900);
         session.setAttribute("user", user); //TODO убрать?
-        session.setAttribute("userId", user.getId());
         session.setAttribute("orgUrl", org);
-        session.setAttribute("userName", user.getName());
-        session.setAttribute("userPhoto", user.getPhoto());
-        session.setAttribute("userPhotoSmall", user.getPhoto_small());
-        //request.getSessionScope().put("user", user);
 
-        //attributes.addFlashAttribute("userId", userId); //TODO uncomment
-        //model.addAttribute("userId", userId);
+
         return "redirect:/" + org + "/wall/";
         //return "wall";
     }
