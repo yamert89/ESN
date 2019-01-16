@@ -77,13 +77,18 @@ public class UserController {
         }
 
         user.setNetStatus(true);
-        session.setMaxInactiveInterval(900);
-        session.setAttribute("user", user); //TODO убрать?
+        session.setMaxInactiveInterval(1800);
+        session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
 
 
         return "redirect:/" + org + "/wall/";
         //return "wall";
+    }
+
+    @PostMapping("/exit")
+    public void exit(HttpSession session){
+        session.invalidate(); //TODO
     }
 
 
