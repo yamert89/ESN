@@ -20,6 +20,9 @@ import java.util.List;
 @Transactional
 public class GlobalDAO { //TODO сортировка в обратном порядке
 
+    private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='wall'";
+    private final String CHECKTABLE_MYSQL = "show tables like 'wall'";
+
     @PersistenceContext
     private EntityManager em;
 
@@ -56,7 +59,7 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
 
         try {
-            em.createNativeQuery("show tables like 'wall'").getSingleResult();
+            em.createNativeQuery(CHECKTABLE_POSTGRES).getSingleResult();
             //em.createNativeQuery("show tables like 'generalchat'").getSingleResult();
         }catch (NoResultException e){
             return null;

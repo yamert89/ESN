@@ -124,7 +124,7 @@ public class MainPageController {
         return "storage";
     }
 
-    @GetMapping("/contacts")
+    @GetMapping(value = "/contacts")
     @ResponseBody
     public String fullContactsList(HttpSession session){
         User user1 = (User) session.getAttribute("user");
@@ -143,8 +143,6 @@ public class MainPageController {
         json.append("]");
         return json.toString().replaceAll(",]", "]");
 
-        //[{"name:1", "users":[{"name:??????? ????????? ????????","status:false"}]},
-        //{"name:2", "users":[{"name:test6","status:false"}{"name:test","status:false"}{"name:Anna","status:false"}]},{"name:3", "users":[{"name:Anna","status:false"}{"name:test3","status:false"}]}]
 
     }
 
