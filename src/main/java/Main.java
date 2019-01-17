@@ -4,7 +4,7 @@ import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
-import esn.entities.PrivateChatMessage;
+import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

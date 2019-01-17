@@ -1,6 +1,7 @@
-package esn.entities;
+package esn.entities.secondary;
 
 import esn.db.UserDAO;
+import esn.entities.User;
 
 import java.sql.Timestamp;
 

@@ -3,8 +3,8 @@ package esn.viewControllers;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.entities.GenChatMessage;
-import esn.entities.Post;
+import esn.entities.secondary.GenChatMessage;
+import esn.entities.secondary.Post;
 import esn.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,6 +90,15 @@ public class BaseController {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @PostMapping("/savenote")
+    @ResponseBody
+    public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+        user.getNotes().put(timestamp, text);
+        userDAO.updateUser(user); //TODO обновить при выходе?
     }
 
 

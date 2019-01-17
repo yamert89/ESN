@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -51,11 +52,17 @@ public class User {
 
     private UserSettings settings;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name = "groups")
     @MapKeyColumn(name = "GROUP_NAME")
     @Column(name = "U_IDS")
-    private Map<String, String[]> groups = new HashMap<>();
+    private Map<String, String[]> groups;
+
+    @ElementCollection
+    @CollectionTable(name = "notes")
+    @MapKeyColumn(name = "NOTE_TIME")
+    @Column(name = "NOTE_TEXT")
+    private Map<Timestamp, String> notes;
 
     @Transient
     private boolean netStatus;
@@ -174,6 +181,14 @@ public class User {
 
     public void setNetStatus(boolean netStatus) {
         this.netStatus = netStatus;
+    }
+
+    public Map<Timestamp, String> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Map<Timestamp, String> notes) {
+        this.notes = notes;
     }
 
     @Override

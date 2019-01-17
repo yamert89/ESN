@@ -1,4 +1,4 @@
-package esn.entities;
+package esn.entities.secondary;
 
 import esn.db.UserDAO;
 

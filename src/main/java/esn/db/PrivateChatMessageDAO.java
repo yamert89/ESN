@@ -1,6 +1,6 @@
 package esn.db;
 
-import esn.entities.PrivateChatMessage;
+import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
 import org.springframework.stereotype.Repository;

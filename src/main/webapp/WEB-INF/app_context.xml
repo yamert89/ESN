@@ -42,7 +42,7 @@
         <constructor-arg name="description" value="tra lal a"/>
     </bean>
 
-    <bean id="privateMessage" class="esn.entities.PrivateChatMessage">
+    <bean id="privateMessage" class="esn.entities.secondary.PrivateChatMessage">
         <constructor-arg name="text" value="text"/>
         <constructor-arg name="recipient" ref="user1"/>
         <constructor-arg name="sender" ref="user2"/>

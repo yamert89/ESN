@@ -1,8 +1,8 @@
 package esn.db;
 
-import esn.entities.AbstractMessage;
-import esn.entities.GenChatMessage;
-import esn.entities.Post;
+import esn.entities.secondary.AbstractMessage;
+import esn.entities.secondary.GenChatMessage;
+import esn.entities.secondary.Post;
 import esn.utils.GeneralSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

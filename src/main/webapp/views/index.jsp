@@ -65,14 +65,14 @@
 <body>
 <div class="container">
     <div class="tools">
-        <div class="tool" id="wall"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Лента</a></div>
-        <div class="tool" id="chat"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Чат</a></div>
-        <div class="tool" id="staff"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Сотрудники</a></div>
-        <div class="tool" id="groups"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Группы</a></div>
-        <div class="tool" id="storage"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Хранилище</a></div>
-        <div class="tool" id="notes"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Заметки</a></div>
-        <div class="tool" id="calendar"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Календарь</a></div>
-        <div class="tool" id="apps"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Приложения</a></div>
+        <div class="tool" id="wall"><a href='/${sessionScope.get("orgUrl")}/wall'>Лента</a></div>
+        <div class="tool" id="chat"><a href='/${sessionScope.get("orgUrl")}/chat'>Чат</a></div>
+        <div class="tool" id="staff"><a href='/${sessionScope.get("orgUrl")}/staff'>Сотрудники</a></div>
+        <div class="tool" id="groups"><a href='/${sessionScope.get("user").groups}/groups'>Группы</a></div>
+        <div class="tool" id="storage"><a href='/${sessionScope.get("orgUrl")}/storage'>Хранилище</a></div>
+        <div class="tool" id="notes"><a href='/${sessionScope.get("orgUrl")}/notes'>Заметки</a></div>
+        <div class="tool" id="calendar"><a href='/${sessionScope.get("orgUrl")}'>Календарь</a></div>
+        <div class="tool" id="apps"><a href='/${sessionScope.get("orgUrl")}/apps'>Приложения</a></div>
         <div class="datepicker-here"></div>
 
     </div>
