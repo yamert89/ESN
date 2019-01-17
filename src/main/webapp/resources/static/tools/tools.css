@@ -4,6 +4,10 @@
     margin: 5px;
     padding: 5px 10px 5px 10px;
     font-size: 1.3em;
+    background-color: rgba(0, 0, 0, 0.16);
+}
+.tool:hover{
+    box-shadow: 0 0 10px #000000;
 
 }
 .date_noted{

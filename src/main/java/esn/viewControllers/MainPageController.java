@@ -52,6 +52,7 @@ public class MainPageController {
     public String wall(Model model, @PathVariable String organization, HttpSession session){
         model.addAttribute("messages", globalDAO.getMessages(organization, Post.class));
 
+
         return "wall";
     }
 
@@ -60,19 +61,19 @@ public class MainPageController {
         return "calendar";
     }
 
-    @RequestMapping(value = "/chat/{user}")
-    public String genChat(@PathVariable String user, Model model, @PathVariable String organization){
-        User usr = orgDao.getOrgByURL(organization).getUserByLogin(user);
+    @RequestMapping(value = "/chat")
+    public String genChat(Model model, @PathVariable String organization, HttpSession session){
+        User usr = (User) session.getAttribute("user");
        // globalDAO.saveMessage(43,"ПРивет", new Timestamp(1234443354542L), "rosles", GenChatMessage.class);
         model.addAttribute("photo", usr.getPhoto_small());
         model.addAttribute("messages", globalDAO.getMessages(organization, GenChatMessage.class));
         return "gen_chat";
     }
 
-    @RequestMapping(value = "/private-chat/{user}")
-    public String privateChat(@PathVariable String user, @PathVariable String organization,
-                              @RequestParam(value = "companion") String companion, Model model){
-        User usr = orgDao.getOrgByURL(organization).getUserByLogin(user);
+    @RequestMapping(value = "/private-chat")
+    public String privateChat(@PathVariable String organization,
+                              @RequestParam(value = "companion") String companion, Model model, HttpSession session){
+        User usr = (User) session.getAttribute("user");
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("net_status", compan.netStatus());
         model.addAttribute("companion_name", compan.getName());
@@ -89,8 +90,8 @@ public class MainPageController {
         return "private_chat";
     }
 
-    @GetMapping("/groups/{user}")
-    public String groups(@PathVariable String user, @PathVariable String organization, Model model, HttpSession session){
+    @GetMapping("/groups")
+    public String groups(@PathVariable String organization, Model model, HttpSession session){
         Set<User> employers = orgDao.getOrgByURL(organization).getAllEmployers();
         model.addAttribute("employers", employers);
         User user1 = (User) session.getAttribute("user");

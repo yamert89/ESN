@@ -80,6 +80,7 @@ public class UserController {
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
+        session.setAttribute("loginUrl", user.getLogin());
 
 
         return "redirect:/" + org + "/wall/";
@@ -111,23 +112,21 @@ public class UserController {
         if (!image.isEmpty()) {
             try {
                 String expansion = SimpleUtils.getExpansion(image);
-                if (expansion != null) {
 
-                    String fileName = user.getLogin().concat(".").concat(expansion);
-                    String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(expansion);
-                    byte[] bytes = image.getBytes();
-                    byte[] bigImage = ImageResizer.resizeBig(bytes, expansion);
-                    byte[] smallImage = ImageResizer.resizeSmall(bytes, expansion);
-                    if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-                    System.out.println(user.getName());
-                    System.out.println(fileName);
-                    System.out.println(fileNameSmall);
-                    System.out.println(GeneralSettings.AVATAR_PATH);
-                    FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileName)),bigImage);
-                    FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall)),smallImage);
-                    user.setPhoto(fileName);
-                    user.setPhoto_small(fileNameSmall);
-                }
+                String fileName = user.getLogin().concat(".").concat(expansion);
+                String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(expansion);
+                byte[] bytes = image.getBytes();
+                byte[] bigImage = ImageResizer.resizeBig(bytes, expansion);
+                byte[] smallImage = ImageResizer.resizeSmall(bytes, expansion);
+                if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
+                System.out.println(user.getName());
+                System.out.println(fileName);
+                System.out.println(fileNameSmall);
+                System.out.println(GeneralSettings.AVATAR_PATH);
+                FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileName)),bigImage);
+                FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall)),smallImage);
+                user.setPhoto(fileName);
+                user.setPhoto_small(fileNameSmall);
 
 
             } catch (IOException e) {
@@ -146,7 +145,7 @@ public class UserController {
         return "redirect:/" + org + "/user/" + user.getLogin();
     }
 
-    @GetMapping("/{org}/user/{login}")
+   /* @GetMapping("/{org}/user/{login}")
     public String userProfile(@PathVariable String org, @PathVariable String login, Model model){
         User user = null;
         try {
@@ -157,7 +156,7 @@ public class UserController {
         model.addAttribute(user);
         return "redirect:/" + org + "/auth"; //TODO
 
-    }
+    }*/
 
 
 

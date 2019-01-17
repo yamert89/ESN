@@ -15,6 +15,9 @@
         window.listOfDatesNoted = [];
         $(document).ready(function () {
 
+           /* $("#groups").click(function () {
+                location.href = "/groups";
+            });*/
 
 
         });
@@ -62,14 +65,14 @@
 <body>
 <div class="container">
     <div class="tools">
-        <div class="tool">Лента</div>
-        <div class="tool">Чат</div>
-        <div class="tool">Сотрудники</div>
-        <div class="tool">Группы</div>
-        <div class="tool">Хранилище</div>
-        <div class="tool">Заметки</div>
-        <div class="tool">Календарь</div>
-        <div class="tool">Приложения</div>
+        <div class="tool" id="wall"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Лента</a></div>
+        <div class="tool" id="chat"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Чат</a></div>
+        <div class="tool" id="staff"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Сотрудники</a></div>
+        <div class="tool" id="groups"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Группы</a></div>
+        <div class="tool" id="storage"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Хранилище</a></div>
+        <div class="tool" id="notes"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Заметки</a></div>
+        <div class="tool" id="calendar"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Календарь</a></div>
+        <div class="tool" id="apps"><a href='/${sessionScope.get("orgUrl")}/groups/${sessionScope.get("loginUrl")}'>Приложения</a></div>
         <div class="datepicker-here"></div>
 
     </div>
