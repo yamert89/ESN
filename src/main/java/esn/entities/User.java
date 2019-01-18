@@ -52,13 +52,13 @@ public class User {
 
     private UserSettings settings;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "groups")
     @MapKeyColumn(name = "GROUP_NAME")
     @Column(name = "U_IDS")
     private Map<String, String[]> groups;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "notes")
     @MapKeyColumn(name = "NOTE_TIME")
     @Column(name = "NOTE_TEXT")

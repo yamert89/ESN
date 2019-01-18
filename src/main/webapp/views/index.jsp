@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<core:url value="/resources/static/index.css"/>">
     <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
     <link rel="stylesheet" href="<core:url value="/resources/static/tools/tools.css"/>">
+    <link rel="stylesheet" href="<core:url value="/resources/static/center/notes/notes.css"/>">
     <script src="<core:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
     <script src="<core:url value="/resources/libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"/>"></script>
     <script src="<core:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
@@ -64,15 +65,15 @@
 </header>
 <body>
 <div class="container">
-    <div class="tools">
-        <div class="tool" id="wall"><a href='/${sessionScope.get("orgUrl")}/wall'>Лента</a></div>
-        <div class="tool" id="chat"><a href='/${sessionScope.get("orgUrl")}/chat'>Чат</a></div>
-        <div class="tool" id="staff"><a href='/${sessionScope.get("orgUrl")}/staff'>Сотрудники</a></div>
-        <div class="tool" id="groups"><a href='/${sessionScope.get("user").groups}/groups'>Группы</a></div>
-        <div class="tool" id="storage"><a href='/${sessionScope.get("orgUrl")}/storage'>Хранилище</a></div>
-        <div class="tool" id="notes"><a href='/${sessionScope.get("orgUrl")}/notes'>Заметки</a></div>
-        <div class="tool" id="calendar"><a href='/${sessionScope.get("orgUrl")}'>Календарь</a></div>
-        <div class="tool" id="apps"><a href='/${sessionScope.get("orgUrl")}/apps'>Приложения</a></div>
+    <div class="tools"><core:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
+        <div class="tool" id="wall"><a href='/${orgUrl}/wall'>Лента</a></div>
+        <div class="tool" id="chat"><a href='/${orgUrl}/chat'>Чат</a></div>
+        <div class="tool" id="staff"><a href='/${orgUrl}/staff'>Сотрудники</a></div>
+        <div class="tool" id="groups"><a href='/${orgUrl}/groups'>Группы</a></div>
+        <div class="tool" id="storage"><a href='/${orgUrl}/storage'>Хранилище</a></div>
+        <div class="tool" id="notes"><a href='/${orgUrl}}/notes'>Заметки</a></div>
+        <div class="tool" id="calendar"><a href='/${orgUrl}'>Календарь</a></div>
+        <div class="tool" id="apps"><a href='/${orgUrl}}/apps'>Приложения</a></div>
         <div class="datepicker-here"></div>
 
     </div>

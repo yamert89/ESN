@@ -112,11 +112,7 @@ public class MainPageController {
 
     @GetMapping(value = "/notes")
     public String notes(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
-
-
-
-
+        //User user = (User) session.getAttribute("user");
         return "notes";
     }
 
