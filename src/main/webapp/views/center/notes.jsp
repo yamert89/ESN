@@ -14,6 +14,7 @@
         $(document).ready(function () {
             $(".post_add").click(function () {
                 var note = prompt("Введите текст заметки", "");
+                if (note == null) return;
                 var time = getCurrentDate();
                 $(".notes").prepend("<div class='note'><div class='date'>" + time +"</div><div class='note_text'>" + note + "</div>");
                 $.ajax({type:"POST", url:"/savenote", data:{time:time, text:note}});
@@ -23,7 +24,7 @@
 </head>
 <body>
 <div class="post_add_wrapper">
-    <button class="post_add">Добавить заметку</button></div>
+    <button class="post_add post_submit">Добавить заметку</button></div>
 <div class="notes">
     <c:forEach var="note" items='${sessionScope.get("user").notes}'>
         <div class="note">
@@ -31,20 +32,6 @@
             <div class="note_text">${note.value}</div>
         </div>
     </c:forEach>
-
-
-
-
-
-
-   <%-- <div class="note">
-        <div class="date">17.08.2018</div>
-        <div class="note_text">Это обычный текст. И еще текст.</div>
-    </div>
-    <div class="note">
-        <div class="date">18.08.2018</div>
-        <div class="note_text">Это обычный текст. И еще текст. Это обычный текст. И еще текст. Это обычный текст. И еще текст. Это обычный текст. И еще текст.<br>Это обычный текст. И еще текст.</div>
-    </div>--%>
 </div>
 </body>
 </html>

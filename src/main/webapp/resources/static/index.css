@@ -123,7 +123,26 @@ iframe{
 a{
     text-decoration: none;
 }
+.post_add{
+    font-size: large;
+    height: 1.4em;
+    width: 15em;
+    background-color: #bdfa8a;
+    border-radius: 0 0 20px 20px;
+    outline: none;
+    transition: height 0.1s ease;
 
+
+}
+.post_add:hover{
+    height: 2em;
+    transition: height 0.1s ease, padding-top 0.1s ease;
+    padding-top: 0.6em;
+
+}
+.post_add_wrapper{
+    height: 2em;
+}
 
 
 

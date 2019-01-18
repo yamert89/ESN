@@ -1,5 +1,5 @@
 .tool{
-    border: 3px inset rgba(56, 56, 56, 0.29);
+    border: 1px inset rgba(56, 56, 56, 0.29);
     border-radius: 0 15px 15px 0;
     margin: 5px;
     padding: 5px 10px 5px 10px;
@@ -7,7 +7,7 @@
     background-color: rgba(0, 0, 0, 0.16);
 }
 .tool:hover{
-    box-shadow: 0 0 10px #000000;
+    box-shadow: 3px 0 5px rgba(0, 0, 0, 0.56);
 
 }
 .date_noted{

@@ -2,15 +2,16 @@
     padding: 20px 50px;
 }
 .date{
-    font-size: 2em;
-    line-height: 2em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    padding-left: 1em;
     text-align: left;
     border-radius: 10px 10px 0 0;
     background-color: #bdfa8a;
 }
 .note_text{
-    font-size: 1.6em;
-    line-height: 1.6em;
+    font-size: 1.2em;
+    line-height: 1.2em;
     text-align: center;
     padding: 10px 50px;
 }
