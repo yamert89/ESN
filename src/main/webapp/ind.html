@@ -38,6 +38,13 @@
     window.listOfDatesNoted = [];
     $(document).ready(function () {
 
+        $(document).ready(function () {
+            $(".btn_load_file").on("change", function () {
+                alert($(this).get(0).files[0].name);
+
+            });
+        });
+
         $('.post_add').click(function () {
             showEditor();
         });
@@ -187,13 +194,9 @@
             <div class="storage_wrapper">
                 <div class="file f_doc">
                     <img src="resources/icons/word.png" class="file_ico">
-                    <div class="fileName">Имя файла</div>
-                    <div class="file_author">Петя Васечкин</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico">
-                    <span class="fileName">Имя файла</span>
-                    <div class="file_author">Петя Васечкин</div>
+                    <div class="fileName" title="Полный текст">Имя файла</div>
+                    <div class="file_author"><a href="">Петя Васечкин</a></div>
+                    <div class="file_time">18.01.2018  16.00</div>
                 </div>
             </div>
             <form action="">
@@ -205,61 +208,29 @@
             <div class="storage_header">Личные файлы</div>
             <div class="storage_wrapper">
                 <div class="file f_doc">
-                    <img src="resources/icons/word.png" class="file_ico"><div class="fileName">Имя файла</div><img src="resources/cross.png" class="file_delete">
+                    <img src="resources/icons/word.png" class="file_ico">
+                    <!--<div class="fileName" title="Полный текст">Имя файла</div>-->
+                    <input class="fileName" value="имя файла">
+                    <img src="resources/cross.png" class="file_delete" title="Удалить">
+                    <img src="resources/share.png" class="file_share" title="Опубликовать в общие">
+                    <div class="file_time">18.01.2018  16.00</div>
                 </div>
                 <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
-                </div>
-                <div class="file f_audio">
-                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
+                    <img src="resources/icons/music.png" class="file_ico"><div class="fileName" title="Полный текст">Имя файла</div>
                 </div>
                 <div class="file f_audio">
                     <img src="resources/icons/music.png" class="file_ico"><div class="fileName">Имя файла</div>
                 </div>
 
+
             </div>
-            <form action="">
-                <input type="file" value="Загрузить" class="btn_load_file">
+
+            <form action="/saveFile" onsubmit="onSubmit(this)">
+                <input type="file" name="file" class="btn_load_file">
+                <input type="text" name="fileName" value="Имя файла">
+                <input type="submit" value="Загрузить">
             </form>
+
         </div>
     </div>
 </div>

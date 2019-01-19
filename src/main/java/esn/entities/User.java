@@ -1,15 +1,16 @@
 package esn.entities;
 
 import esn.db.UserDAO;
+import esn.entities.secondary.StoredFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -48,6 +49,9 @@ public class User {
     private String photo;  //filename
 
     private String photo_small; //filename
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "owner")
+    private Set<StoredFile> storedFiles;
 
 
     private UserSettings settings;
@@ -189,6 +193,10 @@ public class User {
 
     public void setNotes(Map<Timestamp, String> notes) {
         this.notes = notes;
+    }
+
+    public Set<StoredFile> getStoredFiles() {
+        return storedFiles;
     }
 
     @Override

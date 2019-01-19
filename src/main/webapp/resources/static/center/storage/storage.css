@@ -40,11 +40,13 @@
 }
 .file{
     margin: 10px;
+    height: 64px;
     /*vertical-align: middle;*/
     text-align: left;
+    border-radius: 12px;
 }
 .file:hover{
-    background-color: rgba(195, 205, 169, 0.69);
+    background-color: rgba(0, 0, 0, 0.11);
 }
 
 .fileName{
@@ -52,6 +54,8 @@
     line-height: 64px;
     transform: translateY(-27px);
     display: inline-block;
+    border: 0;
+    background-color: transparent;
    /* position: absolute;*/
 
 }
@@ -59,7 +63,7 @@
     display: inline-block;
     height: 64px;
     line-height: 64px;
-    transform: translateY(-27px);
+    margin-right: 20px;
     float: right;
 }
 .file_ico{
@@ -79,9 +83,36 @@
     display: inline-block;
     width: 24px;
     height: 24px;
+    line-height: 64px;
     float: right;
-    margin-top: 12px;
+    margin: 20px 20px 0 0;
+    border-radius: 12px;
+}
+.file_delete:hover{
+    background-color: rgba(255, 9, 0, 0.2);
+}
 
+.file_share{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 64px;
+    float: right;
+    margin: 20px 20px 0 0;
+    border-radius: 4px;
+}
+
+.file_share:hover{
+    background-color: rgba(0, 255, 13, 0.2);
+}
+
+.file_time{
+    font-size: 0.8em;
+    display: inline-block;
+    height: 64px;
+    line-height: 64px;
+    float: right;
+    margin-right: 15px;
 }
 
 

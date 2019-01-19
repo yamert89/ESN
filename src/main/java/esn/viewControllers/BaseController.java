@@ -3,12 +3,13 @@ package esn.viewControllers;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
-import esn.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
@@ -100,6 +101,19 @@ public class BaseController {
         user.getNotes().put(timestamp, text);
         userDAO.updateUser(user); //TODO обновить при выходе?
     }
+
+    @PostMapping("/savefile")
+    @ResponseBody
+    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam(required = false) String fileName, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        System.out.println(file.getName());
+        System.out.println();
+        //user.getStoredFiles().add(new StoredFile())
+    }
+
+    @GetMapping("/favicon")
+    @ResponseBody
+    public void fav(){}
 
 
 }
