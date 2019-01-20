@@ -14,9 +14,23 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $(".btn_load_file").on("change", function () {
+           /* $(".btn_load_file").on("change", function () {
                 var form = $(".form_file");
                 var filename = $(this).get(0).files[0].name;
+            });*/
+
+            $(".btn_load_file").click(function () {
+                var form = $(".form_file");
+                var url = form.attr('action');
+                var input = $(".file_input");
+
+                var data = new FormData();
+                data.append( 'file', input.get(0).files[0]);
+                data.append('shared', input.attr("shared"));
+
+                $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
+
+
             });
         });
         function onSubmit(f) {
@@ -38,8 +52,10 @@
                 <div class="file_time">18.01.2018  16.00</div>
             </div>
         </div>
-        <form action="">
-            <input type="file" value="Загрузить" class="btn_load_file">
+        <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" data-shared="1" class="file_input">
+            <%--<input type="text" name="fileName" placeholder="Новое имя">--%>
+            <input type="button" value="Загрузить" class="btn_load_file">
         </form>
     </div>
     <div class="storage_private">
@@ -55,10 +71,10 @@
             </div>
 
         </div>
-        <form action="/${sessionScope.get("orgUrl")}/savefile" class="form_file" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" class="btn_load_file">
-            <input type="text" name="fileName" value="Имя файла">
-            <input type="submit" value="Загрузить">
+        <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" data-shared="1" class="file_input">
+            <%--<input type="text" name="fileName" placeholder="Новое имя">--%>
+            <input type="button" value="Загрузить" class="btn_load_file">
         </form>
     </div>
 </div>

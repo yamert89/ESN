@@ -106,9 +106,8 @@ public class BaseController {
     @ResponseBody
     public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam(required = false) String fileName, HttpSession session){
         User user = (User) session.getAttribute("user");
-        System.out.println(file.getName());
-        System.out.println();
-        //user.getStoredFiles().add(new StoredFile())
+        String name = file.getOriginalFilename();
+        //user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, ))
     }
 
     @GetMapping("/favicon")
