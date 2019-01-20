@@ -26,7 +26,8 @@
 
                 var data = new FormData();
                 data.append( 'file', input.get(0).files[0]);
-                data.append('shared', input.attr("shared"));
+                data.append('shared', input.attr("data-shared"));
+
 
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
 

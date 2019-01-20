@@ -6,12 +6,19 @@ import esn.db.UserDAO;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
+import esn.entities.secondary.StoredFile;
+import esn.utils.GeneralSettings;
+import org.apache.commons.io.FileUtils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +27,7 @@ import java.util.Map;
 import static esn.utils.GeneralSettings.TIME_PATTERN;
 
 @Controller
+
 @SessionAttributes
 public class BaseController {
 
@@ -87,7 +95,7 @@ public class BaseController {
                 }
                 System.out.println();
             }
-            userDAO.updateUser(user); //TODO обновить при выходе?
+            userDAO.updateUser(user);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -95,19 +103,27 @@ public class BaseController {
 
     @PostMapping("/savenote")
     @ResponseBody
+    @Transactional
     public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+        Hibernate.initialize(user.getNotes());
         user.getNotes().put(timestamp, text);
-        userDAO.updateUser(user); //TODO обновить при выходе?
+        userDAO.updateUser(user);
     }
 
     @PostMapping("/savefile")
     @ResponseBody
-    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam(required = false) String fileName, HttpSession session){
+    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam(required = false) String shared, HttpSession session){
         User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
-        //user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, ))
+        try {
+            FileUtils.writeByteArrayToFile(new File(GeneralSettings.STORED_FILES_PATH + name), file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, Boolean.valueOf(shared)));
+        userDAO.updateUser(user);
     }
 
     @GetMapping("/favicon")

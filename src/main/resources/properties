@@ -1,4 +1,5 @@
 avatar_dir=resources/avatars/
+files_dir=E:/test2/stored_files/
 gen_chat_messages_amount=50
 private_chat_messages_amount=50
 wall_messages_amount=25

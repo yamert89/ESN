@@ -21,11 +21,13 @@ public class StoredFile {
 
     private boolean shared;
 
+
     public StoredFile(String name, LocalDateTime time, User owner, boolean shared) {
         this.name = name;
         this.time = time;
         this.owner = owner;
         this.shared = shared;
+
     }
 
     public int getId() {
@@ -55,4 +57,6 @@ public class StoredFile {
     public void setShared(boolean shared) {
         this.shared = shared;
     }
+
+
 }

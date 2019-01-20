@@ -62,7 +62,7 @@ public class User {
     @Column(name = "U_IDS")
     private Map<String, String[]> groups;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "notes")
     @MapKeyColumn(name = "NOTE_TIME")
     @Column(name = "NOTE_TEXT")
