@@ -12,6 +12,17 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/storage/storage.css"/>">
     <script type="text/javascript">
+        var extensions = {'.xls' : 'excel.png', '.xlsx' : 'excel.png',
+            '.doc' : 'word.png', '.docx' : 'word.png',
+            '.mp3' : 'music.png', '.wave' : 'music.png', '.wma' : 'music.png', '.mid' : 'music.png', '.ac3' : 'music.png', '.aac' : 'music.png', '.ogg' : 'music.png', '.flac' : 'music.png',
+            '.avi' : 'movie.png', '3gp' : 'movie.png','.mkv' : 'movie.png','.mov' : 'movie.png','.mp4' : 'movie.png', '.flv' : 'movie.png', 'mpeg' : 'movie.png', 'mpg' : 'movie.png', 'swf' : 'movie.png',
+            '.ico' : 'image.png', '.png' : 'image.png', '.jpg' : 'image.png', '.jpeg' : 'image.png', '.bmp' : 'image.png', '.tga' : 'image.png', '.tif' : 'image.png', '.tiff' : 'image.png', '.djvu' : 'image.png',
+            '.log' : 'text.png', '.txt' : 'text.png', '.text' : 'text.png', '.err' : 'text.png',
+            '.zip' : 'compressed.png', '.rar' : 'compressed.png', '.7z' : 'compressed.png', '.cab' : 'compressed.png', '.tar' : 'compressed.png', '.tgz' : 'compressed.png', '.tar-gz' : 'compressed.png', '.zipx' : 'compressed.png', '.pak' : 'compressed.png',
+            '.pdf' : 'powerpoint.png'}
+        }
+
+        var unknownExt = "fileicon_bg.png";
 
         $(document).ready(function () {
            /* $(".btn_load_file").on("change", function () {
@@ -25,11 +36,14 @@
                 var input = $(".file_input");
 
                 var data = new FormData();
-                data.append( 'file', input.get(0).files[0]);
+                var file = input.get(0).files[0];
+                data.append( 'file', file);
                 data.append('shared', input.attr("data-shared"));
-
-
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
+
+                var regexp = "\\..{2,6}$";
+
+
 
 
             });

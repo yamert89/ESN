@@ -27,7 +27,9 @@ public class StoredFile {
         this.time = time;
         this.owner = owner;
         this.shared = shared;
+    }
 
+    public StoredFile() {
     }
 
     public int getId() {

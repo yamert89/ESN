@@ -103,11 +103,9 @@ public class BaseController {
 
     @PostMapping("/savenote")
     @ResponseBody
-    @Transactional
     public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        Hibernate.initialize(user.getNotes());
         user.getNotes().put(timestamp, text);
         userDAO.updateUser(user);
     }

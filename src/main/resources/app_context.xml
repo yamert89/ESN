@@ -15,10 +15,10 @@
     <tx:annotation-driven/>
     <import resource="dao.xml"/>
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-    <bean id="organiz" class="esn.entities.Organization">
+<!--    <bean id="organiz" class="esn.entities.Organization">
         <constructor-arg name="name" value="Roslesinforg"/>
         <constructor-arg name="description" value="tra la la"/>
-    </bean>
+    </bean>-->
     <!--<bean id="user1" class="esn.entities.User">
         <constructor-arg name="name" value="Vasya"/>
         <constructor-arg name="org" ref="organiz"/>

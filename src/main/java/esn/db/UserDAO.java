@@ -1,6 +1,7 @@
 package esn.db;
 
 import esn.entities.User;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,13 @@ public class UserDAO {
     @Transactional
     public String getPassword(String login) throws Exception{
         return (String) em.createQuery("select u.password from User u where u.login = :login").setParameter("login", login).getSingleResult();
+    }
+
+    @Transactional
+    public User getUserWithNotes(Integer id){
+        User user = em.find(User.class, id);
+        Hibernate.initialize(user.getNotes());
+        return user; //TODO оптимизировать все коллекции
     }
 
 
