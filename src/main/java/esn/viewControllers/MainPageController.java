@@ -9,12 +9,10 @@ import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.User;
 import esn.utils.GeneralSettings;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 

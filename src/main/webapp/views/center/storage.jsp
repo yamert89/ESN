@@ -19,10 +19,17 @@
             '.ico' : 'image.png', '.png' : 'image.png', '.jpg' : 'image.png', '.jpeg' : 'image.png', '.bmp' : 'image.png', '.tga' : 'image.png', '.tif' : 'image.png', '.tiff' : 'image.png', '.djvu' : 'image.png',
             '.log' : 'text.png', '.txt' : 'text.png', '.text' : 'text.png', '.err' : 'text.png',
             '.zip' : 'compressed.png', '.rar' : 'compressed.png', '.7z' : 'compressed.png', '.cab' : 'compressed.png', '.tar' : 'compressed.png', '.tgz' : 'compressed.png', '.tar-gz' : 'compressed.png', '.zipx' : 'compressed.png', '.pak' : 'compressed.png',
-            '.pdf' : 'powerpoint.png'}
-        }
+            '.pdf' : 'powerpoint.png'
+        };
 
         var unknownExt = "fileicon_bg.png";
+
+        function getFileIco(name){
+            var regexp = "\\..{2,6}$";
+            var ext = name.match(regexp);
+            if (!extensions[ext]) return unknownExt;
+            return extensions[ext];
+        }
 
         $(document).ready(function () {
            /* $(".btn_load_file").on("change", function () {
@@ -33,7 +40,7 @@
             $(".btn_load_file").click(function () {
                 var form = $(".form_file");
                 var url = form.attr('action');
-                var input = $(".file_input");
+                var input = $(this).prev();
 
                 var data = new FormData();
                 var file = input.get(0).files[0];
@@ -41,16 +48,20 @@
                 data.append('shared', input.attr("data-shared"));
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
 
-                var regexp = "\\..{2,6}$";
+                getFileIco(file.name);
+
+                input.get(0).value = '';
+
+
+
+
 
 
 
 
             });
         });
-        function onSubmit(f) {
 
-        }
     </script>
 </head>
 <body>
@@ -87,7 +98,7 @@
 
         </div>
         <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" data-shared="1" class="file_input">
+            <input type="file" name="file" data-shared="0" class="file_input">
             <%--<input type="text" name="fileName" placeholder="Новое имя">--%>
             <input type="button" value="Загрузить" class="btn_load_file">
         </form>

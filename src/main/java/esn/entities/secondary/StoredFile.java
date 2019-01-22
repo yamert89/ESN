@@ -4,6 +4,7 @@ import esn.entities.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "stored_files")
@@ -60,5 +61,19 @@ public class StoredFile {
         this.shared = shared;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StoredFile)) return false;
+        StoredFile that = (StoredFile) o;
+        return isShared() == that.isShared() &&
+                Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getTime(), that.getTime()) &&
+                Objects.equals(getOwner(), that.getOwner());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getTime(), getOwner(), isShared());
+    }
 }

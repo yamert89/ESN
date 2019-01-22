@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -66,7 +67,7 @@ public class User {
     @CollectionTable(name = "notes")
     @MapKeyColumn(name = "NOTE_TIME")
     @Column(name = "NOTE_TEXT")
-    private Map<Timestamp, String> notes;
+    private Map<Timestamp, String> notes = new HashMap<>();
 
     @Transient
     private boolean netStatus;

@@ -9,10 +9,8 @@ import esn.entities.secondary.Post;
 import esn.entities.secondary.StoredFile;
 import esn.utils.GeneralSettings;
 import org.apache.commons.io.FileUtils;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -112,15 +110,16 @@ public class BaseController {
 
     @PostMapping("/savefile")
     @ResponseBody
-    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam(required = false) String shared, HttpSession session){
+    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared, HttpSession session){
         User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
+        System.out.println("FILE " + name);
         try {
-            FileUtils.writeByteArrayToFile(new File(GeneralSettings.STORED_FILES_PATH + name), file.getBytes());
+            FileUtils.writeByteArrayToFile(new File(GeneralSettings.STORED_FILES_PATH + user.getLogin() + "/" + name), file.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, Boolean.valueOf(shared)));
+        user.getStoredFiles().add(new StoredFile(user.getLogin() + "/" + name, LocalDateTime.now(), user, shared.equals("1")));
         userDAO.updateUser(user);
     }
 
