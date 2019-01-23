@@ -27,14 +27,14 @@
 
     <bean id="jpaVendorAdapterPostgres" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="database" value="POSTGRESQL"/>
-        <property name="showSql" value="true"/>
+        <property name="showSql" value="false"/>
         <property name="generateDdl" value="true"/>
         <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSourceMySQL"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapterMySQL"/>
+        <property name="dataSource" ref="dataSourcePostgres"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapterPostgres"/>
         <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">
             <props>

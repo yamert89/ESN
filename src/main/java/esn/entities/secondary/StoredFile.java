@@ -12,7 +12,7 @@ public class StoredFile {
     @Id
     @GeneratedValue
     private int id;
-
+    @Column(unique = true)
     private String name;
 
     private LocalDateTime time;
@@ -66,14 +66,17 @@ public class StoredFile {
         if (this == o) return true;
         if (!(o instanceof StoredFile)) return false;
         StoredFile that = (StoredFile) o;
-        return isShared() == that.isShared() &&
-                Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getTime(), that.getTime()) &&
-                Objects.equals(getOwner(), that.getOwner());
+        return  getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getTime(), getOwner(), isShared());
+        System.out.println("NAME " +  getName());
+        System.out.println("Time " + getTime());
+        System.out.println("Owner " + getOwner());
+        System.out.println("SHARED " +  isShared());
+        System.out.println("OwnerID " +  getOwner().getId());
+        int hash = Objects.hash(getName());
+        return hash;
     }
 }

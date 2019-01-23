@@ -8,10 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -52,7 +49,7 @@ public class User {
     private String photo_small; //filename
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "owner")
-    private Set<StoredFile> storedFiles;
+    private Set<StoredFile> storedFiles = new HashSet<>();
 
 
     private UserSettings settings;
@@ -205,26 +202,26 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return isAdmin() == user.isAdmin() &&
+        return  isAdmin() == user.isAdmin() &&
                 Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getPosition(), user.getPosition()) &&
-                Objects.equals(getDepartment(), user.getDepartment()) &&
-                Objects.equals(getSettings(), user.getSettings());
+                Objects.equals(getLogin(), user.getLogin()) &&
+                Objects.equals(getPosition(), user.getPosition());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, admin, position, department, organization, settings);
+        return Objects.hash(getName(), getLogin(), isAdmin(), getPosition());
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return super.toString();
+        /*return "User{" +
                 "name='" + name + '\'' +
                 "passw=" + password +
                 ", department=" + department +
                 ", organization=" + organization +
-                '}';
+                '}';*/
     }
 
 
