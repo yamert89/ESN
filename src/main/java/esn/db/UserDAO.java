@@ -50,6 +50,13 @@ public class UserDAO {
         return user; //TODO оптимизировать все коллекции
     }
 
+    @Transactional
+    public User getUserWithFiles(Integer id){
+        User user = em.find(User.class, id);
+        Hibernate.initialize(user.getStoredFiles());
+        return user;
+    }
+
 
 
 

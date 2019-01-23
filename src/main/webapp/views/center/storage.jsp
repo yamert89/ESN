@@ -44,21 +44,21 @@
 
                 var data = new FormData();
                 var file = input.get(0).files[0];
+                var shared = input.attr("data-shared");
                 data.append( 'file', file);
-                data.append('shared', input.attr("data-shared"));
+                data.append('shared', shared);
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
 
-                getFileIco(file.name);
-
+                var ico = getFileIco(file.name);
+                //TODO уведомить пользователя о загрузке файла
                 input.get(0).value = '';
-
-
-
-
-
-
-
-
+                var fileContainer = shared === 1 ? $("#shared_files") : $("#private_files");
+                fileContainer.append('<div class="file">\n' +
+                    '                <img src="resources/icons/"' + ico + ' class="file_ico">\n' +
+                    '                <div class="fileName" title="' + file.name + '">' + file.name + '</div>\n' +           //TODO скрывать длинные имена здесь и в jsp
+                    '                <div class="file_author"><a href="{org}/user/{login}">' + userName + '</a></div>\n' +  //TODO link
+                    '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                    '            </div>')
             });
         });
 
@@ -70,13 +70,17 @@
     <div class="storage_public">
 
         <div class="storage_header">Общие файлы</div>
-        <div class="storage_wrapper">
-            <div class="file f_doc" data-id="">
-                <img src="resources/icons/word.png" class="file_ico">
-                <div class="fileName" title="Полный текст">Имя файла</div>
-                <div class="file_author"><a href="">Петя Васечкин</a></div>
-                <div class="file_time">18.01.2018  16.00</div>
-            </div>
+        <div class="storage_wrapper" id="shared_files">
+            <c:forEach var="file" items='${sharedFiles}'>
+                <div class="file">
+                    <img src="" class="file_ico">
+                    <div class="fileName" title="${file.name}">${file.name}</div>
+                    <div class="file_author"><a href="">${file.owner.name}</a></div>
+                    <div class="file_time">${file.time}</div>
+                </div>
+            </c:forEach>
+
+
         </div>
         <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">
             <input type="file" name="file" data-shared="1" class="file_input">
@@ -87,14 +91,19 @@
     <div class="storage_private">
 
         <div class="storage_header">Личные файлы</div>
-        <div class="storage_wrapper">
-            <div class="file f_doc" data-id="">
-                <img src="resources/icons/word.png" class="file_ico">
-                <input class="fileName" type="text" title="Полный текст" value="Имя файла">
-                <img src="resources/cross.png" class="file_delete" title="Удалить">
-                <img src="resources/share.png" class="file_share" title="Опубликовать в общие">
-                <div class="file_time">18.01.2018  16.00</div>
-            </div>
+        <div class="storage_wrapper" id="private_files">
+            <c:set var="files" value='${sessionScope.get("user").storedFiles}'/>
+            <c:forEach var="file" items='${files}'>
+                <div class="file">
+                    <img src="" class="file_ico">
+                    <input class="fileName" type="text" title="${file.name}" value="${file.name}">
+                    <img src="resources/cross.png" class="file_delete" title="Удалить">
+                    <img src="resources/share.png" class="file_share" title="Опубликовать в общие">
+                    <div class="file_time">18.01.2018  16.00</div>
+                </div>
+
+            </c:forEach>
+
 
         </div>
         <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">

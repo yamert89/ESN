@@ -48,7 +48,7 @@ public class User {
 
     private String photo_small; //filename
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "owner")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "owner")
     private Set<StoredFile> storedFiles = new HashSet<>();
 
 
