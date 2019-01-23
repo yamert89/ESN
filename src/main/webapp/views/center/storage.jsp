@@ -97,9 +97,9 @@
                 <div class="file">
                     <img src="" class="file_ico">
                     <input class="fileName" type="text" title="${file.name}" value="${file.name}">
-                    <img src="resources/cross.png" class="file_delete" title="Удалить">
-                    <img src="resources/share.png" class="file_share" title="Опубликовать в общие">
-                    <div class="file_time">18.01.2018  16.00</div>
+                    <img src='<c:url value="/resources/cross.png"/>' class="file_delete" title="Удалить">
+                    <img src='<c:url value="/resources/share.png"/>' class="file_share" title="Опубликовать в общие">
+                    <div class="file_time">${file.time}</div>
                 </div>
 
             </c:forEach>

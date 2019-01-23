@@ -4,10 +4,11 @@ import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
+import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
-import esn.entities.User;
+import esn.entities.secondary.StoredFile;
 import esn.utils.GeneralSettings;
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,8 +128,9 @@ public class MainPageController {
     @GetMapping(value = "/storage")
     public String storage(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
+        Set<StoredFile> set = null;
         try{
-            user.getStoredFiles();
+            user.getStoredFiles().size();
         }catch (LazyInitializationException e){
             user = userDAO.getUserWithFiles(user.getId());
         }

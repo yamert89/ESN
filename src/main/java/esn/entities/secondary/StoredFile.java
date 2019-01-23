@@ -12,7 +12,7 @@ public class StoredFile {
     @Id
     @GeneratedValue
     private int id;
-    @Column(unique = true)
+    @Column(unique = false)
     private String name;
 
     private LocalDateTime time;
@@ -77,6 +77,7 @@ public class StoredFile {
         System.out.println("SHARED " +  isShared());
         System.out.println("OwnerID " +  getOwner().getId());
         int hash = Objects.hash(getName());
+        System.out.println("HASH " + hash);
         return hash;
     }
 }
