@@ -2,6 +2,7 @@ package esn.entities;
 
 import esn.db.UserDAO;
 import esn.entities.secondary.StoredFile;
+import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;

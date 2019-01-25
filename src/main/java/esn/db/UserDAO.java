@@ -22,8 +22,8 @@ public class UserDAO {
     }
 
     @Transactional
-    public void updateUser(User user) {
-        em.merge(user);
+    public User updateUser(User user) {
+        return em.merge(user);
     }
 
     @Transactional

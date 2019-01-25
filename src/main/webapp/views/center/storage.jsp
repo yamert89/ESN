@@ -37,6 +37,16 @@
                 var filename = $(this).get(0).files[0].name;
             });*/
 
+            $(".file_share").click(function () {
+                var fileContainer = $("#shared_files");
+                if ($(this).attr("data-shared") === "0"){
+                    fileContainer.append($(this).parent().html());
+                } else {
+                    fileContainer.find('[title="' + $(this).prev().prev().attr('title') + '"]').remove();
+                }
+
+            });
+
             $(".btn_load_file").click(function () {
                 var form = $(".form_file");
                 var url = form.attr('action');
@@ -49,18 +59,21 @@
                 data.append('shared', shared);
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
 
-                var ico = getFileIco(file.name);
                 //TODO уведомить пользователя о загрузке файла
                 input.get(0).value = '';
                 var fileContainer = shared === 1 ? $("#shared_files") : $("#private_files");
+                var ico = getFileIco(file.name);
                 fileContainer.append('<div class="file">\n' +
                     '                <img src="resources/icons/"' + ico + ' class="file_ico">\n' +
                     '                <div class="fileName" title="' + file.name + '">' + file.name + '</div>\n' +           //TODO скрывать длинные имена здесь и в jsp
                     '                <div class="file_author"><a href="{org}/user/{login}">' + userName + '</a></div>\n' +  //TODO link
                     '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
-                    '            </div>')
+                    '            </div>');
+
             });
         });
+
+
 
     </script>
 </head>
@@ -98,10 +111,14 @@
                     <img src="" class="file_ico">
                     <input class="fileName" type="text" title="${file.name}" value="${file.name}">
                     <img src='<c:url value="/resources/cross.png"/>' class="file_delete" title="Удалить">
-                    <img src='<c:url value="/resources/share.png"/>' class="file_share" title="Опубликовать в общие">
+                    <c:if test="${file.shared == false}">
+                        <img src='<c:url value="/resources/share.png"/>' data-shared='0' class="file_share" title="Опубликовать в общие">
+                    </c:if>
+                    <c:if test="${file.shared == true}">
+                        <img src='<c:url value="/resources/unshare.png"/>' data-shared='1' class="file_share" title="Опубликовать в общие">
+                    </c:if>
                     <div class="file_time">${file.time}</div>
                 </div>
-
             </c:forEach>
 
 

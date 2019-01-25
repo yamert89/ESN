@@ -119,8 +119,9 @@ public class BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        user.getStoredFiles().add(new StoredFile(user.getLogin() + "/" + name, LocalDateTime.now(), user, shared.equals("1")));
-        userDAO.updateUser(user);
+        user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, shared.equals("1")));
+        user = userDAO.updateUser(user);
+        session.setAttribute("user", user);
     }
 
     @GetMapping("/favicon")
