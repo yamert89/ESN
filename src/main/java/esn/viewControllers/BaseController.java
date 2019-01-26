@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.Map;
 
 import static esn.utils.GeneralSettings.TIME_PATTERN;
@@ -120,6 +121,31 @@ public class BaseController {
             e.printStackTrace();
         }
         user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, shared.equals("1")));
+        user = userDAO.updateUser(user);
+        session.setAttribute("user", user);
+    }
+
+    @GetMapping("/savefile")
+    @ResponseBody
+    public void updateFile(@RequestParam String fname, @RequestParam String update, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Iterator<StoredFile> it = user.getStoredFiles().iterator();
+        StoredFile storedFile = null;
+        while (it.hasNext()){
+            storedFile = it.next();
+            if (storedFile.getName().equals(fname)) break;
+        }
+        switch (update){
+            case "share":
+                storedFile.setShared(true);
+                break;
+            case "unshare":
+                storedFile.setShared(false);
+                break;
+            case "delete":
+                user.getStoredFiles().remove(storedFile);
+                break;
+        }
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
     }

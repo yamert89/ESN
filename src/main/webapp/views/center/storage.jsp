@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -37,38 +38,69 @@
                 var filename = $(this).get(0).files[0].name;
             });*/
 
-            $(".file_share").click(function () {
+            $(".file_share").on("click", function () {
                 var fileContainer = $("#shared_files");
+                var el_filename = $(this).prev().prev();
+                var fname = el_filename.attr("title");
                 if ($(this).attr("data-shared") === "0"){
-                    fileContainer.append($(this).parent().html());
+                    $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: fname, update: "share"}});
+                    fileContainer.append('<div class="file">\n' +
+                        '                    <img src="" class="file_ico">\n' +
+                        '                    <input class="fileName" readonly title="' + fname + '" value="' + fname +'">\n' +
+                        '                    <div class="file_author"><a href="">'  + userName + '</a></div>\n' +
+                        '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                        '                </div>');
+                    $(this).attr("src", "/resources/unshare.png");
+                    $(this).attr("data-shared", "1");
+
+
                 } else {
-                    fileContainer.find('[title="' + $(this).prev().prev().attr('title') + '"]').remove();
+                    $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: fname, update: "unshare"}});
+                    fileContainer.find('[title="' + $(this).prev().prev().attr('title') + '"]').parent().remove();
+                    $(this).attr("src", "/resources/share.png");
+                    $(this).attr("data-shared", "0");
                 }
 
             });
 
             $(".btn_load_file").click(function () {
-                var form = $(".form_file");
-                var url = form.attr('action');
+                var url = '/savefile';
                 var input = $(this).prev();
 
                 var data = new FormData();
                 var file = input.get(0).files[0];
+                file.name = file.name.length > 30 ? file.name.substring(0, 27) + "..." : file.name;
                 var shared = input.attr("data-shared");
+                alert(shared);
                 data.append( 'file', file);
                 data.append('shared', shared);
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
 
                 //TODO уведомить пользователя о загрузке файла
                 input.get(0).value = '';
-                var fileContainer = shared === 1 ? $("#shared_files") : $("#private_files");
                 var ico = getFileIco(file.name);
-                fileContainer.append('<div class="file">\n' +
-                    '                <img src="resources/icons/"' + ico + ' class="file_ico">\n' +
-                    '                <div class="fileName" title="' + file.name + '">' + file.name + '</div>\n' +           //TODO скрывать длинные имена здесь и в jsp
-                    '                <div class="file_author"><a href="{org}/user/{login}">' + userName + '</a></div>\n' +  //TODO link
-                    '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
-                    '            </div>');
+                var fileContainer;
+                if (shared === "1") {
+                    fileContainer = $("#shared_files");
+                    fileContainer.append('<div class="file">\n' +
+                        '                <img src="resources/icons/"' + ico + ' class="file_ico">\n' +
+                        '                <input class="fileName" readonly title="' + file.name + '" value="' + file.name +'">\n' +           //TODO скрывать длинные имена здесь и в jsp
+                        '                <div class="file_author"><a href="">' + userName + '</a></div>\n' +  //TODO link
+                        '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                        '            </div>');
+                }else{
+                    fileContainer = $("#private_files");
+                    fileContainer.append('<div class="file">\n' +
+                        '                    <img src="" class="file_ico">\n' +
+                        '                    <input class="fileName" type="text" title="' + file.name + '" value="' + file.name + '">\n' +
+                        '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
+                        '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
+                        '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                        '                </div>');
+
+                }
+
+
 
             });
         });
@@ -87,7 +119,7 @@
             <c:forEach var="file" items='${sharedFiles}'>
                 <div class="file">
                     <img src="" class="file_ico">
-                    <div class="fileName" title="${file.name}">${file.name}</div>
+                    <input class="fileName" readonly title="${file.name}" value="${file.name}">
                     <div class="file_author"><a href="">${file.owner.name}</a></div>
                     <div class="file_time">${file.time}</div>
                 </div>
@@ -95,7 +127,7 @@
 
 
         </div>
-        <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">
+        <form action="" class="form_file" method="post" enctype="multipart/form-data">
             <input type="file" name="file" data-shared="1" class="file_input">
             <%--<input type="text" name="fileName" placeholder="Новое имя">--%>
             <input type="button" value="Загрузить" class="btn_load_file">
@@ -123,7 +155,7 @@
 
 
         </div>
-        <form action="/savefile" class="form_file" method="post" enctype="multipart/form-data">
+        <form action="" class="form_file" method="post" enctype="multipart/form-data">
             <input type="file" name="file" data-shared="0" class="file_input">
             <%--<input type="text" name="fileName" placeholder="Новое имя">--%>
             <input type="button" value="Загрузить" class="btn_load_file">
@@ -132,3 +164,5 @@
 </div>
 </body>
 </html>
+
+

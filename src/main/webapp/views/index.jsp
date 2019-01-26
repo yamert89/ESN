@@ -16,6 +16,8 @@
         window.listOfDatesNoted = [];
         $(document).ready(function () {
 
+            window.userName = $(".user_name").text();
+
            /* $("#groups").click(function () {
                 location.href = "/groups";
             });*/
