@@ -127,7 +127,8 @@ public class BaseController {
 
     @GetMapping("/savefile")
     @ResponseBody
-    public void updateFile(@RequestParam String fname, @RequestParam String update, HttpSession session){
+    public void updateFile(@RequestParam String fname, @RequestParam String update,
+                           @RequestParam(required = false) String newName, HttpSession session){
         User user = (User) session.getAttribute("user");
         Iterator<StoredFile> it = user.getStoredFiles().iterator();
         StoredFile storedFile = null;
@@ -135,16 +136,30 @@ public class BaseController {
             storedFile = it.next();
             if (storedFile.getName().equals(fname)) break;
         }
-        switch (update){
-            case "share":
-                storedFile.setShared(true);
-                break;
-            case "unshare":
-                storedFile.setShared(false);
-                break;
-            case "delete":
-                user.getStoredFiles().remove(storedFile);
-                break;
+        try {
+            switch (update) {
+                case "share":
+                    storedFile.setShared(true);
+                    break;
+                case "unshare":
+                    storedFile.setShared(false);
+                    break;
+                case "delete":
+                    String path = GeneralSettings.STORED_FILES_PATH + user.getLogin() + "/";
+                    user.getStoredFiles().remove(storedFile);
+                    FileUtils.forceDelete(new File(path + storedFile.getName() + "." + storedFile.getExtension()));
+                    break;
+                case "rename":
+                    String path2 = GeneralSettings.STORED_FILES_PATH + user.getLogin() + "/";
+                    File oldFile = new File(path2 + storedFile.getName() + "." + storedFile.getExtension());
+
+                    FileUtils.copyFile(oldFile, new File(path2 + newName + "." + storedFile.getExtension()));
+                    FileUtils.forceDelete(oldFile);
+
+                    storedFile.setName(newName);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
         }
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);

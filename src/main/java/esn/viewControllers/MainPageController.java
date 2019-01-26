@@ -8,7 +8,6 @@ import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
-import esn.entities.secondary.StoredFile;
 import esn.utils.GeneralSettings;
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +127,6 @@ public class MainPageController {
     @GetMapping(value = "/storage")
     public String storage(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
-        Set<StoredFile> set = null;
         try{
             user.getStoredFiles().size();
         }catch (LazyInitializationException e){

@@ -111,13 +111,13 @@ public class UserController {
 
         if (!image.isEmpty()) {
             try {
-                String expansion = SimpleUtils.getExpansion(image);
+                String extension = SimpleUtils.getExtension(image);
 
-                String fileName = user.getLogin().concat(".").concat(expansion);
-                String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(expansion);
+                String fileName = user.getLogin().concat(".").concat(extension);
+                String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(extension);
                 byte[] bytes = image.getBytes();
-                byte[] bigImage = ImageResizer.resizeBig(bytes, expansion);
-                byte[] smallImage = ImageResizer.resizeSmall(bytes, expansion);
+                byte[] bigImage = ImageResizer.resizeBig(bytes, extension);
+                byte[] smallImage = ImageResizer.resizeSmall(bytes, extension);
                 if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
                 System.out.println(user.getName());
                 System.out.println(fileName);

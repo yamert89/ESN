@@ -15,6 +15,9 @@ public class StoredFile {
     @Column(unique = false)
     private String name;
 
+    @Column(length = 7)
+    private String extension;
+
     private LocalDateTime time;
 
     @ManyToOne
@@ -24,7 +27,9 @@ public class StoredFile {
 
 
     public StoredFile(String name, LocalDateTime time, User owner, boolean shared) {
-        this.name = name;
+        int point = name.lastIndexOf(".");
+        this.name = name.substring(0, point);
+        extension = name.substring(point + 1);
         this.time = time;
         this.owner = owner;
         this.shared = shared;
@@ -61,6 +66,14 @@ public class StoredFile {
         this.shared = shared;
     }
 
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,11 +84,11 @@ public class StoredFile {
 
     @Override
     public int hashCode() {
-        System.out.println("NAME " +  getName());
+        /*System.out.println("NAME " +  getName());
         System.out.println("Time " + getTime());
         System.out.println("Owner " + getOwner());
         System.out.println("SHARED " +  isShared());
-        System.out.println("OwnerID " +  getOwner().getId());
+        System.out.println("OwnerID " +  getOwner().getId());*/
         int hash = Objects.hash(getName());
         System.out.println("HASH " + hash);
         return hash;

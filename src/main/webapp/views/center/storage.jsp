@@ -37,15 +37,35 @@
                 var form = $(".form_file");
                 var filename = $(this).get(0).files[0].name;
             });*/
+            $(".fileName").keyup(function(event){
+                if(event.keyCode === 13){
+                    event.preventDefault();
+                    $(this).blur();
+
+                }
+            });
+
+            $(".file_ico").each(function () {
+               $(this).attr("src", "../resources/icons/" + getFileIco("." + $(this).attr("data-ext")));
+            });
+
+            $(".file_delete").on("click", function () {
+                var fname = $(this).prev().attr("title");
+                $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: fname, update: "delete"}});
+                $('[title="' + fname + '"]').parent().remove();
+            });
 
             $(".file_share").on("click", function () {
                 var fileContainer = $("#shared_files");
-                var el_filename = $(this).prev().prev();
-                var fname = el_filename.attr("title");
+
+                var fname = $(this).prev().prev().attr("title");
                 if ($(this).attr("data-shared") === "0"){
                     $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: fname, update: "share"}});
+
+
+                    var ico = getFileIco("." + $(this).prev().prev().prev().attr("data-ext"));
                     fileContainer.append('<div class="file">\n' +
-                        '                    <img src="" class="file_ico">\n' +
+                        '                    <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
                         '                    <input class="fileName" readonly title="' + fname + '" value="' + fname +'">\n' +
                         '                    <div class="file_author"><a href="">'  + userName + '</a></div>\n' +
                         '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
@@ -69,9 +89,9 @@
 
                 var data = new FormData();
                 var file = input.get(0).files[0];
-                file.name = file.name.length > 30 ? file.name.substring(0, 27) + "..." : file.name;
+                var idx = file.name.lastIndexOf('.');
+                var newFileName = file.name.substring(0, idx);
                 var shared = input.attr("data-shared");
-                alert(shared);
                 data.append( 'file', file);
                 data.append('shared', shared);
                 $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
@@ -83,27 +103,38 @@
                 if (shared === "1") {
                     fileContainer = $("#shared_files");
                     fileContainer.append('<div class="file">\n' +
-                        '                <img src="resources/icons/"' + ico + ' class="file_ico">\n' +
-                        '                <input class="fileName" readonly title="' + file.name + '" value="' + file.name +'">\n' +           //TODO скрывать длинные имена здесь и в jsp
+                        '                <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
+                        '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'">\n' +
                         '                <div class="file_author"><a href="">' + userName + '</a></div>\n' +  //TODO link
                         '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
                         '            </div>');
-                }else{
-                    fileContainer = $("#private_files");
-                    fileContainer.append('<div class="file">\n' +
-                        '                    <img src="" class="file_ico">\n' +
-                        '                    <input class="fileName" type="text" title="' + file.name + '" value="' + file.name + '">\n' +
-                        '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
-                        '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
-                        '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
-                        '                </div>');
-
                 }
+                fileContainer = $("#private_files");
+                fileContainer.append('<div class="file">\n' +
+                    '                    <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
+                    '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '">\n' +
+                    '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
+                    '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
+                    '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                    '                </div>');
+
+
 
 
 
             });
         });
+
+        function rename(el) {
+            var oldName = el.getAttribute("title");
+            $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: oldName, update: "rename", newName: el.value}});
+            el.setAttribute("title", el.value);
+            el.setAttribute("value", el.value);
+
+            var sharedEl =  $('[title="' + oldName  +'"');
+           sharedEl.attr("title", el.value);
+           sharedEl.attr("value", el.value);
+        }
 
 
 
@@ -118,7 +149,7 @@
         <div class="storage_wrapper" id="shared_files">
             <c:forEach var="file" items='${sharedFiles}'>
                 <div class="file">
-                    <img src="" class="file_ico">
+                    <img src="" class="file_ico" data-ext="${file.extension}">
                     <input class="fileName" readonly title="${file.name}" value="${file.name}">
                     <div class="file_author"><a href="">${file.owner.name}</a></div>
                     <div class="file_time">${file.time}</div>
@@ -140,8 +171,8 @@
             <c:set var="files" value='${sessionScope.get("user").storedFiles}'/>
             <c:forEach var="file" items='${files}'>
                 <div class="file">
-                    <img src="" class="file_ico">
-                    <input class="fileName" type="text" title="${file.name}" value="${file.name}">
+                    <img src="" class="file_ico" data-ext="${file.extension}">
+                    <input class="fileName" type="text" title="${file.name}" value="${file.name}" onchange="rename(this)">
                     <img src='<c:url value="/resources/cross.png"/>' class="file_delete" title="Удалить">
                     <c:if test="${file.shared == false}">
                         <img src='<c:url value="/resources/share.png"/>' data-shared='0' class="file_share" title="Опубликовать в общие">

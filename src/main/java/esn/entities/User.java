@@ -2,7 +2,6 @@ package esn.entities;
 
 import esn.db.UserDAO;
 import esn.entities.secondary.StoredFile;
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -49,8 +48,8 @@ public class User {
 
     private String photo_small; //filename
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "owner")
-    private Set<StoredFile> storedFiles = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner", orphanRemoval=true)
+    private Set<StoredFile> storedFiles;
 
 
     private UserSettings settings;

@@ -23,7 +23,7 @@ public class SimpleUtils {
         return name;
     }
 
-    public static String getExpansion(MultipartFile image){
+    public static String getExtension(MultipartFile image){
         switch (image.getContentType()){
             case  "image/jpeg":
                 return "jpg";
