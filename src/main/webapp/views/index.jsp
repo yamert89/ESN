@@ -1,15 +1,15 @@
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <header>
-    <link rel="stylesheet" href="<core:url value="/resources/static/index.css"/>">
-    <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
-    <link rel="stylesheet" href="<core:url value="/resources/static/tools/tools.css"/>">
-    <link rel="stylesheet" href="<core:url value="/resources/static/center/notes/notes.css"/>">
-    <script src="<core:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
-    <script src="<core:url value="/resources/libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"/>"></script>
-    <script src="<core:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/static/index.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/gen.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/tools/tools.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/notes/notes.css"/>">
+    <script src="<c:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
+    <script src="<c:url value="/resources/libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"/>"></script>
+    <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
 
@@ -58,16 +58,16 @@
 
             });*/
 
-    </script>
-    <div class="title" align="center">Name</div>
+    </script><c:set var="user" value='${sessionScope.get("user")}'/>
+    <div class="title" align="center">${user.organization.name}</div>
     <div class="user">
-        <span class="user_name">Иванов Иван Иванович</span>
-        <img src="" class="user_photo">
+        <span class="user_name">${user.name}</span>
+        <img src='<c:url value="${user.photo}"/>' class="user_photo">
     </div>
 </header>
 <body>
 <div class="container">
-    <div class="tools"><core:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
+    <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
         <div class="tool" id="wall"><a href='/${orgUrl}/wall'>Лента</a></div>
         <div class="tool" id="chat"><a href='/${orgUrl}/chat'>Чат</a></div>
         <div class="tool" id="staff"><a href='/${orgUrl}/staff'>Сотрудники</a></div>
@@ -83,7 +83,7 @@
         <t:insertAttribute name="center"/>
     </div>
     <div class="contacts">
-        <iframe src="<core:url value='/resources/static/contacts/contacts.html'/>" frameborder="0"></iframe>
+        <iframe src="<c:url value='/resources/static/contacts/contacts.html'/>" frameborder="0"></iframe>
     </div>
 
 </div>

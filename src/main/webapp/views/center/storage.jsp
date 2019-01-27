@@ -134,6 +134,7 @@
             var sharedEl =  $('[title="' + oldName  +'"');
            sharedEl.attr("title", el.value);
            sharedEl.attr("value", el.value);
+            //TODO уведомить пользователя о переименовании файла
         }
 
 

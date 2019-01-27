@@ -64,7 +64,8 @@ public class User {
     @CollectionTable(name = "notes")
     @MapKeyColumn(name = "NOTE_TIME")
     @Column(name = "NOTE_TEXT")
-    private Map<Timestamp, String> notes = new HashMap<>();
+    @org.hibernate.annotations.OrderBy(clause = "NOTE_TIME desc")
+    private Map<Timestamp, String> notes = new LinkedHashMap<>();
 
     @Transient
     private boolean netStatus;

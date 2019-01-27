@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Repository
 @Transactional
-public class GlobalDAO { //TODO сортировка в обратном порядке
+public class GlobalDAO {
 
     private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='wall'";
     private final String CHECKTABLE_MYSQL = "show tables like 'wall'";
@@ -85,7 +85,7 @@ public class GlobalDAO { //TODO сортировка в обратном пор�
                     list.add(new GenChatMessage((int) row[2], (String) row[1], (Timestamp) row[3], (String) row[4], userDAO));
                 }
             } else if (mesClass == Post.class) {
-                arr = em.createNativeQuery("select * from wall where org_url = ? limit ?")
+                arr = em.createNativeQuery("select * from wall where org_url = ? order by time desc limit ?") //TODO Постраничный вывод
                         .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                         .setParameter(1, orgUrl)
                         .getResultList();
