@@ -17,6 +17,7 @@
         $(document).ready(function () {
 
             window.userName = $(".user_name").text();
+            window.orgName = $(".title").text();
 
            /* $("#groups").click(function () {
                 location.href = "/groups";
@@ -70,9 +71,9 @@
     <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
         <div class="tool" id="wall"><a href='/${orgUrl}/wall'>Лента</a></div>
         <div class="tool" id="chat"><a href='/${orgUrl}/chat'>Чат</a></div>
-        <div class="tool" id="staff"><a href='/${orgUrl}/staff'>Сотрудники</a></div>
+        <div class="tool" id="staff"><a href='/${orgUrl}/staff'>Структура</a></div>
         <div class="tool" id="groups"><a href='/${orgUrl}/groups'>Группы</a></div>
-        <div class="tool" id="storage"><a href='/${orgUrl}/storage'>Хранилище</a></div>
+        <div class="tool" id="storage"><a href='/${orgUrl}/storage'>Файлообменник</a></div>
         <div class="tool" id="notes"><a href='/${orgUrl}}/notes'>Заметки</a></div>
         <div class="tool" id="calendar"><a href='/${orgUrl}'>Календарь</a></div>
         <div class="tool" id="apps"><a href='/${orgUrl}}/apps'>Приложения</a></div>

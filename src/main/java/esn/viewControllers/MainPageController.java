@@ -120,8 +120,10 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/staff")
-    public String staff(){
-        return "staff";
+    public String staff(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        return user.isAdmin() ? "staff_admin" : "staff";
+
     }
 
     @GetMapping(value = "/storage")

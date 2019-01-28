@@ -111,6 +111,13 @@
         </div>
         </div>*/
 
+        $(".clear_flowchart").click(function () {
+            var resp = confirm("Вы уверены, что хотите удалить текущую структуру и построить её заново?");
+            if (!resp) return;
+            //TODO Удалить текущую структуру и обновить страницу с родительским нодом
+            $(".flowchart_frame")[0].contentWindow.createTree();
+        })
+
 
 
 
@@ -187,7 +194,30 @@
 
 </div>
 <div class="center">
+    <div class="tree_wrapper">
 
+        <div class="flowchart_wrapper">
+            <iframe src="resources/static/center/staff/flowchart/flowchart.html" class="flowchart_frame"></iframe>
+            <button class="clear_flowchart">Очистить структуру</button>
+        </div>
+
+        <div class="staff_container">
+
+            <table class="person_staff">
+                <tr>
+                    <td width="100px">
+                        <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                    <td valign="middle">
+                        <div class="person_point">
+                            <div class="person_name_staff">Иванов Иван Иванович</div>
+                            <div class="person_position">Главный инженер</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
 </div>
 <div class="contacts">
     <iframe src="resources/static/contacts/contacts.html" frameborder="0"></iframe>

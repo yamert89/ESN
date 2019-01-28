@@ -730,7 +730,7 @@ ECOTree.prototype._drawTree = function () {
 					s.push('</div>');
 					//TODO modified-----------------------------
 
-					s.push('<div class="node_tools"><img src="resources/plus.png" title="Добавить подраздел" class="node_tool node_plus"></div>');
+					s.push('<div class="node_tools"><img src="" title="Добавить подраздел" class="node_tool node_plus"></div>');
 
 
 					//------------------------end---------------

@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="resources/static/center/staff/flowchart/block.css">
-    <link rel="stylesheet" href="resources/libs/ECOTree-master/ECOTree.css">
-    <script src="resources/libs/ECOTree-master/ECOTree.js"></script>
-    <script src="resources/libs/jquery_3.1.0.js"></script>
+    <link rel="stylesheet" href="block.css">
+    <link rel="stylesheet" href="../../../../libs/ECOTree-master/ECOTree.css">
+    <script src="../../../../libs/ECOTree-master/ECOTree.js"></script>
+    <script src="../../../../libs/jquery_3.1.0.js"></script>
     <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v"/>
     <style>v\:*{ behavior:url(#default#VML);}</style>
     <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v" />
     <script>
         $(document).ready(function () {
             createTree();
+
 
 
             $("img").not(".node_plus").click(function () {
@@ -22,11 +23,12 @@
 
         function createTree() {
             myTree = new ECOTree('myTree','myTreeContainer');
-           createSomeNode(0, -1, "Корневое имя"); //TODO получить имя организации
+            var orgName = window.parent.orgName;
+           createSomeNode(0, -1, orgName); //TODO получить имя организации
         }
 
         function addChild(parent) {
-            var name = prompt("Введите название подраздела", "");
+            var name = prompt("Введите название дочернего подразделения", "");
             while (name.length === 0) {
                 alert("Назавание не может быть пустым");
                 name = prompt("Введите название подраздела", "");
@@ -40,12 +42,17 @@
             myTree.add(id, parent, name, l);
             myTree.UpdateTree();
             nodePlusOnClick();
+
         }
 
         function nodePlusOnClick() {
-            $(".node_plus").click(function () {
+            var node_pluse = $(".node_plus");
+            node_pluse.on("click", function () {
                 addChild($(this).parent().parent().attr('id'));
             });
+
+            node_pluse.attr("src", "../../../../plus.png");
+
         }
 
 

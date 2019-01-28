@@ -22,6 +22,9 @@
     <definition name="staff" extends="index_template">
         <put-attribute name="center" value="/views/center/staff.jsp" />
     </definition>
+    <definition name="staff_admin" extends="index_template">
+        <put-attribute name="center" value="/views/center/staff_admin.jsp" />
+    </definition>
     <definition name="storage" extends="index_template">
         <put-attribute name="center" value="/views/center/storage.jsp" />
     </definition>
