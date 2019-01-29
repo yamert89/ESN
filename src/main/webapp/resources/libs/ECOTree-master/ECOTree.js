@@ -299,9 +299,9 @@ ECOTree = function (obj, elm) {
 		defaultNodeWidth : 150,
 		defaultNodeHeight : 74,
 		defaultTarget : 'javascript:void(0);',
-		expandedImage : 'resources/libs/ECOTree-master/img/less.gif',
-		collapsedImage : 'resources/libs/ECOTree-master/img/plus.gif',
-		transImage : 'resources/libs/ECOTree-master/img/trans.gif'
+		expandedImage : '../../../../libs/ECOTree-master/img/less.gif',
+		collapsedImage : '../../../../libs/ECOTree-master/img/plus.gif',
+		transImage : '../../../../libs/ECOTree-master/img/trans.gif'
 	}
 	
 	this.version = "1.1";
@@ -713,9 +713,9 @@ ECOTree.prototype._drawTree = function () {
 					s.push('<div class="block_item_container">');
 					if (node.canCollapse) {
 						s.push('<a id="c' + node.id + '" href="javascript:'+this.obj+'.collapseNode(\''+node.id+'\', true);" >');
-						s.push('<img border=0 src="'+((node.isCollapsed) ? this.config.collapsedImage : this.config.expandedImage)+'" >');							
+						s.push('<img border=0 src="'+((node.isCollapsed) ? this.config.collapsedImage : this.config.expandedImage)+'" class="collaps_img">');
 						s.push('</a>');
-						s.push('<img src="'+this.config.transImage+'" >');						
+						s.push('<img src="'+this.config.transImage+'" class="trans_img">');
 					}					
 					if (node.target && this.config.useTarget)
 					{
