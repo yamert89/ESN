@@ -28,7 +28,7 @@ public class Department {
     @Transient
     private Department parent;
 
-    private String parentId;
+    private Integer parentId;
 
     @Transient
     private Set<Department> children;
@@ -44,7 +44,7 @@ public class Department {
         this.name = name;
         this.description = description;
         this.parent = parent;
-        parentId = String.valueOf(parent.getId());
+        if (parent != null) parentId = parent.getId();
     }
 
     public Department(String name, String description) {
@@ -98,7 +98,7 @@ public class Department {
     }
 
     public Department getParent() {
-        if (parentId != null) return departmentDAO.getDepartmentById(Integer.valueOf(parentId));
+        if (parentId != null) return departmentDAO.getDepartmentById(parentId);
         return parent;
     }
 

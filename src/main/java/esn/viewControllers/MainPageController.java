@@ -4,6 +4,8 @@ import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
+import esn.entities.Department;
+import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
@@ -122,6 +124,10 @@ public class MainPageController {
     @GetMapping(value = "/staff")
     public String staff(HttpSession session){
         User user = (User) session.getAttribute("user");
+        Organization org = orgDao.getOrgById(1);
+        Department
+        org.getDepartments().add(new Department("Первый отдел", "depart1", null));
+        orgDao.update(org);
         return user.isAdmin() ? "staff_admin" : "staff";
 
     }
