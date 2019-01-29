@@ -20,7 +20,7 @@ public class Organization {
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<Department> departments = new HashSet<>(0);
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)

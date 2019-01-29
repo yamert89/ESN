@@ -22,9 +22,15 @@
         });
 
         function createTree() {
-            myTree = new ECOTree('myTree','myTreeContainer');
-            var orgName = window.parent.orgName;
-           createSomeNode(0, -1, orgName); //TODO получить имя организации
+           myTree = new ECOTree('myTree','myTreeContainer');
+           var orgName = window.parent.orgName;
+           createSomeNode(0, -1, orgName);
+
+           $.ajax({url:"/getstaff", type:"get", contentType:"json", success:"createData"})
+        }
+
+        function createData(data) {
+
         }
 
         function addChild(parent) {
@@ -50,15 +56,8 @@
             node_pluse.on("click", function () {
                 addChild($(this).parent().parent().attr('id'));
             });
-
             node_pluse.attr("src", "../../../../plus.png");
-
-
         }
-
-
-
-
     </script>
 </head>
 <body>

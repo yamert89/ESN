@@ -1,6 +1,8 @@
 package esn.entities;
 
 import esn.db.DepartmentDAO;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "departments")
+@NamedEntityGraph(name = "Department.employers", attributeNodes = @NamedAttributeNode("employers"))
 public class Department {
 
     @Id
@@ -22,7 +25,8 @@ public class Department {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "department")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "department")
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> employers = new HashSet<>();
 
     @Transient

@@ -1,8 +1,11 @@
 package esn.viewControllers;
 
+import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.entities.Department;
+import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
@@ -10,6 +13,8 @@ import esn.entities.secondary.StoredFile;
 import esn.utils.GeneralSettings;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,8 +25,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import static esn.utils.GeneralSettings.TIME_PATTERN;
 
@@ -33,6 +37,7 @@ public class BaseController {
     private GlobalDAO globalDAO;
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
+    private DepartmentDAO departmentDAO;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -46,6 +51,10 @@ public class BaseController {
     @Autowired
     public void setOrgDAO(OrganizationDAO orgDAO) {
         this.orgDAO = orgDAO;
+    }
+    @Autowired
+    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
+        this.departmentDAO = departmentDAO;
     }
 
     @GetMapping(value = "/{organization}")
@@ -163,6 +172,33 @@ public class BaseController {
         }
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
+    }
+
+    @GetMapping("/getstaff")
+    @ResponseBody
+    public ResponseEntity<String> getStaff(HttpSession session){
+        try {
+            User user = (User) session.getAttribute("user");
+            Organization org = user.getOrganization();
+            Set<Department> departments = org.getDepartments();
+            Iterator iterator = departments.iterator();
+            while (iterator.hasNext()){
+                //Department department = departmentDAO.getDepartmentWithUsers((Department) iterator.next());
+                Department department = departmentDAO.getHeadDepartment();
+                if (department.equals((Department) iterator.next())) System.out.println("YES!!!");
+                //TODO реализовать json
+
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return ResponseEntity.ok().headers(responseHeaders).body("");
     }
 
     @GetMapping("/favicon")

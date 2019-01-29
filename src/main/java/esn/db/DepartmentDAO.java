@@ -4,11 +4,10 @@ import esn.entities.Department;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository("department_dao")
 @Transactional
@@ -38,6 +37,15 @@ public class DepartmentDAO {
         return (Department) em.createQuery("select d from Department d where d.name = :name")
                 .setParameter("name", name).getSingleResult();
     }
+
+    @Transactional
+    public Department getDepartmentWithUsers(Department department){
+        EntityGraph graph = em.getEntityGraph("Department.employers");
+        Map hints = new HashMap<>(1);
+        hints.put("javax.persistence.fetchgraph", graph);
+
+        return em.find(Department.class, department.getId(), hints);
+    }
     @Transactional
     public Set<Department> getChildren(Department parent){
         List result = em.createNativeQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = ?").setParameter(1, parent).getResultList(); //TODO
@@ -58,6 +66,11 @@ public class DepartmentDAO {
             if (savedDepartments.contains(child)) continue;
             em.createNativeQuery("insert into CHILDREN_DEPARTMENTS values (?, ?)").setParameter(1, department).setParameter(2, child).executeUpdate();
         }
+    }
+
+    @Transactional
+    public Department getHeadDepartment(){
+        return (Department) em.createQuery("select d from Department d where d.parentId is null").getSingleResult();
     }
 
     //TODO удалять детей
