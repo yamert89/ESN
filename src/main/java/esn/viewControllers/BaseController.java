@@ -177,12 +177,15 @@ public class BaseController {
     @GetMapping("/getstaff")
     @ResponseBody
     public ResponseEntity<String> getStaff(HttpSession session){
+        String json = "";
         try {
             User user = (User) session.getAttribute("user");
             Organization org = user.getOrganization();
             Set<Department> departments = org.getDepartments();
 
-            Department department = departmentDAO.getHeadDepartment();
+            if (departments.size() == 0) json = "{}";
+
+            /*Department department = departmentDAO.getHeadDepartment();
             Department department1 = new Department("1", "1", null);
             Department department2 = new Department("2", "2", department1);
             Department department3 = new Department("3", "3", department1);
@@ -192,17 +195,27 @@ public class BaseController {
             department.getChildren().add(department2);
             department.getChildren().add(department3);
             department.getChildren().add(department4);
-            departmentDAO.merge(department);
+            departmentDAO.merge(department);*/
 
-            /*Iterator iterator = departments.iterator();
-            while (iterator.hasNext()){
-                //Department department = departmentDAO.getDepartmentWithUsers((Department) iterator.next());
-                Department department = departmentDAO.getHeadDepartment();
+            Integer[] headIds = departmentDAO.getHeadDepartmentsId();
+            Department department = null;
+            StringBuilder jsonS = new StringBuilder();
+            jsonS.append("[");
+            for (int el :
+                    headIds) {
+                department = departmentDAO.getDepartmentWithUsersAndChildren(el);
+                jsonS.append("{name:\"").append(department.getName()).append("\", children:[");
+                for (User user1: department.getEmployers()) {
 
-                if (department.equals(iterator.next())) System.out.println("YES!!!");
-                //TODO реализовать json
+                }
+            }
 
-            }*/
+
+
+
+
+
+
 
 
 
@@ -212,7 +225,7 @@ public class BaseController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return ResponseEntity.ok().headers(responseHeaders).body("");
+        return ResponseEntity.ok().headers(responseHeaders).body(json);
     }
 
     @GetMapping("/favicon")

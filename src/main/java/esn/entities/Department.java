@@ -12,7 +12,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "departments")
-@NamedEntityGraph(name = "Department.employers", attributeNodes = @NamedAttributeNode("employers"))
+@NamedEntityGraph(name = "Department.employers_children", attributeNodes = {
+        @NamedAttributeNode("employers"), @NamedAttributeNode("children")})
 public class Department {
 
     @Id
@@ -34,7 +35,7 @@ public class Department {
 
     private Integer parentId;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Department> children;
 
     @Transient

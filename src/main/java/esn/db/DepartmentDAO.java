@@ -39,12 +39,12 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public Department getDepartmentWithUsers(Department department){
-        EntityGraph graph = em.getEntityGraph("Department.employers");
+    public Department getDepartmentWithUsersAndChildren(int id){
+        EntityGraph graph = em.getEntityGraph("Department.employers_children");
         Map hints = new HashMap<>(1);
         hints.put("javax.persistence.fetchgraph", graph);
 
-        return em.find(Department.class, department.getId(), hints);
+        return em.find(Department.class, id, hints);
     }
     @Transactional
     public Set<Department> getChildren(Department parent){
@@ -69,8 +69,8 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public Department getHeadDepartment(){
-        return (Department) em.createQuery("select d from Department d where d.parentId is null").getSingleResult();
+    public Integer[] getHeadDepartmentsId(){
+        return  (Integer[]) em.createQuery("select d.id from Department d where d.parentId is null").getResultList().toArray();
     }
 
     //TODO удалять детей
