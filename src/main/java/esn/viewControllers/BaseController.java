@@ -181,14 +181,28 @@ public class BaseController {
             User user = (User) session.getAttribute("user");
             Organization org = user.getOrganization();
             Set<Department> departments = org.getDepartments();
-            Iterator iterator = departments.iterator();
+
+            Department department = departmentDAO.getHeadDepartment();
+            Department department1 = new Department("1", "1", null);
+            Department department2 = new Department("2", "2", department1);
+            Department department3 = new Department("3", "3", department1);
+            Department department4 = new Department("4", "4", department2);
+
+            department.getChildren().add(department1);
+            department.getChildren().add(department2);
+            department.getChildren().add(department3);
+            department.getChildren().add(department4);
+            departmentDAO.merge(department);
+
+            /*Iterator iterator = departments.iterator();
             while (iterator.hasNext()){
                 //Department department = departmentDAO.getDepartmentWithUsers((Department) iterator.next());
                 Department department = departmentDAO.getHeadDepartment();
-                if (department.equals((Department) iterator.next())) System.out.println("YES!!!");
+
+                if (department.equals(iterator.next())) System.out.println("YES!!!");
                 //TODO реализовать json
 
-            }
+            }*/
 
 
 

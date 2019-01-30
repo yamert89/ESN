@@ -29,12 +29,12 @@ public class Department {
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> employers = new HashSet<>();
 
-    @Transient
+    @ManyToOne
     private Department parent;
 
     private Integer parentId;
 
-    @Transient
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Department> children;
 
     @Transient
