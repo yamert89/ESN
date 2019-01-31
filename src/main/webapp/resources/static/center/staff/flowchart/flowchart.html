@@ -41,8 +41,9 @@
                 alert("Назавание не может быть пустым");
                 name = prompt("Введите название подраздела", "");
             }
-            createSomeNode(Date.now(), parent, name);
-            exportData = exportData.concat('{name: \"' + name + '\", parentid:\"' + parent + '\"},')
+            var nodeId = Date.now();
+            createSomeNode(nodeId, parent, name);
+            exportData = exportData.concat('{"name": \"' + name + '\", "id" : ' + nodeId +', "parentid" :' + parent + '},')
         }
         
         function createSomeNode(id, parent, name) {

@@ -217,6 +217,7 @@ public class BaseController {
 
         }catch (Exception e){
             e.printStackTrace();
+            return null;
         }
 
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -224,7 +225,8 @@ public class BaseController {
         return ResponseEntity.ok().headers(responseHeaders).body(jsonS.toString());
     }
 
-    @PostMapping("/save")
+    @PostMapping("/savestructure")
+
 
     @GetMapping("/favicon")
     @ResponseBody

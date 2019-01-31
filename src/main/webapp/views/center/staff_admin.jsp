@@ -24,15 +24,56 @@
                     //TODO Уведомить пользователя
                     var d = document.getElementById("iframe1").contentWindow.exportData;
                     var data = d.substr(0, d.length - 1) + "]";
-                    alert(data);
+                    var object = JSON.parse(data);
+                    object.sort(comparator);
+                    var outObj = [];
+                    var el;
+                    for (var i = 0; i < object.length;) {
+                        el = object[i];
+                        if (el.parentid === 0) {
+                            outObj.push(object[i]);
+                            object.splice(i, 1);
+                        } else i++;
+                    }
+                    outObj.forEach(function (value) {
+                        addChildren(value);
+                    });
+                    $.ajax({url:"savestructure", type:"post", data: JSON.stringify(outObj)});
 
-                    //$.ajax({url:"savestructure", type:"post", data:data});
+                    //alert(JSON.stringify(outObj));
+
+                   /* outObj.forEach(function (value) {
+                        value.children = [];
+                        object.forEach(function (ob) {
+                            if (ob.parentid === value.id) value.children.push(ob);
+                        })
+                    })*/
+
+                    function addChildren(obj) {
+                        obj.children = [];
+                        object.forEach(function (ob) {
+                            if (ob.parentid === obj.id) {
+                                var idx = obj.children.push(ob) - 1;
+                                addChildren(obj.children[idx]);
+                            }
+                        })
+                    }
+
+
+
                 });
         });
+
+
 
         function loadStaff() {
 
             //TODO server side
+        }
+
+        function comparator(el1, el2) {
+            return el1.parentid === el2.parentid ? 0 :
+                el1.parentid > el2.parentid ? 1 : -1;
         }
 
     </script>
