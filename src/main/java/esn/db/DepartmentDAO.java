@@ -69,8 +69,11 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public Integer[] getHeadDepartmentsId(){
-        return  (Integer[]) em.createQuery("select d.id from Department d where d.parentId is null").getResultList().toArray();
+    public List<Integer> getHeadDepartmentsId(){
+        List<Integer> list = em.createQuery("select d.id from Department d where d.parentId is null").getResultList();
+
+        return  list;
+
     }
 
     //TODO удалять детей

@@ -11,6 +11,7 @@
     <style>v\:*{ behavior:url(#default#VML);}</style>
     <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v" />
     <script>
+        var exportData = '[';
         $(document).ready(function () {
             createTree();
 
@@ -41,6 +42,7 @@
                 name = prompt("Введите название подраздела", "");
             }
             createSomeNode(Date.now(), parent, name);
+            exportData = exportData.concat('{name: \"' + name + '\", parentid:\"' + parent + '\"},')
         }
         
         function createSomeNode(id, parent, name) {

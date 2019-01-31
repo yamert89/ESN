@@ -178,6 +178,7 @@ public class BaseController {
     @ResponseBody
     public ResponseEntity<String> getStaff(HttpSession session){
         String json = "";
+        StringBuilder jsonS = null;
         try {
             User user = (User) session.getAttribute("user");
             Organization org = user.getOrganization();
@@ -197,26 +198,21 @@ public class BaseController {
             department.getChildren().add(department4);
             departmentDAO.merge(department);*/
 
-            Integer[] headIds = departmentDAO.getHeadDepartmentsId();
+            List<Integer> headIds = departmentDAO.getHeadDepartmentsId();
             Department department = null;
-            StringBuilder jsonS = new StringBuilder();
+            jsonS = new StringBuilder();
             jsonS.append("[");
             for (int el :
                     headIds) {
                 department = departmentDAO.getDepartmentWithUsersAndChildren(el);
                 jsonS.append("{name:\"").append(department.getName()).append("\", children:[");
                 for (User user1: department.getEmployers()) {
-
+                    jsonS.append("{").append("name:\"").append(user1.getName()).append("\", position: \"").append(user1.getPosition())
+                            .append("\", photo: \"").append(user1.getPhoto()).append("\"},");
                 }
+                jsonS.append("]}");
             }
-
-
-
-
-
-
-
-
+            jsonS.append("]");
 
 
         }catch (Exception e){
@@ -225,8 +221,10 @@ public class BaseController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return ResponseEntity.ok().headers(responseHeaders).body(json);
+        return ResponseEntity.ok().headers(responseHeaders).body(jsonS.toString());
     }
+
+    @PostMapping("/save")
 
     @GetMapping("/favicon")
     @ResponseBody

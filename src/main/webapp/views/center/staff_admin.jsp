@@ -12,14 +12,23 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/staff/flowchart/block.css"/>">
     <script type="text/javascript">
-        $(document).ready(
-            $(".clear_flowchart").click(function () {
-                var resp = confirm("Вы уверены, что хотите удалить текущую структуру и построить её заново?");
-                if (!resp) return;
-                //TODO Удалить текущую структуру и обновить страницу с родительским нодом
-                createTree();
-            })
-        );
+        $(document).ready(function(){
+                $(".clear_flowchart").click(function () {
+                    var resp = confirm("Вы уверены, что хотите удалить текущую структуру и построить её заново?");
+                    if (!resp) return;
+                    //TODO Удалить текущую структуру и обновить страницу с родительским нодом
+                    createTree();
+                });
+
+                $(".save_flowchart").click(function () {
+                    //TODO Уведомить пользователя
+                    var d = document.getElementById("iframe1").contentWindow.exportData;
+                    var data = d.substr(0, d.length - 1) + "]";
+                    alert(data);
+
+                    //$.ajax({url:"savestructure", type:"post", data:data});
+                });
+        });
 
         function loadStaff() {
 
@@ -32,7 +41,8 @@
 <div class="tree_wrapper">
 
     <div class="flowchart_wrapper">
-        <iframe src='<c:url value="/resources/static/center/staff/flowchart/flowchart.html"/>' class="flowchart_frame"></iframe>
+        <iframe src='<c:url value="/resources/static/center/staff/flowchart/flowchart.html"/>' class="flowchart_frame" id="iframe1"></iframe>
+        <button class="save_flowchart">Сохранить структуру</button>
         <button class="clear_flowchart">Очистить структуру</button>
     </div>
 
