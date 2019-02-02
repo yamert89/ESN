@@ -34,7 +34,7 @@
            var orgName = window.parent.orgName;
            createSomeNode(0, -1, orgName);
 
-           //$.ajax({url:"/getstaff", type:"get", contentType:"json", success:"createData"})
+           $.ajax({url:"/getstaff", type:"get", contentType:"json", success:"createData"})
         }
 
         function createData(data) {

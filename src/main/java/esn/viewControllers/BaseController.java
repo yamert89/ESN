@@ -179,6 +179,7 @@ public class BaseController {
     @GetMapping("/getstaff")
     @ResponseBody
     public ResponseEntity<String> getStaff(HttpSession session){
+
         String json = "";
         StringBuilder jsonS = null;
         try {
@@ -189,6 +190,8 @@ public class BaseController {
             if (departments.size() == 0) json = "{}";
 
             List<Department> deps = departmentDAO.getHeadDepartments();
+
+
             ObjectMapper om = new ObjectMapper();
             json = om.writeValueAsString(deps);
             System.out.println(json);

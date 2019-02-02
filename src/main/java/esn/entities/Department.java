@@ -1,5 +1,6 @@
 package esn.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import esn.db.DepartmentDAO;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -22,14 +23,14 @@ public class Department {
 
     @Column(nullable = false, length = 50)
     private String name;
-
+    @JsonIgnore
     @Column(length = 1000)
     private String description;
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "department", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> employers = new HashSet<>();
-
+    @JsonIgnore
     @ManyToOne
     private Department parent;
 
@@ -37,7 +38,7 @@ public class Department {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Department> children;
-
+    @JsonIgnore
     @Transient
     private DepartmentDAO departmentDAO;
 
@@ -113,9 +114,15 @@ public class Department {
     }
 
     public Department getParent() {
-        if (parentId != null) return departmentDAO.getDepartmentById(parentId);
         return parent;
     }
+
+    /*public Department getParent() {
+        if (parentId != null) return departmentDAO.getDepartmentById(parentId);
+        return parent;
+    }*/
+
+
 
     public Set<Department> getChildren() {
         if (children != null) return children;

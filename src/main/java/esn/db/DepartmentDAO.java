@@ -1,6 +1,8 @@
 package esn.db;
 
 import esn.entities.Department;
+import esn.entities.User;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,10 +44,32 @@ public class DepartmentDAO {
     public Department getDepartmentWithUsersAndChildren(long id){
         EntityGraph graph = em.getEntityGraph("Department.employers_children");
         Map hints = new HashMap<>(1);
-        hints.put("javax.persistence.fetchgraph", graph);
+        hints.put("javax.persistence.loadgraph", graph);
 
-        return em.find(Department.class, id, hints);
+        Department d = em.find(Department.class, id, hints);
+
+        return d;
     }
+
+    @Transactional
+    public Department getDepartmentWithUsersAndChildrenALTER(long id){
+        Department d = em.find(Department.class, id);
+        depsInit(d);
+
+        return d;
+    }
+
+    private void depsInit(Department d){
+        Hibernate.initialize(d.getChildren());
+        Hibernate.initialize(d.getEmployers());
+        for (Department dep :
+                d.getChildren()) {
+            depsInit(dep);
+        }
+
+    }
+
+
     @Transactional
     public Set<Department> getChildren(Department parent){
         List result = em.createNativeQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = ?").setParameter(1, parent).getResultList(); //TODO
@@ -70,7 +94,7 @@ public class DepartmentDAO {
 
 
     private List<Long> getHeadDepartmentsId(){
-        return (List<Long>) em.createQuery("select d.id from Department d where d.parentId is null").getResultList();
+        return (List<Long>) em.createQuery("select d.id from Department d where d.parent is null").getResultList();
     }
 
     @Transactional
@@ -79,11 +103,11 @@ public class DepartmentDAO {
         List<Department> deps = new ArrayList<>(ids.size());
         for (Long id :
                 ids) {
-            deps.add(getDepartmentWithUsersAndChildren(id));
+            deps.add(getDepartmentWithUsersAndChildrenALTER(id));
         }
         return deps;
 
     }
 
-    //TODO удалять детей
+
 }
