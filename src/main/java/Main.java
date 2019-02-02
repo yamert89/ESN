@@ -34,7 +34,7 @@ public class Main {
         UserDAO userDao = (UserDAO) context.getBean("userDao");
         User olga = userDao.getUserById(2);
         User anna = userDao.getUserById(3);
-        Department department = departmentDAO.getDepartmentById(8);
+        Department department = departmentDAO.getDepartmentById(8L);
         olga.setDepartment(department);
         anna.setDepartment(department);
         department.addEmployer(olga);

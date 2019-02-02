@@ -21,17 +21,25 @@
                nodePlusOnClick();
             });
         });
+        function clickNode(tree, targetid, nodeid) {
+            window.top.loadSt();
+            ECOTree._canvasNodeClickHandler(tree, targetid, nodeid);
+
+        }
+
+
 
         function createTree() {
            myTree = new ECOTree('myTree','myTreeContainer');
            var orgName = window.parent.orgName;
            createSomeNode(0, -1, orgName);
 
-           $.ajax({url:"/getstaff", type:"get", contentType:"json", success:"createData"})
+           //$.ajax({url:"/getstaff", type:"get", contentType:"json", success:"createData"})
         }
 
         function createData(data) {
             if (data.name === undefined) return;
+
 
         }
 
@@ -43,7 +51,7 @@
             }
             var nodeId = Date.now();
             createSomeNode(nodeId, parent, name);
-            exportData = exportData.concat('{"name": \"' + name + '\", "id" : ' + nodeId +', "parentid" :' + parent + '},')
+            exportData = exportData.concat('{"name": \"' + name + '\", "id" : ' + nodeId +', "parentId" :' + parent + '},')
         }
         
         function createSomeNode(id, parent, name) {

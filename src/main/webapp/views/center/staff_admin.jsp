@@ -30,7 +30,7 @@
                     var el;
                     for (var i = 0; i < object.length;) {
                         el = object[i];
-                        if (el.parentid === 0) {
+                        if (el.parentId === 0) {
                             outObj.push(object[i]);
                             object.splice(i, 1);
                         } else i++;
@@ -38,7 +38,7 @@
                     outObj.forEach(function (value) {
                         addChildren(value);
                     });
-                    $.ajax({url:"savestructure", type:"post", data: JSON.stringify(outObj)});
+                    $.ajax({url:"/" + "rosles" +"/savestructure", type:"post", processData: false, contentType: false, data: JSON.stringify(outObj)});
 
                     //alert(JSON.stringify(outObj));
 
@@ -52,7 +52,7 @@
                     function addChildren(obj) {
                         obj.children = [];
                         object.forEach(function (ob) {
-                            if (ob.parentid === obj.id) {
+                            if (ob.parentId == obj.id) {
                                 var idx = obj.children.push(ob) - 1;
                                 addChildren(obj.children[idx]);
                             }
@@ -64,12 +64,13 @@
                 });
         });
 
+        window.loadSt = function () {
+          $.ajax({url:""})
+        };
 
 
-        function loadStaff() {
 
-            //TODO server side
-        }
+
 
         function comparator(el1, el2) {
             return el1.parentid === el2.parentid ? 0 :

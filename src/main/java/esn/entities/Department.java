@@ -17,8 +17,8 @@ import java.util.Set;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(nullable = false, length = 50)
     private String name;
@@ -26,14 +26,14 @@ public class Department {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "department")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "department", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> employers = new HashSet<>();
 
     @ManyToOne
     private Department parent;
 
-    private Integer parentId;
+    private Long parentId;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Department> children;
@@ -55,9 +55,7 @@ public class Department {
     public Department(String name, String description) {
         this.name = name;
         this.description = description;
-
     }
-
 
 
     public void setName(String name) {
@@ -74,6 +72,10 @@ public class Department {
 
     public void setParent(Department parent) {
         this.parent = parent;
+        for (Department d :
+                children) {
+            d.setParent(this);
+        }
     }
 
     public void setChildren(Set<Department> children) {
@@ -86,7 +88,7 @@ public class Department {
         departmentDAO.saveChildren(this, children); //TODO надо сохранять не каждый раз
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -100,6 +102,14 @@ public class Department {
 
     public Set<User> getEmployers() {
         return employers;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Department getParent() {

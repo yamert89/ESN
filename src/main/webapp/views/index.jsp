@@ -27,6 +27,8 @@
         });
 
 
+
+
         function dateOfNoteColorize() {
             window.listOfDatesNoted.forEach(function (value) {
                 var el34 = $(".datepicker--cells").children("[data-date=\'" + value[0] + "\']" +

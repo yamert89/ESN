@@ -1,7 +1,10 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import esn.entities.Department;
 import esn.entities.secondary.PrivateChatMessage;
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,6 +32,18 @@ public class DaoTest {
         Set set = (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream()).collect(Collectors.toCollection(TreeSet::new));
         Assert.assertEquals(set.size(), 6);
         set.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void jsonParser(){
+        ObjectMapper om = new ObjectMapper();
+        try {
+            Department department = om.readValue("{\"name\":\"второй\",\"id\":1549044556665,\"parentId\":0,\"children\":[{\"name\":\"третий\",\"id\":1549044560617,\"parentId\":1549044556665,\"children\":[]},{\"name\":\"четвертый\",\"id\":1549044565449,\"parentId\":1549044556665,\"children\":[]}]}", Department.class);
+            department.setParent(null);
+            System.out.println(department);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

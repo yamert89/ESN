@@ -92,6 +92,10 @@ public class Organization {
         departments.add(department);
     }
 
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
+
     public User getUserByLogin(String nickname){
         try {
             for (User user:

@@ -1,5 +1,7 @@
 package esn.viewControllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
@@ -91,7 +93,7 @@ public class BaseController {
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
                            HttpSession session){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = getUserFromSession(session);
 
             user.getGroups().put(groupName, personIds.split(","));
 
@@ -112,7 +114,7 @@ public class BaseController {
     @PostMapping("/savenote")
     @ResponseBody
     public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
-        User user = (User) session.getAttribute("user");
+        User user = getUserFromSession(session);
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         user.getNotes().put(timestamp, text);
         userDAO.updateUser(user);
@@ -121,7 +123,7 @@ public class BaseController {
     @PostMapping("/savefile")
     @ResponseBody
     public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared, HttpSession session){
-        User user = (User) session.getAttribute("user");
+        User user = getUserFromSession(session);
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
         try {
@@ -138,7 +140,7 @@ public class BaseController {
     @ResponseBody
     public void updateFile(@RequestParam String fname, @RequestParam String update,
                            @RequestParam(required = false) String newName, HttpSession session){
-        User user = (User) session.getAttribute("user");
+        User user = getUserFromSession(session);
         Iterator<StoredFile> it = user.getStoredFiles().iterator();
         StoredFile storedFile = null;
         while (it.hasNext()){
@@ -180,11 +182,19 @@ public class BaseController {
         String json = "";
         StringBuilder jsonS = null;
         try {
-            User user = (User) session.getAttribute("user");
+            User user = getUserFromSession(session);
             Organization org = user.getOrganization();
             Set<Department> departments = org.getDepartments();
 
             if (departments.size() == 0) json = "{}";
+
+            List<Department> deps = departmentDAO.getHeadDepartments();
+            ObjectMapper om = new ObjectMapper();
+            json = om.writeValueAsString(deps);
+            System.out.println(json);
+            System.out.println();
+
+
 
             /*Department department = departmentDAO.getHeadDepartment();
             Department department1 = new Department("1", "1", null);
@@ -198,7 +208,7 @@ public class BaseController {
             department.getChildren().add(department4);
             departmentDAO.merge(department);*/
 
-            List<Integer> headIds = departmentDAO.getHeadDepartmentsId();
+           /* List<Integer> headIds = departmentDAO.getHeadDepartmentsId();
             Department department = null;
             jsonS = new StringBuilder();
             jsonS.append("[");
@@ -212,7 +222,7 @@ public class BaseController {
                 }
                 jsonS.append("]}");
             }
-            jsonS.append("]");
+            jsonS.append("]");*/
 
 
         }catch (Exception e){
@@ -225,12 +235,35 @@ public class BaseController {
         return ResponseEntity.ok().headers(responseHeaders).body(jsonS.toString());
     }
 
-    @PostMapping("/savestructure")
+    @PostMapping("/{org}/savestructure")
+    @ResponseBody
+    public void saveStructure(HttpSession session, @RequestBody String data, @PathVariable String org){
+        ObjectMapper om = new ObjectMapper();
+        try {
+            Department[] deps = om.readValue(data, new TypeReference<Department[]>(){});
+            for (Department d :
+                    deps) {
+                d.setParent(null);
+            }
+            Organization organization = orgDAO.getOrgByURL(org);
+            Set<Department> set = new HashSet<>(deps.length);
+            set.addAll(Arrays.asList(deps));
+            organization.setDepartments(set);
+            orgDAO.update(organization);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     @GetMapping("/favicon")
     @ResponseBody
     public void fav(){}
+
+    public User getUserFromSession(HttpSession session){
+        return (User) session.getAttribute("user");
+    }
 
 
 }

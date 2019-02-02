@@ -28,7 +28,7 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public Department getDepartmentById(Integer id){
+    public Department getDepartmentById(Long id){
         return em.find(Department.class, id);
     }
 
@@ -39,7 +39,7 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public Department getDepartmentWithUsersAndChildren(int id){
+    public Department getDepartmentWithUsersAndChildren(long id){
         EntityGraph graph = em.getEntityGraph("Department.employers_children");
         Map hints = new HashMap<>(1);
         hints.put("javax.persistence.fetchgraph", graph);
@@ -51,7 +51,7 @@ public class DepartmentDAO {
         List result = em.createNativeQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = ?").setParameter(1, parent).getResultList(); //TODO
         HashSet<Department> set = new HashSet<>();
         for (Object i: result) {
-            set.add(getDepartmentById((Integer)i));
+            set.add(getDepartmentById((Long)i));
 
         }
         return set;
@@ -68,11 +68,20 @@ public class DepartmentDAO {
         }
     }
 
-    @Transactional
-    public List<Integer> getHeadDepartmentsId(){
-        List<Integer> list = em.createQuery("select d.id from Department d where d.parentId is null").getResultList();
 
-        return  list;
+    private List<Long> getHeadDepartmentsId(){
+        return (List<Long>) em.createQuery("select d.id from Department d where d.parentId is null").getResultList();
+    }
+
+    @Transactional
+    public List<Department> getHeadDepartments(){
+        List<Long> ids = getHeadDepartmentsId();
+        List<Department> deps = new ArrayList<>(ids.size());
+        for (Long id :
+                ids) {
+            deps.add(getDepartmentWithUsersAndChildren(id));
+        }
+        return deps;
 
     }
 
