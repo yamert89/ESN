@@ -1,6 +1,7 @@
 package esn.db;
 
 import esn.entities.Department;
+import esn.entities.Organization;
 import esn.entities.User;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
@@ -98,7 +99,7 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public List<Department> getHeadDepartments(){
+    public List<Department> getHeadDepartments(){ //TODO учесть организацию
         List<Long> ids = getHeadDepartmentsId();
         List<Department> deps = new ArrayList<>(ids.size());
         for (Long id :
@@ -107,6 +108,16 @@ public class DepartmentDAO {
         }
         return deps;
 
+    }
+
+    @Transactional
+    public Department getDefaultDepartment(Organization org) throws Exception{
+
+        Department department = new Department("default", "", null);
+        Set<User> users = new HashSet<>(em.createQuery("select u from User u where u.organization = :org").setParameter("org", org).getResultList());
+        department.setEmployers(users);
+        department.setChildren(new HashSet<>());
+        return department;
     }
 
 

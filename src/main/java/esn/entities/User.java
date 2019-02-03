@@ -1,5 +1,6 @@
 package esn.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import esn.db.UserDAO;
 import esn.entities.secondary.StoredFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
 
     @Size(min = 4, max = 50, message = "От 4х до 50 символов")
@@ -25,39 +27,45 @@ public class User {
 
     @Size(min = 4, max = 20, message = "От 3х до 20 символов")
     @NotNull
+    @JsonIgnore
     private String login;
 
     @Size(min = 6, max = 32, message = "От 6 до 32 символов")
     @NotNull(message = "Пароль не может быть пустым")
+    @JsonIgnore
     private String password;
-
+    @JsonIgnore
     private boolean admin;
 
     private String position = "";
 
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID")
+    @JsonIgnore
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "ORG_ID", nullable = false)
+    @JsonIgnore
     private Organization organization;
 
 
     private String photo;  //filename
-
+    @JsonIgnore
     private String photo_small; //filename
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner", orphanRemoval=true)
+    @JsonIgnore
     private Set<StoredFile> storedFiles;
 
-
+    @JsonIgnore
     private UserSettings settings;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "groups")
     @MapKeyColumn(name = "GROUP_NAME")
     @Column(name = "U_IDS")
+    @JsonIgnore
     private Map<String, String[]> groups;
 
     @ElementCollection(fetch = FetchType.LAZY)
@@ -65,14 +73,17 @@ public class User {
     @MapKeyColumn(name = "NOTE_TIME")
     @Column(name = "NOTE_TEXT")
     @org.hibernate.annotations.OrderBy(clause = "NOTE_TIME desc")
+    @JsonIgnore
     private Map<Timestamp, String> notes = new LinkedHashMap<>();
 
     @Transient
+    @JsonIgnore
     private boolean netStatus;
 
 
 
     @Transient
+    @JsonIgnore
     private UserDAO userDAO; //TODO delete if unnecessary
 
 

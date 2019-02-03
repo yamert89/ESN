@@ -187,10 +187,10 @@ public class BaseController {
             Organization org = user.getOrganization();
             Set<Department> departments = org.getDepartments();
 
-            if (departments.size() == 0) json = "{}";
+            if (departments.size() == 0) json = "{error:error}";
 
             List<Department> deps = departmentDAO.getHeadDepartments();
-
+            deps.add(0, departmentDAO.getDefaultDepartment(org));
 
             ObjectMapper om = new ObjectMapper();
             json = om.writeValueAsString(deps);
