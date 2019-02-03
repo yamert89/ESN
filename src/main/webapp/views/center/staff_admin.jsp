@@ -64,13 +64,36 @@
                 });
         });
 
+
+
+
         window.loadSt = function () {
           $.ajax({url:""})
         };
 
         window.setStructData = function (data) {
             window.DATA = data;
+
         };
+
+        function fillStaff(staff) {
+            var container = $(".staff_container");
+            staff.forEach(function (el) {
+                container.append('<table class="person_staff">\n' +
+                    '            <tr>\n' +
+                    '                <td width="100px">\n' +
+                    '                    <img src="' + el.photo + '" class="person_photo_staff"></td>\n' +
+                    '                <td valign="middle">\n' +
+                    '                    <div class="person_point">\n' +
+                    '                        <div class="person_name_staff">' + el.name + '</div>\n' +
+                    '                        <div class="person_position">' + el.position + '</div>\n' +
+                    '                    </div>\n' +
+                    '                </td>\n' +
+                    '            </tr>\n' +
+                    '        </table>')
+            })
+
+        }
 
 
 

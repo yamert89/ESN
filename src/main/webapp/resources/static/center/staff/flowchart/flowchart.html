@@ -33,16 +33,29 @@
            myTree = new ECOTree('myTree','myTreeContainer');
            var orgName = window.parent.orgName;
            createSomeNode(0, -1, orgName);
+            console.log("createtree");
 
-           $.ajax({url:"/getstaff", type:"get", contentType:"json", success:"createData"})
+           $.ajax({
+               url:"/getstaff",
+               type:"get",
+               contentType:"json",
+               success: createData,
+               error:exc,
+               timeout:30000
+           });
         }
 
-        function createData(data) {
+        function createData(data, status, jh) {
             if (data.name === undefined) return;
-            alert("m")
+
             window.top.setStructData(data);
 
         }
+
+        function exc(e) {
+            alert(e);
+        }
+
 
         function addChild(parent) {
             var name = prompt("Введите название дочернего подразделения", "");
