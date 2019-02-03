@@ -68,6 +68,10 @@
           $.ajax({url:""})
         };
 
+        window.setStructData = function (data) {
+            window.DATA = data;
+        };
+
 
 
 

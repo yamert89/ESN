@@ -235,7 +235,7 @@ public class BaseController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return ResponseEntity.ok().headers(responseHeaders).body(jsonS.toString());
+        return ResponseEntity.ok().headers(responseHeaders).body(json);
     }
 
     @PostMapping("/{org}/savestructure")
