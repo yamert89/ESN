@@ -20,6 +20,9 @@
             $("img").not(".node_plus").click(function () {
                nodePlusOnClick();
             });
+
+
+
         });
         function clickNode(tree, targetid, nodeid) {
             window.top.loadSt();
@@ -46,8 +49,8 @@
         }
 
         function createData(data) {
-            alert(data);
-            if (data.name === undefined) return;
+
+            if (data[0].name !== 'default') return;
 
             window.top.setStructData(data);
 

@@ -20,6 +20,9 @@
                     createTree();
                 });
 
+
+
+
                 $(".save_flowchart").click(function () {
                     //TODO Уведомить пользователя
                     var d = document.getElementById("iframe1").contentWindow.exportData;
@@ -67,12 +70,16 @@
 
 
 
+
+
         window.loadSt = function () {
           $.ajax({url:""})
         };
 
         window.setStructData = function (data) {
             window.DATA = data;
+            //alert(data[0].employers);
+            fillStaff(data[0].employers);
 
         };
 
@@ -92,6 +99,10 @@
                     '            </tr>\n' +
                     '        </table>')
             })
+
+            $(".person_staff").on("click", function () {
+                $(this).toggleClass('person_selected');
+            });
 
         }
 
@@ -117,6 +128,18 @@
 
     <div class="staff_container">
 
+        <%--<table class="person_staff">
+            <tr>
+                <td width="100px">
+                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                <td valign="middle">
+                    <div class="person_point">
+                        <div class="person_name_staff">Иванов Иван Иванович</div>
+                        <div class="person_position">Главный инженер</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <table class="person_staff">
             <tr>
                 <td width="100px">
@@ -129,7 +152,67 @@
                 </td>
             </tr>
         </table>
-
+        <table class="person_staff">
+            <tr>
+                <td width="100px">
+                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                <td valign="middle">
+                    <div class="person_point">
+                        <div class="person_name_staff">Иванов Иван Иванович</div>
+                        <div class="person_position">Главный инженер</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="person_staff">
+            <tr>
+                <td width="100px">
+                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                <td valign="middle">
+                    <div class="person_point">
+                        <div class="person_name_staff">Иванов Иван Иванович</div>
+                        <div class="person_position">Главный инженер</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="person_staff">
+            <tr>
+                <td width="100px">
+                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                <td valign="middle">
+                    <div class="person_point">
+                        <div class="person_name_staff">Иванов Иван Иванович</div>
+                        <div class="person_position">Главный инженер</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="person_staff">
+            <tr>
+                <td width="100px">
+                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                <td valign="middle">
+                    <div class="person_point">
+                        <div class="person_name_staff">Иванов Иван Иванович</div>
+                        <div class="person_position">Главный инженер</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="person_staff">
+            <tr>
+                <td width="100px">
+                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
+                <td valign="middle">
+                    <div class="person_point">
+                        <div class="person_name_staff">Иванов Иван Иванович</div>
+                        <div class="person_position">Главный инженер</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+--%>
     </div>
 </div>
 </body>

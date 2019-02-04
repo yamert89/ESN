@@ -9,7 +9,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -36,7 +39,7 @@ public class User {
     private String password;
     @JsonIgnore
     private boolean admin;
-
+    @Column(columnDefinition = "должность не указана")
     private String position = "";
 
     @ManyToOne

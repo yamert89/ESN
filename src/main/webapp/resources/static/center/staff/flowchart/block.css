@@ -4,9 +4,11 @@
     background-color: rgba(138, 213, 244, 0);
 }
 .staff_container{
-    width: 25%;
+    width: 30%;
     overflow-y: auto;
     display: inline-block;
+    max-height: 95%;
+    margin-left: 5px;
 
 }
 canvas{
@@ -56,6 +58,8 @@ canvas{
     display: inline-block;
     width: 70%;
     height: calc(100% - 41px);
+    line-height: calc(100% - 41px);
+    max-height: calc(100% - 41px);
 }
 .flowchart_frame{
     width: 100%;
@@ -66,6 +70,11 @@ canvas{
 .tree_wrapper{
     margin: 5px;
     height: calc(100% - 10px);
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: stretch;
+
 }
 .node_tool{
     height: 24px;
@@ -82,3 +91,4 @@ canvas{
 .block_item_container{
     padding: 0 5px;
 }
+

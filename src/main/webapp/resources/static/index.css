@@ -69,12 +69,13 @@ iframe{
 
 }
 .tools{
-    width: 252px;
+    /*width: 252px;*/
+    width: 15%;
    /* height: 90%;*/
     height: calc(100% - 15px);
     float: left;
     border: 5px ridge burlywood;
-    border-right: double black;
+    border-right: none;
     border-left: double black;
     display: inline-block;
     margin-left: 10px;
@@ -85,7 +86,7 @@ iframe{
 .center{
     background-color: antiquewhite;
     display: inline-block;
-    width: 65%;
+    width: 68%;
     height: calc(100% - 10px);
     /*height: 90%;*/
     /*max-height: 90%;*/
@@ -102,7 +103,7 @@ iframe{
     float: right;
     border: 5px ridge burlywood;
     border-right: double black;
-    border-left: double black;
+    border-left: none;
     display: inline-block;
     margin-right: 10px;
 

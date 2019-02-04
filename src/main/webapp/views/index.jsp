@@ -19,12 +19,15 @@
             window.userName = $(".user_name").text();
             window.orgName = $(".title").text();
 
+
            /* $("#groups").click(function () {
                 location.href = "/groups";
             });*/
 
 
         });
+
+
 
 
 
