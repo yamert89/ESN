@@ -98,7 +98,7 @@
                     '                </td>\n' +
                     '            </tr>\n' +
                     '        </table>')
-            })
+            });
 
             $(".person_staff").on("click", function () {
                 $(this).toggleClass('person_selected');

@@ -53,7 +53,22 @@
             if (data[0].name !== 'default') return;
 
             window.top.setStructData(data);
+            for (var i = 1; i < data.length; i++) {
+                addChildFromData(data[i]);
+            }
 
+
+
+        }
+
+        function addChildFromData(dep) {
+            var id = dep.id;
+            var name = dep.name;
+            var parentID = dep.parentId;
+            createSomeNode(id, parentID, name);
+            dep.children.forEach(function (el) {
+                addChildFromData(el);
+            });
         }
 
         function exc(e) {

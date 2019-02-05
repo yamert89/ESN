@@ -1,7 +1,12 @@
 package esn.entities;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import esn.db.DepartmentDAO;
+import esn.db.converters.JsonNullSerializer;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +38,8 @@ public class Department {
     @JsonIgnore
     @ManyToOne
     private Department parent;
-
+    @Column(nullable = false, columnDefinition = "int default 0")
+    @JsonSerialize(nullsUsing = JsonNullSerializer.class)
     private Long parentId;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
