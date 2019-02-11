@@ -72,9 +72,30 @@
 
 
 
-        window.loadSt = function () {
-          $.ajax({url:""})
+        window.loadSt = function (nodeid) {
+          foreachEmpl(DATA, nodeid);
         };
+
+        function foreachEmpl(dep, nodeid){
+            dep.forEach(function (el) {
+                if (el.id == nodeid) {
+                    if (el.selected === undefined) {
+                        el.selected = true;
+                        $('#' + nodeid).addClass("node_selected");
+                    }
+                    $(".staff_container").empty();
+                    if (el.selected) {
+                        el.selected = false;
+                        fillStaff(el.employers);
+                        return;
+                    } else {
+                        el.selected = true;
+                        fillStaff(DATA[0].employers);
+                    }
+                }
+                foreachEmpl(el.children, nodeid);
+            })
+        }
 
         window.setStructData = function (data) {
             window.DATA = data;
@@ -127,79 +148,7 @@
     </div>
 
     <div class="staff_container">
-
-        <%--<table class="person_staff">
-            <tr>
-                <td width="100px">
-                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                <td valign="middle">
-                    <div class="person_point">
-                        <div class="person_name_staff">Иванов Иван Иванович</div>
-                        <div class="person_position">Главный инженер</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table class="person_staff">
-            <tr>
-                <td width="100px">
-                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                <td valign="middle">
-                    <div class="person_point">
-                        <div class="person_name_staff">Иванов Иван Иванович</div>
-                        <div class="person_position">Главный инженер</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table class="person_staff">
-            <tr>
-                <td width="100px">
-                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                <td valign="middle">
-                    <div class="person_point">
-                        <div class="person_name_staff">Иванов Иван Иванович</div>
-                        <div class="person_position">Главный инженер</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table class="person_staff">
-            <tr>
-                <td width="100px">
-                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                <td valign="middle">
-                    <div class="person_point">
-                        <div class="person_name_staff">Иванов Иван Иванович</div>
-                        <div class="person_position">Главный инженер</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table class="person_staff">
-            <tr>
-                <td width="100px">
-                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                <td valign="middle">
-                    <div class="person_point">
-                        <div class="person_name_staff">Иванов Иван Иванович</div>
-                        <div class="person_position">Главный инженер</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table class="person_staff">
-            <tr>
-                <td width="100px">
-                    <img src="resources/avatars/wom.jpg" class="person_photo_staff"></td>
-                <td valign="middle">
-                    <div class="person_point">
-                        <div class="person_name_staff">Иванов Иван Иванович</div>
-                        <div class="person_position">Главный инженер</div>
-                    </div>
-                </td>
-            </tr>
-        </table>
+<%--
         <table class="person_staff">
             <tr>
                 <td width="100px">
