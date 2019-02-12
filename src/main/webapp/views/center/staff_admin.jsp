@@ -85,15 +85,25 @@
                     }
                     $(".staff_container").empty();
                     if (el.selected) {
-                        el.selected = false;
+                        foreachDeselect(DATA);   //TODO не проверять первый элемент
+                        //el.selected = false;
                         fillStaff(el.employers);
-                        return;
+                        //return;
                     } else {
+                        foreachDeselect(DATA);   //TODO не проверять первый элемент
                         el.selected = true;
+
                         fillStaff(DATA[0].employers);
                     }
                 }
                 foreachEmpl(el.children, nodeid);
+            })
+        }
+
+        function foreachDeselect(dep){
+            dep.forEach(function (el) {
+                el.selected = false;
+                foreachDeselect(el.children);
             })
         }
 
