@@ -79,21 +79,22 @@
         function foreachEmpl(dep, nodeid){
             dep.forEach(function (el) {
                 if (el.id == nodeid) {
-                    if (el.selected === undefined) {
-                        el.selected = true;
+                    /*if (el.selected === undefined) {
+                        el.selected = false;
                         $('#' + nodeid).addClass("node_selected");
-                    }
+                    }*/
                     $(".staff_container").empty();
                     if (el.selected) {
                         foreachDeselect(DATA);   //TODO не проверять первый элемент
                         //el.selected = false;
-                        fillStaff(el.employers);
+                        fillStaff(DATA[0].employers);
                         //return;
                     } else {
                         foreachDeselect(DATA);   //TODO не проверять первый элемент
                         el.selected = true;
 
-                        fillStaff(DATA[0].employers);
+
+                        fillStaff(el.employers);
                     }
                 }
                 foreachEmpl(el.children, nodeid);
