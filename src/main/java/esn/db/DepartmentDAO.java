@@ -36,8 +36,9 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public Department getDepartmentByName(String name){
-        return (Department) em.createQuery("select d from Department d where d.name = :name")
+    public Department getDepartmentByName(String name, Organization org){
+        return (Department) em.createQuery("select d from Department d where d.organization = :org AND d.name = :name")
+                .setParameter("org", org)
                 .setParameter("name", name).getSingleResult();
     }
 
@@ -99,7 +100,7 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public List<Department> getHeadDepartments(){ //TODO учесть организацию
+    public List<Department> getHeadDepartments(){ //TODO учесть организацию везде!!!
         List<Long> ids = getHeadDepartmentsId();
         List<Department> deps = new ArrayList<>(ids.size());
         for (Long id :

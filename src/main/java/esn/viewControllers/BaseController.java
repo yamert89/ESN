@@ -259,6 +259,31 @@ public class BaseController {
 
     }
 
+    @PostMapping("/{org}/savedep")
+    @ResponseBody
+    public void saveStructure(@PathVariable String org, @RequestParam String newname,
+                              @RequestParam String oldname, @RequestParam String ids){
+        Organization organization = orgDAO.getOrgByURL(org);
+        ObjectMapper om = new ObjectMapper();
+        try {
+            int[] empls = om.readValue(ids, int[].class);
+            Department department = departmentDAO.getDepartmentByName(oldname, organization);
+            department.setName(newname);
+            Set<User> employers = new HashSet<>();
+            User user = null;
+            for (Integer id :
+                    empls) {
+                user = userDAO.getUserById(id);
+                user.setDepartment(department);
+                employers.add(user);
+            }
+            department.setEmployers(employers);
+            departmentDAO.merge(department);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @GetMapping("/favicon")
     @ResponseBody

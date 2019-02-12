@@ -20,7 +20,6 @@ public class User {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     private int id;
 
     @Size(min = 4, max = 50, message = "От 4х до 50 символов")
@@ -42,7 +41,7 @@ public class User {
     @Column(columnDefinition = "должность не указана")
     private String position = "";
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "DEPARTMENT_ID")
     @JsonIgnore
     private Department department;

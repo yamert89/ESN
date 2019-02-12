@@ -70,11 +70,11 @@ public class Main {
     }
 
     private static void getChildren() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
+        /*ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
         Department lesoustr = departmentDAO.getDepartmentByName("Гил");
         lesoustr.setDepartmentDAO(departmentDAO);
-        Department department = lesoustr.getParent();
+        Department department = lesoustr.getParent();*/
 
 
 
@@ -82,7 +82,7 @@ public class Main {
     }
 
     private static void saveChildren() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
+        /*ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         OrganizationDAO organizationDAO = (OrganizationDAO) context.getBean("orgDao");
         DepartmentDAO departmentDAO = (DepartmentDAO) context.getBean("departmentDao");
         Organization org = organizationDAO.getOrgById(1);
@@ -94,7 +94,7 @@ public class Main {
         lesoustr.setDepartmentDAO(departmentDAO);
         lesoustr.addChildren(gil);
         lesoustr.addChildren(monitoring);
-        departmentDAO.merge(lesoustr);
+        departmentDAO.merge(lesoustr);*/
 
 
 

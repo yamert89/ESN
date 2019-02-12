@@ -1,9 +1,6 @@
 package esn.entities;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import esn.db.DepartmentDAO;
 import esn.db.converters.JsonNullSerializer;
@@ -28,6 +25,7 @@ public class Department {
 
     @Column(nullable = false, length = 50)
     private String name;
+
     @JsonIgnore
     @Column(length = 1000)
     private String description;
@@ -35,15 +33,22 @@ public class Department {
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "department", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> employers = new HashSet<>();
+
     @JsonIgnore
     @ManyToOne
     private Department parent;
+
     @Column(nullable = false, columnDefinition = "int default 0")
     @JsonSerialize(nullsUsing = JsonNullSerializer.class)
     private Long parentId;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Department> children;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Organization organization;
+
     @JsonIgnore
     @Transient
     private DepartmentDAO departmentDAO;

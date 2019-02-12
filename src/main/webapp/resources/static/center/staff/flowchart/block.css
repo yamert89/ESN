@@ -91,4 +91,7 @@ canvas{
 .block_item_container{
     padding: 0 5px;
 }
+button{
+    margin: 0 20px;
+}
 

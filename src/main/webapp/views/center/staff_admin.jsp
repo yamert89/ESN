@@ -65,6 +65,41 @@
 
 
                 });
+
+                $(".staff_choose_btn").click(function () {
+                    if (window.SELECTED_DEP == undefined || SELECTED_DEP == null) {
+                        alert("Выберите отдел, который нужно отредактировать");
+                        return;
+                    }
+                    window.EDIT_DEP_NAME = prompt("Изменить название отдела?", SELECTED_DEP.name);
+                    $(".staff_container").empty();
+                    fillStaff(DATA[0].employers);
+                    alert("выберите людей")
+                    //TODO log - выберите людей
+                    window.EDIT_MODE = true;
+
+
+                });
+
+                $(".staff_add_btn").click(function () {
+                    if (window.EDIT_MODE != true) {
+                        alert("Нечего сохранять");//TODO replace log
+                        return;
+                    }
+                    var employers = $(".staff_container").find($(".person_selected"));
+                    var ids = [];
+                    employers.each(function (i, el) {
+                        ids[i] = el.getAttribute("data-id");
+                    });
+
+                    $.ajax({method:"post", url:"/" + "rosles" +"/savedep",
+                        data:{newname:EDIT_DEP_NAME, oldname:SELECTED_DEP.name, ids: JSON.stringify(ids)}})
+                    //TODO обновить view
+
+
+                });
+
+
         });
 
 
@@ -86,11 +121,13 @@
                     $(".staff_container").empty();
                     if (el.selected) {
                         foreachDeselect(DATA);   //TODO не проверять первый элемент
+                        window.SELECTED_DEP = null;
                         //el.selected = false;
                         fillStaff(DATA[0].employers);
                         //return;
                     } else {
                         foreachDeselect(DATA);   //TODO не проверять первый элемент
+                        window.SELECTED_DEP = el;
                         el.selected = true;
 
 
@@ -118,7 +155,7 @@
         function fillStaff(staff) {
             var container = $(".staff_container");
             staff.forEach(function (el) {
-                container.append('<table class="person_staff">\n' +
+                container.append('<table class="person_staff" data-id=' + el.id + '>\n' +
                     '            <tr>\n' +
                     '                <td width="100px">\n' +
                     '                    <img src="' + el.photo + '" class="person_photo_staff"></td>\n' +
@@ -156,9 +193,12 @@
         <iframe src='<c:url value="/resources/static/center/staff/flowchart/flowchart.html"/>' class="flowchart_frame" id="iframe1"></iframe>
         <button class="save_flowchart">Сохранить структуру</button>
         <button class="clear_flowchart">Очистить структуру</button>
+        <button class="staff_choose_btn">Редактировать отдел</button>
+        <button class="staff_add_btn">Сохранить отдел</button>
     </div>
 
     <div class="staff_container">
+
 <%--
         <table class="person_staff">
             <tr>
