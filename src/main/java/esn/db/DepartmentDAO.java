@@ -37,6 +37,7 @@ public class DepartmentDAO {
 
     @Transactional
     public Department getDepartmentByName(String name, Organization org){
+
         return (Department) em.createQuery("select d from Department d where d.organization = :org AND d.name = :name")
                 .setParameter("org", org)
                 .setParameter("name", name).getSingleResult();

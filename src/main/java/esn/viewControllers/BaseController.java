@@ -261,7 +261,7 @@ public class BaseController {
 
     @PostMapping("/{org}/savedep")
     @ResponseBody
-    public void saveStructure(@PathVariable String org, @RequestParam String newname,
+    public String saveDepartment(@PathVariable String org, @RequestParam String newname,
                               @RequestParam String oldname, @RequestParam String ids){
         Organization organization = orgDAO.getOrgByURL(org);
         ObjectMapper om = new ObjectMapper();
@@ -282,6 +282,7 @@ public class BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return "ok";
     }
 
 
