@@ -92,7 +92,6 @@
                         ids[i] = el.getAttribute("data-id");
                     });
 
-                    console.log(EDIT_DEP_NAME)
 
                     $.ajax({method:"post", url:"/" + "rosles" +"/savedep",
                         data:{newname:EDIT_DEP_NAME, oldname:SELECTED_DEP.name, ids: JSON.stringify(ids)}, success: aftersave, dataType: "text"})
@@ -108,9 +107,9 @@
         });
 
         function aftersave(data){
-            alert(data);
             location.reload();
             alert("Сохранено")//TODO replace log
+            $("#" + data).click();
         }
 
 

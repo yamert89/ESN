@@ -37,10 +37,15 @@ public class DepartmentDAO {
 
     @Transactional
     public Department getDepartmentByName(String name, Organization org){
+        try {
 
-        return (Department) em.createQuery("select d from Department d where d.organization = :org AND d.name = :name")
-                .setParameter("org", org)
-                .setParameter("name", name).getSingleResult();
+            return (Department) em.createQuery("select d from Department d where d.organization = :org AND d.name = :name")
+                    .setParameter("org", org)
+                    .setParameter("name", name).getSingleResult();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Transactional

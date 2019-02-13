@@ -261,13 +261,14 @@ public class BaseController {
 
     @PostMapping("/{org}/savedep")
     @ResponseBody
-    public String saveDepartment(@PathVariable String org, @RequestParam String newname,
+    public ResponseEntity<Long> saveDepartment(@PathVariable String org, @RequestParam String newname,
                               @RequestParam String oldname, @RequestParam String ids){
         Organization organization = orgDAO.getOrgByURL(org);
         ObjectMapper om = new ObjectMapper();
+        Department department = null;
         try {
             int[] empls = om.readValue(ids, int[].class);
-            Department department = departmentDAO.getDepartmentByName(oldname, organization);
+            department = departmentDAO.getDepartmentByName(oldname, organization);
             department.setName(newname);
             Set<User> employers = new HashSet<>();
             User user = null;
@@ -282,7 +283,8 @@ public class BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "ok";
+
+        return ResponseEntity.ok().body(department.getId());
     }
 
 
