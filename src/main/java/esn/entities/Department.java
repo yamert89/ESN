@@ -82,6 +82,10 @@ public class Department {
         this.employers = employers;
     }
 
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     public void setParent(Department parent) {
         this.parent = parent;
         for (Department d :
@@ -146,6 +150,27 @@ public class Department {
 
     public void addEmployer(User employer){
         employers.add(employer);
+    }
+
+    public void initParentForTree(){
+
+        for (Department d :
+                children) {
+            d.setParent(this);
+            d.initParentForTree();
+        }
+    }
+
+    public void initOrgForChildren(){
+        for (Department d :
+                children) {
+            d.setOrganization(organization);
+            d.initOrgForChildren();
+        }
+    }
+
+    public void initParentById(){
+        if (parentId != null && parentId != 0) parent = departmentDAO.getDepartmentById(parentId);
     }
 
     @Override

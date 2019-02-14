@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.*;
 
 @Repository("department_dao")
@@ -32,7 +33,8 @@ public class DepartmentDAO {
 
     @Transactional
     public Department getDepartmentById(Long id){
-        return em.find(Department.class, id);
+        Department department = em.find(Department.class, id);
+        return department;
     }
 
     @Transactional
@@ -126,6 +128,8 @@ public class DepartmentDAO {
         department.setChildren(new HashSet<>());
         return department;
     }
+
+
 
 
 }

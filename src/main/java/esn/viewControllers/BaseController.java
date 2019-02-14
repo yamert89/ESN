@@ -244,16 +244,26 @@ public class BaseController {
         ObjectMapper om = new ObjectMapper();
         try {
             Department[] deps = om.readValue(data, new TypeReference<Department[]>(){});
+            Organization organization = orgDAO.getOrgByURL(org);
             for (Department d :
                     deps) {
-                d.setParent(null);
+                if (d.getParentId() == 0) d.setParent(null);
+                else d.initParentById();
+
+                d.setOrganization(organization);
+                d.initParentForTree();
+                d.initOrgForChildren();
+
             }
-            Organization organization = orgDAO.getOrgByURL(org);
-            Set<Department> set = new HashSet<>(deps.length);
+
+            Set<Department> set = organization.getDepartments();
+
             set.addAll(Arrays.asList(deps));
-            organization.setDepartments(set);
+            //organization.setDepartments(set);
             orgDAO.update(organization);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
             e.printStackTrace();
         }
 

@@ -96,6 +96,8 @@ public class Organization {
         this.departments = departments;
     }
 
+
+
     public User getUserByLogin(String nickname){
         try {
             for (User user:

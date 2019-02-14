@@ -32,7 +32,8 @@
                     var outObj = [];
 
                     for (var i = 0; i < object.length;) {
-                        addChildren(outObj[i]);
+                        addChildren(object[i]);
+                        outObj.push(object[i]);
                         object.splice(i, 1);
                     }
 
@@ -49,12 +50,20 @@
 
                     function addChildren(obj) {
                         obj.children = [];
-                        object.forEach(function (ob) {
+
+                        for (var i = 0; i < object.length;) {
+                            if (object[i].parentId == obj.id) {
+                                var idx = obj.children.push(object[i]) - 1;
+                                addChildren(obj.children[idx]);
+                                object.splice(i, 1);
+                            } else i++;
+                        }
+                        /*object.forEach(function (ob) {
                             if (ob.parentId == obj.id) {
                                 var idx = obj.children.push(ob) - 1;
                                 addChildren(obj.children[idx]);
                             }
-                        })
+                        })*/
                     }
 
 
