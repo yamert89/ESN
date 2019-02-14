@@ -25,22 +25,17 @@
 
                 $(".save_flowchart").click(function () {
                     //TODO Уведомить пользователя
-                    var d = document.getElementById("iframe1").contentWindow.exportData;
-                    var data = d.substr(0, d.length - 1) + "]";
-                    var object = JSON.parse(data);
+                    var object = document.getElementById("iframe1").contentWindow.exportData;
+                   // var data = d.substr(0, d.length - 1) + "]";
+                    //var object = JSON.parse(data);
                     object.sort(comparator);
                     var outObj = [];
-                    var el;
+
                     for (var i = 0; i < object.length;) {
-                        el = object[i];
-                        if (el.parentId === 0) {
-                            outObj.push(object[i]);
-                            object.splice(i, 1);
-                        } else i++;
+                        addChildren(outObj[i]);
+                        object.splice(i, 1);
                     }
-                    outObj.forEach(function (value) {
-                        addChildren(value);
-                    });
+
                     $.ajax({url:"/" + "rosles" +"/savestructure", type:"post", processData: false, contentType: false, data: JSON.stringify(outObj)});
 
                     //alert(JSON.stringify(outObj));
@@ -108,7 +103,7 @@
 
         function aftersave(data){
             location.reload();
-            alert("Сохранено")//TODO replace log
+            alert("Сохранено" + data)//TODO replace log
             $("#" + data).click();
         }
 
