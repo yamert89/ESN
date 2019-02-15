@@ -247,6 +247,7 @@ public class BaseController {
             Organization organization = orgDAO.getOrgByURL(org);
             for (Department d :
                     deps) {
+                d.initDepartmentDaoTree(departmentDAO);
                 if (d.getParentId() == 0) d.setParent(null);
                 else d.initParentById();
 

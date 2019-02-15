@@ -153,7 +153,6 @@ public class Department {
     }
 
     public void initParentForTree(){
-
         for (Department d :
                 children) {
             d.setParent(this);
@@ -166,6 +165,13 @@ public class Department {
                 children) {
             d.setOrganization(organization);
             d.initOrgForChildren();
+        }
+    }
+
+    public void initDepartmentDaoTree(DepartmentDAO dAO){
+        departmentDAO = dAO;
+        for (Department d : children) {
+            d.initDepartmentDaoTree(dAO);
         }
     }
 
