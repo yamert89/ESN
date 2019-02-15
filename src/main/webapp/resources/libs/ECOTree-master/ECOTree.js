@@ -284,7 +284,7 @@ ECOTree = function (obj, elm) {
 		topXAdjustment : 100,
 		topYAdjustment : 0,
 		render : "AUTO",
-		linkType : "M",
+		linkType : "B",
 		linkColor : "blue",
 		nodeColor : "#CCCCFF",
 		nodeFill : ECOTree.NF_GRADIENT,
@@ -725,7 +725,7 @@ ECOTree.prototype._drawTree = function () {
 					}				
 					else
 					{						
-						s.push(node.dsc);
+						s.push('<span>' + node.dsc + '</span>');
 					}
 					s.push('</div>');
 					//TODO modified-----------------------------

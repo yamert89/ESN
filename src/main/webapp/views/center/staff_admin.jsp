@@ -22,9 +22,6 @@
                     location.reload();
                 });
 
-
-
-
                 $(".save_flowchart").click(function () {
                     //TODO Уведомить пользователя
                     var object = document.getElementById("iframe1").contentWindow.exportData;
@@ -88,6 +85,10 @@
 
                 });
 
+                $("span").click(function (e) {
+                    e.preventDefault();
+
+                })
 
         });
 
@@ -169,7 +170,6 @@
             });
 
         }
-
 
         function comparator(el1, el2) {
             return el1.parentid === el2.parentid ? 0 :

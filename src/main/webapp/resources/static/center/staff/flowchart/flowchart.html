@@ -30,6 +30,8 @@
 
         });
         function clickNode(tree, targetid, nodeid) {
+            if (targetid == null) targetid = nodeid;
+            alert('tree ' + tree + ' targetid: .' + targetid + '. nodeid: ' + nodeid);
             window.top.loadSt(nodeid);
             ECOTree._canvasNodeClickHandler(tree, targetid, nodeid);
 
