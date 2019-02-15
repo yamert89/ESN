@@ -91,6 +91,8 @@
             createSomeNode(nodeId, parent, name);
             //exportData = exportData.concat('{"name": \"' + name + '\", "id" : ' + nodeId +', "parentId" :' + parent + '},')
             exportData.push(new ExportDep(name, nodeId, parent));
+            window.top.enableSaveStruct();
+
         }
         
         function createSomeNode(id, parent, name) {

@@ -270,7 +270,7 @@ public class BaseController {
 
     }
 
-    @PostMapping("/{org}/savedep")
+    @GetMapping("/{org}/savedep")
     @ResponseBody
     public ResponseEntity<Long> saveDepartment(@PathVariable String org, @RequestParam String newname,
                               @RequestParam String oldname, @RequestParam String ids){
@@ -294,8 +294,16 @@ public class BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return ResponseEntity.ok().body(department.getId());
+    }
+
+    @PostMapping("/{org}/cleardeps")
+    @ResponseBody
+    public void clearDeps(@PathVariable String org){
+        Organization organization = orgDAO.getOrgByURL(org);
+        organization.getDepartments().clear();
+        orgDAO.update(organization);
+        //TODO протестировать
     }
 
 

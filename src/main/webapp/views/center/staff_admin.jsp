@@ -14,10 +14,12 @@
     <script type="text/javascript">
         $(document).ready(function(){
                 $(".clear_flowchart").click(function () {
-                    var resp = confirm("Вы уверены, что хотите удалить текущую структуру и построить её заново?");
+                    var resp = confirm("Вы уверены, что хотите удалить текущую структуру? " +
+                        "Все отделы и связанная с ними информация будут удалены");
                     if (!resp) return;
-                    //TODO Удалить текущую структуру и обновить страницу с родительским нодом
-                    createTree();
+                    $.get("/" + orgName +"/cleardeps");
+                    //TODO Протестировать
+                    location.reload();
                 });
 
 
@@ -26,8 +28,6 @@
                 $(".save_flowchart").click(function () {
                     //TODO Уведомить пользователя
                     var object = document.getElementById("iframe1").contentWindow.exportData;
-                   // var data = d.substr(0, d.length - 1) + "]";
-                    //var object = JSON.parse(data);
                     object.sort(comparator);
                     var outObj = [];
 
@@ -37,16 +37,7 @@
                         object.splice(i, 1);
                     }
 
-                    $.ajax({url:"/" + "rosles" +"/savestructure", type:"post", processData: false, contentType: false, data: JSON.stringify(outObj)});
-
-                    //alert(JSON.stringify(outObj));
-
-                   /* outObj.forEach(function (value) {
-                        value.children = [];
-                        object.forEach(function (ob) {
-                            if (ob.parentid === value.id) value.children.push(ob);
-                        })
-                    })*/
+                    $.ajax({url:"/" + orgName +"/savestructure", type:"post", processData: false, contentType: false, data: JSON.stringify(outObj)});
 
                     function addChildren(obj) {
                         obj.children = [];
@@ -58,15 +49,8 @@
                                 object.splice(i, 1);
                             } else i++;
                         }
-                        /*object.forEach(function (ob) {
-                            if (ob.parentId == obj.id) {
-                                var idx = obj.children.push(ob) - 1;
-                                addChildren(obj.children[idx]);
-                            }
-                        })*/
+
                     }
-
-
 
                 });
 
@@ -81,6 +65,7 @@
                     alert("выберите людей");
                     //TODO log - выберите людей
                     window.EDIT_MODE = true;
+                    $(".staff_add_btn").removeAttr("disabled");
 
 
                 });
@@ -101,10 +86,6 @@
                         data:{newname:EDIT_DEP_NAME, oldname:SELECTED_DEP.name, ids: JSON.stringify(ids)}, success: aftersave, dataType: "text"})
                     ;
 
-
-
-
-
                 });
 
 
@@ -116,9 +97,9 @@
             $("#" + data).click();
         }
 
-
-
-
+        window.enableSaveStruct = function(){
+            $(".save_flowchart").removeAttr("disabled");
+        }
 
 
         window.loadSt = function (nodeid) {
@@ -190,9 +171,6 @@
         }
 
 
-
-
-
         function comparator(el1, el2) {
             return el1.parentid === el2.parentid ? 0 :
                 el1.parentid > el2.parentid ? 1 : -1;
@@ -205,10 +183,10 @@
 
     <div class="flowchart_wrapper">
         <iframe src='<c:url value="/resources/static/center/staff/flowchart/flowchart.html"/>' class="flowchart_frame" id="iframe1"></iframe>
-        <button class="save_flowchart">Сохранить структуру</button>
+        <button class="save_flowchart" disabled>Сохранить структуру</button>
         <button class="clear_flowchart">Очистить структуру</button>
         <button class="staff_choose_btn">Редактировать отдел</button>
-        <button class="staff_add_btn">Сохранить отдел</button>
+        <button class="staff_add_btn" disabled>Сохранить отдел</button>
     </div>
 
     <div class="staff_container">
