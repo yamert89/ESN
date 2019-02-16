@@ -34,7 +34,8 @@
                         object.splice(i, 1);
                     }
 
-                    $.ajax({url:"/" + orgName +"/savestructure", type:"post", processData: false, contentType: false, data: JSON.stringify(outObj)});
+                    $.ajax({url:"/" + orgUrl +"/savestructure", type:"post", processData: false,
+                        contentType: false, data: JSON.stringify(outObj), success: aftersave});
 
                     function addChildren(obj) {
                         obj.children = [];
@@ -52,11 +53,12 @@
                 });
 
                 $(".staff_choose_btn").click(function () {
-                    if (window.SELECTED_DEP == undefined || SELECTED_DEP == null) {
+                    if (window.SELECTED_DEP == undefined || window.SELECTED_DEP == null) {
                         alert("Выберите отдел, который нужно отредактировать");
                         return;
                     }
-                    window.EDIT_DEP_NAME = prompt("Изменить название отдела?", SELECTED_DEP.name);
+                    window.EDIT_DEP_NAME = prompt("Изменить название отдела?", window.SELECTED_DEP.name);
+                    if (EDIT_DEP_NAME == null) EDIT_DEP_NAME = SELECTED_DEP.name;
                     $(".staff_container").empty();
                     fillStaff(DATA[0].employers);
                     alert("выберите людей");
@@ -79,7 +81,7 @@
                     });
 
 
-                    $.ajax({method:"post", url:"/" + "rosles" +"/savedep",
+                    $.ajax({method:"post", url:"/" + orgUrl +"/savedep",
                         data:{newname:EDIT_DEP_NAME, oldname:SELECTED_DEP.name, ids: JSON.stringify(ids)}, success: aftersave, dataType: "text"})
                     ;
 
@@ -94,7 +96,7 @@
 
         function aftersave(data){
             location.reload();
-            alert("Сохранено" + data)//TODO replace log
+            alert("Сохранено")//TODO replace log
             $("#" + data).click();
         }
 
@@ -114,15 +116,17 @@
                         el.selected = false;
                         $('#' + nodeid).addClass("node_selected");
                     }*/
+
+
                     $(".staff_container").empty();
                     if (el.selected) {
-                        foreachDeselect(DATA);   //TODO не проверять первый элемент
+                        foreachDeselect(DATA_SUB);
                         window.SELECTED_DEP = null;
                         //el.selected = false;
                         fillStaff(DATA[0].employers);
                         //return;
                     } else {
-                        foreachDeselect(DATA);   //TODO не проверять первый элемент
+                        foreachDeselect(DATA_SUB);
                         window.SELECTED_DEP = el;
                         el.selected = true;
 
@@ -143,6 +147,10 @@
 
         window.setStructData = function (data) {
             window.DATA = data;
+            window.DATA_SUB = [];
+            for (var i = 1; i < DATA.length; i++) {
+                DATA_SUB[i] = DATA[i];
+            }
             //alert(data[0].employers);
             fillStaff(data[0].employers);
 
@@ -175,6 +183,8 @@
             return el1.parentid === el2.parentid ? 0 :
                 el1.parentid > el2.parentid ? 1 : -1;
         }
+
+        //TODO отступ слева и размер поля конфиг пользователя
 
     </script>
 </head>

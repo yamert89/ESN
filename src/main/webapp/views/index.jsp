@@ -18,6 +18,7 @@
 
             window.userName = $(".user_name").text();
             window.orgName = $(".title").text();
+            window.orgUrl = $(".title").attr("data-url");
 
 
            /* $("#groups").click(function () {
@@ -65,7 +66,7 @@
             });*/
 
     </script><c:set var="user" value='${sessionScope.get("user")}'/>
-    <div class="title" align="center">${user.organization.name}</div>
+    <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}'>${user.organization.name}</div>
     <div class="user">
         <span class="user_name">${user.name}</span>
         <img src='<c:url value="${user.photo}"/>' class="user_photo">

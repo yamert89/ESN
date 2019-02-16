@@ -270,7 +270,7 @@ public class BaseController {
 
     }
 
-    @GetMapping("/{org}/savedep")
+    @PostMapping("/{org}/savedep")
     @ResponseBody
     public ResponseEntity<Long> saveDepartment(@PathVariable String org, @RequestParam String newname,
                               @RequestParam String oldname, @RequestParam String ids){
@@ -297,7 +297,7 @@ public class BaseController {
         return ResponseEntity.ok().body(department.getId());
     }
 
-    @PostMapping("/{org}/cleardeps")
+    @GetMapping("/{org}/cleardeps")
     @ResponseBody
     public void clearDeps(@PathVariable String org){
         Organization organization = orgDAO.getOrgByURL(org);
