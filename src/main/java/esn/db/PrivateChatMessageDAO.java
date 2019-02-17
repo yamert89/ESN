@@ -2,7 +2,7 @@ package esn.db;
 
 import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.User;
-import esn.utils.GeneralSettings;
+import esn.configs.GeneralSettings;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

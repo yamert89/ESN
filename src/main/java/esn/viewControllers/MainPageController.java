@@ -4,11 +4,12 @@ import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
+import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
-import esn.utils.GeneralSettings;
+import esn.configs.GeneralSettings;
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -145,9 +146,25 @@ public class MainPageController {
 
     @GetMapping(value = "/contacts")
     @ResponseBody
-    public ResponseEntity<String> fullContactsList(HttpSession session){
-        User user1 = (User) session.getAttribute("user");
+    public ResponseEntity<String> fullContactsList(HttpSession session, @PathVariable String organization){
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type",
+                "application/json; charset=UTF-8");
+        ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
         StringBuilder json = new StringBuilder("[");
+        User user1 = (User) session.getAttribute("user");
+
+        if (user1.getGroups().size() == 0){
+            Organization org = orgDao.getOrgByURL(organization);
+            Set<User> users = org.getAllEmployers();
+            json.append("{").append("\"name\":\"Все\",\"users\":[");
+            for (User u :
+                    users) {
+                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus()).append("},");
+            }
+            json.append("]}]");
+            return bb.body(json.toString().replaceAll(",]", "]"));
+        }
         for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
             int len = entry.getValue().length;
 
@@ -160,13 +177,9 @@ public class MainPageController {
             json.append("]},");
         }
         json.append("]");
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type",
-                "application/json; charset=UTF-8");
 
-        return ResponseEntity.ok()
-                .headers(responseHeaders)
-                .body(json.toString().replaceAll(",]", "]"));
+
+        return bb.body(json.toString().replaceAll(",]", "]"));
     }
 
 

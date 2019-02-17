@@ -3,7 +3,7 @@ package esn.viewControllers;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
-import esn.utils.GeneralSettings;
+import esn.configs.GeneralSettings;
 import esn.utils.ImageResizer;
 import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;

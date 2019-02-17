@@ -12,7 +12,7 @@ import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.StoredFile;
-import esn.utils.GeneralSettings;
+import esn.configs.GeneralSettings;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static esn.utils.GeneralSettings.TIME_PATTERN;
+import static esn.configs.GeneralSettings.TIME_PATTERN;
 
 @Controller
 

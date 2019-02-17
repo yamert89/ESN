@@ -6,14 +6,45 @@
     <link rel="stylesheet" href="contacts.css">
     <link rel="stylesheet" href="../gen.css">
     <script type="text/javascript" src="../../libs/jquery_3.1.0.js"></script>
+    <script src="../../libs/sock.js"></script>
+    <script src="../../libs/stomp.js"></script>
     <script type="text/javascript">
+        var stompClient = null;
         $(document).ready(function () {
+            connectWS();
             $.ajax({url:"http://localhost:8080/rosles/contacts",
-                type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill}); //TODO получить название орг
+                type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err}); //TODO получить название орг
+
+            setTimeout('f()',2000)
+
+            //TODO закрывать соединение
         });
+
+        function f() {
+            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":123, "statusOn": true }));
+        }
+
+        function connectWS() {
+            var socket = new SockJS('/netstatus');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                stompClient.subscribe('/contlist/statusalert', function(data){
+                    alert(data);
+                    //TODO
+                });
+            });
+        }
+
+        function disconnectWS() {
+            stompClient.disconnect();
+        }
+        function err(ex, stat) {
+            alert(ex + stat);
+        }
 
 
         function contactsFill(data) {
+            alert(data);
             /*alert(data);
             alert(data.toString());
             var array = JSON.parse(data);*/

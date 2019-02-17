@@ -1,4 +1,4 @@
-import esn.utils.GeneralSettings;
+import esn.configs.GeneralSettings;
 
 public class SimpleTests {
     public static void main(String[] args) {

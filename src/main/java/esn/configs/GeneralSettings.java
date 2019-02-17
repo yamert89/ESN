@@ -1,4 +1,4 @@
-package esn.utils;
+package esn.configs;
 
 import java.io.IOException;
 import java.io.InputStream;
