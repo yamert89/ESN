@@ -21,7 +21,7 @@
         });
 
         function f() {
-            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":123, "statusOn": true }));
+            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":123, "statusOn": true}));
         }
 
         function connectWS() {
@@ -30,6 +30,7 @@
             stompClient.connect({}, function(frame) {
                 stompClient.subscribe('/contlist/statusalert', function(data){
                     alert(data);
+                    alert(JSON.parse(data));
                     //TODO
                 });
             });
