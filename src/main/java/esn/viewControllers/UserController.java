@@ -9,6 +9,7 @@ import esn.utils.ImageResizer;
 import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -110,6 +111,7 @@ public class UserController {
     }
 
     @PostMapping("/{org}/reg")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public String addUserFromForm(@Valid @ModelAttribute("user")User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
         System.out.println(bindingResult.getFieldErrors().size());

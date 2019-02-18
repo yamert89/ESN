@@ -53,38 +53,36 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/wall")
-    public String wall(Model model, @PathVariable String organization, HttpSession session){
+    public String wall(Model model, @PathVariable String organization){
         model.addAttribute("messages", globalDAO.getMessages(organization, Post.class));
         return "wall";
     }
 
-    @RequestMapping(value = "/calendar")
+    @GetMapping("/calendar")
     public String calendar(){
         return "calendar";
     }
 
-    @RequestMapping(value = "/chat")
-    public String genChat(Model model, @PathVariable String organization, HttpSession session){
-        User usr = (User) session.getAttribute("user");
+    @GetMapping("/chat")
+    public String genChat(Model model, @PathVariable String organization, @SessionAttribute User user){
        // globalDAO.saveMessage(43,"ПРивет", new Timestamp(1234443354542L), "rosles", GenChatMessage.class);
-        model.addAttribute("photo", usr.getPhoto_small());
+        model.addAttribute("photo", user.getPhoto_small());
         model.addAttribute("messages", globalDAO.getMessages(organization, GenChatMessage.class));
         return "gen_chat";
     }
 
-    @RequestMapping(value = "/private-chat")
+    @GetMapping("/private-chat")
     public String privateChat(@PathVariable String organization,
-                              @RequestParam(value = "companion") String companion, Model model, HttpSession session){
-        User usr = (User) session.getAttribute("user");
+                              @RequestParam(value = "companion") String companion, Model model, @SessionAttribute User user){
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("net_status", compan.netStatus());
         model.addAttribute("companion_name", compan.getName());
         model.addAttribute("companion_avatar", GeneralSettings.AVATAR_PATH.concat(compan.getPhoto()));
-        Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(usr, compan);
+        Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(user, compan);
         Map<String, Boolean> messages = new TreeMap<>();
         for (PrivateChatMessage mes :
                 privateMessages) {
-            Boolean userMessage = mes.getSender() == usr;
+            Boolean userMessage = mes.getSender() == user;
             messages.put(mes.getText(), userMessage);
         }
 
@@ -93,13 +91,12 @@ public class MainPageController {
     }
 
     @GetMapping("/groups")
-    public String groups(@PathVariable String organization, Model model, HttpSession session){
+    public String groups(@PathVariable String organization, Model model, @SessionAttribute User user){
         Set<User> employers = orgDao.getOrgByURL(organization).getAllEmployers();
         model.addAttribute("employers", employers);
-        User user1 = (User) session.getAttribute("user");
-        model.addAttribute("groupsNames", user1.getGroups().keySet());
+        model.addAttribute("groupsNames", user.getGroups().keySet());
         Map<String, Set<User>> resMap = new HashMap<>();
-        for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
+        for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()){
             int len = entry.getValue().length;
             Set<User> resVal = new HashSet<>(len);
             for (int i = 0; i < len; i++) {
@@ -115,24 +112,19 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/notes")
-    public String notes(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
+    public String notes(HttpSession session, Model model, @SessionAttribute User user){
         User user2 = userDAO.getUserWithNotes(user.getId());
         session.setAttribute("user", user2);
         return "notes";
     }
 
     @GetMapping(value = "/staff")
-    public String staff(HttpSession session){
-        User user = (User) session.getAttribute("user");
-
+    public String staff(@SessionAttribute User user){
         return user.isAdmin() ? "staff_admin" : "staff";
-
     }
 
     @GetMapping(value = "/storage")
-    public String storage(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
+    public String storage(@SessionAttribute User user, Model model, HttpSession session){
         try{
             user.getStoredFiles().size();
         }catch (LazyInitializationException e){
@@ -145,30 +137,28 @@ public class MainPageController {
 
 
 
-
-    @GetMapping(value = "/contacts")
+    @GetMapping("/contacts")
     @ResponseBody
-    public ResponseEntity<String> fullContactsList(HttpSession session, @PathVariable String organization){
+    public ResponseEntity<String> fullContactsList(@PathVariable String organization, @SessionAttribute User user){
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type",
                 "application/json; charset=UTF-8");
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
         StringBuilder json = new StringBuilder("[");
-        User user1 = (User) session.getAttribute("user");
 
-        if (user1.getGroups().size() == 0){
+        if (user.getGroups().size() == 0){
             Organization org = orgDao.getOrgByURL(organization);
             Set<User> users = org.getAllEmployers();
             json.append("{").append("\"name\":\"Все\",\"users\":[");
             for (User u :
                     users) {
-                if (u.getId() == user1.getId()) continue;
+                if (u.getId() == user.getId()) continue;
                 json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus()).append(",\"id\":").append(u.getId()).append("},");
             }
             json.append("]}]");
             return bb.body(json.toString().replaceAll(",]", "]"));
         }
-        for (Map.Entry<String, String[]> entry: user1.getGroups().entrySet()){
+        for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()){
             int len = entry.getValue().length;
 
             json.append("{").append("\"name\":\"").append(entry.getKey()).append("\",\"users\":[");

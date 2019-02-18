@@ -16,6 +16,7 @@ import esn.configs.GeneralSettings;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,7 @@ import java.util.*;
 import static esn.configs.GeneralSettings.TIME_PATTERN;
 
 @Controller
-
-@SessionAttributes
+@SessionAttributes("user")
 public class BaseController {
 
     private GlobalDAO globalDAO;
@@ -72,7 +72,7 @@ public class BaseController {
 
 
     @PostMapping("/savemessage")
-    @ResponseBody
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
@@ -80,7 +80,7 @@ public class BaseController {
     }
 
     @PostMapping("/savepost")
-    @ResponseBody
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @RequestParam String orgUrl){
 
@@ -89,12 +89,10 @@ public class BaseController {
     }
 
     @PostMapping("/savegroup")
-    @ResponseBody
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                           HttpSession session){
+                          @SessionAttribute User user){
         try {
-            User user = getUserFromSession(session);
-
             user.getGroups().put(groupName, personIds.split(","));
 
             for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()) {
@@ -112,18 +110,17 @@ public class BaseController {
     }
 
     @PostMapping("/savenote")
-    @ResponseBody
-    public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
-        User user = getUserFromSession(session);
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user){
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         user.getNotes().put(timestamp, text);
         userDAO.updateUser(user);
     }
 
     @PostMapping("/savefile")
-    @ResponseBody
-    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared, HttpSession session){
-        User user = getUserFromSession(session);
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared,
+                         @SessionAttribute User user, HttpSession session){
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
         try {
@@ -137,10 +134,9 @@ public class BaseController {
     }
 
     @GetMapping("/savefile")
-    @ResponseBody
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void updateFile(@RequestParam String fname, @RequestParam String update,
-                           @RequestParam(required = false) String newName, HttpSession session){
-        User user = getUserFromSession(session);
+                           @RequestParam(required = false) String newName, @SessionAttribute User user, HttpSession session){
         Iterator<StoredFile> it = user.getStoredFiles().iterator();
         StoredFile storedFile = null;
         while (it.hasNext()){
@@ -178,12 +174,11 @@ public class BaseController {
 
     @GetMapping("/getstaff")
     @ResponseBody
-    public ResponseEntity<String> getStaff(HttpSession session){
+    public ResponseEntity<String> getStaff(@SessionAttribute User user){
 
         String json = "";
         StringBuilder jsonS = null;
         try {
-            User user = getUserFromSession(session);
             Organization org = user.getOrganization();
             Set<Department> departments = org.getDepartments();
 
@@ -197,37 +192,6 @@ public class BaseController {
             System.out.println(json);
             System.out.println();
 
-
-
-            /*Department department = departmentDAO.getHeadDepartment();
-            Department department1 = new Department("1", "1", null);
-            Department department2 = new Department("2", "2", department1);
-            Department department3 = new Department("3", "3", department1);
-            Department department4 = new Department("4", "4", department2);
-
-            department.getChildren().add(department1);
-            department.getChildren().add(department2);
-            department.getChildren().add(department3);
-            department.getChildren().add(department4);
-            departmentDAO.merge(department);*/
-
-           /* List<Integer> headIds = departmentDAO.getHeadDepartmentsId();
-            Department department = null;
-            jsonS = new StringBuilder();
-            jsonS.append("[");
-            for (int el :
-                    headIds) {
-                department = departmentDAO.getDepartmentWithUsersAndChildren(el);
-                jsonS.append("{name:\"").append(department.getName()).append("\", children:[");
-                for (User user1: department.getEmployers()) {
-                    jsonS.append("{").append("name:\"").append(user1.getName()).append("\", position: \"").append(user1.getPosition())
-                            .append("\", photo: \"").append(user1.getPhoto()).append("\"},");
-                }
-                jsonS.append("]}");
-            }
-            jsonS.append("]");*/
-
-
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -239,8 +203,8 @@ public class BaseController {
     }
 
     @PostMapping("/{org}/savestructure")
-    @ResponseBody
-    public void saveStructure(HttpSession session, @RequestBody String data, @PathVariable String org){
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void saveStructure(@RequestBody String data, @PathVariable String org){
         ObjectMapper om = new ObjectMapper();
         try {
             Department[] deps = om.readValue(data, new TypeReference<Department[]>(){});
@@ -272,6 +236,7 @@ public class BaseController {
 
     @PostMapping("/{org}/savedep")
     @ResponseBody
+    @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Long> saveDepartment(@PathVariable String org, @RequestParam String newname,
                               @RequestParam String oldname, @RequestParam String ids){
         Organization organization = orgDAO.getOrgByURL(org);
@@ -299,6 +264,7 @@ public class BaseController {
 
     @GetMapping("/{org}/cleardeps")
     @ResponseBody
+    @ResponseStatus(code = HttpStatus.GONE)
     public void clearDeps(@PathVariable String org){
         Organization organization = orgDAO.getOrgByURL(org);
         organization.getDepartments().clear();
@@ -311,9 +277,6 @@ public class BaseController {
     @ResponseBody
     public void fav(){}
 
-    public User getUserFromSession(HttpSession session){
-        return (User) session.getAttribute("user");
-    }
 
 
 }

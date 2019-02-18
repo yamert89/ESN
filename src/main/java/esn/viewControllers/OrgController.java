@@ -2,19 +2,19 @@ package esn.viewControllers;
 
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
+import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import esn.utils.SimpleUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.Valid;
 
 @Controller
-@SessionAttributes("organization")
 public class OrgController {
 
     private OrganizationDAO orgDao;
@@ -25,13 +25,14 @@ public class OrgController {
     }
 
 
-    @RequestMapping(value = "/neworg", method = RequestMethod.GET)
+    @GetMapping("/neworg")
     public String newOrg(Model model){
         model.addAttribute(new Organization());
         return "neworg";
     }
 
-    @RequestMapping(value = "/neworg", method = RequestMethod.POST)
+    @PostMapping("/neworg")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public String regOrgFromForm(@Valid Organization org, BindingResult result){
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
