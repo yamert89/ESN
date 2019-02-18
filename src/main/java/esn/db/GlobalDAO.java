@@ -60,7 +60,7 @@ public class GlobalDAO {
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
 
         try {
-            em.createNativeQuery(CHECKTABLE_MYSQL).getSingleResult();
+            em.createNativeQuery(CHECKTABLE_POSTGRES).getSingleResult();
             //em.createNativeQuery("show tables like 'generalchat'").getSingleResult();
         }catch (NoResultException e){
             return null;

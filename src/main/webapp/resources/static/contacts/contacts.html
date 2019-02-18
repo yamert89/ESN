@@ -15,13 +15,13 @@
             $.ajax({url:"http://localhost:8080/rosles/contacts",
                 type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err}); //TODO получить название орг
 
-            setTimeout('f()',2000)
+            //setTimeout('f()',2000)
 
             //TODO закрывать соединение
         });
 
         function f() {
-            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":123, "statusOn": true}));
+            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":6, "statusOn": true}));
         }
 
         function connectWS() {
@@ -29,9 +29,10 @@
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
                 stompClient.subscribe('/contlist/statusalert', function(data){
-                    alert(data);
-                    alert(JSON.parse(data));
-                    //TODO
+                    var user = JSON.parse(data.body);
+                    var usDom = $("[data-id='" + user.userId + "']");
+                    var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
+                    usDom.find(":first-child").attr("id", stat);
                 });
             });
         }
@@ -45,7 +46,6 @@
 
 
         function contactsFill(data) {
-            alert(data);
             /*alert(data);
             alert(data.toString());
             var array = JSON.parse(data);*/
@@ -67,7 +67,7 @@
 
         function renderItem(user) {
             var idStat = user.status ? 'net_status_on' : 'net_status_off';
-            return "<div class='person_item'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
+            return "<div class='person_item' data-id='" + user.id + "'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
         }
     </script>
 </head>
