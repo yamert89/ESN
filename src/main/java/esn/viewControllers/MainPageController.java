@@ -1,5 +1,6 @@
 package esn.viewControllers;
 
+import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
@@ -9,7 +10,6 @@ import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
-import esn.configs.GeneralSettings;
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +32,8 @@ public class MainPageController {
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
     private OrganizationDAO orgDao;
+
+
 
     @Autowired
     public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {

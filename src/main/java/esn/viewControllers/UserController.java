@@ -1,9 +1,10 @@
 package esn.viewControllers;
 
+import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
-import esn.configs.GeneralSettings;
+import esn.services.UserService;
 import esn.utils.ImageResizer;
 import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
@@ -27,6 +28,13 @@ public class UserController {
 
     private UserDAO userDAO;
     private OrganizationDAO orgDAO;
+    private UserService userService;
+
+    @Autowired
+    public void setService(UserService service) {
+        this.userService = service;
+    }
+
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -81,14 +89,16 @@ public class UserController {
         session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
         session.setAttribute("loginUrl", user.getLogin());
-
-
+        userService.sendStatus(user, true);
         return "redirect:/" + org + "/wall/";
         //return "wall";
     }
 
     @PostMapping("/exit")
     public void exit(HttpSession session){
+        User usr = (User) session.getAttribute("user");
+        userService.sendStatus(usr, false);
+
         session.invalidate(); //TODO
     }
 
