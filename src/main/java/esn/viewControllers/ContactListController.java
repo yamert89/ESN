@@ -8,16 +8,14 @@ import java.util.Map;
 
 
 
-@Controller("contactListController")
+@Controller
 public class ContactListController {
-
-
 
     @MessageMapping("/netstatus")
     @SendTo("/contlist/statusalert")
     public Map statusChange(Map<String, Object> data){
         return data;
-    }
+    } //TODO delete
 
 
 

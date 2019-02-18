@@ -162,6 +162,7 @@ public class MainPageController {
             json.append("{").append("\"name\":\"Все\",\"users\":[");
             for (User u :
                     users) {
+                if (u.getId() == user1.getId()) continue;
                 json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus()).append(",\"id\":").append(u.getId()).append("},");
             }
             json.append("]}]");

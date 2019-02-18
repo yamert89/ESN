@@ -13,11 +13,14 @@
         $(document).ready(function () {
             connectWS();
             $.ajax({url:"http://localhost:8080/rosles/contacts",
-                type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err}); //TODO получить название орг
+                type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err});
 
             //setTimeout('f()',2000)
 
-            //TODO закрывать соединение
+            $(window).on("beforeunload", function () {
+                disconnectWS();
+            });
+
         });
 
         function f() {
@@ -46,10 +49,6 @@
 
 
         function contactsFill(data) {
-            /*alert(data);
-            alert(data.toString());
-            var array = JSON.parse(data);*/
-
             data.forEach(function (item) {
                 renderGroup(item);
             });
