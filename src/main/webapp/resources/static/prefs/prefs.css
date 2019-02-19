@@ -10,10 +10,13 @@ input{
     width: 73%;
 }
 .properties_board{
-    width: 30%;
+    width: 25%;
     margin: 0 auto;
-    padding: 20px 0;
+    padding: 10px 0;
     background-color: rgba(174, 239, 120, 0.57);
+    border: 3px ridge #c3cda9;
+    border-radius: 5px;
+
 
 }
 .prop_line{
@@ -25,4 +28,21 @@ input{
 }
 .commit{
     width: 30%;
+}
+.inline{
+    display: inline-block;
+    margin: 0 30px;
+}
+.inline_parent{
+    text-align: right;
+    vertical-align: middle;
+}
+input[type=file]{
+    width: auto;
+}
+.title_pref{
+    text-align: center;
+}
+h3{
+    transform: translateY(-50px);
 }

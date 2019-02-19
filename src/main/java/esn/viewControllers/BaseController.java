@@ -191,7 +191,6 @@ public class BaseController {
             json = om.writeValueAsString(deps);
             System.out.println(json);
             System.out.println();
-
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -218,9 +217,7 @@ public class BaseController {
                 d.setOrganization(organization);
                 d.initParentForTree();
                 d.initOrgForChildren();
-
             }
-
             Set<Department> set = organization.getDepartments();
 
             set.addAll(Arrays.asList(deps));
@@ -231,7 +228,6 @@ public class BaseController {
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     @PostMapping("/{org}/savedep")
