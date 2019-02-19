@@ -11,6 +11,7 @@ input{
 }
 .properties_board{
     width: 25%;
+    min-width: 620px;
     margin: 100px auto;
     padding: 10px 0;
     background-color: rgba(174, 239, 120, 0.57);

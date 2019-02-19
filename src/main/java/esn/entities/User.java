@@ -6,6 +6,7 @@ import esn.entities.secondary.StoredFile;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -24,7 +25,7 @@ public class User {
 
     @Size(min = 4, max = 50, message = "От 4х до 50 символов")
     @Column(nullable = false)
-    @NotNull(message = "Имя не должно быть пустым")
+    @NotNull(message = "имя не должно быть пустым")
     private String name;
 
     @Size(min = 4, max = 20, message = "От 3х до 20 символов")
@@ -33,7 +34,7 @@ public class User {
     private String login;
 
     @Size(min = 6, max = 32, message = "От 6 до 32 символов")
-    @NotNull(message = "Пароль не может быть пустым")
+    @NotNull(message = "пароль не может быть пустым")
     @JsonIgnore
     private String password;
     @JsonIgnore
@@ -51,6 +52,26 @@ public class User {
     @JsonIgnore
     private Organization organization;
 
+    @JsonIgnore
+    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
+    private String phoneMobile;
+
+    @JsonIgnore
+    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
+    private String phoneWork;
+
+    @JsonIgnore
+    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
+    private String phoneInternal;
+
+    @JsonIgnore
+    @Email(message = "неверный e-mail")
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'Не указано'")
+    private String email;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User boss;
 
     private String photo;  //filename
     @JsonIgnore

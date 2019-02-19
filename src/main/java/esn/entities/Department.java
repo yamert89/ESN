@@ -38,7 +38,7 @@ public class Department {
     @ManyToOne
     private Department parent;
 
-    @Column(nullable = false, columnDefinition = "int default 0")
+    @Column(nullable = false, columnDefinition = "bigint default 0")
     @JsonSerialize(nullsUsing = JsonNullSerializer.class)
     private Long parentId;
 
