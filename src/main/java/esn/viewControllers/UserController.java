@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
+@RequestMapping("/org")
 @SessionAttributes("user")
 public class UserController {
 
@@ -48,14 +49,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/{org}/auth")
+    @GetMapping("/auth")
     public String showAuthPage(@PathVariable String org, Model model){
         model.addAttribute("org", org);
         return "auth";
     }
 
     /*@PostMapping("/{org}/auth")*/
-    @GetMapping("/{org}/auth1")
+    @GetMapping("/auth1")
     public String confirmAuth(/*@RequestParam String login, @RequestParam String password,*/
                               Model model, @PathVariable String org, HttpSession session){
         User user = null;
@@ -104,13 +105,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/{org}/reg")
+    @GetMapping("/reg")
     public String regUser(Model model, @PathVariable String org){
         model.addAttribute(new User());
         return "reg";
     }
 
-    @PostMapping("/{org}/reg")
+    @PostMapping("/reg")
     @ResponseStatus(code = HttpStatus.CREATED)
     public String addUserFromForm(@Valid @ModelAttribute("user")User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
@@ -171,15 +172,11 @@ public class UserController {
     }*/
 
 
-
-
-
-
-   /* @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public String showUserProfile(@PathVariable String username, Model model){
-        model.addAttribute(userDAO.getUserByName(username));
-        return "/profile";
-    }*/
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public String showUserProfile(@PathVariable String username, Model model, @SessionAttribute User user){
+        model.addAttribute(user);
+        return "profile";
+    }
 
 
 

@@ -47,3 +47,6 @@ input[type=file]{
 h3{
     transform: translateY(-50px);
 }
+input[type='checkbox']{
+    width: auto;
+}
