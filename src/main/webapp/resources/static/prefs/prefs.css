@@ -7,16 +7,16 @@ label{
 }
 
 input{
-    width: 73%;
+    width: 60%;
 }
 .properties_board{
     width: 25%;
     min-width: 620px;
-    margin: 100px auto;
+    margin: 50px auto;
     padding: 10px 0;
     background-color: rgba(174, 239, 120, 0.57);
     border: 3px ridge #c3cda9;
-    border-radius: 5px;
+    border-radius: 10px;
 
 
 }
@@ -25,7 +25,7 @@ input{
 }
 .prop_label{
     display: inline-block;
-    width: 25%;
+    width: 38%;
 }
 .commit{
     width: 30%;

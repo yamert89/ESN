@@ -15,8 +15,16 @@
             $("#password_change").click(function () {
                 pasBoard.css("display", "block");
             });
+            passOld.on('blur', function () {
+                if ($(this).val() == ''){
+                    logMess("Введите пароль");
+                    return;
+                }
+                checkPassword();
+
+            });
             $("#password_save").click(function () {
-                //TODO отловить потерю фокуса старого пароля и проверить на сервере
+
                 if (passConf.val() != passNew.val()) {
                     logMess("Новый и подтвержденный пароли не совпадают");
                     return;
@@ -27,6 +35,9 @@
                     return;
                 }
                 pasBoard.css("display", "none");
+                passOld.val('');
+                passNew.val('');
+                passConf.val('');
                 logMess("Пароль изменен");
 
             });
@@ -52,13 +63,20 @@
                 }, 3000);
             }
 
+            function checkPasswordResult(data){
+                alert(data);
+                if (!data) logMess("Существующий пароль не совпадает");
+            }
+
+            function checkPassword() {
+                $.ajax({url:"/password", contentType:"application/json; charset=UTF-8", success: checkPasswordResult});
+            }
+
+            function checkPasswordSync() {
+                $.ajax({url:"/password", contentType:"application/json; charset=UTF-8", success: checkPasswordResult});
+            }
+
         });
-
-
-
-
-
-
     </script>
 </head>
 <body>
@@ -72,16 +90,11 @@
         <img class="user_photo inline" src="../../avatars/wom.jpg">
         <input type="file" accept="image/*" class="inline">
     </div>
-
-
     <div class="prop_line">
         <div class="prop_label">Дата рождения:</div>
         <input type="date" id="department">
     </div>
-    <div class="prop_line">
-        <div class="prop_label">Должность:</div>
-        <input type="text">
-    </div>
+
     <div class="prop_line">
         <div class="prop_label">Телефон:</div>
         <input type="text">
@@ -99,11 +112,19 @@
         <input type="text">
     </div>
     <div class="prop_line">
-        <div class="prop_label">Непосредственный начальник:</div>
-        <select></select>
+        <div class="prop_label">Должность:</div>
+        <input type="text">
     </div>
-
-
+    <div class="prop_line">
+        <div class="prop_label">Отдел:</div>
+        <input type="text">
+    </div>
+    <div class="prop_line">
+        <div class="prop_label">Непосредственный начальник:</div>
+        <select>
+            <option>Чубака Иван Иванович - начальник отдела</option>
+        </select>
+    </div>
     <div class="prop_line">
         <input class="commit" type="button" value="Сменить пароль" id="password_change">
     </div>
@@ -132,9 +153,6 @@
         <input class="commit" type="submit" value="Удалить аккаунт" id="delete_profile">
     </div>
     <span class="prop_log_view"></span>
-
-
-
 </div>
 </body>
 </html>

@@ -270,6 +270,7 @@ public class BaseController {
     }
 
     @GetMapping("/password")
+    @ResponseBody
     public boolean checkPassword(@RequestParam String passw, @SessionAttribute User user){
         return SimpleUtils.getEncodedPassword(passw).equals(user.getPassword());
     }
