@@ -3,6 +3,7 @@ package esn.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import esn.db.UserDAO;
 import esn.entities.secondary.StoredFile;
+import esn.entities.secondary.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -31,14 +32,21 @@ public class User {
     @Size(min = 4, max = 20, message = "От 3х до 20 символов")
     @NotNull
     @JsonIgnore
+    @Column(nullable = false)
     private String login;
 
     @Size(min = 6, max = 32, message = "От 6 до 32 символов")
     @NotNull(message = "пароль не может быть пустым")
+    @Column(nullable = false)
     @JsonIgnore
     private String password;
+
     @JsonIgnore
     private boolean admin;
+
+    @JsonIgnore
+    private boolean male;
+
     @Column(columnDefinition = "должность не указана")
     private String position = "";
 
@@ -52,32 +60,14 @@ public class User {
     @JsonIgnore
     private Organization organization;
 
-    @JsonIgnore
-    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
-    private String phoneMobile;
-
-    @JsonIgnore
-    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
-    private String phoneWork;
-
-    @JsonIgnore
-    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
-    private String phoneInternal;
-
-    @JsonIgnore
-    @Email(message = "неверный e-mail")
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'Не указано'")
-    private String email;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User boss;
+    @Basic(fetch = FetchType.LAZY)
+    private UserInformation userInformation;
 
     private String photo;  //filename
     @JsonIgnore
     private String photo_small; //filename
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner", orphanRemoval=true)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner", orphanRemoval=true) //TODO не удалять файлы удаленного пользователя
     @JsonIgnore
     private Set<StoredFile> storedFiles;
 
@@ -230,6 +220,14 @@ public class User {
 
     public Set<StoredFile> getStoredFiles() {
         return storedFiles;
+    }
+
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
     }
 
     @Override

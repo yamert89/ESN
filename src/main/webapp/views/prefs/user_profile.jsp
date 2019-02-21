@@ -9,15 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Profile</title>
 </head>
 <body>
 <div class="properties_board">
     <div class="prop_line inline_parent">
-        <div class="inline">
-            <h3>Порохин Александр Акимович</h3>
+        <div class="inline"><c:set var="user" value='${sessionScope.get("user")}'/>
+            <h3>${user.name}</h3>
         </div>
-        <img class="user_photo inline" src="../../avatars/wom.jpg">
+        <img class="user_photo inline" src="${user.photo}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Должность:</div>

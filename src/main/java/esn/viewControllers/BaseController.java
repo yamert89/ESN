@@ -13,6 +13,7 @@ import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.StoredFile;
 import esn.configs.GeneralSettings;
+import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -230,7 +231,7 @@ public class BaseController {
         }
     }
 
-    @PostMapping("/{org}/savedep")
+    @PostMapping("/{org}/savedep") //TODO url ref
     @ResponseBody
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Long> saveDepartment(@PathVariable String org, @RequestParam String newname,
@@ -258,7 +259,7 @@ public class BaseController {
         return ResponseEntity.ok().body(department.getId());
     }
 
-    @GetMapping("/{org}/cleardeps")
+    @GetMapping("/{org}/cleardeps") //TODO url ref
     @ResponseBody
     @ResponseStatus(code = HttpStatus.GONE)
     public void clearDeps(@PathVariable String org){
@@ -266,6 +267,11 @@ public class BaseController {
         organization.getDepartments().clear();
         orgDAO.update(organization);
         //TODO протестировать
+    }
+
+    @GetMapping("/password")
+    public boolean checkPassword(@RequestParam String passw, @SessionAttribute User user){
+        return SimpleUtils.getEncodedPassword(passw).equals(user.getPassword());
     }
 
 

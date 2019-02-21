@@ -65,6 +65,15 @@
             <span class="jspError" id="error_pass"></span>
         </label>
     </div>
+    <div class="reg_block">
+        <label>
+            Укажите ваш пол:
+            <label for="male">М</label><input type="radio" class="reg_field" id="male">
+            <label for="female">Ж</label><input type="radio" class="reg_field" id="female">
+            <img src="/resources/checkbox.jpg" class="checkbox">
+            <span class="jspError" id="error_sex"></span>
+        </label>
+    </div>
     <div class="form_photo reg_block">
         <label>Загрузите фото:
             <input type="file" name="image" class="select_avatar">

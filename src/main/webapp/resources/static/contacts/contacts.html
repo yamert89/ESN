@@ -21,6 +21,10 @@
                 disconnectWS();
             });
 
+            $(".person_item").on('click', function () {
+                location.href = $(this).attr('data-id') //TODO
+            })
+
         });
 
         function f() {

@@ -27,6 +27,11 @@ public class UserDAO {
     }
 
     @Transactional
+    public void deleteUser(User user) {
+        em.remove(user);
+    }
+
+    @Transactional
     public User getUserById(Integer id) {
         return em.find(User.class, id);
     }
@@ -54,6 +59,13 @@ public class UserDAO {
     public User getUserWithFiles(Integer id){
         User user = em.find(User.class, id);
         Hibernate.initialize(user.getStoredFiles());
+        return user;
+    }
+
+    @Transactional
+    public User getUserWithInfo(Integer id){
+        User user = em.find(User.class, id);
+        Hibernate.initialize(user.getUserInformation());
         return user;
     }
 

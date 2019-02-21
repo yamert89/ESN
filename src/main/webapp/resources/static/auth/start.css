@@ -90,5 +90,11 @@ span{
 .department_adder{
     width: 200px;
 }
+input[type='radio']{
+    width: auto;
+}
+
+
+/*MODAL*/
 
 

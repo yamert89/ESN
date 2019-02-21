@@ -50,3 +50,24 @@ h3{
 input[type='checkbox']{
     width: auto;
 }
+
+.password_board{
+    border-top: 1px solid rgba(128, 128, 128, 0.31);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.31);
+    display: none;
+    background-color: rgba(0, 0, 0, 0.09);
+    padding: 10px;
+}
+#password_save{
+    width: auto;
+}
+.prop_log_view{
+    color: red;
+    margin: 10px;
+    min-height: 1em;
+}
+.prop_log_fadeout{
+    color: transparent;
+    transition: 1s ease-out 1.5s;
+
+}
