@@ -6,8 +6,11 @@ label{
     width: max-content;
 }
 
-input{
+input, select{
     width: 60%;
+}
+select{
+    margin: 2px;
 }
 .properties_board{
     width: 25%;
@@ -26,6 +29,7 @@ input{
 .prop_label{
     display: inline-block;
     width: 38%;
+
 }
 .commit{
     width: 30%;

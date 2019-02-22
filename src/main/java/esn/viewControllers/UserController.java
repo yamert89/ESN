@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/org")
+@RequestMapping("/{org}")
 @SessionAttributes("user")
 public class UserController {
 
@@ -173,17 +173,33 @@ public class UserController {
 
 
     @GetMapping("/{login}")
-    public String showUserProfile(@PathVariable String login, Model model,
-                                  @SessionAttribute User user, HttpSession session){
+    public String showUserProfile(@PathVariable String login, @SessionAttribute User user, HttpSession session) throws Exception{
+        if (user.getLogin().equals(login)){
+            user = userDAO.getUserWithInfo(user.getId());
+            session.setAttribute("user", user);
+            return "userSettings";
+        }
+        user = userDAO.getUserByLogin(login);
         user = userDAO.getUserWithInfo(user.getId());
         session.setAttribute("user", user);
         return "profile";
+
     }
 
     @DeleteMapping("/{login}")
     public String deleteProfile(@PathVariable String login, @SessionAttribute User user){
         userDAO.deleteUser(user); //TODO test
         return "reg";
+    }
+    @PostMapping("/{login}")
+    @ResponseBody
+    public boolean changePassword(@PathVariable String login, @SessionAttribute User user, HttpSession session,
+                               @RequestParam String oldPass, @RequestParam String newPass){
+        if (!SimpleUtils.getEncodedPassword(oldPass).equals(user.getPassword())) return false;
+        user.setPassword(newPass);
+        userDAO.updateUser(user);
+        session.invalidate();
+        return true;
     }
 
 

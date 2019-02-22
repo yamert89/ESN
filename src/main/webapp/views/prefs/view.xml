@@ -3,33 +3,16 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-    <definition name="index_template" template="/views/index.jsp"/>
-    <definition name="calendar" extends="index_template">
-        <put-attribute name="center" value="/views/center/calendar.jsp"/>
+    <definition name="pref_template" template="/views/prefs/prefs_template.jsp"/>
+    <definition name="profile" extends="pref_template">
+        <put-attribute name="pref_page" value="/views/prefs/user_profile.jsp"/>
     </definition>
-    <definition name="gen_chat" extends="index_template">
-        <put-attribute name="center" value="/views/center/gen_chat.jsp"/>
+    <definition name="userSettings" extends="pref_template">
+        <put-attribute name="pref_page" value="/views/prefs/user_properties.jsp"/>
     </definition>
-    <definition name="private_chat" extends="index_template">
-        <put-attribute name="center" value="/views/center/private_chat.jsp" />
+    <definition name="appSettings" extends="pref_template">
+        <put-attribute name="pref_page" value="/views/prefs/user_profile.jsp"/>
     </definition>
-    <definition name="groups" extends="index_template">
-        <put-attribute name="center" value="/views/center/groups.jsp" />
-    </definition>
-    <definition name="notes" extends="index_template">
-        <put-attribute name="center" value="/views/center/notes.jsp" />
-    </definition>
-    <definition name="staff" extends="index_template">
-        <put-attribute name="center" value="/views/center/staff.jsp" />
-    </definition>
-    <definition name="staff_admin" extends="index_template">
-        <put-attribute name="center" value="/views/center/staff_admin.jsp" />
-    </definition>
-    <definition name="storage" extends="index_template">
-        <put-attribute name="center" value="/views/center/storage.jsp" />
-    </definition>
-    <definition name="wall" extends="index_template">
-        <put-attribute name="center" value="/views/center/wall.jsp" />
-    </definition>
+
 
 </tiles-definitions>

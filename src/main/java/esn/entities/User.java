@@ -45,6 +45,7 @@ public class User {
     private boolean admin;
 
     @JsonIgnore
+    @Column(columnDefinition = "boolean default true")
     private boolean male;
 
     @Column(columnDefinition = "должность не указана")

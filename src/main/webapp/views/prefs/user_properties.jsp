@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: porohin
+  Date: 22.02.2019
+  Time: 13:14
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,8 +56,8 @@
             });
 
             $("#settings_submit").click(function () {
-               logMess("Сохранено");
-               //TODO save on server
+                logMess("Сохранено");
+                //TODO save on server
             });
 
             function successChangePassword(data) {
@@ -62,7 +69,9 @@
                 passOld.val('');
                 passNew.val('');
                 passConf.val('');
-                logMess("Пароль изменен");
+                logMess("Пароль изменен. Пожалуйста, авторизуйтесь заново.");
+                setTimeout(function () { location.href = "/" + orgUrl + "/auth1"}, 2000);
+
             }
 
             function logMess(message) {
