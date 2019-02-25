@@ -98,6 +98,8 @@ public class Organization {
 
 
 
+
+
     public User getUserByLogin(String nickname){
         try {
             for (User user:

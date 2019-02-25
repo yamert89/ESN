@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/{org}")
@@ -173,15 +174,24 @@ public class UserController {
 
 
     @GetMapping("/{login}")
-    public String showUserProfile(@PathVariable String login, @SessionAttribute User user, HttpSession session) throws Exception{
-        if (user.getLogin().equals(login)){
+    public String showUserProfile(@PathVariable String login, @PathVariable String org,
+                                  @SessionAttribute User user, Model model, HttpSession session){
+        try {
+            if (user.getLogin().equals(login)) {
+                user = userDAO.getUserWithInfo(user.getId());
+                session.setAttribute("user", user);
+                Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
+                model.addAttribute("bosses", allUsers);
+                return "userSettings";
+            }
+            user = userDAO.getUserByLogin(login);
             user = userDAO.getUserWithInfo(user.getId());
             session.setAttribute("user", user);
-            return "userSettings";
+
+        }catch (Exception e){
+            e.printStackTrace(); //todo /info and /avatars wom
         }
-        user = userDAO.getUserByLogin(login);
-        user = userDAO.getUserWithInfo(user.getId());
-        session.setAttribute("user", user);
+
         return "profile";
 
     }

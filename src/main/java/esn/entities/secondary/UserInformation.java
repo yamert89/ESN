@@ -1,12 +1,8 @@
 package esn.entities.secondary;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import esn.entities.User;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +10,7 @@ import java.util.Date;
 @Embeddable
 public class UserInformation implements Serializable {
 
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)

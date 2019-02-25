@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 
 @Repository("orgDao")
@@ -59,6 +60,11 @@ public class OrganizationDAO {
         System.out.println(list.size());
         list.forEach(item -> item = item.intern());
         return list;
+    }
+
+    @Transactional
+    public List<Organization> getAllOrgs(){
+        return em.createQuery("select o from Organization o").getResultList();
     }
 
 }

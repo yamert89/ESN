@@ -2,7 +2,6 @@ package esn.viewControllers;
 
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
-import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -38,6 +37,6 @@ public class OrgController {
         System.out.println(result.getFieldErrors().size());
         System.out.println();
         orgDao.persistOrg(org);
-        return SimpleUtils.getNickName(org.getName()) + "/info"; //TODO mapping
+        return "/infoprg"; //TODO mapping
     }
 }

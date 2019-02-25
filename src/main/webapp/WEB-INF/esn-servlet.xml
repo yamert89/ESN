@@ -20,7 +20,7 @@
         <property name="definitions">
             <list>
                 <value>/views/auth/view.xml</value>
-                <value>/views/prefs/view.xml</value>
+                <value>/views/props/view.xml</value>
                 <value>/views/view.xml</value>
             </list>
         </property>

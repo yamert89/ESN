@@ -11,7 +11,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href='<c:url value="/resources/static/prefs/prefs.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/static/props/props.css"/>'>
+    <script type="text/javascript" src='<c:url value="/resources/libs/jquery_3.1.0.js"/>'></script>
 </head>
 <body>
 <t:insertAttribute name="pref_page"/>

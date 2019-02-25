@@ -1,5 +1,6 @@
 package esn.services;
 
+import esn.entities.Organization;
 import esn.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -15,8 +16,9 @@ public class UserService {
     }
 
     public void sendStatus(User user, boolean on){
-        template.convertAndSend("/contlist/statusalert", "{\"userId\":" + user.getId() +
-                ", \"statusOn\": " + on + "}");
+        Organization org = user.getOrganization();
+        template.convertAndSend("/" + org.getUrlName() + "/contlist/statusalert",
+                "{\"userId\":" + user.getId() + ", \"statusOn\": " + on + "}");
     }
 
 }

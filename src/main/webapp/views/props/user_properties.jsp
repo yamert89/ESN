@@ -1,10 +1,16 @@
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: porohin
+  Date: 22.02.2019
+  Time: 13:14
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="prefs.css">
-    <script type="text/javascript" src="../../libs/jquery_3.1.0.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var propLog = $(".prop_log_view");
@@ -49,8 +55,8 @@
             });
 
             $("#settings_submit").click(function () {
-               logMess("Сохранено");
-               //TODO save on server
+                logMess("Сохранено");
+                //TODO save on server
             });
 
             function successChangePassword(data) {
@@ -62,7 +68,9 @@
                 passOld.val('');
                 passNew.val('');
                 passConf.val('');
-                logMess("Пароль изменен");
+                logMess("Пароль изменен. Пожалуйста, авторизуйтесь заново.");
+                setTimeout(function () { location.href = "/" + orgUrl + "/auth1"}, 2000);
+
             }
 
             function logMess(message) {
@@ -91,49 +99,56 @@
     </script>
 </head>
 <body>
+<c:set var="user" value='${sessionScope.get("user")}'/>
+<c:set var="userProp" value='${user.userInformation}'/>
 <div class="properties_board">
     <div class="prop_line title_pref"><h2>Настройки профиля</h2></div>
 
     <div class="prop_line inline_parent">
         <div class="inline">
-            <h3>Порохин Александр Акимович</h3>
+            <h3>${user.name}</h3>
         </div>
-        <img class="user_photo inline" src="../../avatars/wom.jpg">
+        <img class="user_photo inline" src='<c:url value="/resources/avatars/porohin_aleksandr_akimovic.jpg"/>'>
         <input type="file" accept="image/*" class="inline">
     </div>
     <div class="prop_line">
         <div class="prop_label">Дата рождения:</div>
-        <input type="date" id="department">
+        <input type="date" id="department" value="${userProp.birthDate}">
     </div>
 
     <div class="prop_line">
         <div class="prop_label">Телефон:</div>
-        <input type="text">
+        <input type="text" value="${userProp.phoneMobile}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Рабочий телефон:</div>
-        <input type="text">
+        <input type="text" value="${userProp.phoneWork}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Внутренний телефон:</div>
-        <input type="text">
+        <input type="text" value="${userProp.phoneInternal}">
     </div>
     <div class="prop_line">
         <div class="prop_label">E-mail:</div>
-        <input type="text">
+        <input type="text" value="${userProp.email}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Должность:</div>
-        <input type="text">
+        <input type="text" value="${user.position}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Отдел:</div>
-        <input type="text">
+        <input type="text" value="${user.department.name}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Непосредственный начальник:</div>
         <select>
-            <option>Чубака Иван Иванович - начальник отдела</option>
+            <c:if test="${userProp.boss == null}"><option selected>Не указан</option></c:if>
+        <c:forEach var="usr" items="${bosses}">
+            <option<c:if test="${userProp.boss == usr}"> selected</c:if>>
+                ${usr.name} - ${usr.position}
+            </option>
+        </c:forEach>
         </select>
     </div>
     <div class="prop_line">
