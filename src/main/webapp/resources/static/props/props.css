@@ -62,9 +62,7 @@ input[type='checkbox']{
     background-color: rgba(0, 0, 0, 0.09);
     padding: 10px;
 }
-#password_save{
-    width: auto;
-}
+
 .prop_log_view{
     color: red;
     margin: 10px;
@@ -73,5 +71,9 @@ input[type='checkbox']{
 .prop_log_fadeout{
     color: transparent;
     transition: 1s ease-out 1.5s;
-
+}
+#password_cancel, #password_save{
+    display: inline-block;
+    width: 20%;
+    margin-right: 30px;
 }

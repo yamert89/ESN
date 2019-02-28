@@ -22,7 +22,7 @@
             window.orgUrl = $(".title").attr("data-url");
 
             $(".user_name").click(function () {
-                location.href = "/" + orgUrl + "/" + login;
+                location.href = "/" + orgUrl + "/users/" + login;
             })
 
 

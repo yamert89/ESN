@@ -7,7 +7,7 @@ import esn.entities.secondary.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -49,6 +49,7 @@ public class User {
     private boolean male;
 
     @Column(columnDefinition = "должность не указана")
+    @Size(min = 3, message = "3")
     private String position = "";
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -62,6 +63,7 @@ public class User {
     private Organization organization;
 
     @Basic(fetch = FetchType.LAZY)
+    @Valid
     private UserInformation userInformation;
 
     private String photo;  //filename

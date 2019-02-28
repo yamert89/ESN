@@ -1,15 +1,14 @@
 package esn.viewControllers;
 
-import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
 import esn.services.UserService;
-import esn.utils.ImageResizer;
+import esn.utils.ImageUtil;
 import esn.utils.SimpleUtils;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
+import java.util.Calendar;
 import java.util.Set;
 
 @Controller
@@ -114,7 +113,7 @@ public class UserController {
 
     @PostMapping("/reg")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String addUserFromForm(@Valid @ModelAttribute("user")User user, BindingResult bindingResult,
+    public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
         System.out.println(bindingResult.getFieldErrors().size());
         if (bindingResult.hasErrors()) return "reg";
@@ -124,28 +123,7 @@ public class UserController {
         }
 
         if (!image.isEmpty()) {
-            try {
-                String extension = SimpleUtils.getExtension(image);
-
-                String fileName = user.getLogin().concat(".").concat(extension);
-                String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(extension);
-                byte[] bytes = image.getBytes();
-                byte[] bigImage = ImageResizer.resizeBig(bytes, extension);
-                byte[] smallImage = ImageResizer.resizeSmall(bytes, extension);
-                if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-                System.out.println(user.getName());
-                System.out.println(fileName);
-                System.out.println(fileNameSmall);
-                System.out.println(GeneralSettings.AVATAR_PATH);
-                FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileName)),bigImage);
-                FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall)),smallImage);
-                user.setPhoto(fileName);
-                user.setPhoto_small(fileNameSmall);
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ImageUtil.writeImage(user, image);
         }
         System.out.println(user);
         System.out.println(user.getPassword());
@@ -173,7 +151,7 @@ public class UserController {
     }*/
 
 
-    @GetMapping("/{login}")
+    @GetMapping("/users/{login}")
     public String showUserProfile(@PathVariable String login, @PathVariable String org,
                                   @SessionAttribute User user, Model model, HttpSession session){
         try {
@@ -182,6 +160,8 @@ public class UserController {
                 session.setAttribute("user", user);
                 Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
                 model.addAttribute("bosses", allUsers);
+                model.addAttribute(user);
+                model.addAttribute("saved", 0);
                 return "userSettings";
             }
             user = userDAO.getUserByLogin(login);
@@ -189,27 +169,62 @@ public class UserController {
             session.setAttribute("user", user);
 
         }catch (Exception e){
-            e.printStackTrace(); //todo /info and /avatars wom
+            e.printStackTrace();
         }
 
         return "profile";
 
     }
 
-    @DeleteMapping("/{login}")
+    @PostMapping("/users/{login}")
+    public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute User user, BindingResult bindingResult,
+                                @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
+        Calendar birth = null;
+        if (bindingResult.hasErrors()) {
+            birth = (Calendar) userDAO.createSomeQueryWithSingleResult("select u.userInformation.birthDate from User u where u.id = " + user.getId());
+            user.getUserInformation().setBirthDate(birth);
+            Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
+            model.addAttribute("bosses", allUsers);
+            model.addAttribute("saved", 0);
+            return "userSettings";
+        }
+        if (!image.isEmpty()) {
+            ImageUtil.writeImage(user, image);
+        }
+        String[] bossParams = boss.split(" - ");
+        user.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], bossParams[1]));
+        userDAO.updateUser(user);
+        model.addAttribute("saved", 1);
+        User us = userDAO.getUserWithInfo(user.getId());
+        model.addAttribute(us);
+        Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
+        model.addAttribute("bosses", allUsers);
+        session.setAttribute("user", us);
+        return "userSettings";
+    }
+
+    @DeleteMapping("/users/{login}")
     public String deleteProfile(@PathVariable String login, @SessionAttribute User user){
         userDAO.deleteUser(user); //TODO test
         return "reg";
     }
-    @PostMapping("/{login}")
+    @PostMapping("/users/{login}/p")
     @ResponseBody
-    public boolean changePassword(@PathVariable String login, @SessionAttribute User user, HttpSession session,
-                               @RequestParam String oldPass, @RequestParam String newPass){
-        if (!SimpleUtils.getEncodedPassword(oldPass).equals(user.getPassword())) return false;
-        user.setPassword(newPass);
+    public ResponseEntity<Boolean> changePassword(@RequestParam(required = false) String newPass, @RequestParam(required = false) String oldPass,
+                                  @PathVariable String login, @SessionAttribute User user, HttpSession session, HttpServletRequest request){
+
+        if (!SimpleUtils.getEncodedPassword(oldPass).equals(user.getPassword())) ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
+        user.setPassword(SimpleUtils.getEncodedPassword(newPass));
         userDAO.updateUser(user);
         session.invalidate();
-        return true;
+        return ResponseEntity.ok().contentLength(4).body(Boolean.TRUE);
+    }
+
+    @GetMapping("/users/{login}/p")
+    @ResponseBody
+    public ResponseEntity<Boolean> checkPassword(@PathVariable String login, @RequestParam String pass, @SessionAttribute User user){
+        boolean res = SimpleUtils.getEncodedPassword(pass).equals(user.getPassword());
+        return ResponseEntity.ok().contentLength(res ? 4 : 5).body(res);
     }
 
 

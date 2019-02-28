@@ -1,7 +1,5 @@
 package esn.utils;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -21,22 +19,6 @@ public class SimpleUtils {
             }
         }
         return name;
-    }
-
-    public static String getExtension(MultipartFile image){
-        switch (image.getContentType()){
-            case  "image/jpeg":
-                return "jpg";
-            case "image/png":
-                return "png";
-            case "image/x-png":
-                return "png";
-            case "image/bmp":
-                return "bmp";
-
-            default: return "jpg";
-
-        }
     }
 
     public static String getEncodedPassword(String input){

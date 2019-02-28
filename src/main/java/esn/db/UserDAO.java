@@ -69,6 +69,17 @@ public class UserDAO {
         return user;
     }
 
+    @Transactional
+    public User getUserByNameAndPosition(String name, String position){
+        return (User) em.createQuery("select u from User u where u.name = :name and u.position = :position")
+                .setParameter("name", name).setParameter("position", position).getSingleResult();
+    }
+
+    @Transactional
+    public Object createSomeQueryWithSingleResult(String query){
+        return em.createQuery(query).getSingleResult();
+    }
+
 
 
 

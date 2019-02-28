@@ -2,6 +2,7 @@ package esn.viewControllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import esn.configs.GeneralSettings;
 import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
@@ -12,8 +13,6 @@ import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.StoredFile;
-import esn.configs.GeneralSettings;
-import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -92,7 +92,7 @@ public class BaseController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          @SessionAttribute User user){
+                          @SessionAttribute User user, HttpServletRequest request){
         try {
             user.getGroups().put(groupName, personIds.split(","));
 
@@ -269,11 +269,7 @@ public class BaseController {
         //TODO протестировать
     }
 
-    @GetMapping("/password")
-    @ResponseBody
-    public boolean checkPassword(@RequestParam String passw, @SessionAttribute User user){
-        return SimpleUtils.getEncodedPassword(passw).equals(user.getPassword());
-    }
+
 
 
     @GetMapping("/favicon")

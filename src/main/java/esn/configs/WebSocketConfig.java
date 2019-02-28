@@ -23,7 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         for (Organization org: allOrgs) {
-            registry.addEndpoint("/" + org.getUrlName() + "/netstatus").withSockJS();
+            registry.addEndpoint("/" + org.getUrlName() + "/ws/netstatus").withSockJS();
         }
 
     }
@@ -32,8 +32,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
         allOrgs = orgDAO.getAllOrgs();
         for (Organization org : allOrgs) {
-            registry.enableSimpleBroker("/" + org.getUrlName() + "/contlist");
-            registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
+            registry.enableSimpleBroker("/" + org.getUrlName() + "ws/contlist");
+            registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "ws/app");
         }
 
     }
