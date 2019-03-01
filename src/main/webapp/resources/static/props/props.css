@@ -77,3 +77,6 @@ input[type='checkbox']{
     width: 20%;
     margin-right: 30px;
 }
+img{
+    border: 1px solid rgba(128, 128, 128, 0.41);
+}

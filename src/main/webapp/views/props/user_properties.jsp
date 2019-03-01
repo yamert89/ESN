@@ -97,7 +97,7 @@
                 setTimeout(function () {
                     propLog.text("");
                     propLog.removeClass("prop_log_fadeout");
-                }, 3000);
+                }, 2500);
             }
 
             function checkPasswordResult(data){
@@ -116,7 +116,7 @@
             function err(ex, stat) {
                 alert(ex + stat);
             }
-            //TODO смена аватарки при выборе, кнопка на главную страницу
+            //TODO смена аватарки при выборе, кнопка на главную страницу, уведомление о сохранении?
 
         });
     </script>

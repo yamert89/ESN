@@ -68,18 +68,24 @@ public class ImageUtil {
         try {
             String extension = ImageUtil.getExtension(image);
 
-            String fileName = user.getLogin().concat(".").concat(extension);
-            String fileNameSmall = user.getLogin().concat("_small").concat(".").concat(extension);
+            String fileName = "/".concat(user.getLogin()).concat("/").concat(user.getLogin()).concat(".").concat(extension);
+            String fileNameSmall = "/".concat(user.getLogin()).concat("/").concat(user.getLogin()).concat("_small").concat(".").concat(extension);
             byte[] bytes = image.getBytes();
             byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
             byte[] smallImage = ImageUtil.resizeSmall(bytes, extension);
             //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-            System.out.println(user.getName());
-            System.out.println(fileName);
-            System.out.println(fileNameSmall);
-            System.out.println(GeneralSettings.AVATAR_PATH);
-            FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileName)),bigImage);
-            FileUtils.writeByteArrayToFile(new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall)),smallImage);
+            File big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
+            File small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
+            if (big.exists()) {
+                fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
+                fileNameSmall = fileNameSmall.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
+            }
+
+            big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
+            small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
+
+            FileUtils.writeByteArrayToFile(big,bigImage);
+            FileUtils.writeByteArrayToFile(small,smallImage);
             user.setPhoto(fileName);
             user.setPhoto_small(fileNameSmall);
 
