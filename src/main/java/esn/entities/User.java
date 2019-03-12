@@ -232,6 +232,10 @@ public class User {
         this.userInformation = userInformation;
     }
 
+    public boolean isMale() {
+        return male;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

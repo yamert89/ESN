@@ -68,13 +68,16 @@
             });
 
             $("#settings_submit").click(function () {
-                logMess("Сохранено");
-                //TODO save on server
+                logMess("Сохранено"); //TODO всегда отрабатывает
             });
 
             $("#password_cancel").click(function () {
                 pasBoard.css("display", "none");
                 commitBtns.removeAttr("disabled");
+            });
+
+            $("#main-btn").click(function () {
+                location.href = "/" + orgUrl + "/wall/"
             });
 
             function successChangePassword(data) {
@@ -116,7 +119,7 @@
             function err(ex, stat) {
                 alert(ex + stat);
             }
-            //TODO кнопка на главную страницу, уведомление о сохранении?
+            //TODO уведомление о сохранении?
 
         });
     </script>
@@ -150,22 +153,22 @@
 
     <div class="prop_line">
         <div class="prop_label">Телефон:</div>
-        <s:input path="userInformation.phoneMobile" type="text" value="${userProp.phoneMobile}"/>
+        <s:input path="userInformation.phoneMobile" type="text" autocomplete="false" value="${userProp.phoneMobile}"/>
         <s:errors path="userInformation.phoneMobile" cssClass="jspError"/>
     </div>
     <div class="prop_line">
         <div class="prop_label">Рабочий телефон:</div>
-        <s:input path="userInformation.phoneWork" type="text" value="${userProp.phoneWork}"/>
+        <s:input path="userInformation.phoneWork" type="text" autocomplete="false" value="${userProp.phoneWork}"/>
         <s:errors path="userInformation.phoneWork" cssClass="jspError"/>
     </div>
     <div class="prop_line">
         <div class="prop_label">Внутренний телефон:</div>
-        <s:input path="userInformation.phoneInternal" type="text" value="${userProp.phoneInternal}"/>
+        <s:input path="userInformation.phoneInternal" type="text" autocomplete="false" value="${userProp.phoneInternal}"/>
         <s:errors path="userInformation.phoneInternal" cssClass="jspError"/>
     </div>
     <div class="prop_line">
         <div class="prop_label">E-mail:</div>
-        <s:input path="userInformation.email" type="text" value="${userProp.email}"/>
+        <s:input path="userInformation.email" type="text" autocomplete="false" value="${userProp.email}"/>
         <s:errors path="userInformation.email" cssClass="jspError"/>
     </div>
 
@@ -213,5 +216,6 @@
 
     <span class="prop_log_view"></span>
 </div>
+<button id="main-btn">На главную</button>
 </body>
 </html>
