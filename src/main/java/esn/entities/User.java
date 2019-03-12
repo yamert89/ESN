@@ -48,8 +48,7 @@ public class User {
     @Column(columnDefinition = "boolean default true")
     private boolean male;
 
-    @Column(columnDefinition = "должность не указана")
-    @Size(min = 3, message = "3")
+    @Column(columnDefinition = "varchar(50) default ' '")
     private String position = "";
 
     @ManyToOne(cascade = CascadeType.ALL)

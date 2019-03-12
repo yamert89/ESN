@@ -17,19 +17,18 @@ public class UserInformation implements Serializable {
     private Calendar birthDate;
 
     @Size(max = 12, message = "введите не более 12 цифр")
-    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
+    @Column(length = 12)
     private String phoneMobile;
 
     @Size(max = 12, message = "введите не более 12 цифр")
-    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
+    @Column(length = 12)
     private String phoneWork;
 
     @Size(max = 12, message = "введите не более 12 цифр")
-    @Column(length = 12, columnDefinition = "varchar(12) default 'Не указано'", nullable = false)
+    @Column(length = 12)
     private String phoneInternal;
 
     @Email(message = "неверный e-mail")
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'Не указано'")
     private String email;
 
     @ManyToOne(fetch = FetchType.EAGER)
