@@ -22,8 +22,18 @@
             window.orgUrl = $(".title").attr("data-url");
 
             $(".user_name").click(function () {
+                props();
+            });
+
+            $(".user_photo").click(function () {
+                props();
+            });
+
+
+
+            function props() {
                 location.href = "/" + orgUrl + "/users/" + login;
-            })
+            }
 
 
            /* $("#groups").click(function () {
@@ -74,7 +84,7 @@
     <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}'>${user.organization.name}</div>
     <div class="user">
         <span class="user_name" data-login="${user.login}">${user.name}</span>
-        <img src='<c:url value="${user.photo}"/>' class="user_photo">
+        <img src='<c:url value="/resources/avatars/${user.photo}"/>' class="user_photo">
     </div>
 </header>
 <body>

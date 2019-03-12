@@ -12,7 +12,7 @@
         var stompClient = null;
         $(document).ready(function () {
             connectWS();
-            $.ajax({url:"http://localhost:8080/rosles/contacts",
+            $.ajax({url:"http://localhost:8080/rosles/contacts", //TODO
                 type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err});
 
             //setTimeout('f()',2000)
@@ -32,7 +32,7 @@
         }
 
         function connectWS() {
-            var socket = new SockJS('/' + orgUrl + '/ws/netstatus');
+            var socket = new SockJS('/' + orgUrl + '/ws/netstatus'); //TODO orgurl
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
                 stompClient.subscribe('/' + orgUrl + '/contlist/statusalert', function(data){

@@ -36,7 +36,6 @@ iframe{
 }
 .title{
     display: inline-block;
-    background-color: cornflowerblue;
     float: left;
     position: relative;
     vertical-align: middle;
@@ -52,6 +51,14 @@ iframe{
     background-color: #bdfa8a;
     width: 60px;
     height: 60px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.user_name:hover{
+    text-shadow: rgba(0, 0, 0, 0.51);
+    text-decoration: underline;
+}
+.user_photo:hover{
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .user_name{
     right: 10px;
