@@ -10,9 +10,19 @@
     <script src="../../libs/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
+        var orgUrl = window.parent.orgUrl;
         $(document).ready(function () {
+            $(".person_item").on('click', function () {
+                //location.href = $(this).attr('data-id') //TODO ?
+                alert('click');
+                location.href = "/" + orgUrl + "/users/" + login; //
+            });
+
+            $(document).on('click','.person_item', function(){
+                alert('нажатие!');
+            });
             connectWS();
-            $.ajax({url:"http://localhost:8080/rosles/contacts", //TODO
+            $.ajax({url:"http://localhost:8080/" + orgUrl + "/contacts",
                 type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err});
 
             //setTimeout('f()',2000)
@@ -22,7 +32,14 @@
             });
 
             $(".person_item").on('click', function () {
-                location.href = $(this).attr('data-id') //TODO
+                //location.href = $(this).attr('data-id') //TODO ?
+                alert('click')
+                location.href = "/" + orgUrl + "/users/" + login; //
+            })
+
+            $(".person_item").click(function () {
+                alert('click')
+                location.href = "/" + orgUrl + "/users/" + login; //
             })
 
         });
@@ -32,7 +49,7 @@
         }
 
         function connectWS() {
-            var socket = new SockJS('/' + orgUrl + '/ws/netstatus'); //TODO orgurl
+            var socket = new SockJS('/' + orgUrl + '/ws/netstatus');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
                 stompClient.subscribe('/' + orgUrl + '/contlist/statusalert', function(data){

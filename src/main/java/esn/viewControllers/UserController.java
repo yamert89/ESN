@@ -196,8 +196,10 @@ public class UserController {
         if (!image.isEmpty()) {
             ImageUtil.writeImage(user, image);
         }
-        String[] bossParams = boss.split(" - ");
-        user.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], bossParams[1]));
+        if (boss.contains(" - ")){
+            String[] bossParams = boss.split(" - ");
+            user.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], bossParams[1]));
+        }
         userDAO.updateUser(user);
         model.addAttribute("saved", 1);
         User us = userDAO.getUserWithInfo(user.getId());

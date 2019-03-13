@@ -168,7 +168,7 @@
     </div>
     <div class="prop_line">
         <div class="prop_label">E-mail:</div>
-        <s:input path="userInformation.email" type="text" autocomplete="false" value="${userProp.email}"/>
+        <s:input path="userInformation.email" type="text" autocomplete="false" readonly="true" onfocus="this.removeAttribute('readonly');" value="${userProp.email}"/>
         <s:errors path="userInformation.email" cssClass="jspError"/>
     </div>
 
