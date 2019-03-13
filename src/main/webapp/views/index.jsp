@@ -74,6 +74,10 @@
             return now.toLocaleString('ru', options);
         }
 
+        var callFrame = function(link) {
+            location.href = link;
+        }
+
 
         /*$(function(){
                 $('#exampleModal').arcticmodal();

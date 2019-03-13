@@ -171,7 +171,7 @@ public class UserController {
             }
             user = userDAO.getUserByLogin(login);
             user = userDAO.getUserWithInfo(user.getId());
-            session.setAttribute("user", user);
+            session.setAttribute("profile", user);
 
         }catch (Exception e){
             e.printStackTrace();

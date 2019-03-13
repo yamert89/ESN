@@ -11,15 +11,15 @@
     <script type="text/javascript">
         var stompClient = null;
         var orgUrl = window.parent.orgUrl;
+
         $(document).ready(function () {
-            $(".person_item").on('click', function () {
-                //location.href = $(this).attr('data-id') //TODO ?
-                alert('click');
-                location.href = "/" + orgUrl + "/users/" + login; //
-            });
+
 
             $(document).on('click','.person_item', function(){
-                alert('нажатие!');
+                //location.href = $(this).attr('data-id') //TODO ?
+                var login = $(this).attr("data-login");
+                window.parent.callFrame("/" + orgUrl + "/users/" + login);
+
             });
             connectWS();
             $.ajax({url:"http://localhost:8080/" + orgUrl + "/contacts",
@@ -31,16 +31,7 @@
                 disconnectWS();
             });
 
-            $(".person_item").on('click', function () {
-                //location.href = $(this).attr('data-id') //TODO ?
-                alert('click')
-                location.href = "/" + orgUrl + "/users/" + login; //
-            })
 
-            $(".person_item").click(function () {
-                alert('click')
-                location.href = "/" + orgUrl + "/users/" + login; //
-            })
 
         });
 
@@ -87,7 +78,8 @@
 
         function renderItem(user) {
             var idStat = user.status ? 'net_status_on' : 'net_status_off';
-            return "<div class='person_item' data-id='" + user.id + "'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
+            return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
+                "'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
         }
     </script>
 </head>

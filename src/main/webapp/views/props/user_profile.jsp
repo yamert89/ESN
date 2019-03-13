@@ -14,14 +14,14 @@
 <body>
 <div class="properties_board">
     <div class="prop_line inline_parent">
-        <div class="inline"><c:set var="user" value='${sessionScope.get("user")}'/>
+        <div class="inline"><c:set var="user" value='${sessionScope.get("profile")}'/>
             <h3>${user.name}</h3>
         </div>
         <img class="user_photo inline" src="${user.photo}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Должность:</div>
-        <span>Инженер-таксатор</span>
+        <span>Инженер-таксатор</span> //TODO
     </div>
     <div class="prop_line">
         <div class="prop_label">Отдел:</div>

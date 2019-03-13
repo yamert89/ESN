@@ -153,7 +153,8 @@ public class MainPageController {
             for (User u :
                     users) {
                 if (u.getId() == user.getId()) continue;
-                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus()).append(",\"id\":").append(u.getId()).append("},");
+                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
+                        .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
             }
             json.append("]}]");
             return bb.body(json.toString().replaceAll(",]", "]"));
@@ -165,7 +166,8 @@ public class MainPageController {
 
             for (int i = 0; i < len; i++) {
                 User u = userDAO.getUserById(Integer.valueOf(entry.getValue()[i]));
-                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus()).append(",\"id\":").append(u.getId()).append("},");
+                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
+                        .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
             }
             json.append("]},");
         }
