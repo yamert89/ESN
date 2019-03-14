@@ -20,6 +20,7 @@ public abstract class AbstractMessage {
         this.userDAO = userDAO;
         this.userId = userId;
         User user = userDAO.getUserById(userId);
+        if (user == null) user = new User("Пользователь удалён", null);
         userName = user.getName(); //TODO mb needs optimizing
         imgUrl = user.getPhoto_small();
         this.text = text;

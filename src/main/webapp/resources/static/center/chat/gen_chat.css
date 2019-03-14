@@ -15,11 +15,11 @@ input{
 .message{
     margin: 10px 10px;
     border-radius: 5px;
-    background-color: rgba(117, 213, 220, 0.16);
+    background-color: rgba(111, 235, 98, 0.11);
     display: table;
-    width: calc(100% - 20px);
+    width: calc(100% - 30px);
     text-align: right;
-    padding-left: 10px;
+    padding: 10px 0 10px 10px;
 
 }
 
@@ -29,10 +29,6 @@ input{
     text-align: left;
     font-size: 1.2em;
     line-height: 1em;
-
-
-
-
 }
 .message_info{
     width: 390px;
@@ -62,6 +58,12 @@ input{
     font-size: 1.2em;
     border-radius: 10px;
     outline: 0;
+}
+button{
+    background-color: #bdfa8a;
+}
+button:hover{
+    box-shadow: 0 0 5px black;
 }
 
 

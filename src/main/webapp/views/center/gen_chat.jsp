@@ -19,7 +19,7 @@
                 var text = textField.val();
                 if (text == "") return;
                 var name = window.userName;
-                var img = window.avatar;
+                var img = '/resources/avatars/' + $(".new_genchat_message").attr("data-img");
                 var time = window.getCurrentDate();
                 messBtn.after('<div class="message">\n' +
                     '        <div class="message_text">' + text + '</div>\n' +
@@ -30,6 +30,9 @@
                     '        </div>\n' +
                     '    </div>');
                 $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time, "orgUrl":window.orgUrl}}) //TODO userId undefined
+            });
+            $(document).keypress(function (event) {
+                if (event.which == 13) messBtn.click();
             })
         });
 
@@ -50,7 +53,7 @@
             </div>
         </div>
     </c:forEach>
-    <div class="message">
+   <%-- <div class="message">
         <div class="message_text">Сообщение 1</div>
         <div class="message_info">
             <img src="" class="person_photo_small">
@@ -70,7 +73,7 @@
             <div class="message_time">10: 30 21.09.2018</div>
         </div>
 
-    </div>
+    </div>--%>
 </div>
 </body>
 </html>
