@@ -10,9 +10,24 @@
 <html>
 <head>
     <title>Profile</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var board = $(".properties_board");
+            var orgUrl = board.attr("data-orgurl");
+
+            $("#main-btn").click(function () {
+                location.href = "/" + orgUrl + "/wall/"
+            });
+            $("span").each(function (i, el) {
+                if (el.innerHTML === '' || el.firstChild.innerHTML === '') el.innerHTML = 'Не указан';
+
+            })
+
+        })
+    </script>
 </head>
 <body>
-<div class="properties_board">
+<div class="properties_board" data-orgurl="${sessionScope.get("orgUrl")}">
     <div class="prop_line inline_parent">
         <div class="inline"><c:set var="user" value='${sessionScope.get("profile")}'/>
             <h3>${user.name}</h3>
@@ -21,40 +36,35 @@
     </div>
     <div class="prop_line">
         <div class="prop_label">Должность:</div>
-        <span>Инженер-таксатор</span> //TODO
+        <span>${user.position}</span>
     </div>
     <div class="prop_line">
         <div class="prop_label">Отдел:</div>
-        <span>Отдел лесного планирования и проектирования</span>
+        <span>${user.department.name}</span>
     </div>
     <div class="prop_line">
         <div class="prop_label">Непосредственный начальник:</div>
-        <span><a href="user_profile.html">Шубин Виктор Вячеславович</a></span>
+        <span><a href="user_profile.html">${user.userInformation.boss}</a></span>
     </div>
     <div class="prop_line">
         <div class="prop_label">E-mail:</div>
-        <span><a href="mailto:shurikporohin@rambler.ru">shurikporohin@rambler.ru</a></span>
+        <span><a href="mailto:shurikporohin@rambler.ru">${user.userInformation.email}</a></span>
     </div>
     <div class="prop_line">
         <div class="prop_label">Мобильный телефон:</div>
-        <span>+7(960)0174990</span>
+        <span>${user.userInformation.phoneMobile}</span>
     </div>
     <div class="prop_line">
         <div class="prop_label">Рабочий телефон:</div>
-        <span>56-68-92</span>
+        <span>${user.userInformation.phoneWork}</span>
     </div>
     <div class="prop_line">
         <div class="prop_label">Внутренний телефон:</div>
-        <span>128</span>
+        <span>${user.userInformation.phoneInternal}</span>
     </div>
 
-    <div class="prop_line">
-        <input class="commit" type="submit" value="Применить Настройки">
-    </div>
-    <div class="prop_line">
-        <input class="commit" type="submit" value="Удалить аккаунт">
-    </div>
 
 </div>
+<button id="main-btn">На главную</button>
 </body>
 </html>
