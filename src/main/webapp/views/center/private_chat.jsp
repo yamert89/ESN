@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/private_chat.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/chat.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/static/index.css"/>">
 </head>
 <body>

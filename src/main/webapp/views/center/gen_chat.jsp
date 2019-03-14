@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/gen_chat.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/chat.css"/>">
     <script type="text/javascript">
         $(document).ready(function () {
             var textField = $(".new_genchat_message");

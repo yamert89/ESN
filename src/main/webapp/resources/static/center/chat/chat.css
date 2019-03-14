@@ -1,3 +1,71 @@
+img{
+    display: table-cell;
+}
+input{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.chat_gen_container{
+    border-radius: 10px;
+   /* background-color: rgba(107, 199, 206, 0.15);*/
+    overflow-y: auto;
+    text-align: center;
+
+}
+.message{
+    margin: 10px 10px;
+    border-radius: 5px;
+    background-color: rgba(111, 235, 98, 0.11);
+    display: table;
+    width: calc(100% - 30px);
+    text-align: right;
+    padding: 10px 0 10px 10px;
+
+}
+
+.message_text{
+    display: table-cell;
+    max-width: 80%;
+    text-align: left;
+    font-size: 1.2em;
+    line-height: 1em;
+}
+.message_info{
+    width: 390px;
+    display: inline-table;
+    margin: 0 10px 0 10px;
+
+}
+.message_time{
+    display: table-cell;
+    vertical-align: middle;
+}
+.person_name{
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.new_genchat_message{
+    font-size: 1.2em;
+    width: 87%;
+    border-radius: 10px;
+    outline: 0;
+    padding: 0 1em;
+}
+.new_genchat_message_btn{
+    width: 10%;
+    font-size: 1.2em;
+    border-radius: 10px;
+    outline: 0;
+}
+button{
+    background-color: #bdfa8a;
+}
+button:hover{
+    box-shadow: 0 0 5px black;
+}
+
 .private_chat{
     font-size: 1.2em;
 }
@@ -90,3 +158,6 @@
     border-radius: 5px;
 
 }
+
+
+
