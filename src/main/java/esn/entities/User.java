@@ -64,9 +64,11 @@ public class User {
     @Basic(fetch = FetchType.LAZY)
     @Valid
     private UserInformation userInformation;
-
+    @Column(nullable = false)
     private String photo;  //filename
+
     @JsonIgnore
+    @Column(nullable = false)
     private String photo_small; //filename
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner", orphanRemoval=true) //TODO не удалять файлы удаленного пользователя

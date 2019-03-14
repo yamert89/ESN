@@ -15,13 +15,17 @@
 
         window.listOfDatesNoted = [];
         $(document).ready(function () {
+            var uName = $(".user_name");
+            var uTitle = $(".title");
 
-            window.userName = $(".user_name").text();
-            window.login = $(".user_name").attr("data-login");
-            window.orgName = $(".title").text();
-            window.orgUrl = $(".title").attr("data-url");
+            window.userName = uName.text();
+            window.login = uName.attr("data-login");
+            window.userId = uName.attr("data-user_id");
+            window.orgName = uTitle.text();
+            window.orgUrl = uTitle.attr("data-url");
 
-            $(".user_name").click(function () {
+
+            uName.click(function () {
                 props();
             });
 
@@ -87,7 +91,7 @@
     </script><c:set var="user" value='${sessionScope.get("user")}'/>
     <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}'>${user.organization.name}</div>
     <div class="user">
-        <span class="user_name" data-login="${user.login}">${user.name}</span>
+        <span class="user_name" data-login="${user.login}" data-user_id="${user.id}">${user.name}</span>
         <img src='<c:url value="/resources/avatars/${user.photo}"/>' class="user_photo">
     </div>
 </header>

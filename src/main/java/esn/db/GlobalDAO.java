@@ -21,8 +21,10 @@ import java.util.List;
 @Transactional
 public class GlobalDAO {
 
-    private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME='wall'";
-    private final String CHECKTABLE_MYSQL = "show tables like 'wall'";
+    private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=";
+    private final String CHECKTABLE_MYSQL = "show tables like ";
+    private final String CREATE_TABLE_CONSTRAINTS_POSTGRES = " (id SERIAL, message varchar(500), userId int, time timestamp, org_url varchar(20))"; //TODO TIMESTAMP?
+    private final String CREATE_TABLE_CONSTRAINTS_MYSQL = " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, org_url varchar(20))";
 
     @PersistenceContext
     private EntityManager em;
@@ -38,14 +40,9 @@ public class GlobalDAO {
         try {
             String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
 
-            em.createNativeQuery("create table if not exists " + tableName +
-                    " (id int not null auto_increment primary key, " +
-                    "message varchar(500), " +
-                    "userId int, " +
-                    "time timestamp, " +
-                    "org_url varchar(20))") //TODO Учесть ограничения базы (везде) !!!
+            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_POSTGRES) //TODO Учесть ограничения базы (везде) !!!
                     .executeUpdate();  //TODO Создать таблицу до её чтения в wall
-            Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(id, message, userId, time, org_url) values (null, ?, ?, ?, ?)"))
+            Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(message, userId, time, org_url) values (?, ?, ?, ?)"))
                     .setParameter(1, message)
                     .setParameter(2, userId)
                     .setParameter(3, time)
@@ -59,12 +56,7 @@ public class GlobalDAO {
     @Transactional
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
 
-        try {
-            em.createNativeQuery(CHECKTABLE_MYSQL).getSingleResult();
-            //em.createNativeQuery("show tables like 'generalchat'").getSingleResult();
-        }catch (NoResultException e){
-            return null;
-        }
+
 
 
 
@@ -73,6 +65,11 @@ public class GlobalDAO {
         List<Object[]> arr = null;
         try {
             if (mesClass == GenChatMessage.class) {
+                try {
+                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
+                }catch (NoResultException e){
+                    return null;
+                }
                 Query query = em.createNativeQuery("select * from generalchat where org_url = ? limit ?")
                         .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                         .setParameter(1, orgUrl);
@@ -84,6 +81,11 @@ public class GlobalDAO {
                     list.add(new GenChatMessage((int) row[2], (String) row[1], (Timestamp) row[3], (String) row[4], userDAO));
                 }
             } else if (mesClass == Post.class) {
+                try {
+                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
+                }catch (NoResultException e){
+                    return null;
+                }
                 arr = em.createNativeQuery("select * from wall where org_url = ? order by time desc limit ?") //TODO Постраничный вывод
                         .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                         .setParameter(1, orgUrl)

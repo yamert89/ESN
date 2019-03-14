@@ -73,11 +73,11 @@ public class MainPageController {
 
     @GetMapping("/private-chat")
     public String privateChat(@PathVariable String organization,
-                              @RequestParam(value = "companion") String companion, Model model, @SessionAttribute User user){
+                              @RequestParam String companion, Model model, @SessionAttribute User user){
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
-        model.addAttribute("net_status", compan.netStatus());
+        model.addAttribute("net_status", compan.netStatus()); //TODO don't work
         model.addAttribute("companion_name", compan.getName());
-        model.addAttribute("companion_avatar", GeneralSettings.AVATAR_PATH.concat(compan.getPhoto()));
+        model.addAttribute("companion_avatar", compan.getPhoto());
         Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(user, compan);
         Map<String, Boolean> messages = new TreeMap<>();
         for (PrivateChatMessage mes :

@@ -18,7 +18,10 @@
             $(document).on('click','.person_item', function(){
                 //location.href = $(this).attr('data-id') //TODO ?
                 var login = $(this).attr("data-login");
-                window.parent.callFrame("/" + orgUrl + "/users/" + login);
+                //window.parent.callFrame("/" + orgUrl + "/users/" + login); //TODO replace
+                //$.get("/" + orgUrl + "/private-chat", {companion: login});
+                window.parent.callFrame("/" + orgUrl + "/private-chat?companion=" + login);
+
 
             });
             connectWS();
