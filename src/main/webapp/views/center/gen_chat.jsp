@@ -29,7 +29,8 @@
                     '            <div class="message_time">' + time + '</div>\n' +
                     '        </div>\n' +
                     '    </div>');
-                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time, "orgUrl":window.orgUrl}}) //TODO userId undefined
+                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time, "orgUrl":window.orgUrl}});
+                textField.val('');
             });
             $(document).keypress(function (event) {
                 if (event.which == 13) messBtn.click();

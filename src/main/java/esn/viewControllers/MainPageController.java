@@ -71,7 +71,7 @@ public class MainPageController {
         return "gen_chat";
     }
 
-    @GetMapping("/private-chat")
+    @GetMapping("/private-chat") //TODO url = login
     public String privateChat(@PathVariable String organization,
                               @RequestParam String companion, Model model, @SessionAttribute User user){
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);

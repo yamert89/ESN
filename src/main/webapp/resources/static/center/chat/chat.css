@@ -82,6 +82,8 @@ button:hover{
     margin-left: 26px;
     text-align: left;
     padding: 15px;
+    align-self: flex-start;
+
 
 }
 
@@ -107,9 +109,11 @@ button:hover{
     border-radius: 12px;
     margin-bottom: 20px;
     margin-right: 26px;
-    float: right;
+   /* float: right;*/
     text-align: right;
+    align-self: flex-end;
     padding: 15px;
+
 }
 
 .comment_bubble_right:before {
@@ -122,6 +126,12 @@ button:hover{
     border-top: 6px solid transparent;
     border-left: 26px solid rgba(107, 199, 206, 0.2);
     border-bottom: 13px solid transparent;
+}
+
+.new_message_container {
+}
+.flex{
+
 }
 .private_chat_profile{
     position: relative;
@@ -150,6 +160,8 @@ button:hover{
 
 }
 .private_chat_container{
+    display: inline-flex;
+    flex-direction: column;
     overflow-y: scroll;
     max-height: 80%;
     /*background-color: white;*/

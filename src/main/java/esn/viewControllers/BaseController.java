@@ -3,15 +3,13 @@ package esn.viewControllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.configs.GeneralSettings;
-import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
-import esn.db.OrganizationDAO;
-import esn.db.UserDAO;
+import esn.db.*;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
+import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.secondary.StoredFile;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,7 @@ public class BaseController {
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
+    private PrivateChatMessageDAO privateChatMessageDAO;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -58,6 +57,10 @@ public class BaseController {
     @Autowired
     public void setDepartmentDAO(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
+    }
+    @Autowired
+    public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
+        this.privateChatMessageDAO = privateChatMessageDAO;
     }
 
     @GetMapping(value = "/{organization}")
@@ -78,6 +81,14 @@ public class BaseController {
                             @RequestParam String time, @RequestParam String orgUrl){
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
+    }
+
+    @PostMapping("/save_private_message/{companion}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void savePrivateMessage(@RequestParam String userId, @RequestParam String text,
+                            @RequestParam String time, @RequestParam String orgUrl, @PathVariable String companion){
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+        privateChatMessageDAO.persist(new PrivateChatMessage()); //TODO
     }
 
     @PostMapping("/savepost")
