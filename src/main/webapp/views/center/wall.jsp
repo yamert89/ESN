@@ -1,4 +1,4 @@
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -11,8 +11,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<core:url value="/resources/static/center/wall/wall.css"/>">
-    <script type="text/javascript" src="<core:url value="/resources/static/center/wall/wall.js"/>"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/wall/wall.css"/>">
+    <script type="text/javascript" src="<c:url value="/resources/static/center/wall/wall.js"/>"></script>
     <script type="text/javascript">
         var submit;
 
@@ -89,9 +89,9 @@
     </script>
 </head>
 <body>
-<div class="post_add_wrapper">
-    <button class="post_add" data-name="${sessionScope.get('userName')}" data-img="${sessionScope.get('userPhoto')}"
-            data-userId="${sessionScope.get("userId")}" data-ogrUrl="${sessionScope.get("orgUrl")}"  data-img-small="${sessionScope.get('userPhotoSmall')}">Добавить новость</button></div>
+<div class="post_add_wrapper"><c:set var="user" value="${sessionScope.get('user')}"/>
+    <button class="post_add" data-name="${user.name}" data-img="${user.photo}"
+            data-userId="${user.id}" data-ogrUrl="${sessionScope.get("orgUrl")}"  data-img-small="${user.photo_small}">Добавить новость</button></div>
 <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
 <button class="post_submit">Опубликовать новость</button>
 <textarea name="sample_editor" class="sample_editor" rows="10" cols="80"></textarea>

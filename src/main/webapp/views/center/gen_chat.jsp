@@ -29,7 +29,7 @@
                     '            <div class="message_time">' + time + '</div>\n' +
                     '        </div>\n' +
                     '    </div>');
-                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time, "orgUrl":window.orgUrl}});
+                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time}});
                 textField.val('');
             });
             $(document).keypress(function (event) {

@@ -52,8 +52,8 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/wall")
-    public String wall(Model model, @PathVariable String organization){
-        model.addAttribute("messages", globalDAO.getMessages(organization, Post.class));
+    public String wall(Model model, @SessionAttribute int orgId){
+        model.addAttribute("messages", globalDAO.getMessages(orgId, Post.class));
         return "wall";
     }
 
@@ -63,10 +63,10 @@ public class MainPageController {
     }
 
     @GetMapping("/chat")
-    public String genChat(Model model, @PathVariable String organization, @SessionAttribute User user){
+    public String genChat(Model model, @SessionAttribute int orgId, @SessionAttribute User user){
        // globalDAO.saveMessage(43,"ПРивет", new Timestamp(1234443354542L), "rosles", GenChatMessage.class);
         model.addAttribute("photo", user.getPhoto_small());
-        model.addAttribute("messages", globalDAO.getMessages(organization, GenChatMessage.class));
+        model.addAttribute("messages", globalDAO.getMessages(orgId, GenChatMessage.class));
         return "gen_chat";
     }
 

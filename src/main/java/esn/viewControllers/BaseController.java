@@ -78,16 +78,15 @@ public class BaseController {
     @PostMapping("/savemessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, @RequestParam String orgUrl){
+                            @RequestParam String time, @SessionAttribute int orgId){
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
+        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, GenChatMessage.class);
     }
 
     @PostMapping("/save_private_message/{companionId}") //TODO org mapping in  url
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePrivateMessage(@RequestParam String text, @RequestParam String time,
-                                   @PathVariable String companionId, @SessionAttribute User user, @SessionAttribute int orgId){
-        //Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+    public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
+                                   @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = userDAO.getUserById(Integer.valueOf(companionId));
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
     }
@@ -95,10 +94,10 @@ public class BaseController {
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, @RequestParam String orgUrl){
+                            @RequestParam String time, @SessionAttribute int orgId){
 
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, Post.class);
+        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, Post.class);
     }
 
     @PostMapping("/savegroup")

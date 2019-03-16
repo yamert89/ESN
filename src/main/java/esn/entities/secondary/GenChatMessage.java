@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 
 public class GenChatMessage extends AbstractMessage{
 
-    public GenChatMessage(int userId, String text, Timestamp time, String orgUrl, UserDAO userDAO) {
-        super(userId, text, time, orgUrl, userDAO);
+    public GenChatMessage(int userId, String text, Timestamp time, int orgId, UserDAO userDAO) {
+        super(userId, text, time, orgId, userDAO);
     }
 
 

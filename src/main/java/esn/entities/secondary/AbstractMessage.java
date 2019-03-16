@@ -16,7 +16,7 @@ public abstract class AbstractMessage {
     public UserDAO userDAO;
 
 
-    public AbstractMessage(int userId, String text, Timestamp time, String orgUrl, UserDAO userDAO) {
+    public AbstractMessage(int userId, String text, Timestamp time, int orgId, UserDAO userDAO) {
         this.userDAO = userDAO;
         this.userId = userId;
         User user = userDAO.getUserById(userId);
