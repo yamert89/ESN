@@ -40,7 +40,7 @@ public class GlobalDAO {
         try {
             String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
 
-            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_POSTGRES) //TODO Учесть ограничения базы (везде) !!!
+            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_MYSQL) //TODO Учесть ограничения базы (везде) !!!
                     .executeUpdate();  //TODO Создать таблицу до её чтения в wall
             Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(message, userId, time, org_url) values (?, ?, ?, ?)"))
                     .setParameter(1, message)
@@ -56,17 +56,12 @@ public class GlobalDAO {
     @Transactional
     public List<? extends AbstractMessage> getMessages(String orgUrl, Class<? extends AbstractMessage> mesClass){
 
-
-
-
-
-
         List<AbstractMessage> list = new ArrayList<>(GeneralSettings.AMOUNT_GENCHAT_MESSAGES);
         List<Object[]> arr = null;
         try {
             if (mesClass == GenChatMessage.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_MYSQL + "'generalchat'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
@@ -82,7 +77,7 @@ public class GlobalDAO {
                 }
             } else if (mesClass == Post.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_MYSQL + "'wall'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
@@ -96,7 +91,7 @@ public class GlobalDAO {
                 }
             }
         }catch (Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
         }
 
         return list;

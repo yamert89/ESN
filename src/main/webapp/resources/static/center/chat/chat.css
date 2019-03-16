@@ -80,8 +80,8 @@ button:hover{
     border-radius: 12px;
     margin-bottom: 20px;
     margin-left: 26px;
-    text-align: left;
-    padding: 15px;
+    text-align: justify;
+    padding: 10px;
     align-self: flex-start;
 
 
@@ -110,9 +110,10 @@ button:hover{
     margin-bottom: 20px;
     margin-right: 26px;
    /* float: right;*/
-    text-align: right;
+    text-align: justify;
+
     align-self: flex-end;
-    padding: 15px;
+    padding: 10px;
 
 }
 
@@ -128,11 +129,7 @@ button:hover{
     border-bottom: 13px solid transparent;
 }
 
-.new_message_container {
-}
-.flex{
 
-}
 .private_chat_profile{
     position: relative;
     margin: 20px;
@@ -168,7 +165,24 @@ button:hover{
     border: 1px solid rgba(138, 138, 138, 0.33);
     padding: 10px 0;
     border-radius: 5px;
+    line-height: 120%;
 
+}
+.time-right, .time-left{
+    font-size: 0.7em;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 10px;
+
+}
+.time-right {
+    float: left;
+    margin: 0 10px 0 -10px;
+    border-radius: 0 10px 10px 0;
+}
+.time-left{
+    float: right;
+    margin: 0 -10px 0 10px;
+    border-radius: 10px 0 0 10px;
 }
 
 

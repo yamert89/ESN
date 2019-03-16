@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -19,11 +20,10 @@
             messBtn.click(function () {
                 var text = textField.val();
                 if (text == "") return;
-                var name = window.userName;
-                var img = '/resources/avatars/' + $(".new_genchat_message").attr("data-img");
+                var comp_id = $(".person_container").attr('data-companion-id');
                 var time = window.getCurrentDate();
-                $(".private_chat_container").prepend('<div class="private_chat comment_bubble_right">' + text + '</div>');
-                $.ajax({type:"POST", url:"/save_private_message", data:{"userId":window.userId, "text":text, "time":time, "orgUrl":window.orgUrl}}); //TODO
+                $(".private_chat_container").prepend('<div class="private_chat comment_bubble_right"><div class="time-right">' + time + '</div>' + text + '</div>');
+                $.ajax({type:"POST", url:"/save_private_message/" + comp_id, data:{"text":text, "time":time}}); //TODO
                 textField.val('');
             });
             $(document).keypress(function (event) {
@@ -34,18 +34,18 @@
 </head>
 <body>
 <div class="private_chat_profile">
-    <div class="person_container">
-        <img src='<c:url value="/resources/avatars/${companion_avatar}"/>' class="person_photo_chat"><br>
-        <c:if test="net_status == false">
+    <div class="person_container" data-companion-id="${companion.id}">
+        <img src='<c:url value="/resources/avatars/${companion.photo}"/>' class="person_photo_chat"><br>
+        <c:if test="${companion.netStatus} == false">
             <div class="net_status_circle" id="net_status_off"></div>
             <span class="net_status">не в сети</span>
         </c:if>
-        <c:if test="net_status == true">
+        <c:if test="${companion.netStatus} == true">
             <div class="net_status_circle"></div>
             <span class="net_status">в сети</span>
         </c:if>
     </div>
-    <span class="person_name_chat">${companion_name}</span><br>
+    <span class="person_name_chat">${companion.name}</span><br>
     <div class="new_message_container">
         <input type="text" placeholder="Добавить сообщение" class="new_genchat_message flex">
         <button class="new_genchat_message_btn flex">Отправить</button>
@@ -54,12 +54,14 @@
 <div class="private_chat_container">
 
     <c:forEach var="mes" items="${messages}">
-        <c:if test="messages.value == true">
-            <div class="private_chat comment_bubble_right">${mes.key}</div>
+        <c:if test="${mes.value == true}">
+            <div class="private_chat comment_bubble_right"><div class="time-right">
         </c:if>
-        <c:if test="messages.value == false">
-            <div class="private_chat comment_bubble_left">${mes.key}</div>
-        </c:if>
+        <c:if test="${mes.value == false}">
+            <div class="private_chat comment_bubble_left"><div class="time-left">
+        </c:if><fmt:formatDate value="${mes.key.time.time}" pattern="HH:mm:ss   dd.MM.yyyy"/>
+        </div>${mes.key.text}
+        </div>
     </c:forEach>
     <div class="private_chat comment_bubble_right">Сообщение2</div>
     <div class="private_chat comment_bubble_left">Сообщение</div>

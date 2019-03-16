@@ -32,7 +32,7 @@ import java.util.*;
 import static esn.configs.GeneralSettings.TIME_PATTERN;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user", "orgId"})
 public class BaseController {
 
     private GlobalDAO globalDAO;
@@ -83,12 +83,13 @@ public class BaseController {
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgUrl, GenChatMessage.class);
     }
 
-    @PostMapping("/save_private_message/{companion}")
+    @PostMapping("/save_private_message/{companionId}") //TODO org mapping in  url
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePrivateMessage(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, @RequestParam String orgUrl, @PathVariable String companion){
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        privateChatMessageDAO.persist(new PrivateChatMessage()); //TODO
+    public void savePrivateMessage(@RequestParam String text, @RequestParam String time,
+                                   @PathVariable String companionId, @SessionAttribute User user, @SessionAttribute int orgId){
+        //Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+        User compan = userDAO.getUserById(Integer.valueOf(companionId));
+        privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
     }
 
     @PostMapping("/savepost")

@@ -4,7 +4,6 @@ import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
-import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -117,8 +116,8 @@ public class Main {
         //PrivateChatMessage message = (PrivateChatMessage) context.getBean("privateMessage");
         User user1 = userDao.getUserById(3);
         User user2 = userDao.getUserById(4);
-        PrivateChatMessage message = new PrivateChatMessage("сообщение", user1, user2, messageDao);
-        messageDao.persist(message);
+        //PrivateChatMessage message = new PrivateChatMessage("сообщение", user1, user2, messageDao);
+        //messageDao.persist(message);
 
 
 

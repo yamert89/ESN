@@ -90,6 +90,7 @@ public class UserController {
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
+        session.setAttribute("orgId", orgDAO.getOrgByURL(org).getId());
         session.setAttribute("loginUrl", user.getLogin());
         userService.sendStatus(user, true);
         return "redirect:/" + org + "/wall/";

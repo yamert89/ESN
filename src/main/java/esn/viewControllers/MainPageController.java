@@ -1,6 +1,5 @@
 package esn.viewControllers;
 
-import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
@@ -73,17 +72,15 @@ public class MainPageController {
 
     @GetMapping("/private-chat") //TODO url = login
     public String privateChat(@PathVariable String organization,
-                              @RequestParam String companion, Model model, @SessionAttribute User user){
+                              @RequestParam String companion, Model model, @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
-        model.addAttribute("net_status", compan.netStatus()); //TODO don't work
-        model.addAttribute("companion_name", compan.getName());
-        model.addAttribute("companion_avatar", compan.getPhoto());
-        Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(user, compan);
-        Map<String, Boolean> messages = new TreeMap<>();
+        model.addAttribute("companion", compan);
+        Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(user, compan, orgId);
+        Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
         for (PrivateChatMessage mes :
                 privateMessages) {
-            Boolean userMessage = mes.getSender() == user;
-            messages.put(mes.getText(), userMessage);
+            Boolean userMessage = mes.getSender_id() == user.getId();
+            messages.put(mes, userMessage);
         }
 
         model.addAttribute("messages", messages);

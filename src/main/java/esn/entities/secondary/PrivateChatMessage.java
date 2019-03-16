@@ -1,11 +1,10 @@
 package esn.entities.secondary;
 
-import esn.db.PrivateChatMessageDAO;
-import esn.entities.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "private_chat_history")
@@ -15,57 +14,51 @@ public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 800) //TODO сказать юзеру при превышении
     private String text;
-
-    @Transient
-    private User sender;
 
     @Column(nullable = false)
     private int sender_id;
 
-    @Transient
-    private User recipient;
-
     @Column(nullable = false)
     private int recipient_id;
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    private Timestamp time;
+    private int orgId;
 
-    @Transient
-    private PrivateChatMessageDAO messageDAO;
+    @CreationTimestamp
+    private Calendar time;
+
 
     public PrivateChatMessage() {
     }
 
-    public PrivateChatMessage(String text, User sender, User recipient, PrivateChatMessageDAO messageDAO) {
-        this.sender = sender;
-        this.recipient = recipient;
-        this.messageDAO = messageDAO;
+    public PrivateChatMessage(String text, int sender_id, int recipient_id, int orgId) {
         this.text = text;
-        sender_id = sender.getId();
-        recipient_id = recipient.getId();
+        this.sender_id = sender_id;
+        this.recipient_id = recipient_id;
+        this.orgId = orgId;
     }
 
     public String getText() {
         return text;
     }
 
-    public User getSender() {
-        if (sender != null) return sender;
-        return messageDAO.getSender(sender_id);
+    public int getSender_id() {
+        return sender_id;
     }
 
-    public User getRecipient() {
-        if (recipient != null) return recipient;
-        return messageDAO.getRecipient(recipient_id);
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm:ss  dd.MM.YY")
+    public Calendar getTime() {
+        return time;
     }
 
+    public int getRecipient_id() {
+        return recipient_id;
+    }
 
     @Override
     public int compareTo(PrivateChatMessage o) {
-        return this.time.compareTo(o.time);
+        int comp = this.time.compareTo(o.time);
+        return  comp * -1;
     }
 }

@@ -26,9 +26,9 @@ public class PrivateChatMessageDAO {
         em.persist(message);
     }
 
-    public Set<PrivateChatMessage> getMessages(User owner, User companion){
-        Query query = em.createQuery("select m from PrivateChatMessage m where m.sender_id = :sender and m.recipient_id = :recipient")
-                .setParameter("sender", owner.getId()).setParameter("recipient", companion.getId());
+    public Set<PrivateChatMessage> getMessages(User owner, User companion, int orgId){
+        Query query = em.createQuery("select m from PrivateChatMessage m where m.sender_id = :sender and m.recipient_id = :recipient and m.orgId = :orgId")
+                .setParameter("sender", owner.getId()).setParameter("recipient", companion.getId()).setParameter("orgId", orgId);
         List res1 = query.getResultList();
         List res2 = query.setParameter("sender", companion.getId()).setParameter("recipient", owner.getId()).getResultList();
 
