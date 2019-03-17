@@ -79,7 +79,7 @@ public class User {
     @JsonIgnore
     private UserSettings settings;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "user")
     @JsonIgnore
     private Set<ContactGroup> groups;
 

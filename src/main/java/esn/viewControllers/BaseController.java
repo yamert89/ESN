@@ -103,8 +103,9 @@ public class BaseController {
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
                           @SessionAttribute User user, HttpServletRequest request){
         try {
-            int[] ids = Stream.of(personIds).mapToInt(Integer::parseInt).toArray();
-            user.getGroups().add(new ContactGroup(groupName, user.getId(), ids, true));
+            String[] ids_s = personIds.split(",");
+            int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
+            user.getGroups().add(new ContactGroup(groupName, user, ids, true));
             userDAO.updateUser(user);
         }catch (Exception e){
             e.printStackTrace();

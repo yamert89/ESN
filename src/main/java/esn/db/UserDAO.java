@@ -23,7 +23,12 @@ public class UserDAO {
 
     @Transactional
     public User updateUser(User user) {
-        return em.merge(user);
+        try {
+            return em.merge(user);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Transactional

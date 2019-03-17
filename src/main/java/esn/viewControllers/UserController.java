@@ -101,7 +101,7 @@ public class UserController {
     public void exit(HttpSession session){
         User usr = (User) session.getAttribute("user");
         userService.sendStatus(usr, false);
-
+        //TODO save expand status groups
         session.invalidate(); //TODO
     }
 

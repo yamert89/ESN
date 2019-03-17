@@ -28,16 +28,9 @@ $(document).ready(function () {
         $(this).toggleClass('person_selected');
     });
 
-    $("#del_group").on("click", function () {
-        var gr = $(".group_selected");
-        var idx = groupList.names.indexOf(gr.text());
-        if (idx > -1) {
-            groupList.names[idx] = undefined;
-            groupList.contents[idx] = undefined;
-        }
-        gr.remove();
+    $("#del_group").on("click", deleteGroup);
 
-    });
+
 
 
 
@@ -45,10 +38,14 @@ $(document).ready(function () {
 
 
     $(".group_btn").click(function () {
+        if (!emptyGroups()) checkEmptyGroup();
         var title = prompt("Введите название группы", "Без названия");
         if (title == undefined) return;
         $(".groups").prepend("<div class='group'>" + title + "</div>");
+
         groupOnClick();
+
+        $(".groups").children().first().click();
     });
 
     $("#right_arrow").click(function () {
@@ -57,6 +54,7 @@ $(document).ready(function () {
             return;
         }
         insertUsersInGroup();
+        saveGroup()
     });
 
     $("#left_arrow").click(function () {
@@ -67,10 +65,7 @@ $(document).ready(function () {
         removeUsersFromGroup();
     });
 
-    function emptyGroups() {
-        return ($(".groups").children().length == 0);
 
-    }
 
 
 
@@ -84,8 +79,9 @@ $(document).ready(function () {
 function groupOnClick() {
     var group = $(".group");
     group.on("click", function () {
+        if (!emptyGroups()) checkEmptyGroup();
         var gr_name = $(".group_selected").text();
-        saveGroup(gr_name);
+
         $(".group.group_selected").removeClass("group_selected");
         $(this).addClass("group_selected");
 
@@ -117,8 +113,8 @@ function removeUsersFromGroup() {
     $("#group_staff_cont").children(".person_selected").remove();
 }
 
-function saveGroup(gr_name){
-
+function saveGroup(){
+    var gr_name = $(".group.group_selected").first().text();
     if (groupList.names.indexOf(gr_name) !== -1) return;
 
     var persons = $("#group_staff_cont").children();
@@ -129,14 +125,35 @@ function saveGroup(gr_name){
     });
     $.ajax({type:"POST", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")}})
 
+}
 
+function deleteGroup(){
+    var gr = $(".group_selected");
+    var idx = groupList.names.indexOf(gr.text());
+    if (idx > -1) {
+        groupList.names[idx] = undefined;
+        groupList.contents[idx] = undefined;
+    }
+    gr.remove();
+}
 
+function checkEmptyGroup(){
+    if($("#group_staff_cont").children().length == 0 && $(".groups").children().length > 1) {
+        if(confirm("Текущая группа пуста и будет удалена. Вы хотите удалить группу?")) deleteGroup();
+    }
+}
 
+function emptyGroups() {
 
+    return ($(".groups").children().length == 0);
 
 }
 
 $(window).on("beforeunload", function () {
-    saveGroup($(".group.group_selected").first().text());
+    if (!emptyGroups()) checkEmptyGroup();
+    saveGroup();
 });
+
+//TODO уведомить о сохранении
+
 

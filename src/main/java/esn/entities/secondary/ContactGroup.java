@@ -1,8 +1,8 @@
 package esn.entities.secondary;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import esn.entities.User;
+
+import javax.persistence.*;
 
 @Entity
 public class ContactGroup {
@@ -10,9 +10,11 @@ public class ContactGroup {
     @GeneratedValue
     private int id;
 
+    @Column(unique = true)
     private String name;
 
-    private int user_id; //TODO двусторонняя связь? лишняя таблица
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     private int[] personIds;
 
@@ -21,9 +23,9 @@ public class ContactGroup {
     public ContactGroup() {
     }
 
-    public ContactGroup(String name, int user_id, int[] personIds, boolean expandable) {
+    public ContactGroup(String name, User user, int[] personIds, boolean expandable) {
         this.name = name;
-        this.user_id = user_id;
+        this.user = user;
         this.personIds = personIds;
         this.expandable = expandable;
     }
@@ -41,13 +43,13 @@ public class ContactGroup {
     }
 
 
-    public int getUser_id() {
+   /* public int getUser_id() {
         return user_id;
     }
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
+    }*/
 
     public int[] getPersonIds() {
         return personIds;
@@ -63,5 +65,13 @@ public class ContactGroup {
 
     public void setExpandable(boolean expandable) {
         this.expandable = expandable;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
