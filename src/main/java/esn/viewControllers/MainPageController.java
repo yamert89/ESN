@@ -6,6 +6,7 @@ import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
+import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/{organization}")
@@ -89,18 +91,30 @@ public class MainPageController {
 
     @GetMapping("/groups")
     public String groups(@PathVariable String organization, Model model, @SessionAttribute User user){
-        Set<User> employers = orgDao.getOrgByURL(organization).getAllEmployers();
+        Set<User> employers = new HashSet<>(orgDao.getOrgByURL(organization).getAllEmployers());
+        employers.remove(user);
         model.addAttribute("employers", employers);
-        model.addAttribute("groupsNames", user.getGroups().keySet());
+        Set<ContactGroup> groups = user.getGroups();
+        /*Set<String> groupNames = new HashSet<>();
+        for (ContactGroup group :
+                groups) {
+            groupNames.add(group.getName());
+        }*/
+        Set<String> groupNames = user.getGroups()
+                .stream()
+                .map(ContactGroup::getName)
+                .collect(Collectors.toSet());
+
+        model.addAttribute("groupsNames", groupNames);
         Map<String, Set<User>> resMap = new HashMap<>();
-        for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()){
-            int len = entry.getValue().length;
-            Set<User> resVal = new HashSet<>(len);
-            for (int i = 0; i < len; i++) {
-                User u = userDAO.getUserById(Integer.valueOf(entry.getValue()[i]));
+        for (ContactGroup group : groups){
+            Set<User> resVal = new HashSet<>(groups.size());
+            int [] ids = group.getPersonIds();
+            for (int id : ids) {
+                User u = userDAO.getUserById(id);
                 resVal.add(u);
             }
-            resMap.put(entry.getKey(), resVal);
+            resMap.put(group.getName(), resVal);
 
         }
         model.addAttribute("groups", resMap);
@@ -145,7 +159,8 @@ public class MainPageController {
 
         if (user.getGroups().size() == 0){
             Organization org = orgDao.getOrgByURL(organization);
-            Set<User> users = org.getAllEmployers();
+            Set<User> users = new HashSet<>(org.getAllEmployers());
+            users.remove(user);
             json.append("{").append("\"name\":\"Все\",\"users\":[");
             for (User u :
                     users) {
@@ -156,13 +171,13 @@ public class MainPageController {
             json.append("]}]");
             return bb.body(json.toString().replaceAll(",]", "]"));
         }
-        for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()){
-            int len = entry.getValue().length;
+        for (ContactGroup group : user.getGroups()){
+            int[] ids = group.getPersonIds();
 
-            json.append("{").append("\"name\":\"").append(entry.getKey()).append("\",\"users\":[");
+            json.append("{").append("\"name\":\"").append(group.getName()).append("\",\"users\":[");
 
-            for (int i = 0; i < len; i++) {
-                User u = userDAO.getUserById(Integer.valueOf(entry.getValue()[i]));
+            for (int id : ids) {
+                User u = userDAO.getUserById(id);
                 json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
                         .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
             }

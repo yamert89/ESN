@@ -28,13 +28,18 @@
             });
             $(document).keypress(function (event) {
                 if (event.which == 13) messBtn.click();
+            });
+            var comp_login = $(".person_container").attr('data-companion-login');
+            $(".person_photo_chat").click(function () {
+                location.href = "/" + orgUrl + "/users/" + comp_login;
             })
+
         });
     </script>
 </head>
 <body>
 <div class="private_chat_profile">
-    <div class="person_container" data-companion-id="${companion.id}">
+    <div class="person_container" data-companion-id="${companion.id}" data-companion-login="${companion.login}">
         <img src='<c:url value="/resources/avatars/${companion.photo}"/>' class="person_photo_chat"><br>
         <c:if test="${companion.netStatus} == false">
             <div class="net_status_circle" id="net_status_off"></div>
@@ -63,30 +68,7 @@
         </div>${mes.key.text}
         </div>
     </c:forEach>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_left">Сообщение</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2</div>
-    <div class="private_chat comment_bubble_right">Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2
-        Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 Сообщение2 </div>
+
 </div>
 </body>
 </html>

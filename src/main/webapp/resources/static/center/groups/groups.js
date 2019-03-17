@@ -46,17 +46,31 @@ $(document).ready(function () {
 
     $(".group_btn").click(function () {
         var title = prompt("Введите название группы", "Без названия");
+        if (title == undefined) return;
         $(".groups").prepend("<div class='group'>" + title + "</div>");
         groupOnClick();
     });
 
     $("#right_arrow").click(function () {
+        if (emptyGroups()) {
+            alert("Вначале создайте новую группу");
+            return;
+        }
         insertUsersInGroup();
     });
 
     $("#left_arrow").click(function () {
+        if (emptyGroups()) {
+            alert("Вначале создайте новую группу");
+            return;
+        }
         removeUsersFromGroup();
     });
+
+    function emptyGroups() {
+        return ($(".groups").children().length == 0);
+
+    }
 
 
 

@@ -7,10 +7,7 @@ import esn.db.*;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
-import esn.entities.secondary.GenChatMessage;
-import esn.entities.secondary.Post;
-import esn.entities.secondary.PrivateChatMessage;
-import esn.entities.secondary.StoredFile;
+import esn.entities.secondary.*;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +25,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static esn.configs.GeneralSettings.TIME_PATTERN;
 
@@ -105,16 +103,8 @@ public class BaseController {
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
                           @SessionAttribute User user, HttpServletRequest request){
         try {
-            user.getGroups().put(groupName, personIds.split(","));
-
-            for (Map.Entry<String, String[]> entry: user.getGroups().entrySet()) {
-                System.out.println("группа : " + entry.getKey());
-                for (String s :
-                        entry.getValue()) {
-                    System.out.print("значения : " + s + " ");
-                }
-                System.out.println();
-            }
+            int[] ids = Stream.of(personIds).mapToInt(Integer::parseInt).toArray();
+            user.getGroups().add(new ContactGroup(groupName, user.getId(), ids, true));
             userDAO.updateUser(user);
         }catch (Exception e){
             e.printStackTrace();

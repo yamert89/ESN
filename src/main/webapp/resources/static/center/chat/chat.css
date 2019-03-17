@@ -139,7 +139,13 @@ button:hover{
     display: block;
     height: 100px;
     width: 100px;
-    background-color: white;
+    border: 1px solid rgba(255, 201, 115, 0.25);
+
+
+}
+.person_photo_chat:hover{
+    box-shadow: 0 0 5px black;
+
 
 }
 .person_name_chat{
@@ -161,11 +167,13 @@ button:hover{
     flex-direction: column;
     overflow-y: scroll;
     max-height: 80%;
+    min-height: 80%;
     /*background-color: white;*/
     border: 1px solid rgba(138, 138, 138, 0.33);
     padding: 10px 0;
     border-radius: 5px;
     line-height: 120%;
+    width: 100%;
 
 }
 .time-right, .time-left{
@@ -176,13 +184,13 @@ button:hover{
 }
 .time-right {
     float: left;
-    margin: 0 10px 0 -10px;
-    border-radius: 0 10px 10px 0;
+    margin: -10px 10px 0 -10px;
+    border-radius: 12px 0 10px 0;
 }
 .time-left{
     float: right;
-    margin: 0 -10px 0 10px;
-    border-radius: 10px 0 0 10px;
+    margin: -10px -10px 0 10px;
+    border-radius: 0 12px 0 10px;
 }
 
 

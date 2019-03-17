@@ -2,6 +2,7 @@ package esn.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import esn.db.UserDAO;
+import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
 import esn.entities.secondary.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,12 +79,9 @@ public class User {
     @JsonIgnore
     private UserSettings settings;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "groups")
-    @MapKeyColumn(name = "GROUP_NAME")
-    @Column(name = "U_IDS")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Map<String, String[]> groups;
+    private Set<ContactGroup> groups;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "notes")
@@ -202,7 +200,7 @@ public class User {
         this.login = login;
     }
 
-    public Map<String, String[]> getGroups() {
+    public Set<ContactGroup> getGroups() {
         return groups;
     }
 
