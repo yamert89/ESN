@@ -26,6 +26,7 @@
         var unknownExt = "fileicon_bg.png";
 
         function getFileIco(name){
+            name = name.toLowerCase();
             var regexp = "\\..{2,6}$";
             var ext = name.match(regexp);
             if (!extensions[ext]) return unknownExt;
@@ -55,7 +56,7 @@
                 $('[title="' + fname + '"]').parent().remove();
             });
 
-            $(".file_share").on("click", function () {
+            $("body").on("click", ".file_share", function () {
                 var fileContainer = $("#shared_files");
 
                 var fname = $(this).prev().prev().attr("title");
@@ -91,6 +92,7 @@
                 var file = input.get(0).files[0];
                 var idx = file.name.lastIndexOf('.');
                 var newFileName = file.name.substring(0, idx);
+                var extension = file.name.substring(++idx, file.name.length);
                 var shared = input.attr("data-shared");
                 data.append( 'file', file);
                 data.append('shared', shared);
@@ -103,15 +105,15 @@
                 if (shared === "1") {
                     fileContainer = $("#shared_files");
                     fileContainer.append('<div class="file">\n' +
-                        '                <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
+                        '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'">\n' +
                         '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'">\n' +
-                        '                <div class="file_author"><a href="">' + userName + '</a></div>\n' +  //TODO link
+                        '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +  //TODO link
                         '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
                         '            </div>');
                 }
                 fileContainer = $("#private_files");
                 fileContainer.append('<div class="file">\n' +
-                    '                    <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
+                    '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'">\n' +
                     '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '">\n' +
                     '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
                     '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
@@ -152,7 +154,7 @@
                 <div class="file">
                     <img src="" class="file_ico" data-ext="${file.extension}">
                     <input class="fileName" readonly title="${file.name}" value="${file.name}">
-                    <div class="file_author"><a href="">${file.owner.name}</a></div>
+                    <div class="file_author"><a href='/${sessionScope.get("orgUrl")}/users/${file.owner.login}'>${file.owner.name}</a></div>
                     <div class="file_time">${file.time}</div>
                 </div>
             </c:forEach>

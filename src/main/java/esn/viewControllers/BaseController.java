@@ -131,13 +131,14 @@ public class BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, shared.equals("1")));
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
     }
 
     @GetMapping("/savefile")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)//TODO сохраняет два раза
     public void updateFile(@RequestParam String fname, @RequestParam String update,
                            @RequestParam(required = false) String newName, @SessionAttribute User user, HttpSession session){
         Iterator<StoredFile> it = user.getStoredFiles().iterator();
@@ -165,12 +166,13 @@ public class BaseController {
 
                     FileUtils.copyFile(oldFile, new File(path2 + newName + "." + storedFile.getExtension()));
                     FileUtils.forceDelete(oldFile);
-
                     storedFile.setName(newName);
+                    break;
             }
         }catch (IOException e){
             e.printStackTrace();
         }
+        user = userDAO.getUserWithFiles(user.getId());
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
     }
