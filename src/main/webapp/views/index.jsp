@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/gen.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/static/tools/tools.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/static/center/notes/notes.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/libs/air-datepicker-master/dist/css/datepicker.css"/>">
     <script src="<c:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
-    <script src="<c:url value="/resources/libs/jquery.arcticmodal-0.3/jquery.arcticmodal-0.3.min.js"/>"></script>
+    <script src="<c:url value="/resources/libs/air-datepicker-master/dist/js/datepicker.js"/>"></script>
+
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
