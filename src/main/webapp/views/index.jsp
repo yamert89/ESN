@@ -40,6 +40,43 @@
             function props() {
                 location.href = "/" + orgUrl + "/users/" + login;
             }
+            datepickerInit()
+
+            function datepickerInit(){
+                var eventDates = [1, 10, 12, 22],
+                    $picker = $('.datepicker-here'),
+                    $content = $('.custom-cells-events'),
+                    sentences = ['1', '2', '3', '4'];
+
+                $picker.datepicker({
+                    onRenderCell: function (date, cellType) {
+                        var currentDate = date.getDate();
+
+                        // Добавляем вспомогательный элемент, если число содержится в `eventDates`
+                        if (cellType == 'day' && eventDates.indexOf(currentDate) != -1) {
+                            return {
+                                html: currentDate + '<span class="dp-note"></span>'
+                            }
+                        }
+                    },
+                    onSelect: function onSelect(fd, date) {
+                        var title = '', content = ''
+
+                        // Если выбрана дата с событием, то отображаем его
+                        if (date && eventDates.indexOf(date.getDate()) != -1) {
+                            title = fd;
+                            content = sentences[Math.floor(Math.random() * eventDates.length)];
+                        }
+
+                        $('strong', $content).html(title)
+                        $('p', $content).html(content)
+                    }
+                })
+
+// Сразу выберем какую-ниудь дату из `eventDates`
+                var currentDate = currentDate = new Date();
+                $picker.data('datepicker').selectDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), 10))
+            }
 
 
            /* $("#groups").click(function () {
@@ -109,6 +146,7 @@
         <div class="tool" id="calendar"><a href='/${orgUrl}'>Календарь</a></div>
         <div class="tool" id="apps"><a href='/${orgUrl}}/apps'>Приложения</a></div>
         <div class="datepicker-here"></div>
+        <div class="custom-cells-events"></div>
 
     </div>
     <div class="center">
