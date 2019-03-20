@@ -152,6 +152,25 @@ a{
     height: 2em;
 }
 
+.dp-note {
+    background: rgba(255, 0, 7, 0.68);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    left: 50%;
+    bottom: 1px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%)
+}
+.-selected- .dp-note {
+    bottom: 2px;
+    background: rgba(0, 0, 0, 0.75);
+    opacity: .5
+}
+.dp-note,.nav {
+    position: absolute
+}
+
 
 
 
