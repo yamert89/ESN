@@ -25,6 +25,8 @@
             window.userId = uName.attr("data-user_id");
             window.orgName = uTitle.text();
             window.orgUrl = uTitle.attr("data-url");
+            window.eventDates = [];
+            window.datesArray = [];
 
 
             uName.click(function () {
@@ -44,14 +46,17 @@
 
             function datepickerInit(){
 
-                var datesArray = []; //TODO
-                var eventDates = [];
-                datesArray.forEach(function (el) {
-                    eventDates.push(new Date(el));
-                });
+                window.datesArray = [[1,2,3], [], [4,7,8]]; //TODO global
+                var $picker = $('.datepicker-here');
+                var pickerObj = $picker.data('datepicker');
+                var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
+                window.eventDates = datesArray[monthNumber];
 
 
-                    var $picker = $('.datepicker-here');
+
+
+
+
 
 
 
@@ -60,11 +65,12 @@
                         var currentDate = date.getDate();
 
                         // Добавляем вспомогательный элемент, если число содержится в `eventDates`
-                        if (cellType == 'day' && eventDates.indexOf(currentDate) != -1) {
+                        if (cellType == 'day' && window.eventDates.indexOf(currentDate) != -1) {
                             return {
                                 html: currentDate + '<span class="dp-note"></span>'
                             }
                         }
+
                     },
                     onSelect: function onSelect(fd, date) {
                         var title = '', content = '';
@@ -74,9 +80,16 @@
 
                         }
 
-
-                    }
+                    },
+                    onChangeMonth: function (monthN, year) {
+                        if (new Date().getFullYear() != year) return;
+                        window.eventDates = datesArray[monthN];
+                        var pickerObj = $picker.data('datepicker');
+                        pickerObj.update('minDate');
+                    },
+                    moveToOtherMonthsOnSelect:false
                 });
+
 
 // Сразу выберем какую-ниудь дату из `eventDates`
                 var currentDate = currentDate = new Date();
