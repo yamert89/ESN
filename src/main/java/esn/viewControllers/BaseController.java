@@ -112,12 +112,24 @@ public class BaseController {
         }
     }
 
-    @PostMapping("/savenote")
+    @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user){
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         user.getNotes().put(timestamp, text);
         userDAO.updateUser(user);
+    }
+
+    @GetMapping("/notes")
+    public ResponseEntity<int[][]> getNotes(@SessionAttribute User user){
+        Map<Timestamp, String> notes = user.getNotes();
+        for (Map.Entry<Timestamp, String> entry : notes.entrySet()) { //TODo replace with stream
+
+        }
+        return null;
+
+
+
     }
 
     @PostMapping("/savefile")
@@ -138,7 +150,7 @@ public class BaseController {
     }
 
     @GetMapping("/savefile")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)//TODO сохраняет два раза
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void updateFile(@RequestParam String fname, @RequestParam String update,
                            @RequestParam(required = false) String newName, @SessionAttribute User user, HttpSession session){
         Iterator<StoredFile> it = user.getStoredFiles().iterator();

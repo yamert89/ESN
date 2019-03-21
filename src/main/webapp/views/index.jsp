@@ -27,6 +27,7 @@
             window.orgUrl = uTitle.attr("data-url");
             window.eventDates = [];
             window.datesArray = [];
+            window.inited = false;
 
 
             uName.click(function () {
@@ -47,18 +48,11 @@
             function datepickerInit(){
 
                 window.datesArray = [[1,2,3], [], [4,7,8]]; //TODO global
+                window.dates = [['1st text', '2nd text', '3rd text'], [], []];
                 var $picker = $('.datepicker-here');
                 var pickerObj = $picker.data('datepicker');
                 var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
                 window.eventDates = datesArray[monthNumber];
-
-
-
-
-
-
-
-
 
                 $picker.datepicker({
                     onRenderCell: function (date, cellType) {
@@ -74,15 +68,30 @@
                     },
                     onSelect: function onSelect(fd, date) {
                         var title = '', content = '';
+                        if (!window.inited){
+                            window.inited = true;
+                            return;
+                        }
+                       /* if (new Date().getFullYear() != year) return;*/ //TODO
+
+                        var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
+                        var showText = window.dates[monthNumber][date.getDate() - 1];
+                        alert(showText);
+
+                        var note = prompt("Введите текст заметки", "");
+
+                        //$.ajax({type:"POST", url:"/note", data:{time:getCurrentDate(), text:note}});
+                        //TODO
+
 
                         // Если выбрана дата с событием, то отображаем его
-                        if (date && eventDates.indexOf(date.getDate()) != -1) {
+                        /*if (date && eventDates.indexOf(date.getDate()) != -1) {
 
-                        }
+                        }*/
 
                     },
                     onChangeMonth: function (monthN, year) {
-                        if (new Date().getFullYear() != year) return;
+                        if (new Date().getFullYear() != year) return; //ToDO TEst
                         window.eventDates = datesArray[monthN];
                         var pickerObj = $picker.data('datepicker');
                         pickerObj.update('minDate');
@@ -96,14 +105,6 @@
                 $picker.data('datepicker').selectDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), 10))
             }
 
-           /* onRenderCell: function (date, cellType) {
-                if (cellType == 'day' && date.getDate() == 31 && date.getMonth() == 11) {
-                    return {
-                        classes: '-ny-',
-                        html: 'Новый год!'
-                    }
-                }
-            }*/
 
 
            /* $("#groups").click(function () {
@@ -112,10 +113,6 @@
 
 
         });
-
-
-
-
 
 
         function dateOfNoteColorize() {

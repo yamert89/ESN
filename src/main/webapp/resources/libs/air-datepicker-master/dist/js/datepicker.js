@@ -1593,7 +1593,7 @@
                     break;
             }
 
-            if (opts.onRenderCell) {
+            if (opts.onRenderCell && /**/d.month == this.d.parsedDate.month/**/) { //TODO modified multiply date bag fixed
                 render = opts.onRenderCell(date, type) || {};
                 html = render.html ? render.html : html;
                 classes += render.classes ? ' ' + render.classes : '';
@@ -1791,11 +1791,7 @@
             if (!alreadySelected) {
                 dp._trigger('clickCell', selectedDate);
 
-                /////TODO modified--------------
-                dateOfNoteColorize();
 
-
-                /////////////----------------
                 return;
             }
 
@@ -1813,16 +1809,7 @@
         _onClickCell: function (e) {
             var $el = $(e.target).closest('.datepicker--cell');
 
-            // modified
-            //////---------------------------------start
-            if ($el.hasClass("-selected-")){
-                var note = prompt("Введите текст заметки", ""); //TODO СОхранить на сервер в заметках
-                $el.removeClass("-selected-");
-                $el.addClass("date_noted");
-                window.listOfDatesNoted.push([$el.attr("data-date"), $el.attr("data-month"), $el.attr("data-year")]);
-                return;
-            }
-            //////---------------------------------end
+
 
             if ($el.hasClass('-disabled-')) return;
 
@@ -1968,9 +1955,7 @@
 
             this.d[action]();
 
-            //---------------------- modified ----------------
-            dateOfNoteColorize();
-            //----------------end
+
         },
 
         _onClickNavTitle: function (e) {

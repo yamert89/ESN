@@ -83,7 +83,7 @@ public class User {
     @JsonIgnore
     private Set<ContactGroup> groups;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "notes")
     @MapKeyColumn(name = "NOTE_TIME")
     @Column(name = "NOTE_TEXT")

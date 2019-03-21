@@ -17,7 +17,7 @@
                 if (note == null) return;
                 var time = getCurrentDate();
                 $(".notes").prepend("<div class='note'><div class='date'>" + time +"</div><div class='note_text'>" + note + "</div>");
-                $.ajax({type:"POST", url:"/savenote", data:{time:time, text:note}});
+                $.ajax({type:"POST", url:"/note", data:{time:time, text:note}});
             });
         });
     </script>
