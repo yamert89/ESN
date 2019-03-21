@@ -123,6 +123,8 @@ public class BaseController {
     @GetMapping("/notes")
     public ResponseEntity<int[][]> getNotes(@SessionAttribute User user){
         Map<Timestamp, String> notes = user.getNotes();
+        Timestamp[] times = notes.keySet().stream().toArray(Timestamp[]::new);
+        times[0].getDay()
         for (Map.Entry<Timestamp, String> entry : notes.entrySet()) { //TODo replace with stream
 
         }
