@@ -29,6 +29,8 @@
             window.datesArray = [];
             window.inited = false;
 
+            //$.get("/notes", datepickerInit, "json");
+
 
             uName.click(function () {
                 props();
@@ -43,16 +45,19 @@
             function props() {
                 location.href = "/" + orgUrl + "/users/" + login;
             }
+
             datepickerInit();
 
-            function datepickerInit(){
 
-                window.datesArray = [[1,2,3], [], [4,7,8]]; //TODO global
-                window.dates = [['1st text', '2nd text', '3rd text'], [], []];
+            function datepickerInit(data){
+                /*window.datesArray = data[0];
+                window.dates = data[1];*/
+
+                window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}];
                 var $picker = $('.datepicker-here');
                 var pickerObj = $picker.data('datepicker');
                 var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
-                window.eventDates = datesArray[monthNumber];
+                window.eventDates = getEventDates(monthNumber);
 
                 $picker.datepicker({
                     onRenderCell: function (date, cellType) {
@@ -64,6 +69,12 @@
                                 html: currentDate + '<span class="dp-note"></span>'
                             }
                         }
+
+                        /*if (cellType == 'day' && window.eventDates.indexOf(currentDate) != -1) {
+                            return {
+                                html: currentDate + '<span class="dp-note"></span>'
+                            }
+                        }*/
 
                     },
                     onSelect: function onSelect(fd, date) {
@@ -92,7 +103,7 @@
                     },
                     onChangeMonth: function (monthN, year) {
                         if (new Date().getFullYear() != year) return; //ToDO TEst
-                        window.eventDates = datesArray[monthN];
+                        window.eventDates = getEventDates(monthN);
                         var pickerObj = $picker.data('datepicker');
                         pickerObj.update('minDate');
                     },
@@ -113,6 +124,16 @@
 
 
         });
+        
+
+        function getEventDates(month){
+            var arr = [];
+            window.dates.forEach(function (el) {
+                var v = el.m;
+                if(v == month) arr.push(el.d);
+            })
+            return arr;
+        }
 
 
         function dateOfNoteColorize() {

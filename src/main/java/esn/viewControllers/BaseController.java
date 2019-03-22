@@ -25,6 +25,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static esn.configs.GeneralSettings.TIME_PATTERN;
@@ -121,15 +123,58 @@ public class BaseController {
     }
 
     @GetMapping("/notes")
-    public ResponseEntity<int[][]> getNotes(@SessionAttribute User user){
-        Map<Timestamp, String> notes = user.getNotes();
-        Timestamp[] times = notes.keySet().stream().toArray(Timestamp[]::new);
-        times[0].getDay()
-        for (Map.Entry<Timestamp, String> entry : notes.entrySet()) { //TODo replace with stream
+    public ResponseEntity<Object[]> getNotes(@SessionAttribute User user){
+        try {
+            Map<Timestamp, String> notes = user.getNotes();
+            Calendar today = Calendar.getInstance();
+            //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}]; //TODO new structure
+            Timestamp thisYear = new Timestamp(today.get(Calendar.YEAR), 0, 1, 0, 0, 0, 0);
+            Timestamp thisYear2 = new Timestamp(today.getTimeInMillis());
+            thisYear2.setMonth(0);
+            thisYear2.setDate(1);
+            thisYear2.setHours(0);
 
+
+            Map<Timestamp, String> sortedNotes = notes.entrySet().stream().filter(date -> date.getKey()
+                    .after(thisYear2))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+
+
+
+
+
+
+
+            /*Map<Integer, String> datesArray = sortedNotes.entrySet().stream().map(Map.Entry::getKey).collect(Collectors.toMap(
+                    Date::getMonth, d -> String.valueOf(d.getMonth()), (a, b) -> String.join(",", a, b)));
+
+            List<Integer[]> datesArrayRes = Stream.generate(() -> new Integer[]{}).limit(12).collect(Collectors.toList());
+
+            for (Map.Entry<Integer, String> entry : datesArray.entrySet()) {
+                datesArrayRes.set(entry.getKey(), Stream.of(entry.getValue().split(",")).peek(System.out::println).map(Integer::parseInt)
+                        .toArray(Integer[]::new)); //Преобразую строку в массив integer
+            }
+
+
+
+
+            Map<Integer, String> dates = sortedNotes.entrySet().stream().collect(Collectors.toMap(
+                    entry -> entry.getKey().getMonth(), entry -> entry.getValue(), (a, b) -> String.join("$$$", a, b)));
+
+
+            List<String[]> datesRes = Stream.generate(() -> new String[]{}).limit(12).collect(Collectors.toList());
+
+            for (Map.Entry<Integer, String> entry : dates.entrySet()) {
+                datesRes.set(entry.getKey(), entry.getValue().split("\\$\\$\\$"));
+            }*/
+
+
+            //return ResponseEntity.ok().body(new Object[]{datesArrayRes, datesRes});
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return null;
-
 
 
     }
