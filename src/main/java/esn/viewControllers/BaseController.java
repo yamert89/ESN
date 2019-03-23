@@ -25,7 +25,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -123,21 +122,38 @@ public class BaseController {
     }
 
     @GetMapping("/notes")
-    public ResponseEntity<Object[]> getNotes(@SessionAttribute User user){
+    public ResponseEntity<String> getNotes(@SessionAttribute User user){
         try {
             Map<Timestamp, String> notes = user.getNotes();
             Calendar today = Calendar.getInstance();
             //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}]; //TODO new structure
-            Timestamp thisYear = new Timestamp(today.get(Calendar.YEAR), 0, 1, 0, 0, 0, 0);
-            Timestamp thisYear2 = new Timestamp(today.getTimeInMillis());
-            thisYear2.setMonth(0);
-            thisYear2.setDate(1);
-            thisYear2.setHours(0);
+            Timestamp thisYear = new Timestamp(today.getTimeInMillis());
+            thisYear.setMonth(0);
+            thisYear.setDate(1);
+            thisYear.setHours(0);
 
 
             Map<Timestamp, String> sortedNotes = notes.entrySet().stream().filter(date -> date.getKey()
-                    .after(thisYear2))
+                    .after(thisYear))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+            List<String> nodes = sortedNotes.entrySet().stream().map(el -> {
+                Timestamp time = el.getKey();
+                String sb = "{m:" + time.getMonth() + ", d:" + time.getDate() + ", t:\"" + el.getValue() +
+                        "\"}";
+                el.setValue(sb);
+                return el;
+            }).map(Map.Entry::getValue).collect(Collectors.toList());
+
+            StringBuilder sb = new StringBuilder("[");
+            String prefix = "";
+            for (String node : nodes) {
+                sb.append(prefix);
+                prefix = ",";
+                sb.append(node);
+            }
+            sb.append("]");
+            return ResponseEntity.ok(sb.toString());
 
 
 

@@ -29,7 +29,7 @@
             window.datesArray = [];
             window.inited = false;
 
-            //$.get("/notes", datepickerInit, "json");
+            $.get("/notes", datepickerInit, "json");
 
 
             uName.click(function () {
@@ -46,14 +46,14 @@
                 location.href = "/" + orgUrl + "/users/" + login;
             }
 
-            datepickerInit();
+            //datepickerInit();
 
 
             function datepickerInit(data){
-                /*window.datesArray = data[0];
-                window.dates = data[1];*/
 
-                window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}];
+                window.dates = data;
+
+                //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}];
                 var $picker = $('.datepicker-here');
                 var pickerObj = $picker.data('datepicker');
                 var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
