@@ -29,7 +29,9 @@
             window.datesArray = [];
             window.inited = false;
 
-            $.get("/notes", datepickerInit, "json");
+            $.get("/notes", null, datepickerInit, "json");
+
+            $.ajax({url:"/notes", success: datepickerInit, error: err, dataType : "json"});
 
 
             uName.click(function () {
@@ -46,7 +48,6 @@
                 location.href = "/" + orgUrl + "/users/" + login;
             }
 
-            //datepickerInit();
 
 
             function datepickerInit(data){
@@ -70,12 +71,6 @@
                             }
                         }
 
-                        /*if (cellType == 'day' && window.eventDates.indexOf(currentDate) != -1) {
-                            return {
-                                html: currentDate + '<span class="dp-note"></span>'
-                            }
-                        }*/
-
                     },
                     onSelect: function onSelect(fd, date) {
                         var title = '', content = '';
@@ -85,8 +80,9 @@
                         }
                        /* if (new Date().getFullYear() != year) return;*/ //TODO
 
-                        var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
-                        var showText = window.dates[monthNumber][date.getDate() - 1];
+                        var monthNumber = pickerObj.loc.months.indexOf(
+                            $picker.find('.datepicker--nav-title').text().split(',')[0]);
+                        var showText = window.dates[]; //TODO поиск текста и показ
                         alert(showText);
 
                         var note = prompt("Введите текст заметки", "");
@@ -164,6 +160,10 @@
 
         var callFrame = function(link) {
             location.href = link;
+        }
+
+        function err(t, e) {
+            alert(t + ' ' + e);
         }
 
 

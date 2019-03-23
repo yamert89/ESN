@@ -139,7 +139,7 @@ public class BaseController {
 
             List<String> nodes = sortedNotes.entrySet().stream().map(el -> {
                 Timestamp time = el.getKey();
-                String sb = "{m:" + time.getMonth() + ", d:" + time.getDate() + ", t:\"" + el.getValue() +
+                String sb = "{\"m\":" + time.getMonth() + ", \"d\":" + time.getDate() + ", \"t\":\"" + el.getValue() +
                         "\"}";
                 el.setValue(sb);
                 return el;
@@ -153,7 +153,9 @@ public class BaseController {
                 sb.append(node);
             }
             sb.append("]");
-            return ResponseEntity.ok(sb.toString());
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+            return ResponseEntity.ok().headers(responseHeaders).body(sb.toString());
 
 
 
