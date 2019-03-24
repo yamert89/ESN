@@ -14,6 +14,10 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
+        function DayWithText(day){
+            this.day = day;
+            this.notes = [];
+        }
 
         window.listOfDatesNoted = [];
         $(document).ready(function () {
@@ -52,13 +56,28 @@
 
             function datepickerInit(data){
 
-                window.dates = data;
+
+
 
                 //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}];
                 var $picker = $('.datepicker-here');
                 var pickerObj = $picker.data('datepicker');
                 var monthNumber = pickerObj.loc.months.indexOf($picker.find('.datepicker--nav-title').text().split(',')[0]);
+
+                window.dates = data;
+                window.datesOfThisMonth = [];
+                window.dates.forEach(function (el) {
+                    if (el.m == monthNumber) window.datesOfThisMonth.push(el);
+                });
+
+
+
                 window.eventDates = getEventDates(monthNumber);
+
+
+
+
+
 
                 $picker.datepicker({
                     onRenderCell: function (date, cellType) {
@@ -74,20 +93,35 @@
                     },
                     onSelect: function onSelect(fd, date) {
                         var title = '', content = '';
-                        if (!window.inited){
+                        /*if (!window.inited){
                             window.inited = true;
                             return;
-                        }
+                        }*/
                        /* if (new Date().getFullYear() != year) return;*/ //TODO
 
                         var monthNumber = pickerObj.loc.months.indexOf(
                             $picker.find('.datepicker--nav-title').text().split(',')[0]);
-                        var showText = window.dates[]; //TODO поиск текста и показ
-                        alert(showText);
+                        var notes = [];
+                        var text = '';
+                        var idx = 1;
+                        window.datesOfThisMonth.forEach(function (value) {
+                            if (value.d == date.getDate()) {
+                                text = text + idx + ') ' + value.t  + '\n';
+                                ++idx;
+                            }
+                        });
+                        //var showText = window.dates[]; //TODO поиск текста и показ
 
-                        var note = prompt("Введите текст заметки", "");
+                       // alert(text);
 
-                        //$.ajax({type:"POST", url:"/note", data:{time:getCurrentDate(), text:note}});
+                        var note = prompt(text + '\n' + "Добавить новую заметку?", "");
+                        if (note == null) return;
+                        var now = new Date();
+                        date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
+                        $.ajax({type:"POST", url:"/note", data:{time:getDate(date), text:note, success: function () {
+                                    location.reload();
+                                }}});
                         //TODO
 
 
@@ -108,8 +142,8 @@
 
 
 // Сразу выберем какую-ниудь дату из `eventDates`
-                var currentDate = currentDate = new Date();
-                $picker.data('datepicker').selectDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), 10))
+                /*var currentDate = currentDate = new Date();
+                $picker.data('datepicker').selectDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), 10))*/
             }
 
 
@@ -120,14 +154,26 @@
 
 
         });
+
+        function getFilteredArray(timeUnit){
+            switch (timeUnit) {
+                case "d":
+                    break;
+            }
+
+        }
         
 
         function getEventDates(month){
             var arr = [];
             window.dates.forEach(function (el) {
                 var v = el.m;
-                if(v == month) arr.push(el.d);
-            })
+                if(v == month){
+                    arr.push(el.d);
+
+
+                }
+            });
             return arr;
         }
 
@@ -145,8 +191,7 @@
             el.text(getCurrentDate());
         }
 
-        function getCurrentDate() {
-            var now = new Date();
+        function getDate(date) {
             var options = {
                 year: 'numeric',
                 month: 'numeric',
@@ -155,7 +200,7 @@
                 minute: 'numeric',
                 second: 'numeric'
             };
-            return now.toLocaleString('ru', options);
+            return date.toLocaleString('ru', options);
         }
 
         var callFrame = function(link) {
@@ -164,6 +209,10 @@
 
         function err(t, e) {
             alert(t + ' ' + e);
+        }
+
+        function updatePage() {
+            location.reload();
         }
 
 
@@ -187,9 +236,9 @@
         <div class="tool" id="staff"><a href='/${orgUrl}/staff'>Структура</a></div>
         <div class="tool" id="groups"><a href='/${orgUrl}/groups'>Группы</a></div>
         <div class="tool" id="storage"><a href='/${orgUrl}/storage'>Файлообменник</a></div>
-        <div class="tool" id="notes"><a href='/${orgUrl}}/notes'>Заметки</a></div>
+        <div class="tool" id="notes"><a href='/${orgUrl}/notes'>Заметки</a></div>
         <div class="tool" id="calendar"><a href='/${orgUrl}'>Календарь</a></div>
-        <div class="tool" id="apps"><a href='/${orgUrl}}/apps'>Приложения</a></div>
+        <div class="tool" id="apps"><a href='/${orgUrl}/apps'>Приложения</a></div>
         <div class="datepicker-here"></div>
 
 

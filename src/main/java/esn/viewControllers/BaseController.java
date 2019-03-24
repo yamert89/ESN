@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -102,12 +101,12 @@ public class BaseController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          @SessionAttribute User user, HttpServletRequest request){
+                          @SessionAttribute User user){
         try {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
             user.getGroups().add(new ContactGroup(groupName, user, ids, true));
-            userDAO.updateUser(user);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -115,10 +114,16 @@ public class BaseController {
 
     @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user){
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        user.getNotes().put(timestamp, text);
-        userDAO.updateUser(user);
+    public void saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user, HttpSession session){
+        try {
+            //time = "15.03.2019, 00:00:00";
+            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
+            //Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time));
+            user.getNotes().put(timestamp, text);
+            session.setAttribute("user", userDAO.updateUser(user));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @GetMapping("/notes")

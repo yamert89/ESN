@@ -1,5 +1,8 @@
 .notes{
     padding: 20px 50px;
+    overflow-y: auto;
+    max-height: 90%;
+
 }
 .date{
     font-size: 1.5em;

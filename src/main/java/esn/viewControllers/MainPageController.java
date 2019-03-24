@@ -123,7 +123,8 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/notes")
-    public String notes(){
+    public String notes(HttpSession session, @SessionAttribute User user){
+        session.setAttribute("user", userDAO.getUserById(user.getId()));
         return "notes";
     }
 

@@ -30,6 +30,7 @@
         <div class="note">
             <div class="date">${note.key}</div>
             <div class="note_text">${note.value}</div>
+
         </div>
     </c:forEach>
 </div>
