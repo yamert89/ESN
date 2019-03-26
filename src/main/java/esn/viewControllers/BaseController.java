@@ -113,22 +113,28 @@ public class BaseController {
     }
 
     @PostMapping("/note")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user, HttpSession session){
+    @ResponseStatus(code = HttpStatus.OK)
+    public boolean saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user, HttpSession session){
         try {
+            System.out.println(" /note   before   " + user);
             //time = "15.03.2019, 00:00:00";
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
             //Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time));
             user.getNotes().put(timestamp, text);
-            session.setAttribute("user", userDAO.updateUser(user));
+            userDAO.updateUser(user);
+            user = userDAO.getUserById(user.getId());
+            session.setAttribute("user", user);
         }catch (Exception e){
             e.printStackTrace();
         }
+        System.out.println(" /note   after  " + user);
+        return true;
     }
 
     @GetMapping("/notes")
     public ResponseEntity<String> getNotes(@SessionAttribute User user){
         try {
+            System.out.println(" /notes   " + user);
             Map<Timestamp, String> notes = user.getNotes();
             Calendar today = Calendar.getInstance();
             //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}]; //TODO new structure
@@ -142,12 +148,11 @@ public class BaseController {
                     .after(thisYear))
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-            List<String> nodes = sortedNotes.entrySet().stream().map(el -> {
+            List<String> nodes = sortedNotes.entrySet().stream().peek(el -> {
                 Timestamp time = el.getKey();
                 String sb = "{\"m\":" + time.getMonth() + ", \"d\":" + time.getDate() + ", \"t\":\"" + el.getValue() +
                         "\"}";
                 el.setValue(sb);
-                return el;
             }).map(Map.Entry::getValue).collect(Collectors.toList());
 
             StringBuilder sb = new StringBuilder("[");

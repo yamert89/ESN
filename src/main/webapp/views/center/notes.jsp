@@ -1,3 +1,5 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="esn.entities.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -25,12 +27,12 @@
 <body>
 <div class="post_add_wrapper">
     <button class="post_add post_submit">Добавить заметку</button></div>
-<div class="notes">
+<div class="notes"><%System.out.println(new Date());
+System.out.println(((User) session.getAttribute("user")).getNotes());%>
     <c:forEach var="note" items='${sessionScope.get("user").notes}'>
         <div class="note">
             <div class="date">${note.key}</div>
             <div class="note_text">${note.value}</div>
-
         </div>
     </c:forEach>
 </div>

@@ -119,8 +119,11 @@
                         var now = new Date();
                         date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
-                        $.ajax({type:"POST", url:"/note", data:{time:getDate(date), text:note, success: function () {
-                                    location.reload();
+                        $.ajax({type:"POST", url:"/note", data:{time:getDate(date), text:note, success: function (data) {
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 500)
+
                                 }}});
                         //TODO
 
