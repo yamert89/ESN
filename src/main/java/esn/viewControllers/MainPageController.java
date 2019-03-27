@@ -171,7 +171,8 @@ public class MainPageController {
             json.append("]}]");
             return bb.body(json.toString().replaceAll(",]", "]"));
         }
-        for (ContactGroup group : user.getGroups()){
+        long start = System.currentTimeMillis();
+       /* for (ContactGroup group : user.getGroups()){
             int[] ids = group.getPersonIds();
 
             json.append("{").append("\"name\":\"").append(group.getName()).append("\",\"users\":[");
@@ -183,7 +184,22 @@ public class MainPageController {
             }
             json.append("]},");
         }
-        json.append("]");
+        json.append("]");*/
+
+        ////////////////
+
+        user.getGroups().forEach(group -> {
+            json.append("{").append("\"name\":\"").append(group.getName()).append("\",\"users\":[");
+            Arrays.stream(group.getPersonIds()).forEach(id -> {
+                User u = userDAO.getUserById(id);
+                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
+                        .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
+            });
+            json.append("]},");
+        });
+        json.append("]"); //TODO benchmark test
+
+        System.out.println("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
 
 
         return bb.body(json.toString().replaceAll(",]", "]"));

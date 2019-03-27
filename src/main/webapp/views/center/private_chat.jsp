@@ -21,7 +21,7 @@
                 var text = textField.val();
                 if (text == "") return;
                 var comp_id = $(".person_container").attr('data-companion-id');
-                var time = window.getCurrentDate();
+                var time = window.getDate(new Date());
                 $(".private_chat_container").prepend('<div class="private_chat comment_bubble_right"><div class="time-right">' + time + '</div>' + text + '</div>');
                 $.ajax({type:"POST", url:"/save_private_message/" + comp_id, data:{"text":text}});
                 textField.val('');

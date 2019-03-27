@@ -39,7 +39,7 @@
 
                 var name = window.userName;
                 var img = window.avatar_small;
-                var time = window.getCurrentDate();
+                var time = window.getDate(new Date());
 
                 $(".posts").prepend('<div class="post">' +
                     '<div class="message_info_wrapper">' +
@@ -100,7 +100,7 @@
         <div class="post">
             <div class="message_info_wrapper">
                 <div class="message_info_w">
-                    <img src='<c:url value="${mes.imgUrl}"/>' class="person_photo_small">
+                    <img src='<c:url value="/resources/avatars/${mes.imgUrl}"/>' class="person_photo_small">
                     <div class="person_name_w">${mes.userName}</div>
                     <div class="message_time_w">${mes.time}</div>
                 </div>

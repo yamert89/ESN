@@ -8,7 +8,7 @@
         $(document).ready(function () {
             $(".post_add").click(function () {
                 var note = prompt("Введите текст заметки", "");
-                $(".notes").prepend("<div class='note'><div class='date'>" + getCurrentDate() +"</div><div class='note_text'>" + note + "</div>");
+                $(".notes").prepend("<div class='note'><div class='date'>" + getDate(new Date()) +"</div><div class='note_text'>" + note + "</div>");
             });
         });
     </script>

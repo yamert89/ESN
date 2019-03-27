@@ -34,6 +34,12 @@
                 disconnectWS();
             });
 
+            $('summary').click(function () {
+                var message = prompt("Отправка сообщения участникам группы", "");
+                if (message == null) return;
+
+            })
+
 
 
         });
@@ -71,7 +77,7 @@
 
         function renderGroup(group) {
             var body = $("body");
-            var details = '<details open="open"><summary>' + group.name + '</summary>';
+            var details = '<details open="open"><summary data->' + group.name + '</summary>';
             for (var i = 0; i < group.users.length; i++){
                 details += renderItem(group.users[i]);
             }
@@ -84,6 +90,10 @@
             return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
                 "'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
         }
+
+
+
+
     </script>
 </head>
 <body>

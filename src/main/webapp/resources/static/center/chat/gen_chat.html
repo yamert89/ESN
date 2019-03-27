@@ -12,7 +12,7 @@
             $(".new_genchat_message_btn").click(function () {
                 var text = textField.val();
                 if (text.isEmpty()) return;
-                var time = getCurrentDate();
+                var time = getDate(new Date());
                 addMessage(me, time, text);
                 //TODO server
             })

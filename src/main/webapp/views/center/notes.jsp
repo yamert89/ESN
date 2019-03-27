@@ -17,7 +17,7 @@
             $(".post_add").click(function () {
                 var note = prompt("Введите текст заметки", "");
                 if (note == null) return;
-                var time = getCurrentDate();
+                var time = getDate(new Date());
                 $(".notes").prepend("<div class='note'><div class='date'>" + time +"</div><div class='note_text'>" + note + "</div>");
                 $.ajax({type:"POST", url:"/note", data:{time:time, text:note}});
             });

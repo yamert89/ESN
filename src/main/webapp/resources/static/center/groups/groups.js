@@ -6,6 +6,7 @@ groupList.contents = [];
 var container;
 
 $(document).ready(function () {
+    var group = $(".group");
     container = $("#group_staff_cont");
     var db_groups = $(".group_temp");
     db_groups.each(function (i) {
@@ -13,16 +14,11 @@ $(document).ready(function () {
         groupList.contents.push($(this).html());
     });
 
-    var firstGroup =  $(".group").first();
+    var firstGroup =  group.first();
 
     firstGroup.addClass("group_selected");
     var idx = groupList.names.indexOf(firstGroup.text());
     container.html(groupList.contents[idx]);
-
-
-
-
-    groupOnClick();
 
     $(".person_staff").on("click", function () {
         $(this).toggleClass('person_selected');
@@ -31,19 +27,11 @@ $(document).ready(function () {
     $("#del_group").on("click", deleteGroup);
 
 
-
-
-
-
-
-
-    $(".group_btn").click(function () {
+    $("#add_group").click(function () {
         if (!emptyGroups()) checkEmptyGroup();
         var title = prompt("Введите название группы", "Без названия");
         if (title == undefined) return;
         $(".groups").prepend("<div class='group'>" + title + "</div>");
-
-        groupOnClick();
 
         $(".groups").children().first().click();
     });
@@ -54,7 +42,7 @@ $(document).ready(function () {
             return;
         }
         insertUsersInGroup();
-        saveGroup()
+
     });
 
     $("#left_arrow").click(function () {
@@ -65,25 +53,17 @@ $(document).ready(function () {
         removeUsersFromGroup();
     });
 
+    $("#save_group").click(saveGroup);
 
 
-
-
-
-
-
-    // func TODO on click to profile
-
-});
-
-function groupOnClick() {
-    var group = $(".group");
-    group.on("click", function () {
+    $(".central_wrapper").on("click", '.group', function () {
         if (!emptyGroups()) checkEmptyGroup();
         var gr_name = $(".group_selected").text();
 
         $(".group.group_selected").removeClass("group_selected");
         $(this).addClass("group_selected");
+
+        if (gr_name == '') return;
 
         groupList.names.push(gr_name);
         groupList.contents.push(container.html());
@@ -91,11 +71,14 @@ function groupOnClick() {
         var idx = groupList.names.indexOf($(this).text());
         if (idx > -1) container.html(groupList.contents[idx]);
     });
-}
 
-function personOnClick() {
 
-}
+    // func TODO on click to profile
+
+});
+
+
+
 
 
 function insertUsersInGroup() {
@@ -115,7 +98,7 @@ function removeUsersFromGroup() {
 
 function saveGroup(){
     var gr_name = $(".group.group_selected").first().text();
-    if (groupList.names.indexOf(gr_name) !== -1) return;
+   // if (groupList.names.indexOf(gr_name) !== -1) return;
 
     var persons = $("#group_staff_cont").children();
     var p_ids = [];
@@ -123,8 +106,17 @@ function saveGroup(){
     persons.each(function (i) {
         p_ids[i] = $(this).find($(".person_point")).attr("data-p-id");
     });
-    $.ajax({type:"POST", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")}})
+    $.ajax({type:"POST", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")},
+        success: successSave, error: error})
 
+}
+
+function successSave() {
+    alert("Group saved")
+}
+
+function error(err, stat) {
+    alert("Ошибка сохранения группы: " + stat)
 }
 
 function deleteGroup(){
@@ -151,7 +143,7 @@ function emptyGroups() {
 
 $(window).on("beforeunload", function () {
     if (!emptyGroups()) checkEmptyGroup();
-    saveGroup();
+    //saveGroup();
 });
 
 //TODO уведомить о сохранении

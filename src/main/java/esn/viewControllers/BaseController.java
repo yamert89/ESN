@@ -89,6 +89,12 @@ public class BaseController {
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
     }
 
+    @PostMapping("/groupmessage")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void saveGroupMessage(@RequestParam String text){
+
+    }
+
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
@@ -101,15 +107,18 @@ public class BaseController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          @SessionAttribute User user){
+                          @SessionAttribute User user, HttpSession session){
         try {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
-            user.getGroups().add(new ContactGroup(groupName, user, ids, true));
+            user.getGroups().add(new ContactGroup(groupName, user, ids, true)); //TODO expandable
+            session.setAttribute("user", userDAO.updateUser(user));
 
         }catch (Exception e){
             e.printStackTrace();
+
         }
+
     }
 
     @PostMapping("/note")
@@ -315,8 +324,6 @@ public class BaseController {
             set.addAll(Arrays.asList(deps));
             //organization.setDepartments(set);
             orgDAO.update(organization);
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -69,7 +69,7 @@
                         '                    <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
                         '                    <input class="fileName" readonly title="' + fname + '" value="' + fname +'">\n' +
                         '                    <div class="file_author"><a href="">'  + userName + '</a></div>\n' +
-                        '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                        '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                         '                </div>');
                     $(this).attr("src", "/resources/unshare.png");
                     $(this).attr("data-shared", "1");
@@ -108,7 +108,7 @@
                         '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'">\n' +
                         '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'">\n' +
                         '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +  //TODO link
-                        '                <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                        '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                         '            </div>');
                 }
                 fileContainer = $("#private_files");
@@ -117,7 +117,7 @@
                     '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '">\n' +
                     '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
                     '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
-                    '                    <div class="file_time">' + getCurrentDate() + '</div>\n' +
+                    '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                     '                </div>');
 
 

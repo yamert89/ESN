@@ -20,7 +20,7 @@
                 if (text == "") return;
                 var name = window.userName;
                 var img = '/resources/avatars/' + $(".new_genchat_message").attr("data-img");
-                var time = window.getCurrentDate();
+                var time = window.getDate(new Date());
                 messBtn.after('<div class="message">\n' +
                     '        <div class="message_text">' + text + '</div>\n' +
                     '        <div class="message_info">\n' +
