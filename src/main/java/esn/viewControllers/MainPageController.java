@@ -55,7 +55,7 @@ public class MainPageController {
 
     @GetMapping(value = "/wall")
     public String wall(Model model, @SessionAttribute int orgId){
-        model.addAttribute("messages", globalDAO.getMessages(orgId, Post.class));
+        model.addAttribute("messages", globalDAO.getMessages(orgId, Post.class));;
         return "wall";
     }
 
@@ -118,6 +118,7 @@ public class MainPageController {
 
         }
         model.addAttribute("groups", resMap);
+        System.out.println(user);
 
         return "groups";
     }
@@ -200,6 +201,7 @@ public class MainPageController {
         json.append("]"); //TODO benchmark test
 
         System.out.println("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
+        System.out.println(user);
 
 
         return bb.body(json.toString().replaceAll(",]", "]"));

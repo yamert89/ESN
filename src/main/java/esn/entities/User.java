@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -251,7 +252,7 @@ public class User {
 
     @Override
     public String toString() {
-        return super.toString();
+        return groups.stream().map(ContactGroup::getName).collect(Collectors.joining(", "));
         /*"hashGroups: " + groups.hashCode() + "user Createtime: " + new Date();*/
         /*return "User{" +
                 "name='" + name + '\'' +
