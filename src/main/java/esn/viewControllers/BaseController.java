@@ -121,7 +121,24 @@ public class BaseController {
             e.printStackTrace();
 
         }
+    }
 
+    @GetMapping("/deletegroup")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void deleteGroup(@RequestParam String groupName, @SessionAttribute User user, HttpSession session){
+        try {
+            Iterator<ContactGroup> it = user.getGroups().iterator();
+            ContactGroup group = null;
+            while (it.hasNext()) {
+                if ((group = it.next()).getName().equals(groupName)) break;
+            }
+            if (group != null) {
+                user.getGroups().remove(group);
+                session.setAttribute("user", userDAO.updateUser(user));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @PostMapping("/note")

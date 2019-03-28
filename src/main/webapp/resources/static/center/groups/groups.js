@@ -106,7 +106,7 @@ function saveGroup(){
     persons.each(function (i) {
         p_ids[i] = $(this).find($(".person_point")).attr("data-p-id");
     });
-    $.ajax({type:"POST", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")},
+    $.ajax({type:"post", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")},
         success: successSave, error: error})
 
 }
@@ -122,11 +122,19 @@ function error(err, stat) {
 function deleteGroup(){
     var gr = $(".group_selected");
     var idx = groupList.names.indexOf(gr.text());
+    $.ajax({type:"get", url:"/deletegroup", data:{groupName:gr.text()}, success: refresh});
     if (idx > -1) {
         groupList.names[idx] = undefined;
         groupList.contents[idx] = undefined;
     }
     gr.remove();
+
+
+
+}
+
+function refresh() {
+    location.reload();
 }
 
 function checkEmptyGroup(){
@@ -146,6 +154,6 @@ $(window).on("beforeunload", function () {
     //saveGroup();
 });
 
-//TODO уведомить о сохранении
+//TODO уведомить о сохранении log
 
 

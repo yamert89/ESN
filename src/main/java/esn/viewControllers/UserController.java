@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/{org}")
+@RequestMapping("/{org}") //TODO refactor
 @SessionAttributes("user")
 public class UserController {
 

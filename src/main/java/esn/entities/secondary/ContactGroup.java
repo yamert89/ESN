@@ -14,7 +14,7 @@ public class ContactGroup {
     @Column(unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     private int[] personIds;
