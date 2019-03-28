@@ -309,7 +309,7 @@ public class BaseController {
             deps.add(0, departmentDAO.getDefaultDepartment(org));
 
             ObjectMapper om = new ObjectMapper();
-            json = om.writeValueAsString(deps);
+            json = om.writeValueAsString(deps); // TODO exception
             System.out.println(json);
             System.out.println();
         }catch (Exception e){
