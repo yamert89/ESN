@@ -12,10 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -23,7 +20,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Size(min = 4, max = 50, message = "От 4х до 50 символов")
     @Column(nullable = false)
@@ -255,6 +252,7 @@ public class User {
     @Override
     public String toString() {
         return super.toString();
+        /*"hashGroups: " + groups.hashCode() + "user Createtime: " + new Date();*/
         /*return "User{" +
                 "name='" + name + '\'' +
                 "passw=" + password +

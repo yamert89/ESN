@@ -3,22 +3,25 @@ package esn.entities.secondary;
 import esn.entities.User;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class ContactGroup {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Column(unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
     private int[] personIds;
 
     private boolean expandable;
+
+    private Date creationDate = new Date();
 
     public ContactGroup() {
     }
@@ -73,5 +76,10 @@ public class ContactGroup {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + " | " + creationDate.toString();
     }
 }

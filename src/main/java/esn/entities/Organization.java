@@ -10,7 +10,7 @@ import java.util.Set;
 public class Organization {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @NotNull
     @Column(nullable = false)

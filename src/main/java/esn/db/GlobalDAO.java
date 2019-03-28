@@ -1,9 +1,6 @@
 package esn.db;
 
-import esn.entities.secondary.AbstractMessage;
-import esn.entities.secondary.GenChatMessage;
-import esn.entities.secondary.Post;
-import esn.entities.secondary.StoredFile;
+import esn.entities.secondary.*;
 import esn.configs.GeneralSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -101,6 +98,11 @@ public class GlobalDAO {
     @Transactional
     public List<StoredFile> getSharedFiles(){
         return em.createQuery("select f from StoredFile f where f.shared = true").getResultList();
+    }
+
+    @Transactional
+    public void persistGroup(ContactGroup group){
+        em.persist(group);
     }
 
 

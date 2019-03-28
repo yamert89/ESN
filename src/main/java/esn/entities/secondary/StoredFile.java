@@ -11,7 +11,7 @@ import java.util.Objects;
 public class StoredFile {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     @Column(unique = false)
     private String name;
 

@@ -111,8 +111,11 @@ public class BaseController {
         try {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
+            user = userDAO.getUserById(user.getId());
             user.getGroups().add(new ContactGroup(groupName, user, ids, true)); //TODO expandable
-            session.setAttribute("user", userDAO.updateUser(user));
+           // userDAO.refresh(user); //TODO id обнуляется
+            user = userDAO.updateUser(user);
+            session.setAttribute("user", user);
 
         }catch (Exception e){
             e.printStackTrace();

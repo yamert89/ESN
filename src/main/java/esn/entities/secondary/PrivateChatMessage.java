@@ -12,7 +12,7 @@ public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 800) //TODO сказать юзеру при превышении
     private String text;

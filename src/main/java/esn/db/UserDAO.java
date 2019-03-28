@@ -32,6 +32,16 @@ public class UserDAO {
     }
 
     @Transactional
+    public void refresh(User user){
+         em.refresh(user);
+    }
+
+    @Transactional
+    public void detach(User user) {
+        em.detach(user);
+    }
+
+    @Transactional
     public void deleteUser(User user) {
         em.remove(user);
     }
