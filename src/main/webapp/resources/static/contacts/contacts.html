@@ -77,7 +77,7 @@
 
         function renderGroup(group) {
             var body = $("body");
-            var details = '<details open="open"><summary data->' + group.name + '</summary>';
+            var details = '<details open="open"><summary data->' + group.name + '<img src="/resources/multicast_message.png" class="multicast_icon"></summary>';
             for (var i = 0; i < group.users.length; i++){
                 details += renderItem(group.users[i]);
             }

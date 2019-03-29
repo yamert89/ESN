@@ -21,6 +21,17 @@
     width: 32px;
     height: 32px;
 }
+summary{
+    display: inline-block;
+    width: 80%;
+}
 summary:hover{
     text-shadow: #3b3b1f;
+
+}
+.multicast_icon{
+    height: 1em;
+    display: inline-block;
+
+
 }
