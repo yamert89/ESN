@@ -11,6 +11,10 @@
     <script type="text/javascript">
         var stompClient = null;
         var orgUrl = window.parent.orgUrl;
+        function Group(name, expanded){
+            this.name = name;
+            this.expanded = expanded;
+        }
 
         $(document).ready(function () {
 
@@ -38,7 +42,12 @@
             //setTimeout('f()',2000)
 
             $(window).on("beforeunload", function () {
-                disconnectWS();
+                var groups = [];
+                $("details").each(function (idx, el) {
+                    groups.push(new Group(el.firstChild.firstChild.innerHTML, el.hasAttribute("open")))
+                });
+                $.ajax({url : "/expand-props", data : {groups : JSON.stringify(groups)}});
+                //disconnectWS();
             });
 
 
@@ -80,7 +89,8 @@
 
         function renderGroup(group) {
             var body = $("body");
-            var details = '<details open="open"><summary data-><span>' + group.name +
+            var expand = group.expanded ? " open=\"open\"" : "";
+            var details = '<details' + expand + '><summary data-><span>' + group.name +
                 '</span><img src="/resources/multicast_message.png" class="multicast_icon" title="Многоадресное сообщение"></summary>';
             for (var i = 0; i < group.users.length; i++){
                 details += renderItem(group.users[i]);
@@ -101,31 +111,6 @@
     </script>
 </head>
 <body>
-<!--<details open="open">
-    <summary>Группа1</summary>
-<div class="person_item">
-    <div class="net_status_circle"></div>
-    &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
-    <div class="person_name">Иванов Иван Иванович</div>
-</div>
-<div class="person_item">
-    <div class="net_status_circle"></div>
-    &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
-    <div class="person_name">Юзер2</div>
-</div>
-</details>
-<details open="open">
-    <summary>Группа2</summary>
-    <div class="person_item">
-        <div class="net_status_circle"></div>
-        &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
-        <div class="person_name">Иванов Иван Иванович</div>
-    </div>
-    <div class="person_item">
-        <div class="net_status_circle"></div>
-        &lt;!&ndash;<img src="" class="person_photo_small">&ndash;&gt;
-        <div class="person_name">Юзер2</div>
-    </div>
-</details>-->
+
 </body>
 </html>

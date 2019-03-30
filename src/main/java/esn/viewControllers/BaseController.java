@@ -150,6 +150,35 @@ public class BaseController {
         }
     }
 
+    @GetMapping("/expand-props")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void saveExpandStatus(@RequestParam String groups, @SessionAttribute User user, HttpSession session){
+        //[{"name" : "ddsf", "expand" : true},{}]
+        ObjectMapper om = new ObjectMapper();
+        List<PseudoContactGroup> grps = null;
+        try {
+            grps = om.readValue(groups, new TypeReference<List<PseudoContactGroup>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (ContactGroup group: user.getGroups()) {
+            for (int i = 0; i < grps.size(); i++) {
+                if (group.getName().equals(grps.get(i).getName())) {
+                    group.setExpandable(grps.get(i).getExpanded());
+                    grps.remove(i);
+                    break;
+                }
+            }
+
+        }
+        session.setAttribute("user", userDAO.updateUser(user));
+
+
+    }
+
+
+
     @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.OK)
     public boolean saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user, HttpSession session){
@@ -205,38 +234,6 @@ public class BaseController {
             responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
             return ResponseEntity.ok().headers(responseHeaders).body(sb.toString());
 
-
-
-
-
-
-
-
-            /*Map<Integer, String> datesArray = sortedNotes.entrySet().stream().map(Map.Entry::getKey).collect(Collectors.toMap(
-                    Date::getMonth, d -> String.valueOf(d.getMonth()), (a, b) -> String.join(",", a, b)));
-
-            List<Integer[]> datesArrayRes = Stream.generate(() -> new Integer[]{}).limit(12).collect(Collectors.toList());
-
-            for (Map.Entry<Integer, String> entry : datesArray.entrySet()) {
-                datesArrayRes.set(entry.getKey(), Stream.of(entry.getValue().split(",")).peek(System.out::println).map(Integer::parseInt)
-                        .toArray(Integer[]::new)); //Преобразую строку в массив integer
-            }
-
-
-
-
-            Map<Integer, String> dates = sortedNotes.entrySet().stream().collect(Collectors.toMap(
-                    entry -> entry.getKey().getMonth(), entry -> entry.getValue(), (a, b) -> String.join("$$$", a, b)));
-
-
-            List<String[]> datesRes = Stream.generate(() -> new String[]{}).limit(12).collect(Collectors.toList());
-
-            for (Map.Entry<Integer, String> entry : dates.entrySet()) {
-                datesRes.set(entry.getKey(), entry.getValue().split("\\$\\$\\$"));
-            }*/
-
-
-            //return ResponseEntity.ok().body(new Object[]{datesArrayRes, datesRes});
         }catch (Exception e){
             e.printStackTrace();
         }

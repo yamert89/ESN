@@ -190,7 +190,8 @@ public class MainPageController {
         ////////////////
 
         user.getGroups().forEach(group -> {
-            json.append("{").append("\"name\":\"").append(group.getName()).append("\",\"users\":[");
+            json.append("{").append("\"name\":\"").append(group.getName()).append("\", \"expanded\" : ")
+        .append(group.isExpandable()).append(",\"users\":[");
             Arrays.stream(group.getPersonIds()).forEach(id -> {
                 User u = userDAO.getUserById(id);
                 json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())

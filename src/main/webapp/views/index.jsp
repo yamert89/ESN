@@ -234,14 +234,14 @@
 <body>
 <div class="container">
     <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
-        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'"><a href=>Лента</a></div>
-        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'"><a href=>Чат</a></div>
-        <div class="tool" id="staff" onclick="location.href = '/${orgUrl}/staff'"><a href=>Структура</a></div>
-        <div class="tool" id="groups" onclick="location.href = '/${orgUrl}/groups'"><a href=>Группы</a></div>
-        <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'"><a href=>Файлообменник</a></div>
-        <div class="tool" id="notes" onclick="location.href = '/${orgUrl}/notes'"><a href=>Заметки</a></div>
-        <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'"><a href=>Календарь</a></div>
-        <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'"><a href=>Приложения</a></div>
+        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента</div>
+        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат</div>
+        <div class="tool" id="staff" onclick="location.href = '/${orgUrl}/staff'">Структура</div>
+        <div class="tool" id="groups" onclick="location.href = '/${orgUrl}/groups'">Группы</div>
+        <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'">Файлообменник</div>
+        <div class="tool" id="notes" onclick="location.href = '/${orgUrl}/notes'">Заметки</div>
+        <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'">Календарь</div>
+        <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>
         <div class="datepicker-here"></div>
     </div>
     <div class="center">
