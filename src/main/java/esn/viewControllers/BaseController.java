@@ -91,7 +91,16 @@ public class BaseController {
 
     @PostMapping("/groupmessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveGroupMessage(@RequestParam String text){
+    public void saveGroupMessage(@RequestParam String text, @RequestParam String groupName,
+                                 @SessionAttribute User user, @SessionAttribute int orgId){
+        ContactGroup group = user.getGroups().stream()
+                        .filter(g -> g.getName().equals(groupName)).findAny().get();
+
+        for (int id :
+                group.getPersonIds()) {
+            privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
+        }
+
 
     }
 
@@ -393,6 +402,8 @@ public class BaseController {
     @GetMapping("/favicon")
     @ResponseBody
     public void fav(){}
+
+    //TODO сохранение сообщений происходит, но не мнгновенная отправка. Использовать сокеты?
 
 
 

@@ -23,15 +23,20 @@
 }
 summary{
     display: inline-block;
-    width: 80%;
+    width: 100%;
 }
 summary:hover{
     text-shadow: #3b3b1f;
+
 
 }
 .multicast_icon{
     height: 1em;
     display: inline-block;
+    float: right;
+    border-radius: 5px;
 
-
+}
+.multicast_icon:hover {
+    background-color: #bdfa8a;
 }
