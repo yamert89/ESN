@@ -69,6 +69,7 @@
                     var usDom = $("[data-id='" + user.userId + "']");
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                     usDom.find(":first-child").attr("id", stat);
+
                 });
             });
         }
@@ -85,6 +86,7 @@
             data.forEach(function (item) {
                 renderGroup(item);
             });
+            $("body").children().last().remove();
         }
 
         function renderGroup(group) {
@@ -97,12 +99,13 @@
             }
             details += '</details>';
             body.append(details);
+            body.append("<hr color='a9a9a9' size='1'>");
         }
 
         function renderItem(user) {
             var idStat = user.status ? 'net_status_on' : 'net_status_off';
             return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
-                "'><div class='net_status_circle' id='" + idStat + "'></div><div class='person_name'>" + user.name + "</div></div>"
+                "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/new_message.png' class='new_gen_mes'><div class='person_name'>" + user.name + "</div></div>"
         }
 
 

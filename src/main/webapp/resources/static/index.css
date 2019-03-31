@@ -171,6 +171,16 @@ a{
     position: absolute
 }
 
+.tool{
+    cursor: default;
+}
+
+.new_gen_mes{
+    float: right;
+    height: 0.7em;
+    /*display: none;*/
+}
+
 
 
 

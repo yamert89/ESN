@@ -24,6 +24,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         for (Organization org: allOrgs) {
             registry.addEndpoint("/" + org.getUrlName() + "/ws/netstatus").withSockJS();
+            registry.addEndpoint("/" + org.getUrlName() + "/ws/genchatmessage").withSockJS();
         }
 
     }

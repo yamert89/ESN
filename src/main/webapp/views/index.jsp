@@ -234,8 +234,8 @@
 <body>
 <div class="container">
     <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
-        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента</div>
-        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат</div>
+        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes"></div>
+        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes"></div>
         <div class="tool" id="staff" onclick="location.href = '/${orgUrl}/staff'">Структура</div>
         <div class="tool" id="groups" onclick="location.href = '/${orgUrl}/groups'">Группы</div>
         <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'">Файлообменник</div>

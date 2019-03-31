@@ -40,3 +40,11 @@ summary:hover{
 .multicast_icon:hover {
     background-color: #bdfa8a;
 }
+details{
+    margin: 5px 0;
+}
+.new_gen_mes{
+    height: 0.6em;
+    float: none;
+    margin-left: 5px;
+}

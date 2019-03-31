@@ -21,4 +21,8 @@ public class UserService {
                 "{\"userId\":" + user.getId() + ", \"statusOn\": " + on + "}");
     }
 
+    public void sendGenChatMessage(){
+
+    }
+
 }
