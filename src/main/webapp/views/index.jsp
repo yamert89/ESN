@@ -30,6 +30,8 @@
             window.userId = uName.attr("data-user_id");
             window.orgName = uTitle.text();
             window.orgUrl = uTitle.attr("data-url");
+            window.orgId = uTitle.attr("data-org-id");
+                                        //data-org-url
             window.eventDates = [];
             window.datesArray = [];
             window.inited = false;
@@ -178,10 +180,20 @@
             var socket = new SockJS('/messages');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
+                alert('/genchat' + orgId);
 
-                stompClient.subscribe('/genchat', function(data){
+                stompClient.subscribe('/genchat' + orgId , function(data){
+                    var resp = JSON.parse(data.body);
+                    switch (resp.tool) {
+                        case 'genmessage':
+                            if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
+                            break;
+                        case 'post':
+                            if (!$("#wall").hasClass("selected")) $("#wall_m").css("display", "block");
+                            break;
+                    }
 
-                    if ($("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
+
 
                 });
             });
@@ -254,7 +266,7 @@
             });*/
 
     </script><c:set var="user" value='${sessionScope.get("user")}'/>
-    <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}'>${user.organization.name}</div>
+    <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}' data-org-id='${sessionScope.get("orgId")}'>${user.organization.name}</div>
     <div class="user">
         <span class="user_name" data-login="${user.login}" data-user_id="${user.id}">${user.name}</span>
         <img src='<c:url value="/resources/avatars/${user.photo}"/>' class="user_photo">

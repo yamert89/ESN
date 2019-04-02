@@ -84,9 +84,11 @@ public class BaseController {
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId){
         try {
+
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN))); //TODO разница 3 часа
             globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, GenChatMessage.class);
-            userService.newGenChatMessage(orgDAO.getOrgById(orgId));
+            userService.newGenChatMessageAlert(orgId);
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -119,9 +121,9 @@ public class BaseController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId){
-
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
         globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, Post.class);
+        userService.newPostAlert(orgId);
     }
 
     @PostMapping("/savegroup")

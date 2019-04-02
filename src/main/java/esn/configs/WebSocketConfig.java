@@ -20,9 +20,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
-        urls = orgDAO.getAllOrgs().stream().map(el -> "/" + el.getUrlName() + "/genchat") //TODO url problem
+        urls = orgDAO.getAllOrgs().stream().map(el ->  "/genchat" + el.getId()) //TODO url problem
                 .peek(System.out::println).toArray(String[]::new);
-        registry.enableSimpleBroker("/genchat"); //mes to client
+        registry.enableSimpleBroker(urls); //mes to client
         //registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
 
         System.out.println(" configureMessageBroker");

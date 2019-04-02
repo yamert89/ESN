@@ -21,12 +21,15 @@ public class UserService {
                 "{\"userId\":" + user.getId() + ", \"statusOn\": " + on + "}");
     }
 
-    public void newGenChatMessage(Organization org){
-       /* String url = "/" + org.getUrlName() + "/esn/genchat";
-        System.out.println("URL : " + url);
-        template.convertAndSend(url,"{true}");*/
-       template.convertAndSend("/genchat", "true");
+    public void newGenChatMessageAlert(int orgId){
+       template.convertAndSend("/genchat" + orgId, "{\"tool\":\"genmessage\"}");
     }
+
+    public void newPostAlert(int orgId){
+        template.convertAndSend("/genchat" + orgId, "{\"tool\":\"post\"}");
+    }
+
+
 
 
 
