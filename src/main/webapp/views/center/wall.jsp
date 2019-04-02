@@ -1,5 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -103,22 +104,13 @@
                 <div class="message_info_w">
                     <img src='<c:url value="/resources/avatars/${mes.imgUrl}"/>' class="person_photo_small">
                     <div class="person_name_w">${mes.userName}</div>
-                    <div class="message_time_w">${mes.time}</div>
+                    <div class="message_time_w"><fmt:formatDate value="${mes.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>
             </div>
             ${mes.text}
         </div>
     </c:forEach>
-    <div class="post">
-        <div class="message_info_wrapper">
-            <div class="message_info_w">
-                <img src="" class="person_photo_small">
-                <div class="person_name_w">Булыгина Мария Ивановна</div>
-                <div class="message_time_w">10: 30 21.09.2018</div>
-            </div>
-        </div>
-        <p>ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем ПРивет всем </p>
-    </div>
+
 </div>
 </body>
 </html>

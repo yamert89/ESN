@@ -21,12 +21,17 @@ public class UserService {
                 "{\"userId\":" + user.getId() + ", \"statusOn\": " + on + "}");
     }
 
-    public void newGenChatMessageAlert(int orgId){
-       template.convertAndSend("/genchat" + orgId, "{\"tool\":\"genmessage\"}");
+    public void newGenChatMessageAlert(int orgId, int initiatorId){
+       template.convertAndSend("/genchat" + orgId, "{\"_alert\":\"genmessage\", \"initiatorId\":"+ initiatorId + "}");
     }
 
-    public void newPostAlert(int orgId){
-        template.convertAndSend("/genchat" + orgId, "{\"tool\":\"post\"}");
+    public void newPostAlert(int orgId, int initiatorId){
+        template.convertAndSend("/genchat" + orgId, "{\"_alert\":\"post\", \"initiatorId\":"+ initiatorId + "}");
+    }
+
+    public void newPrivateMessageAlert(int orgId, int userId){
+        template.convertAndSend("/genchat" + orgId,
+                "{\"_alert\":\"privatemessage\", \"uId\":" + userId + "}");
     }
 
 

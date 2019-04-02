@@ -64,7 +64,7 @@
         </c:if>
         <c:if test="${mes.value == false}">
             <div class="private_chat comment_bubble_left"><div class="time-left">
-        </c:if><fmt:formatDate value="${mes.key.time.time}" pattern="HH:mm:ss   dd.MM.yyyy"/>
+        </c:if><fmt:formatDate value="${mes.key.time.time}" pattern="HH:mm:ss / dd.MM"/>
         </div>${mes.key.text}
         </div>
     </c:forEach>

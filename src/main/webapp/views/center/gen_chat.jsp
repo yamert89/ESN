@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -52,7 +53,7 @@
             <div class="message_info">
                 <img src='<c:url value="/resources/avatars/${mes.imgUrl}"/>' class="person_photo_small">
                 <div class="person_name">${mes.userName}</div>
-                <div class="message_time">${mes.time}</div>
+                <div class="message_time"><fmt:formatDate value="${mes.time}" pattern="HH:mm:ss / dd.MM"/></div>
             </div>
         </div>
     </c:forEach>

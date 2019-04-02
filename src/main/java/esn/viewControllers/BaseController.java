@@ -84,22 +84,24 @@ public class BaseController {
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId){
         try {
+            int uId = Integer.valueOf(userId);
 
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN))); //TODO разница 3 часа
-            globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, GenChatMessage.class);
-            userService.newGenChatMessageAlert(orgId);
+            globalDAO.saveMessage(uId, text, timestamp, orgId, GenChatMessage.class);
+            userService.newGenChatMessageAlert(orgId, uId);
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    @PostMapping("/save_private_message/{companionId}") //TODO org mapping in  url
+    @PostMapping("/save_private_message/{companionId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
                                    @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = userDAO.getUserById(Integer.valueOf(companionId));
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
+        //userService.newPrivateMessageAlert(orgId, user.getId()); TODO uncomment
     }
 
     @PostMapping("/groupmessage")
@@ -121,9 +123,10 @@ public class BaseController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId){
+        int uId = Integer.valueOf(userId);
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, Post.class);
-        userService.newPostAlert(orgId);
+        globalDAO.saveMessage(uId, text, timestamp, orgId, Post.class);
+        userService.newPostAlert(orgId, uId);
     }
 
     @PostMapping("/savegroup")

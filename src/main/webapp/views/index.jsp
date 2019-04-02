@@ -180,17 +180,23 @@
             var socket = new SockJS('/messages');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
-                alert('/genchat' + orgId);
 
                 stompClient.subscribe('/genchat' + orgId , function(data){
                     var resp = JSON.parse(data.body);
-                    switch (resp.tool) {
+                    if (resp.initiatorId == userId) return;
+                    switch (resp._alert) {
                         case 'genmessage':
                             if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
+                            else location.reload();
                             break;
                         case 'post':
                             if (!$("#wall").hasClass("selected")) $("#wall_m").css("display", "block");
+                            else location.reload();
                             break;
+                        case 'privatemessage':
+                            $(".contacts-frame").find("[data-id=" + resp.uId + "]").children().get(1).css("display", "block");
+                            break;
+
                     }
 
 
@@ -289,7 +295,7 @@
         <t:insertAttribute name="center"/>
     </div>
     <div class="contacts">
-        <iframe src="<c:url value='/resources/static/contacts/contacts.html'/>" frameborder="0"></iframe>
+        <iframe src="<c:url value='/resources/static/contacts/contacts.html'/>" frameborder="0" class="contacts-frame"></iframe>
     </div>
 
 </div>
