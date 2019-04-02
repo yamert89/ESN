@@ -14,6 +14,7 @@
     <title>Title</title>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#notes").addClass("selected");
             $(".post_add").click(function () {
                 var note = prompt("Введите текст заметки", "");
                 if (note == null) return;

@@ -64,7 +64,8 @@ public class OrganizationDAO {
 
     @Transactional
     public List<Organization> getAllOrgs(){
-        return em.createQuery("select o from Organization o").getResultList();
+        List<Organization> list = em.createQuery("select o from Organization o").getResultList();
+        return list;
     }
 
 }

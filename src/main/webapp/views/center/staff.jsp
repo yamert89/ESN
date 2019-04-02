@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/center/staff/flowchart/block.css"/>">
     <script type="text/javascript">
         $(document).ready(function(){
+            $("#staff").addClass("selected");
 
             $("span").click(function (e) {
                 e.preventDefault();

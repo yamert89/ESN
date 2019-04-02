@@ -57,14 +57,14 @@
         });
 
         function f() {
-            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":6, "statusOn": true}));
+            stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":48, "statusOn": true}));
         }
 
         function connectWS() {
-            var socket = new SockJS('/' + orgUrl + '/ws/netstatus');
+            var socket = new SockJS('/' + orgUrl + '/netstatus');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
-                stompClient.subscribe('/' + orgUrl + '/contlist/statusalert', function(data){
+                stompClient.subscribe('/' + orgUrl + '/esn/statusalert', function(data){
                     var user = JSON.parse(data.body);
                     var usDom = $("[data-id='" + user.userId + "']");
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';

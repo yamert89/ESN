@@ -62,7 +62,7 @@ public class GlobalDAO {
                 }catch (NoResultException e){
                     return null;
                 }
-                Query query = em.createNativeQuery("select * from generalchat where orgId = ? limit ?")
+                Query query = em.createNativeQuery("select * from generalchat where orgId = ? order by time desc limit ?")
                         .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                         .setParameter(1, orgId);
                 arr = query.getResultList();

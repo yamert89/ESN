@@ -11,7 +11,7 @@ public class GeneralSettings {
     public static int AMOUNT_GENCHAT_MESSAGES = 50;
     public static int AMOUNT_PRIVATECHAT_MESSAGES = 50;
     public static int AMOUNT_WALL_MESSAGES = 25;
-    public static String TIME_PATTERN = "dd.MM.yyyy, H[H]:mm:ss";
+    public static String TIME_PATTERN = "dd.MM.yyyy, HH:mm:ss";
 
     static {
         try {

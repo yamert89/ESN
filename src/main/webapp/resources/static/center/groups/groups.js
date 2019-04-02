@@ -6,6 +6,7 @@ groupList.contents = [];
 var container;
 
 $(document).ready(function () {
+    $("#groups").addClass("selected");
     var group = $(".group");
     container = $("#group_staff_cont");
     var db_groups = $(".group_temp");

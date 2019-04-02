@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/chat.css"/>">
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#chat").addClass("selected");
             var textField = $(".new_genchat_message");
             var messBtn = $(".new_genchat_message_btn");
             messBtn.click(function () {
@@ -21,7 +22,7 @@
                 var name = window.userName;
                 var img = '/resources/avatars/' + $(".new_genchat_message").attr("data-img");
                 var time = window.getDate(new Date());
-                messBtn.after('<div class="message">\n' +
+                $(".message_container").prepend('<div class="message">\n' +
                     '        <div class="message_text">' + text + '</div>\n' +
                     '        <div class="message_info">\n' +
                     '            <img src="' + img + '" class="person_photo_small">\n' +
@@ -44,6 +45,7 @@
 <div class="chat_gen_container">
     <input type="text" placeholder="Добавить сообщение" class="new_genchat_message" data-img="${photo}">
     <button class="new_genchat_message_btn">Отправить</button>
+    <div class="message_container">
     <c:forEach var="mes" items="${messages}">
         <div class="message">
             <div class="message_text">${mes.text}</div>
@@ -54,6 +56,7 @@
             </div>
         </div>
     </c:forEach>
+    </div>
    <%-- <div class="message">
         <div class="message_text">Сообщение 1</div>
         <div class="message_info">

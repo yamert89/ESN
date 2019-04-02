@@ -15,6 +15,7 @@
     <script type="text/javascript" src="<c:url value="/resources/static/center/wall/wall.js"/>"></script>
     <script type="text/javascript">
         var submit;
+        $("#wall").addClass("selected");
 
         $(document).ready(function () {
             var addButton = $('.post_add').first();

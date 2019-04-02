@@ -8,6 +8,7 @@ import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.*;
+import esn.services.UserService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -38,6 +39,7 @@ public class BaseController {
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
     private PrivateChatMessageDAO privateChatMessageDAO;
+    private UserService userService;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -60,6 +62,10 @@ public class BaseController {
     public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
         this.privateChatMessageDAO = privateChatMessageDAO;
     }
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/{organization}")
     public String start(@PathVariable String organization){
@@ -77,8 +83,13 @@ public class BaseController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId){
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, GenChatMessage.class);
+        try {
+            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN))); //TODO разница 3 часа
+            globalDAO.saveMessage(Integer.valueOf(userId), text, timestamp, orgId, GenChatMessage.class);
+            userService.newGenChatMessage(orgDAO.getOrgById(orgId));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @PostMapping("/save_private_message/{companionId}") //TODO org mapping in  url

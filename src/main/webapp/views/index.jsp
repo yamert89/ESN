@@ -3,14 +3,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <header>
-    <link rel="stylesheet" href="<c:url value="/resources/static/index.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/static/gen.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/static/tools/tools.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/static/center/notes/notes.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/libs/air-datepicker-master/dist/css/datepicker.css"/>">
-    <script src="<c:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
-    <script src="<c:url value="/resources/libs/air-datepicker-master/dist/js/datepicker.js"/>"></script>
-
+    <link rel="stylesheet" href='<c:url value="/resources/static/index.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/static/gen.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/static/tools/tools.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/static/center/notes/notes.css"/>'>
+    <link rel="stylesheet" href='<c:url value="/resources/libs/air-datepicker-master/dist/css/datepicker.css"/>'>
+    <script src='<c:url value="/resources/libs/jquery_3.1.0.js"/>'></script>
+    <script src='<c:url value="/resources/libs/air-datepicker-master/dist/js/datepicker.js"/>'></script>
+    <script src='<c:url value="/resources/libs/sock.js"/>'></script>
+    <script src='<c:url value="/resources/libs/stomp.js"/>'></script>
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
@@ -45,6 +46,11 @@
             $(".user_photo").click(function () {
                 props();
             });
+
+            /*$(".tool").click(function () {
+                $(".tool").removeClass("selected");
+                $(this).addClass("selected")
+            });*/
 
 
 
@@ -143,11 +149,9 @@
                     moveToOtherMonthsOnSelect:false
                 });
 
-
-// Сразу выберем какую-ниудь дату из `eventDates`
-                /*var currentDate = currentDate = new Date();
-                $picker.data('datepicker').selectDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), 10))*/
             }
+
+            connectWS();
 
 
 
@@ -157,6 +161,31 @@
 
 
         });
+
+        /*function connectWS() {
+            var socket = new SockJS('/' + orgUrl + '/messages');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                stompClient.subscribe('/' + orgUrl + '/esn/genchat', function(data){
+                    alert(data);
+                    $(".new_gen_mes").css("display", "none");
+
+                });
+            });
+        }*/
+
+        function connectWS() {
+            var socket = new SockJS('/messages');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+
+                stompClient.subscribe('/genchat', function(data){
+
+                    if ($("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
+
+                });
+            });
+        }
 
         function getFilteredArray(timeUnit){
             switch (timeUnit) {
@@ -199,11 +228,11 @@
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric'
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
             };
-            return date.toLocaleString('ru', options);
+            return date.toLocaleString(); //TODO
         }
 
         var callFrame = function(link) {
@@ -234,8 +263,8 @@
 <body>
 <div class="container">
     <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
-        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes"></div>
-        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes"></div>
+        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
+        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="chat_m"></div>
         <div class="tool" id="staff" onclick="location.href = '/${orgUrl}/staff'">Структура</div>
         <div class="tool" id="groups" onclick="location.href = '/${orgUrl}/groups'">Группы</div>
         <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'">Файлообменник</div>

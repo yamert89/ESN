@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/center/staff/flowchart/block.css"/>">
     <script type="text/javascript">
         $(document).ready(function(){
+            $("#staff").addClass("selected");
                 $(".clear_flowchart").click(function () {
                     var resp = confirm("Вы уверены, что хотите удалить текущую структуру? " +
                         "Все отделы и связанная с ними информация будут удалены");

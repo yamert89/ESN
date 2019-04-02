@@ -193,5 +193,11 @@ button:hover{
     border-radius: 0 12px 0 10px;
 }
 
+.message_container{
+    overflow-y: auto;
+    max-height: 90%;
+    border-top: 1px solid rgba(0, 0, 0, 0.11);
+}
+
 
 

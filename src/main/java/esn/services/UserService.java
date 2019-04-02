@@ -17,12 +17,18 @@ public class UserService {
 
     public void sendStatus(User user, boolean on){
         Organization org = user.getOrganization();
-        template.convertAndSend("/" + org.getUrlName() + "/contlist/statusalert",
+        template.convertAndSend("/" + org.getUrlName() + "/esn/statusalert",
                 "{\"userId\":" + user.getId() + ", \"statusOn\": " + on + "}");
     }
 
-    public void sendGenChatMessage(){
-
+    public void newGenChatMessage(Organization org){
+       /* String url = "/" + org.getUrlName() + "/esn/genchat";
+        System.out.println("URL : " + url);
+        template.convertAndSend(url,"{true}");*/
+       template.convertAndSend("/genchat", "true");
     }
+
+
+
 
 }

@@ -13,6 +13,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/storage/storage.css"/>">
     <script type="text/javascript">
+        $("#storage").addClass("selected");
         var extensions = {'.xls' : 'excel.png', '.xlsx' : 'excel.png',
             '.doc' : 'word.png', '.docx' : 'word.png',
             '.mp3' : 'music.png', '.wave' : 'music.png', '.wma' : 'music.png', '.mid' : 'music.png', '.ac3' : 'music.png', '.aac' : 'music.png', '.ogg' : 'music.png', '.flac' : 'music.png',
