@@ -1,22 +1,37 @@
 package esn.entities.secondary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import esn.db.UserDAO;
 import esn.entities.User;
+import esn.entities.converters.JsonTimeSerializer;
 
 import java.sql.Timestamp;
 
 
 public abstract class AbstractMessage {
+    @JsonIgnore
+    public int id;
+
+    @JsonIgnore
     public int userId;
+
     public String userName;
+
     public String imgUrl;
+
     public String text;
+    @JsonSerialize(using = JsonTimeSerializer.class)
     public Timestamp time;
-    public String orgUrl;
+
+    @JsonIgnore
+    public int orgId; //TODO delete?
+
+    @JsonIgnore
     public UserDAO userDAO;
 
 
-    public AbstractMessage(int userId, String text, Timestamp time, int orgId, UserDAO userDAO) {
+    public AbstractMessage(int id, int userId, String text, Timestamp time, int orgId, UserDAO userDAO) {
         this.userDAO = userDAO;
         this.userId = userId;
         User user = userDAO.getUserById(userId);
@@ -25,7 +40,8 @@ public abstract class AbstractMessage {
         imgUrl = user.getPhoto_small();
         this.text = text;
         this.time = time;
-        this.orgUrl = orgUrl;
+        this.orgId = orgId;
+        this.id = id;
     }
 
     public long getUserId() {
@@ -40,8 +56,8 @@ public abstract class AbstractMessage {
         return time;
     }
 
-    public String getOrgUrl() {
-        return orgUrl;
+    public int getOrgId() {
+        return orgId;
     }
 
     public String getUserName() {
@@ -54,5 +70,9 @@ public abstract class AbstractMessage {
 
     public UserDAO getUserDAO() {
         return userDAO;
+    }
+
+    public int getId() {
+        return id;
     }
 }

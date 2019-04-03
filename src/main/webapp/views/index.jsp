@@ -250,7 +250,13 @@
                 minute: '2-digit',
                 second: '2-digit'
             };
-            return date.toLocaleString(); //TODO
+            return prepUnit(date.getHours()) + ':' + prepUnit(date.getMinutes()) + ':' +
+                prepUnit(date.getSeconds()) + ' / ' + prepUnit(date.getDate()) + '.' + prepUnit(date.getMonth() + 1);
+            //return date.toLocaleString(); //TODO
+        }
+
+        function prepUnit(unit) {
+            return unit < 10 ? '0' + unit : unit;
         }
 
         var callFrame = function(link) {
@@ -290,6 +296,7 @@
         <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'">Календарь</div>
         <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>
         <div class="datepicker-here"></div>
+        <button onclick='alert($(".message_container")[0].scrollTop)'>K</button>
     </div>
     <div class="center">
         <t:insertAttribute name="center"/>

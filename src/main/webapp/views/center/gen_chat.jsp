@@ -13,6 +13,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/chat/chat.css"/>">
     <script type="text/javascript">
+        var blocker = false;
         $(document).ready(function () {
             $("#chat").addClass("selected");
             var textField = $(".new_genchat_message");
@@ -36,8 +37,34 @@
             });
             $(document).keypress(function (event) {
                 if (event.which == 13) messBtn.click();
+            });
+
+            $(".message_container").scroll(function () {
+                if (blocker || $(this)[0].scrollHeight - ($(this)[0].scrollTop + $(this).height()) > 300) return;
+                $.get("/chatpiece", {}, function (data) {
+                    if (data == null) return;
+                    data.forEach(function (el) {
+                        renderMessage(el);
+                    });
+                    blocker = false;
+                    console.log("false")
+                }, 'json');
+                blocker = true;
+                console.log("true")
             })
+
         });
+
+        function renderMessage(mes) {
+            $(".message_container").append('<div class="message">\n' +
+                '            <div class="message_text">' + mes.text + '</div>\n' +
+                '            <div class="message_info">\n' +
+                '                <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
+                '                <div class="person_name">' + mes.userName + '</div>\n' +
+                '                <div class="message_time">' + mes.time + '</div>\n' +
+                '            </div>\n' +
+                '        </div>')
+        }
 
 
     </script>
@@ -58,27 +85,6 @@
         </div>
     </c:forEach>
     </div>
-   <%-- <div class="message">
-        <div class="message_text">Сообщение 1</div>
-        <div class="message_info">
-            <img src="" class="person_photo_small">
-            <div class="person_name">Маша Петровна Васильева</div>
-            <div class="message_time">10: 30 21.09.2018</div>
-        </div>
-    </div>
-    <div class="message">
-        <div class="message_text">Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1
-            Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1
-            Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1
-            Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1
-            Сообщение 1 Сообщение 1 Сообщение 1 Сообщение 1</div>
-        <div class="message_info">
-            <img src="" class="person_photo_small">
-            <div class="person_name">Маша</div>
-            <div class="message_time">10: 30 21.09.2018</div>
-        </div>
-
-    </div>--%>
 </div>
 </body>
 </html>

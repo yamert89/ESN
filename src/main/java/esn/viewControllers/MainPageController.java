@@ -1,15 +1,13 @@
 package esn.viewControllers;
 
+import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
-import esn.entities.secondary.ContactGroup;
-import esn.entities.secondary.GenChatMessage;
-import esn.entities.secondary.Post;
-import esn.entities.secondary.PrivateChatMessage;
+import esn.entities.secondary.*;
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -55,7 +53,7 @@ public class MainPageController {
 
     @GetMapping(value = "/wall")
     public String wall(Model model, @SessionAttribute int orgId){
-        model.addAttribute("messages", globalDAO.getMessages(orgId, Post.class));;
+        model.addAttribute("messages", globalDAO.getMessages(orgId, -1, Post.class));;
         return "wall";
     }
 
@@ -65,10 +63,13 @@ public class MainPageController {
     }
 
     @GetMapping("/chat")
-    public String genChat(Model model, @SessionAttribute int orgId, @SessionAttribute User user){
+    public String genChat(Model model, @SessionAttribute int orgId, @SessionAttribute User user, HttpSession session){
        // globalDAO.saveMessage(43,"ПРивет", new Timestamp(1234443354542L), "rosles", GenChatMessage.class);
         model.addAttribute("photo", user.getPhoto_small());
-        model.addAttribute("messages", globalDAO.getMessages(orgId, GenChatMessage.class));
+        List<AbstractMessage> messages = globalDAO.getMessages(orgId, -1, GenChatMessage.class);
+        int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        session.setAttribute("lastIdx_genchat", newIdx);
+        model.addAttribute("messages", messages);
         return "gen_chat";
     }
 

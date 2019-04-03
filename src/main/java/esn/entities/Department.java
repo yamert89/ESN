@@ -3,7 +3,7 @@ package esn.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import esn.db.DepartmentDAO;
-import esn.db.converters.JsonNullSerializer;
+import esn.entities.converters.JsonNullSerializer;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Autowired;

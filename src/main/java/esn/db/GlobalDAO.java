@@ -21,7 +21,11 @@ public class GlobalDAO {
     private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=";
     private final String CHECKTABLE_MYSQL = "show tables like ";
     private final String CREATE_TABLE_CONSTRAINTS_POSTGRES = " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?
-    private final String CREATE_TABLE_CONSTRAINTS_MYSQL = " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)";
+    private final String CREATE_TABLE_CONSTRAINTS_MYSQL = " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)"; //TODO long
+    private final String SELECT_CHAT_MESSAGES_MYSQL_WITHIDX = "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";
+    private final String SELECT_WALL_MESSAGES_MYSQL_WITHIDX = "select * from wall where orgId = ? and id < ? order by time desc limit ?";
+    private final String SELECT_CHAT_MESSAGES_MYSQL = "select * from generalchat where orgId = ? order by time desc limit ?";
+    private final String SELECT_WALL_MESSAGES_MYSQL = "select * from wall where orgId = ? order by time desc limit ?";
 
     @PersistenceContext
     private EntityManager em;
@@ -51,40 +55,52 @@ public class GlobalDAO {
     }
 
     @Transactional
-    public List<? extends AbstractMessage> getMessages(int orgId, Class<? extends AbstractMessage> mesClass){
+    public List<AbstractMessage> getMessages(int orgId, int lastIdx, Class<? extends AbstractMessage> mesClass){
 
         List<AbstractMessage> list = new ArrayList<>(GeneralSettings.AMOUNT_GENCHAT_MESSAGES);
         List<Object[]> arr = null;
         try {
             if (mesClass == GenChatMessage.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_MYSQL + "'generalchat'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
-                Query query = em.createNativeQuery("select * from generalchat where orgId = ? order by time desc limit ?")
-                        .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
-                        .setParameter(1, orgId);
+
+                Query query = lastIdx == -1 ?
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL)
+                                .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
+                                .setParameter(1, orgId) :
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL_WITHIDX)
+                                .setParameter(3, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
+                                .setParameter(1, orgId)
+                                .setParameter(2, lastIdx);
+
                 arr = query.getResultList();
 
                 for (Object[] row :
                         arr) {
 
-                    list.add(new GenChatMessage((int) row[2], (String) row[1], (Timestamp) row[3], (int) row[4], userDAO));
+                    list.add(new GenChatMessage((int) row[0], (int) row[2], (String) row[1], (Timestamp) row[3], (int) row[4], userDAO));
                 }
             } else if (mesClass == Post.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_MYSQL + "'wall'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
-                arr = em.createNativeQuery("select * from wall where orgId = ? order by time desc limit ?") //TODO Постраничный вывод
-                        .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
-                        .setParameter(1, orgId)
-                        .getResultList();
+                Query query = lastIdx == -1 ?
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL)
+                                .setParameter(2, GeneralSettings.AMOUNT_WALL_MESSAGES)
+                                .setParameter(1, orgId) :
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL_WITHIDX)
+                                .setParameter(3, GeneralSettings.AMOUNT_WALL_MESSAGES)
+                                .setParameter(1, orgId)
+                                .setParameter(2, lastIdx);
+                arr = query.getResultList();
                 for (Object[] row :
                         arr) {
-                    list.add(new Post((int) row[2], (String) row[1], (Timestamp) row[3], (int) row[4], userDAO));
+                    list.add(new Post((int) row[0], (int) row[2], (String) row[1], (Timestamp) row[3], (int) row[4], userDAO));
                 }
             }
         }catch (Exception e){

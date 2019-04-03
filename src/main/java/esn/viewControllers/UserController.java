@@ -48,6 +48,14 @@ public class UserController {
         this.orgDAO = orgDAO;
     }
 
+    @GetMapping(value = "/")
+    public String start(@PathVariable String org){
+        //TODO проверка на сущестование орг юрл
+
+        //TODO get cookies
+        return "redirect:/" + org + "/auth1";
+    }
+
 
     @GetMapping("/auth")
     public String showAuthPage(@PathVariable String org, Model model){

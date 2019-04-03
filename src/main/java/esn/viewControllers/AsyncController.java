@@ -1,5 +1,6 @@
 package esn.viewControllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.configs.GeneralSettings;
@@ -32,7 +33,7 @@ import static esn.configs.GeneralSettings.TIME_PATTERN;
 
 @Controller
 @SessionAttributes({"user", "orgId"})
-public class BaseController {
+public class AsyncController {
 
     private GlobalDAO globalDAO;
     private OrganizationDAO orgDAO;
@@ -67,26 +68,20 @@ public class BaseController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/{organization}")
-    public String start(@PathVariable String organization){
-        //TODO проверка на сущестование орг юрл
-
-        //TODO get cookies
-       return "redirect:/" + organization + "/auth1";
-    }
-
-
-
-
-
     @PostMapping("/savemessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId){
         try {
             int uId = Integer.valueOf(userId);
-
-            Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN))); //TODO разница 3 часа
+            String[] arr = time.split(":| / ");
+            Date date = new Date();
+            date.setHours(Integer.valueOf(arr[0]));
+            date.setMinutes(Integer.valueOf(arr[1]));
+            date.setSeconds(Integer.valueOf(arr[2]));
+            Timestamp timestamp = new Timestamp(date.getTime());
+            /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
+            Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
             globalDAO.saveMessage(uId, text, timestamp, orgId, GenChatMessage.class);
             userService.newGenChatMessageAlert(orgId, uId);
 
@@ -407,6 +402,28 @@ public class BaseController {
         organization.getDepartments().clear();
         orgDAO.update(organization);
         //TODO протестировать
+    }
+
+    @GetMapping("/chatpiece")
+    @ResponseBody
+    public ResponseEntity<String> getChatPiece(HttpSession session, @SessionAttribute int orgId){
+        int oldIndex = (int) session.getAttribute("lastIdx_genchat");
+        if (oldIndex == -1) return null;
+        List<AbstractMessage> messages = globalDAO.getMessages(orgId, oldIndex, GenChatMessage.class);
+        int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        session.setAttribute("lastIdx_genchat", newIdx);
+        ObjectMapper om = new ObjectMapper();
+        String json = "";
+        try {
+            json = om.writeValueAsString(messages);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+
+        return ResponseEntity.ok().headers(responseHeaders).body(json);
+
     }
 
 
