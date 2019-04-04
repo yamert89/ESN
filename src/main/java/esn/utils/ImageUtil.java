@@ -22,7 +22,7 @@ public class ImageUtil {
     }
 
     public static byte[] resizeSmall(byte[] input, String format){
-         return resize(input,16, format);
+         return resize(input,32, format);
     }
 
 

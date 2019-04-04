@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
-        urls = orgDAO.getAllOrgs().stream().map(el ->  "/genchat" + el.getId()) //TODO url problem
+        urls = orgDAO.getAllOrgs().stream().map(el ->  "/genchat" + el.getId())
                 .peek(System.out::println).toArray(String[]::new);
         registry.enableSimpleBroker(urls); //mes to client
         //registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
@@ -35,11 +35,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/messages").withSockJS();
+        /*urls = orgDAO.getAllOrgs().stream().map(el ->  "/netstatus" + el.getId())
+                .peek(System.out::println).toArray(String[]::new);
+        registry.addEndpoint(urls);*/
 
-        /*for (Organization org: allOrgs) {
-            registry.addEndpoint("/" + org.getUrlName() + "/netstatus").withSockJS();
-
-        }*/
         System.out.println("registerStompEndpoints");
 
     }

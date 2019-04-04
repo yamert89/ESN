@@ -2,7 +2,7 @@
     display: none;
 }
 .sample_editor{
-display: none;
+    display: none;
 }
 .post_message{
     margin-top: 10px;
@@ -53,7 +53,7 @@ p{
 
 .message_info_w{
     /*width: 390px;*/
-    display: table;
+    display: flex;
     border-spacing: 20px 0;
 
 
@@ -63,19 +63,21 @@ p{
     padding: 5px;
 }
 .message_time_w{
-    display: table-cell;
+
     vertical-align: middle;
     line-height: 32px;
 }
 .person_name_w{
-    float: none;
-    display: table-cell;
+    /*float: none;*/
+
     vertical-align: middle;
     line-height: 32px;
+    margin-right: 20px;
 
 }
 
 .person_photo_small{
-    display: table-cell;
+    margin-right: 20px;
+    width: 32px;
+    height: 32px;
 }
-

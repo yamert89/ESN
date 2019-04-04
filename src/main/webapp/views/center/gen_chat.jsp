@@ -19,20 +19,14 @@
             var textField = $(".new_genchat_message");
             var messBtn = $(".new_genchat_message_btn");
             messBtn.click(function () {
-                var text = textField.val();
-                if (text == "") return;
-                var name = window.userName;
-                var img = '/resources/avatars/' + $(".new_genchat_message").attr("data-img");
-                var time = window.getDate(new Date());
-                $(".message_container").prepend('<div class="message">\n' +
-                    '        <div class="message_text">' + text + '</div>\n' +
-                    '        <div class="message_info">\n' +
-                    '            <img src="' + img + '" class="person_photo_small">\n' +
-                    '            <div class="person_name">' + name + '</div>\n' +
-                    '            <div class="message_time">' + time + '</div>\n' +
-                    '        </div>\n' +
-                    '    </div>');
-                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":text, "time":time}});
+                var mes = {};
+                mes.text = textField.val();
+                if (mes.text == "") return;
+                mes.userName = window.userName;
+                mes.imgUrl = $(".new_genchat_message").attr("data-img");
+                mes.time = window.getDate(new Date());
+                renderMessage(mes, false);
+                $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":mes.text, "time":mes.time}});
                 textField.val('');
             });
             $(document).keypress(function (event) {
@@ -44,7 +38,7 @@
                 $.get("/chatpiece", {}, function (data) {
                     if (data == null) return;
                     data.forEach(function (el) {
-                        renderMessage(el);
+                        renderMessage(el, true);
                     });
                     blocker = false;
                     console.log("false")
@@ -55,15 +49,18 @@
 
         });
 
-        function renderMessage(mes) {
-            $(".message_container").append('<div class="message">\n' +
+        function renderMessage(mes, after) {
+            var data = '<div class="message">\n' +
                 '            <div class="message_text">' + mes.text + '</div>\n' +
                 '            <div class="message_info">\n' +
                 '                <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                <div class="person_name">' + mes.userName + '</div>\n' +
                 '                <div class="message_time">' + mes.time + '</div>\n' +
                 '            </div>\n' +
-                '        </div>')
+                '        </div>';
+            if(after) $(".message_container").append(data);
+            else $(".message_container").prepend(data);
+
         }
 
 

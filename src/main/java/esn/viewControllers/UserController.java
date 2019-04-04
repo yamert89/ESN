@@ -3,7 +3,7 @@ package esn.viewControllers;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
-import esn.services.UserService;
+import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,11 @@ public class UserController {
 
     private UserDAO userDAO;
     private OrganizationDAO orgDAO;
-    private UserService userService;
+    private WebSocketService webSocketService;
 
     @Autowired
-    public void setService(UserService service) {
-        this.userService = service;
+    public void setService(WebSocketService service) {
+        this.webSocketService = service;
     }
 
 
@@ -98,17 +98,18 @@ public class UserController {
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
-        session.setAttribute("orgId", orgDAO.getOrgByURL(org).getId());
+
+        int orgId = orgDAO.getOrgByURL(org).getId();
+        session.setAttribute("orgId", orgId);
         session.setAttribute("loginUrl", user.getLogin());
-        userService.sendStatus(user, true);
+        webSocketService.sendStatus(orgId, user.getId(), true);
         return "redirect:/" + org + "/wall/";
         //return "wall";
     }
 
     @PostMapping("/exit")
-    public void exit(HttpSession session){
-        User usr = (User) session.getAttribute("user");
-        userService.sendStatus(usr, false);
+    public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user){
+        webSocketService.sendStatus(orgId, user.getId(), false);
         //TODO save expand status groups
         session.invalidate(); //TODO
     }

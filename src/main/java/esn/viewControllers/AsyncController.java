@@ -9,7 +9,7 @@ import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.*;
-import esn.services.UserService;
+import esn.services.WebSocketService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -40,7 +40,7 @@ public class AsyncController {
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
     private PrivateChatMessageDAO privateChatMessageDAO;
-    private UserService userService;
+    private WebSocketService webSocketService;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -64,8 +64,8 @@ public class AsyncController {
         this.privateChatMessageDAO = privateChatMessageDAO;
     }
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setWebSocketService(WebSocketService webSocketService) {
+        this.webSocketService = webSocketService;
     }
 
     @PostMapping("/savemessage")
@@ -83,7 +83,7 @@ public class AsyncController {
             /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
             Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
             globalDAO.saveMessage(uId, text, timestamp, orgId, GenChatMessage.class);
-            userService.newGenChatMessageAlert(orgId, uId);
+            webSocketService.newGenChatMessageAlert(orgId, uId);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -105,7 +105,7 @@ public class AsyncController {
             /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
             Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
             globalDAO.saveMessage(uId, text, timestamp, orgId, Post.class);
-            userService.newPostAlert(orgId, uId);
+            webSocketService.newPostAlert(orgId, uId);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -117,7 +117,7 @@ public class AsyncController {
                                    @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = userDAO.getUserById(Integer.valueOf(companionId));
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
-        //userService.newPrivateMessageAlert(orgId, user.getId()); TODO uncomment
+        //webSocketService.newPrivateMessageAlert(orgId, user.getId()); TODO uncomment
     }
 
     @PostMapping("/groupmessage")

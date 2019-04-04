@@ -69,7 +69,7 @@
                 container.append('<table class="person_staff" data-id=' + el.id + '>\n' +
                     '            <tr>\n' +
                     '                <td width="100px">\n' +
-                    '                    <img src="' + el.photo + '" class="person_photo_staff"></td>\n' +
+                    '                    <img src="/resources/avatars/' + el.photo + '" class="person_photo_staff"></td>\n' +
                     '                <td valign="middle">\n' +
                     '                    <div class="person_point">\n' +
                     '                        <div class="person_name_staff">' + el.name + '</div>\n' +

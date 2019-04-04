@@ -1,13 +1,11 @@
 package esn.services;
 
-import esn.entities.Organization;
-import esn.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-@Service("userService")
-public class UserService {
+@Service("webSocketService")
+public class WebSocketService {
 
     private SimpMessagingTemplate template;
     @Autowired
@@ -15,10 +13,9 @@ public class UserService {
         this.template = template;
     }
 
-    public void sendStatus(User user, boolean on){
-        Organization org = user.getOrganization();
-        template.convertAndSend("/" + org.getUrlName() + "/esn/statusalert",
-                "{\"userId\":" + user.getId() + ", \"statusOn\": " + on + "}");
+    public void sendStatus(int orgId, int initiatorId, boolean on){
+        template.convertAndSend("/netstatus" + orgId,
+                "{\"_alert\":\"netstatus\",\"initiatorId\":" + initiatorId + ", \"statusOn\": " + on + "}");
     }
 
     public void newGenChatMessageAlert(int orgId, int initiatorId){
@@ -31,7 +28,7 @@ public class UserService {
 
     public void newPrivateMessageAlert(int orgId, int userId){
         template.convertAndSend("/genchat" + orgId,
-                "{\"_alert\":\"privatemessage\", \"uId\":" + userId + "}");
+                "{\"_alert\":\"privatemessage\", \"uId\":" + userId + "}"); //TODO
     }
 
 

@@ -39,21 +39,24 @@
                 }
 
                 hideEditor();
+                var mes = {};
+                mes.userName = window.userName;
+                mes.imgUrl = window.avatar_small;
+                mes.time = window.getDate(new Date());
+                mes.text = data;
 
-                var name = window.userName;
-                var img = window.avatar_small;
-                var time = window.getDate(new Date());
+                renderPost(mes, false);
 
-                $(".posts").prepend('<div class="post">' +
+                /*$(".posts").prepend('<div class="post">' +
                     '<div class="message_info_wrapper">' +
                     '<div class="message_info_w">' +
                     '<img src="' + img + '" class="person_photo_small">' +
                     '<div class="person_name_w">' + name + '</div>' +
                     '<div class="message_time_w">' + time + '</div>' +
                     '</div>' +
-                    '</div>' + data + '</div>');
+                    '</div>' + data + '</div>');*/
 
-                $.ajax({type:"POST", url:"/savepost", data:{"userId":userId, "text":data, "time":time, "orgUrl":orgUrl}})
+                $.ajax({type:"POST", url:"/savepost", data:{"userId":userId, "text":data, "time":mes.time, "orgUrl":orgUrl}})
 
 
             });
@@ -63,25 +66,32 @@
                 $.get("/wallpiece", {}, function (data) {
                     if (data == null) return;
                     data.forEach(function (el) {
-                        renderPost(el);
+                        renderPost(el, true);
                     });
                     blocker = false;
                     console.log("false")
                 }, 'json');
                 blocker = true;
                 console.log("true")
-            })
+            });
+
+
         });
 
-        function renderPost(mes) {
-            $(".posts").append('<div class="post">\n' +
+
+
+        function renderPost(mes, after) {
+            var data = '<div class="post">\n' +
                 '            <div class="message_info_wrapper">\n' +
                 '                <div class="message_info_w">\n' +
                 '                    <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                    <div class="person_name_w">' + mes.userName + '</div>\n' +
                 '                    <div class="message_time_w">' + mes.time + '</div>\n' +
                 '                </div>\n' +
-                '            </div>\n' + mes.text + '</div>')
+                '            </div>\n' + mes.text + '</div>';
+            if(after) $(".posts").append(data);
+            else $(".posts").prepend(data);
+
         }
 
         function showEditor() {

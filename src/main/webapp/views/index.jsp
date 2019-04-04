@@ -193,15 +193,22 @@
                             if (!$("#wall").hasClass("selected")) $("#wall_m").css("display", "block");
                             else location.reload();
                             break;
+                        case 'netstatus':
+                            var user = JSON.parse(data.body);
+                            var usDom = $(".contacts-frame").find("[data-id='" + user.userId + "']");
+                            var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
+                            usDom.find(":first-child").attr("id", stat);
+                            break;
                         case 'privatemessage':
                             $(".contacts-frame").find("[data-id=" + resp.uId + "]").children().get(1).css("display", "block");
                             break;
 
                     }
-
-
-
                 });
+
+                stompClient.subscribe('/netstatus' + orgId, function (data) {
+
+                })
             });
         }
 
@@ -296,7 +303,7 @@
         <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'">Календарь</div>
         <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>
         <div class="datepicker-here"></div>
-        <button onclick='alert($(".message_container")[0].scrollTop)'>K</button>
+
     </div>
     <div class="center">
         <t:insertAttribute name="center"/>

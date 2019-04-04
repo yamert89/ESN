@@ -35,7 +35,7 @@
                 $.ajax({url : "/groupmessage", type: "post", data: {text : message, groupName : groupName}})
 
             });
-            connectWS();
+
             $.ajax({url:"http://localhost:8080/" + orgUrl + "/contacts",
                 type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err});
 
@@ -60,23 +60,7 @@
             stompClient.send("/app/netstatus", {}, JSON.stringify({"userId":48, "statusOn": true}));
         }
 
-        function connectWS() {
-            var socket = new SockJS('/' + orgUrl + '/netstatus');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
-                stompClient.subscribe('/' + orgUrl + '/esn/statusalert', function(data){
-                    var user = JSON.parse(data.body);
-                    var usDom = $("[data-id='" + user.userId + "']");
-                    var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
-                    usDom.find(":first-child").attr("id", stat);
 
-                });
-            });
-        }
-
-        function disconnectWS() {
-            stompClient.disconnect();
-        }
         function err(ex, stat) {
             alert(ex + stat);
         }
@@ -107,8 +91,6 @@
             return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
                 "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/new_message.png' class='new_gen_mes'><div class='person_name'>" + user.name + "</div></div>"
         }
-
-
 
 
     </script>
