@@ -16,6 +16,7 @@
     <script type="text/javascript" src="<c:url value="/resources/static/center/wall/wall.js"/>"></script>
     <script type="text/javascript">
         var submit;
+        var blocker = false;
         $("#wall").addClass("selected");
 
         $(document).ready(function () {
@@ -56,7 +57,32 @@
 
 
             });
+
+            $(".posts").scroll(function () {
+                if (blocker || $(this)[0].scrollHeight - ($(this)[0].scrollTop + $(this).height()) > 300) return;
+                $.get("/wallpiece", {}, function (data) {
+                    if (data == null) return;
+                    data.forEach(function (el) {
+                        renderPost(el);
+                    });
+                    blocker = false;
+                    console.log("false")
+                }, 'json');
+                blocker = true;
+                console.log("true")
+            })
         });
+
+        function renderPost(mes) {
+            $(".posts").append('<div class="post">\n' +
+                '            <div class="message_info_wrapper">\n' +
+                '                <div class="message_info_w">\n' +
+                '                    <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
+                '                    <div class="person_name_w">' + mes.userName + '</div>\n' +
+                '                    <div class="message_time_w">' + mes.time + '</div>\n' +
+                '                </div>\n' +
+                '            </div>\n' + mes.text + '</div>')
+        }
 
         function showEditor() {
             try {

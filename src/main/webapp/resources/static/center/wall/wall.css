@@ -39,10 +39,12 @@ display: none;
     text-align: left;
 }
 .posts{
-    overflow: auto;
-    height: calc(100% - 41px);
+    overflow-y: auto;
+    /*max-height: calc(100% - 41px);*/
+    max-height: 92%;
     border: 1px solid #cdced8;
     border-top: 3px groove rgba(205, 206, 216, 0.47);
+    border-bottom: none;
     margin-top: 20px;
 }
 p{

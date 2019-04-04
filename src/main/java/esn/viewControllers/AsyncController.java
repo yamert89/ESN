@@ -90,6 +90,27 @@ public class AsyncController {
         }
     }
 
+    @PostMapping("/savepost")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void savePost(@RequestParam String userId, @RequestParam String text,
+                         @RequestParam String time, @SessionAttribute int orgId){
+        try {
+            int uId = Integer.valueOf(userId);
+            String[] arr = time.split(":| / ");
+            Date date = new Date();
+            date.setHours(Integer.valueOf(arr[0]));
+            date.setMinutes(Integer.valueOf(arr[1]));
+            date.setSeconds(Integer.valueOf(arr[2]));
+            Timestamp timestamp = new Timestamp(date.getTime());
+            /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
+            Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
+            globalDAO.saveMessage(uId, text, timestamp, orgId, Post.class);
+            userService.newPostAlert(orgId, uId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     @PostMapping("/save_private_message/{companionId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
@@ -114,15 +135,7 @@ public class AsyncController {
 
     }
 
-    @PostMapping("/savepost")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePost(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, @SessionAttribute int orgId){
-        int uId = Integer.valueOf(userId);
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));
-        globalDAO.saveMessage(uId, text, timestamp, orgId, Post.class);
-        userService.newPostAlert(orgId, uId);
-    }
+
 
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
@@ -421,9 +434,27 @@ public class AsyncController {
         }
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-
         return ResponseEntity.ok().headers(responseHeaders).body(json);
+    }
 
+    @GetMapping("/wallpiece")
+    @ResponseBody
+    public ResponseEntity<String> getWallPiece(HttpSession session, @SessionAttribute int orgId){
+        int oldIndex = (int) session.getAttribute("lastIdx_wall");
+        if (oldIndex == -1) return null;
+        List<AbstractMessage> messages = globalDAO.getMessages(orgId, oldIndex, Post.class);
+        int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        session.setAttribute("lastIdx_wall", newIdx);
+        ObjectMapper om = new ObjectMapper();
+        String json = "";
+        try {
+            json = om.writeValueAsString(messages);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return ResponseEntity.ok().headers(responseHeaders).body(json);
     }
 
 
