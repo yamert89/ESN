@@ -56,13 +56,14 @@
         });
 
         function renderMessage(mes, after) {
+            var visibleCross = after ? 'style=""' :  ' style="display: inline-block";';
             var data = '<div class="message">\n' +
                 '            <div class="message_text">' + mes.text + '</div>\n' +
                 '            <div class="message_info">\n' +
                 '                <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                <div class="person_name">' + mes.userName + '</div>\n' +
                 '                <div class="message_time">' + mes.time + '</div>\n' +
-                '                <img class="delete_message" src="/resources/cross.png" style="display: inline-block">  ' +
+                '                <img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
                 '        </div>';
             if(after) $(".message_container").append(data);
             else $(".message_container").prepend(data);

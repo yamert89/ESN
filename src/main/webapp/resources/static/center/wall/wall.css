@@ -53,7 +53,7 @@ p{
 
 .message_info_w{
     /*width: 390px;*/
-    display: flex;
+    display: inline-flex;
     border-spacing: 20px 0;
 
 
@@ -80,4 +80,8 @@ p{
     margin-right: 20px;
     width: 32px;
     height: 32px;
+}
+
+.delete_message{
+    float: right;
 }

@@ -59,5 +59,15 @@ table{
 
 }
 
+.delete_message{
+    height: 1.2em;
+    margin-left: 10px;
+    display: none;
+}
+.delete_message:hover{
+    background-color: rgba(255, 0, 0, 0.51);
+    border-radius: 10px;
+}
+
 
 /*wall and chat*/

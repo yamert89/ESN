@@ -108,6 +108,13 @@ public class AsyncController {
         }
     }
 
+    @PostMapping("/deletepost")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deletePost(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
+        globalDAO.deleteMessage(user.getId(), text, orgId, Post.class);
+    }
+
+
     @PostMapping("/save_private_message/{companionId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,

@@ -75,19 +75,26 @@
                 console.log("true")
             });
 
+            $(document).on('click', '.delete_message', function () {
+                $(this).parent().parent().remove();
+                var text = $(this).parent().parent().children().last().text();
+                $.ajax({url : "/deletepost", method : "POST", data :{text: text}})
+            })
+
 
         });
 
 
 
         function renderPost(mes, after) {
+            var visibleCross = after ? 'style=""' :  ' style="display: inline-block";';
             var data = '<div class="post">\n' +
                 '            <div class="message_info_wrapper">\n' +
                 '                <div class="message_info_w">\n' +
                 '                    <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                    <div class="person_name_w">' + mes.userName + '</div>\n' +
                 '                    <div class="message_time_w">' + mes.time + '</div>\n' +
-                '                </div>\n' +
+                '                </div><img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
                 '            </div>\n' + mes.text + '</div>';
             if(after) $(".posts").append(data);
             else $(".posts").prepend(data);
