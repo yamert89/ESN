@@ -45,6 +45,12 @@
                 }, 'json');
                 blocker = true;
                 console.log("true")
+            });
+
+            $(document).on('click', '.delete_message', function () {
+                $(this).parent().parent().remove();
+                var text = $(this).parent().prev().text();
+                $.ajax({url : "/deletemessage", method : "POST", data :{text: text}})
             })
 
         });
@@ -56,7 +62,7 @@
                 '                <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                <div class="person_name">' + mes.userName + '</div>\n' +
                 '                <div class="message_time">' + mes.time + '</div>\n' +
-                '            </div>\n' +
+                '                <img class="delete_message" src="/resources/cross.png" style="display: inline-block">  ' +
                 '        </div>';
             if(after) $(".message_container").append(data);
             else $(".message_container").prepend(data);

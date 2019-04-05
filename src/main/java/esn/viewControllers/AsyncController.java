@@ -10,6 +10,7 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.*;
 import esn.services.WebSocketService;
+import esn.utils.DateFormatUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -74,20 +75,21 @@ public class AsyncController {
                             @RequestParam String time, @SessionAttribute int orgId){
         try {
             int uId = Integer.valueOf(userId);
-            String[] arr = time.split(":| / ");
-            Date date = new Date();
-            date.setHours(Integer.valueOf(arr[0]));
-            date.setMinutes(Integer.valueOf(arr[1]));
-            date.setSeconds(Integer.valueOf(arr[2]));
-            Timestamp timestamp = new Timestamp(date.getTime());
+
             /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
             Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
-            globalDAO.saveMessage(uId, text, timestamp, orgId, GenChatMessage.class);
+            globalDAO.saveMessage(uId, text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
             webSocketService.newGenChatMessageAlert(orgId, uId);
 
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @PostMapping("/deletemessage")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteGenMessage(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
+        globalDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
     }
 
     @PostMapping("/savepost")
@@ -96,15 +98,10 @@ public class AsyncController {
                          @RequestParam String time, @SessionAttribute int orgId){
         try {
             int uId = Integer.valueOf(userId);
-            String[] arr = time.split(":| / ");
-            Date date = new Date();
-            date.setHours(Integer.valueOf(arr[0]));
-            date.setMinutes(Integer.valueOf(arr[1]));
-            date.setSeconds(Integer.valueOf(arr[2]));
-            Timestamp timestamp = new Timestamp(date.getTime());
+
             /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
             Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
-            globalDAO.saveMessage(uId, text, timestamp, orgId, Post.class);
+            globalDAO.saveMessage(uId, text, DateFormatUtil.parseDate(time), orgId, Post.class);
             webSocketService.newPostAlert(orgId, uId);
         }catch (Exception e){
             e.printStackTrace();

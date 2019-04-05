@@ -55,6 +55,13 @@ public class GlobalDAO {
     }
 
     @Transactional
+    public void deleteMessage(int userId, String text, int orgId, Class<? extends AbstractMessage> mesClass){
+        String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
+        em.createNativeQuery("delete from " + tableName + " where orgId = " + orgId + " and userId = " + userId + " and message = '" + text + "' " +
+                "order by time desc limit 1").executeUpdate(); //TODO benchmark
+    }
+
+    @Transactional
     public List<AbstractMessage> getMessages(int orgId, int lastIdx, Class<? extends AbstractMessage> mesClass){
 
         List<AbstractMessage> list = new ArrayList<>(GeneralSettings.AMOUNT_GENCHAT_MESSAGES);
