@@ -45,7 +45,7 @@
                 mes.time = window.getDate(new Date());
                 mes.text = data;
 
-                renderPost(mes, false);
+                renderPost(mes, 'my');
 
                 /*$(".posts").prepend('<div class="post">' +
                     '<div class="message_info_wrapper">' +
@@ -66,7 +66,7 @@
                 $.get("/wallpiece", {}, function (data) {
                     if (data == null) return;
                     data.forEach(function (el) {
-                        renderPost(el, true);
+                        renderPost(el, 'piece');
                     });
                     blocker = false;
                     console.log("false")
@@ -86,8 +86,8 @@
 
 
 
-        function renderPost(mes, after) {
-            var visibleCross = after ? 'style=""' :  ' style="display: inline-block";';
+        function renderPost(mes, type) {
+            var visibleCross = type !== 'my' ? 'style=""' :  ' style="display: inline-block";';
             var data = '<div class="post">\n' +
                 '            <div class="message_info_wrapper">\n' +
                 '                <div class="message_info_w">\n' +
@@ -96,7 +96,7 @@
                 '                    <div class="message_time_w">' + mes.time + '</div>\n' +
                 '                </div><img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
                 '            </div>\n' + mes.text + '</div>';
-            if(after) $(".posts").append(data);
+            if(type === "piece") $(".posts").append(data);
             else $(".posts").prepend(data);
 
         }

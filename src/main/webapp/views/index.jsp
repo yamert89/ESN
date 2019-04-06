@@ -183,15 +183,21 @@
 
                 stompClient.subscribe('/genchat' + orgId , function(data){
                     var resp = JSON.parse(data.body);
-                    if (resp.initiatorId == userId) return;
+                    //if (resp.initiatorId == userId) return;
                     switch (resp._alert) {
                         case 'genmessage':
                             if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
-                            else location.reload();
+                            else {
+                                renderMessage(resp.mes , 'mailing');
+                                //location.reload();
+                            }
                             break;
                         case 'post':
                             if (!$("#wall").hasClass("selected")) $("#wall_m").css("display", "block");
-                            else location.reload();
+                            else {
+                                renderPost(resp.mes, 'mailing');
+                                //location.reload();
+                            }
                             break;
                         case 'netstatus':
                             var user = JSON.parse(data.body);

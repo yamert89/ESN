@@ -25,7 +25,7 @@
                 mes.userName = window.userName;
                 mes.imgUrl = $(".new_genchat_message").attr("data-img");
                 mes.time = window.getDate(new Date());
-                renderMessage(mes, false);
+                renderMessage(mes, 'my');
                 $.ajax({type:"POST", url:"/savemessage", data:{"userId":window.userId, "text":mes.text, "time":mes.time}});
                 textField.val('');
             });
@@ -38,7 +38,7 @@
                 $.get("/chatpiece", {}, function (data) {
                     if (data == null) return;
                     data.forEach(function (el) {
-                        renderMessage(el, true);
+                        renderMessage(el, 'piece');
                     });
                     blocker = false;
                     console.log("false")
@@ -55,8 +55,12 @@
 
         });
 
-        function renderMessage(mes, after) {
-            var visibleCross = after ? 'style=""' :  ' style="display: inline-block";';
+        /*type :
+        * - 'my' - my new message
+        * - 'piece' - message loaded after scrolling
+        * - 'mailing' - message loaded after ws mailing*/
+        function renderMessage(mes, type) {
+            var visibleCross = type !== 'my' ? 'style=""' :  ' style="display: inline-block";';
             var data = '<div class="message">\n' +
                 '            <div class="message_text">' + mes.text + '</div>\n' +
                 '            <div class="message_info">\n' +
@@ -65,7 +69,7 @@
                 '                <div class="message_time">' + mes.time + '</div>\n' +
                 '                <img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
                 '        </div>';
-            if(after) $(".message_container").append(data);
+            if(type === "piece") $(".message_container").append(data);
             else $(".message_container").prepend(data);
 
         }

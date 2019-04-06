@@ -72,21 +72,20 @@ public class AsyncController {
     @PostMapping("/savemessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, @SessionAttribute int orgId){
+                            @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
         try {
-            int uId = Integer.valueOf(userId);
 
             /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
             Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
-            globalDAO.saveMessage(uId, text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
-            webSocketService.newGenChatMessageAlert(orgId, uId);
+            globalDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
+            webSocketService.newGenChatMessageAlert(user, time, text);
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    @PostMapping("/deletemessage")
+    @PostMapping("/deletemessage") //TODO удалять у других через ws
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteGenMessage(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
         globalDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
@@ -95,14 +94,13 @@ public class AsyncController {
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
-                         @RequestParam String time, @SessionAttribute int orgId){
+                         @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
         try {
-            int uId = Integer.valueOf(userId);
 
             /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
             Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
-            globalDAO.saveMessage(uId, text, DateFormatUtil.parseDate(time), orgId, Post.class);
-            webSocketService.newPostAlert(orgId, uId);
+            globalDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
+            webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -123,6 +121,7 @@ public class AsyncController {
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
         //webSocketService.newPrivateMessageAlert(orgId, user.getId()); TODO uncomment
     }
+
 
     @PostMapping("/groupmessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
