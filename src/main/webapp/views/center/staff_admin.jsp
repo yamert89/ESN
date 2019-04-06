@@ -18,7 +18,7 @@
                     var resp = confirm("Вы уверены, что хотите удалить текущую структуру? " +
                         "Все отделы и связанная с ними информация будут удалены");
                     if (!resp) return;
-                    $.get("/" + orgName +"/cleardeps");
+                    $.ajax({url : "/departments", method : "delete"});
                     //TODO Протестировать
                     location.reload();
                 });
@@ -82,7 +82,7 @@
                     });
 
 
-                    $.ajax({method:"post", url:"/" + orgUrl +"/savedep",
+                    $.ajax({method:"post", url:"/department",
                         data:{newname:EDIT_DEP_NAME, oldname:SELECTED_DEP.name, ids: JSON.stringify(ids)}, success: aftersave, dataType: "text"})
                     ;
 

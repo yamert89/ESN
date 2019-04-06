@@ -74,9 +74,6 @@ public class AsyncController {
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
         try {
-
-            /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
-            Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
             globalDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
             webSocketService.newGenChatMessageAlert(user, time, text);
 
@@ -96,9 +93,6 @@ public class AsyncController {
     public void savePost(@RequestParam String userId, @RequestParam String text,
                          @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
         try {
-
-            /*LocalDateTime dateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN));
-            Timestamp timestamp = Timestamp.valueOf(dateTime); //TODO разница 3 часа*/
             globalDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
             webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
@@ -382,12 +376,11 @@ public class AsyncController {
         }
     }
 
-    @PostMapping("/{org}/savedep") //TODO url ref
-    @ResponseBody
+    @PostMapping("/department")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<Long> saveDepartment(@PathVariable String org, @RequestParam String newname,
+    public ResponseEntity<Long> saveDepartment(@SessionAttribute int orgId, @RequestParam String newname,
                               @RequestParam String oldname, @RequestParam String ids){
-        Organization organization = orgDAO.getOrgByURL(org);
+        Organization organization = orgDAO.getOrgById(orgId);
         ObjectMapper om = new ObjectMapper();
         Department department = null;
         try {
@@ -410,11 +403,11 @@ public class AsyncController {
         return ResponseEntity.ok().body(department.getId());
     }
 
-    @GetMapping("/{org}/cleardeps") //TODO url ref
+    @DeleteMapping("/departments")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.GONE)
-    public void clearDeps(@PathVariable String org){
-        Organization organization = orgDAO.getOrgByURL(org);
+    public void clearDeps(@SessionAttribute int orgId){
+        Organization organization = orgDAO.getOrgById(orgId);
         organization.getDepartments().clear();
         orgDAO.update(organization);
         //TODO протестировать
@@ -467,7 +460,7 @@ public class AsyncController {
     @ResponseBody
     public void fav(){}
 
-    //TODO сохранение сообщений происходит, но не мнгновенная отправка. Использовать сокеты?
+
 
 
 

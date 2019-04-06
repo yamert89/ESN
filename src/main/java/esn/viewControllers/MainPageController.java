@@ -9,6 +9,8 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.*;
 import org.hibernate.LazyInitializationException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +77,7 @@ public class MainPageController {
         return "gen_chat";
     }
 
-    @GetMapping("/private-chat") //TODO url = login
+    @GetMapping("/private-chat") //TODO url = login ?
     public String privateChat(@PathVariable String organization,
                               @RequestParam String companion, Model model, @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
@@ -159,56 +161,51 @@ public class MainPageController {
         responseHeaders.set("Content-Type",
                 "application/json; charset=UTF-8");
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
-        StringBuilder json = new StringBuilder("[");
 
         if (user.getGroups().size() == 0){
             Organization org = orgDao.getOrgByURL(organization);
             Set<User> users = new HashSet<>(org.getAllEmployers());
             users.remove(user);
-            json.append("{").append("\"name\":\"Все\",\"users\":[");
-            for (User u :
-                    users) {
-                if (u.getId() == user.getId()) continue;
-                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
-                        .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
-            }
-            json.append("]}]");
-            return bb.body(json.toString().replaceAll(",]", "]"));
+
+            JSONObject js = new JSONObject();
+            JSONArray usrs = new JSONArray();
+            users.forEach(u -> {
+                JSONObject us = new JSONObject();
+                us.put("name", u.getName())
+                        .put("status", u.netStatus())
+                        .put("id", u.getId())
+                        .put("login", u.getLogin());
+                usrs.put(us);
+            });
+            js.put("name", "Все").put("users", usrs);
+            return bb.body(js.toString());
         }
         long start = System.currentTimeMillis();
-       /* for (ContactGroup group : user.getGroups()){
-            int[] ids = group.getPersonIds();
+        JSONArray js = new JSONArray();
 
-            json.append("{").append("\"name\":\"").append(group.getName()).append("\",\"users\":[");
-
-            for (int id : ids) {
+        user.getGroups().forEach(g -> {
+            JSONObject group = new JSONObject();
+            JSONArray usrs = new JSONArray();
+            Arrays.stream(g.getPersonIds()).forEach(id -> {
                 User u = userDAO.getUserById(id);
-                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
-                        .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
-            }
-            json.append("]},");
-        }
-        json.append("]");*/
-
-        ////////////////
-
-        user.getGroups().forEach(group -> {
-            json.append("{").append("\"name\":\"").append(group.getName()).append("\", \"expanded\" : ")
-        .append(group.isExpandable()).append(",\"users\":[");
-            Arrays.stream(group.getPersonIds()).forEach(id -> {
-                User u = userDAO.getUserById(id);
-                json.append("{\"name\":\"").append(u.getName()).append("\",\"status\":").append(u.netStatus())
-                        .append(",\"id\":").append(u.getId()).append(",\"login\":\"").append(u.getLogin()).append("\"},");
+                JSONObject us = new JSONObject();
+                us.put("name", u.getName())
+                        .put("status", u.netStatus())
+                        .put("id", u.getId())
+                        .put("login", u.getLogin());
+                usrs.put(us);
             });
-            json.append("]},");
+
+            group.put("name", g.getName())
+                    .put("expanded", g.isExpandable())
+                    .put("users", usrs);
+            js.put(group);
         });
-        json.append("]"); //TODO benchmark test
 
         System.out.println("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
         System.out.println(user);
 
-
-        return bb.body(json.toString().replaceAll(",]", "]"));
+        return bb.body(js.toString());
     }
 
 

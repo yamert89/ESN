@@ -7,7 +7,7 @@ public class SimpleUtils {
 
     public static String getNickName(String input) {
         String name = input.toLowerCase();
-        String rusAlph = "абвгдеёжзиклмнопрстуфхцчшщъыьэюя "; //TODO придумать получше
+        String rusAlph = "абвгдеёжзиклмнопрстуфхцчшщъыьэюя ";
         String engAlph = "abvgdeezziklmnoprstufhccss1i1euy_";
         char[] engArr = engAlph.toCharArray();
         char[] arr = name.toCharArray();

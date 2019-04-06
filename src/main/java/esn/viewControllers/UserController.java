@@ -110,7 +110,7 @@ public class UserController {
     @PostMapping("/exit")
     public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user){
         webSocketService.sendStatus(orgId, user.getId(), false);
-        //TODO save expand status groups
+
         session.invalidate(); //TODO
     }
 
