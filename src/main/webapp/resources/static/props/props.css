@@ -1,5 +1,4 @@
 body{
-
     background-color: rgba(59, 59, 31, 0.15);
 }
 label{
@@ -17,11 +16,8 @@ select{
     min-width: 620px;
     margin: 50px auto;
     padding: 10px 0;
-    background-color: rgba(174, 239, 120, 0.57);
     border: 3px ridge #c3cda9;
     border-radius: 10px;
-
-
 }
 .prop_line{
     margin: 20px;

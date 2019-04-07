@@ -22,17 +22,10 @@
     overflow-y: visible;
 
 }
-.storage_public{
-    background-color: rgba(219, 255, 91, 0.09);
-}
-.storage_private{
-    background-color: rgba(0, 255, 208, 0.09);
-}
+
 .storage_header{
     font-size: 1.3em;
     height: 1.5em;
-    /*margin-bottom: 10px;*/
-    background-color: rgba(189, 255, 133, 0.38);
     border-top: 1px solid rgba(0, 0, 0, 0.09);
     border-bottom: 1px solid rgba(0, 0, 0, 0.09);
     padding-top: 0.5em;
@@ -90,9 +83,7 @@
     margin: 20px 20px 0 0;
     border-radius: 12px;
 }
-.file_delete:hover{
-    background-color: rgba(255, 9, 0, 0.2);
-}
+
 
 .file_share{
     display: inline-block;
@@ -102,10 +93,6 @@
     float: right;
     margin: 20px 20px 0 0;
     border-radius: 4px;
-}
-
-.file_share:hover{
-    background-color: rgba(0, 255, 13, 0.2);
 }
 
 .file_time{

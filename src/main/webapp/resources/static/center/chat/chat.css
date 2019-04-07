@@ -15,7 +15,6 @@ input{
 .message{
     margin: 10px 10px;
     border-radius: 5px;
-    background-color: rgba(111, 235, 98, 0.11);
     display: table;
     width: calc(100% - 30px);
     text-align: right;
@@ -59,9 +58,6 @@ input{
     border-radius: 10px;
     outline: 0;
 }
-button{
-    background-color: #bdfa8a;
-}
 button:hover{
     box-shadow: 0 0 5px black;
 }
@@ -73,7 +69,6 @@ button:hover{
 .comment_bubble_left {
     width: 70%;
     /*height: 100px;*/
-    background: rgba(104, 201, 0, 0.2);
     position: relative;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
@@ -101,8 +96,6 @@ button:hover{
 
 .comment_bubble_right {
     width: 70%;
-    /*height: 100px;*/
-    background: rgba(107, 199, 206, 0.2);
     position: relative;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;

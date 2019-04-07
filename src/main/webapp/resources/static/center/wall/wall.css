@@ -19,7 +19,6 @@
     height: 2em;
     font-size: large;
     margin: 10px;
-    background-color: #bdfa8a;
     border-radius: 20px;
     transition: margin-top 0.4s ease, margin-bottom 0.4s ease, box-shadow 0.4s ease;
 }
@@ -32,7 +31,6 @@
 .post{
     margin: 15px 0 15px 0;
     width: 100%;
-    background-color: rgba(255, 237, 163, 0.39);
     box-shadow: 0 0 10px #000000;
     font-size: 1.2em;
     clear:both; float: right;

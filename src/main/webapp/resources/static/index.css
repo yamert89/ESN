@@ -90,7 +90,6 @@ iframe{
 }
 
 .center{
-    background-color: antiquewhite;
     display: inline-block;
     width: 68%;
     height: calc(100% - 10px);
@@ -134,7 +133,6 @@ a{
     font-size: large;
     height: 1.4em;
     width: 15em;
-    background-color: #bdfa8a;
     border-radius: 0 0 20px 20px;
     outline: none;
     transition: height 0.1s ease;
@@ -152,7 +150,6 @@ a{
 }
 
 .dp-note {
-    background: rgba(255, 0, 7, 0.68);
     width: 4px;
     height: 4px;
     border-radius: 50%;

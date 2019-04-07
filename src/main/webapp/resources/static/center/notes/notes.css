@@ -10,7 +10,6 @@
     padding-left: 1em;
     text-align: left;
     border-radius: 10px 10px 0 0;
-    background-color: #bdfa8a;
 }
 .note_text{
     font-size: 1.2em;
@@ -20,7 +19,5 @@
 }
 .note{
     margin-top: 20px;
-    border: 2px solid #91c26d;
     border-radius: 10px;
-    background-color: #dfffc7;
 }

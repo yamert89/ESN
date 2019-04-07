@@ -70,6 +70,8 @@ table{
 }
 
 /*COLORS*/
+
+
 .container, .center{
     background-color: beige;
 }
@@ -78,4 +80,91 @@ table{
 }
 .message_info_wrapper{
     background-color: rgba(189, 250, 138, 0.89);
+}
+
+.multicast_icon:hover {
+    background-color: #bdfa8a;
+}
+
+.post {
+
+    background-color: rgba(255, 237, 163, 0.39);
+}
+
+.post_submit {
+
+    background-color: #bdfa8a;
+}
+.person_item {
+    background-color: #bdfa8a;
+}
+
+.comment_bubble_left {
+    background: rgba(104, 201, 0, 0.2);
+}
+.comment_bubble_right {
+    background: rgba(107, 199, 206, 0.2);
+}
+button{
+    background-color: #bdfa8a;
+}
+
+.message {
+    background-color: rgba(111, 235, 98, 0.11);
+}
+.group{
+    background-color: #8ad5f4;
+}
+.group:hover{
+    background-color: rgba(135, 202, 232, 0.86);
+}
+.group_selected {
+    background-color: #cbf4da;
+}
+.date{
+    background-color: #bdfa8a;
+}
+.note{
+    border: 2px solid #91c26d;
+    background-color: #dfffc7;
+}
+#myTreeContainer{
+    background-color: rgba(138, 213, 244, 0);
+}
+.person_photo_staff{
+    background-color: #bdfa8a;
+}
+
+.storage_public{
+    background-color: rgba(219, 255, 91, 0.09);
+}
+.storage_private{
+    background-color: rgba(0, 255, 208, 0.09);
+}
+.storage_header{
+    background-color: rgba(189, 255, 133, 0.38);
+}
+.file_delete:hover{
+    background-color: rgba(255, 9, 0, 0.2);
+}
+.file_share:hover{
+    background-color: rgba(0, 255, 13, 0.2);
+}
+.properties_board{
+    background-color: rgba(174, 239, 120, 0.57);
+}
+.tool{
+    background-color: rgba(0, 0, 0, 0.16);
+}
+.date_noted{
+    color: red;
+}
+.center{
+    background-color: antiquewhite;
+}
+.post_add{
+    background-color: #bdfa8a;
+}
+.dp-note {
+    background: rgba(255, 0, 7, 0.68);
 }
