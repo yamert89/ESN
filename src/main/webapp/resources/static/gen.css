@@ -69,5 +69,13 @@ table{
     border-radius: 10px;
 }
 
-
-/*wall and chat*/
+/*COLORS*/
+.container, .center{
+    background-color: beige;
+}
+.center{
+    background-color: #ebebd2;
+}
+.message_info_wrapper{
+    background-color: rgba(189, 250, 138, 0.89);
+}

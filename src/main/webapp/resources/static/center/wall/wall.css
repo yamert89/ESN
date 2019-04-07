@@ -59,8 +59,8 @@ p{
 
 }
 .message_info_wrapper{
-    background-color: #bdfa8a;
     padding: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.11);
 }
 .message_time_w{
 
