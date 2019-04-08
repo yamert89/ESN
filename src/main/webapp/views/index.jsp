@@ -310,6 +310,7 @@
         <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>
         <div class="datepicker-here"></div>
 
+
     </div>
     <div class="center">
         <t:insertAttribute name="center"/>

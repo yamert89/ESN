@@ -26,6 +26,10 @@ public class GlobalDAO {
     private final String SELECT_WALL_MESSAGES_MYSQL_WITHIDX = "select * from wall where orgId = ? and id < ? order by time desc limit ?";
     private final String SELECT_CHAT_MESSAGES_MYSQL = "select * from generalchat where orgId = ? order by time desc limit ?";
     private final String SELECT_WALL_MESSAGES_MYSQL = "select * from wall where orgId = ? order by time desc limit ?";
+    private final String SELECT_CHAT_MESSAGES_POSTGRES_WITHIDX = "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";
+    private final String SELECT_WALL_MESSAGES_POSTGRES_WITHIDX = "select * from wall where orgId = ? and id < ? order by time desc limit ?";
+    private final String SELECT_CHAT_MESSAGES_POSTGRES = "select * from generalchat where orgId = ? order by time desc limit ?";
+    private final String SELECT_WALL_MESSAGES_POSTGRES = "select * from wall where orgId = ? order by time desc limit ?";
 
     @PersistenceContext
     private EntityManager em;
@@ -69,7 +73,7 @@ public class GlobalDAO {
         try {
             if (mesClass == GenChatMessage.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_MYSQL + "'generalchat'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
@@ -92,7 +96,7 @@ public class GlobalDAO {
                 }
             } else if (mesClass == Post.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_MYSQL + "'wall'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
