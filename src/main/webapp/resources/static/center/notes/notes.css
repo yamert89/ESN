@@ -1,15 +1,14 @@
 .notes{
     padding: 20px 50px;
-    overflow-y: auto;
-    max-height: 90%;
 
 }
 .date{
-    font-size: 1.5em;
+    font-size: 1em;
     line-height: 1.5em;
     padding-left: 1em;
     text-align: left;
     border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .note_text{
     font-size: 1.2em;
@@ -20,4 +19,18 @@
 .note{
     margin-top: 20px;
     border-radius: 10px;
+    min-height: 4em;
+}
+.notes_container{
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 4.7em;
+    left: 0;
+    right: 0;
+    max-height: 100%;
+
+}
+.post_add_wrapper{
+    flex: 0 0 auto;
 }

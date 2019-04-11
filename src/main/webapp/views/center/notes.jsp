@@ -26,6 +26,7 @@
     </script>
 </head>
 <body>
+<div class="notes_container">
 <div class="post_add_wrapper">
     <button class="post_add post_submit">Добавить заметку</button></div>
 <div class="notes"><%System.out.println(new Date());
@@ -36,6 +37,7 @@ System.out.println(((User) session.getAttribute("user")).getNotes());%>
             <div class="note_text">${note.value}</div>
         </div>
     </c:forEach>
+</div>
 </div>
 </body>
 </html>

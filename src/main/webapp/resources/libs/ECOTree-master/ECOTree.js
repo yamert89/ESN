@@ -286,7 +286,7 @@ ECOTree = function (obj, elm) {
 		render : "AUTO",
 		linkType : "M",
 		linkColor : "blue",
-		nodeColor : "#CCCCFF",
+		nodeColor : "#d0d9ff",
 		nodeFill : ECOTree.NF_GRADIENT,
 		nodeBorderColor : "blue",
 		nodeSelColor : "#FFFFCC",

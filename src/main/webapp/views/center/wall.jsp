@@ -134,6 +134,7 @@
     </script>
 </head>
 <body>
+<div class="wall_container">
 <div class="post_add_wrapper"><c:set var="user" value="${sessionScope.get('user')}"/>
     <button class="post_add" data-name="${user.name}" data-img="${user.photo}"
             data-userId="${user.id}" data-ogrUrl="${sessionScope.get("orgUrl")}"  data-img-small="${user.photo_small}">Добавить новость</button></div>
@@ -154,6 +155,7 @@
         </div>
     </c:forEach>
 
+</div>
 </div>
 </body>
 </html>

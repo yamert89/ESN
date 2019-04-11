@@ -183,7 +183,7 @@
 
                 stompClient.subscribe('/genchat' + orgId , function(data){
                     var resp = JSON.parse(data.body);
-                    //if (resp.initiatorId == userId) return;
+                    if (resp.initiatorId == userId) return;
                     switch (resp._alert) {
                         case 'genmessage':
                             if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");

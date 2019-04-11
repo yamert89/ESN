@@ -8,6 +8,7 @@
     display: none;
 }
 
+
 .net_status_circle{
     width: 10px;
     height: 10px;
@@ -64,40 +65,77 @@ table{
     margin-left: 10px;
     display: none;
 }
-.delete_message:hover{
-    background-color: rgba(255, 0, 0, 0.51);
+.delete_message:hover, .file_delete:hover{
+    background-color: rgba(255, 77, 86, 0.61);
     border-radius: 10px;
+}
+
+button{
+    border-radius: 10px;
+    background-color: #F0F4C3;
+    font-size: 1.1em;
+}
+button:hover{
+    background-color: #e7ebb9;
+}
+.note{
+    /*   border: 2px solid #91c26d;
+       background-color: #dfffc7;*/
+    border: 2px solid #859c4e;
+
+}
+
+.wall_container, .notes_container, .chat_gen_container, .private_chat_wrapper{
+    width: 70%;
+    margin: auto;
+    border: 3px double rgba(0, 0, 0, 0.1);
+    border-top: none;
+    border-bottom: none;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 4.7em;
+    left: 0;
+    right: 0;
+    max-height: 100%;
+
 }
 
 /*COLORS*/
 
+input{
+    background-color: #f5f5f5;
+}
 
-.container, .center{
+
+
+.container{
     background-color: beige;
 }
 .center{
     background-color: #ebebd2;
 }
-.message_info_wrapper{
-    background-color: rgba(189, 250, 138, 0.89);
+header{
+    background-color: rgba(128, 128, 128, 0.38);
+
+}
+.message_info_wrapper, .post_add, .person_item, .post_submit, .storage_header, .date{
+    background-color: #DFF68F;
 }
 
-.multicast_icon:hover {
-    background-color: #bdfa8a;
+.post_submit:hover, .post_add:hover{
+    background-color: #DFF68F;
 }
 
-.post {
-
-    background-color: rgba(255, 237, 163, 0.39);
+.multicast_icon:hover, .file_share:hover {
+    background-color: rgba(189, 254, 140, 0.55);
 }
 
-.post_submit {
+.post, .note {
+    background-color: #f2ffce;;
+}
 
-    background-color: #bdfa8a;
-}
-.person_item {
-    background-color: #bdfa8a;
-}
+
 
 .comment_bubble_left {
     background: rgba(104, 201, 0, 0.2);
@@ -105,12 +143,10 @@ table{
 .comment_bubble_right {
     background: rgba(107, 199, 206, 0.2);
 }
-button{
-    background-color: #bdfa8a;
-}
+
 
 .message {
-    background-color: rgba(111, 235, 98, 0.11);
+    background-color: #e4e4cb;
 }
 .group{
     background-color: #8ad5f4;
@@ -122,34 +158,21 @@ button{
     background-color: #cbf4da;
 }
 .date{
-    background-color: #bdfa8a;
+    /*background-color: #bdfa8a;*/
+
 }
-.note{
-    border: 2px solid #91c26d;
-    background-color: #dfffc7;
-}
+
 #myTreeContainer{
     background-color: rgba(138, 213, 244, 0);
 }
-.person_photo_staff{
-    background-color: #bdfa8a;
-}
 
 .storage_public{
-    background-color: rgba(219, 255, 91, 0.09);
+    background-color: #e7f5d8;
 }
 .storage_private{
-    background-color: rgba(0, 255, 208, 0.09);
+    background-color: #f5f0d8;
 }
-.storage_header{
-    background-color: rgba(189, 255, 133, 0.38);
-}
-.file_delete:hover{
-    background-color: rgba(255, 9, 0, 0.2);
-}
-.file_share:hover{
-    background-color: rgba(0, 255, 13, 0.2);
-}
+
 .properties_board{
     background-color: rgba(174, 239, 120, 0.57);
 }
@@ -159,12 +182,12 @@ button{
 .date_noted{
     color: red;
 }
-.center{
-    background-color: antiquewhite;
-}
-.post_add{
-    background-color: #bdfa8a;
-}
+
 .dp-note {
     background: rgba(255, 0, 7, 0.68);
+}
+
+.selected{
+    box-shadow: 0 0 5px black;
+    background-color: rgba(255, 9, 0, 0.11);
 }

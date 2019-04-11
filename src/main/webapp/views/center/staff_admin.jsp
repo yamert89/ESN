@@ -196,10 +196,12 @@
 
     <div class="flowchart_wrapper">
         <iframe src='<c:url value="/resources/static/center/staff/flowchart/flowchart.html"/>' class="flowchart_frame" id="iframe1"></iframe>
+        <div class="features">
         <button class="save_flowchart" disabled>Сохранить структуру</button>
         <button class="clear_flowchart">Очистить структуру</button>
         <button class="staff_choose_btn">Редактировать отдел</button>
         <button class="staff_add_btn" disabled>Сохранить отдел</button>
+        </div>
     </div>
 
     <div class="staff_container">

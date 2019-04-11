@@ -8,6 +8,8 @@
     display: inline-block;
     max-height: 95%;
     margin-left: 5px;
+    flex: 1 0 400px;
+
 
 }
 canvas{
@@ -52,16 +54,19 @@ canvas{
 .person_position{
 }
 .flowchart_wrapper{
-    display: inline-block;
+    display: flex;
     width: 70%;
-    height: calc(100% - 41px);
+   /* height: calc(100% - 41px);
     line-height: calc(100% - 41px);
-    max-height: calc(100% - 41px);
+    max-height: calc(100% - 41px);*/
+    flex: 1 1 auto;
+    flex-direction: column;
 }
 .flowchart_frame{
     width: 100%;
     height: 100%;
     margin-bottom: 7px;
+    flex: 1 0 800px;
 }
 
 .tree_wrapper{
@@ -91,5 +96,8 @@ canvas{
 button{
     margin: 0 20px;
 
+}
+.features{
+    flex: 0 0 auto;
 }
 

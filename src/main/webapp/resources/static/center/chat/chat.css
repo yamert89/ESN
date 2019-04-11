@@ -6,10 +6,10 @@ input{
     margin-bottom: 20px;
 }
 .chat_gen_container{
-    border-radius: 10px;
-   /* background-color: rgba(107, 199, 206, 0.15);*/
-    overflow-y: auto;
+
+    /* background-color: rgba(107, 199, 206, 0.15);*/
     text-align: center;
+    bottom: 5.7em;
 
 }
 .message{
@@ -47,7 +47,7 @@ input{
 
 .new_genchat_message{
     font-size: 1.2em;
-    width: 87%;
+    width: 60%;
     border-radius: 10px;
     outline: 0;
     padding: 0 1em;
@@ -75,9 +75,11 @@ button:hover{
     border-radius: 12px;
     margin-bottom: 20px;
     margin-left: 26px;
-    text-align: justify;
+    float: left;
     padding: 10px;
-    align-self: flex-start;
+
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    border-left: none;
 
 
 }
@@ -92,6 +94,7 @@ button:hover{
     border-top: 6px solid transparent;
     border-right: 26px solid rgba(104, 201, 0, 0.2);
     border-bottom: 13px solid transparent;
+
 }
 
 .comment_bubble_right {
@@ -102,11 +105,10 @@ button:hover{
     border-radius: 12px;
     margin-bottom: 20px;
     margin-right: 26px;
-   /* float: right;*/
-    text-align: justify;
-
-    align-self: flex-end;
+    float: right;
     padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    border-right: none;
 
 }
 
@@ -132,7 +134,7 @@ button:hover{
     display: block;
     height: 100px;
     width: 100px;
-    border: 1px solid rgba(255, 201, 115, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.21);
 
 
 }
@@ -156,17 +158,19 @@ button:hover{
 
 }
 .private_chat_container{
-    display: inline-flex;
+
     flex-direction: column;
-    overflow-y: scroll;
-    max-height: 80%;
-    min-height: 80%;
+    overflow-y: auto;
+    /*max-height: 80%;
+    min-height: 80%;*/
     /*background-color: white;*/
-    border: 1px solid rgba(138, 138, 138, 0.33);
+    border-top: 1px solid rgba(138, 138, 138, 0.33);
     padding: 10px 0;
-    border-radius: 5px;
+
     line-height: 120%;
-    width: 100%;
+    top: calc(1.2em + 184px)!important;
+
+
 
 }
 .time-right, .time-left{
@@ -188,9 +192,11 @@ button:hover{
 
 .message_container{
     overflow-y: auto;
-    max-height: 90%;
+    max-height: 100%;
     border-top: 1px solid rgba(0, 0, 0, 0.11);
+    top: 4em;
 }
+
 
 
 

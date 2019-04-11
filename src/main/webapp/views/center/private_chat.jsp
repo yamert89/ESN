@@ -38,6 +38,7 @@
     </script>
 </head>
 <body>
+<div class="private_chat_wrapper">
 <div class="private_chat_profile">
     <div class="person_container" data-companion-id="${companion.id}" data-companion-login="${companion.login}">
         <img src='<c:url value="/resources/avatars/${companion.photo}"/>' class="person_photo_chat"><br>
@@ -68,7 +69,6 @@
         </div>${mes.key.text}
         </div>
     </c:forEach>
-
-</div>
+</div></div>
 </body>
 </html>
