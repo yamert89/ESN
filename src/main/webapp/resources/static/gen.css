@@ -96,12 +96,14 @@ button:hover{
     left: -250px;
     bottom: 0;
     transition: left 0.4s ease;
+    vertical-align: middle;
 }
 
 .show_log{
     left: 0;
     transition: left 0.4s ease;
 }
+
 
 .wall_container, .notes_container, .chat_gen_container, .private_chat_wrapper{
     width: 70%;

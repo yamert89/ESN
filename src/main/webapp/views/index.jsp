@@ -74,9 +74,13 @@
 
                 window.dates = data;
                 window.datesOfThisMonth = [];
+
+                var thisYear = new Date().getFullYear();
+                window.year = thisYear;
                 window.dates.forEach(function (el) {
                     if (el.m == monthNumber) window.datesOfThisMonth.push(el);
                 });
+
 
 
 
@@ -89,6 +93,7 @@
 
                 $picker.datepicker({
                     onRenderCell: function (date, cellType) {
+
                         var currentDate = date.getDate();
 
                         // Добавляем вспомогательный элемент, если число содержится в `eventDates`
@@ -143,12 +148,11 @@
 
                     },
                     onChangeMonth: function (monthN, year) {
-                        if (new Date().getFullYear() != year) {
-                            window.dates = [];
-                            window.datesOfThisMonth = [];
-                            alert('wrong year')
+                        if (year != thisYear) {
+                            window.eventDates = [];
                             return;
-                        } //ToDO TEst
+                        }
+
                         window.eventDates = getEventDates(monthN);
                         window.dates.forEach(function (el) {
                             if (el.m == monthN) window.datesOfThisMonth.push(el);
@@ -156,6 +160,7 @@
                         var pickerObj = $picker.data('datepicker');
                         pickerObj.update('minDate');
                     },
+
                     moveToOtherMonthsOnSelect:false
                 });
 
@@ -294,7 +299,7 @@
         
         function notify(text) {
             var log = $(".log");
-            log.text(text);
+            log.text('<span class="log_text">' + text + '</span>');
             log.addClass('show_log');
             setTimeout(function () {
                 log.removeClass('show_log');

@@ -45,7 +45,7 @@ public class GlobalDAO {
         try {
             String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
 
-            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_POSTGRES) //TODO Учесть ограничения базы (везде) !!!
+            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_MYSQL) //TODO Учесть ограничения базы (везде) !!!
                     .executeUpdate();  //TODO Создать таблицу до её чтения в wall
             Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(message, userId, time, orgId) values (?, ?, ?, ?)"))
                     .setParameter(1, message)
@@ -73,7 +73,7 @@ public class GlobalDAO {
         try {
             if (mesClass == GenChatMessage.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_MYSQL + "'generalchat'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
@@ -96,7 +96,7 @@ public class GlobalDAO {
                 }
             } else if (mesClass == Post.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_MYSQL + "'wall'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
