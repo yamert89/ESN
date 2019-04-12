@@ -24,7 +24,7 @@
                 });
 
                 $(".save_flowchart").click(function () {
-                    //TODO Уведомить пользователя
+
                     var object = document.getElementById("iframe1").contentWindow.exportData;
                     object.sort(comparator);
                     var outObj = [];
@@ -62,8 +62,7 @@
                     if (EDIT_DEP_NAME == null) EDIT_DEP_NAME = SELECTED_DEP.name;
                     $(".staff_container").empty();
                     fillStaff(DATA[0].employers);
-                    alert("выберите людей");
-                    //TODO log - выберите людей
+                    notify("Выберите людей");
                     window.EDIT_MODE = true;
                     $(".staff_add_btn").removeAttr("disabled");
 
@@ -72,7 +71,7 @@
 
                 $(".staff_add_btn").click(function () {
                     if (window.EDIT_MODE != true) {
-                        alert("Нечего сохранять");//TODO replace log
+                        notify("Нечего сохранять");
                         return;
                     }
                     var employers = $(".staff_container").find($(".person_selected"));
@@ -97,7 +96,7 @@
 
         function aftersave(data){
             location.reload();
-            alert("Сохранено")//TODO replace log
+            notify('Сохранено');
             $("#" + data).click();
         }
 
@@ -184,10 +183,6 @@
             return el1.parentid === el2.parentid ? 0 :
                 el1.parentid > el2.parentid ? 1 : -1;
         }
-
-        //TODO отступ слева и размер поля конфиг пользователя
-
-        //TODO staff обычный
 
     </script>
 </head>

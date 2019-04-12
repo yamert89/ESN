@@ -87,7 +87,7 @@
                 el1.parentid > el2.parentid ? 1 : -1;
         }
 
-        //TODO отступ слева и размер поля конфиг пользователя
+
 
     </script>
 </head>

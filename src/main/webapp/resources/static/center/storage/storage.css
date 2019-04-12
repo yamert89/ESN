@@ -107,5 +107,8 @@
     float: right;
     margin-right: 15px;
 }
+input[type=text]{
+    background-color: transparent;
+}
 
 

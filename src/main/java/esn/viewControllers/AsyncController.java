@@ -265,7 +265,7 @@ public class AsyncController {
     }
 
     @PostMapping("/savefile")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseStatus(code = HttpStatus.OK)
     public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared,
                          @SessionAttribute User user, HttpSession session){
         String name = file.getOriginalFilename();
@@ -282,7 +282,7 @@ public class AsyncController {
     }
 
     @GetMapping("/savefile")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseStatus(code = HttpStatus.OK)
     public void updateFile(@RequestParam String fname, @RequestParam String update,
                            @RequestParam(required = false) String newName, @SessionAttribute User user, HttpSession session){
         Iterator<StoredFile> it = user.getStoredFiles().iterator();
@@ -316,7 +316,7 @@ public class AsyncController {
         }catch (IOException e){
             e.printStackTrace();
         }
-        user = userDAO.getUserWithFiles(user.getId());
+        //user = userDAO.getUserWithFiles(user.getId());
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
     }

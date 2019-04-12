@@ -143,8 +143,16 @@
 
                     },
                     onChangeMonth: function (monthN, year) {
-                        if (new Date().getFullYear() != year) return; //ToDO TEst
+                        if (new Date().getFullYear() != year) {
+                            window.dates = [];
+                            window.datesOfThisMonth = [];
+                            alert('wrong year')
+                            return;
+                        } //ToDO TEst
                         window.eventDates = getEventDates(monthN);
+                        window.dates.forEach(function (el) {
+                            if (el.m == monthN) window.datesOfThisMonth.push(el);
+                        });
                         var pickerObj = $picker.data('datepicker');
                         pickerObj.update('minDate');
                     },
@@ -265,7 +273,7 @@
             };
             return prepUnit(date.getHours()) + ':' + prepUnit(date.getMinutes()) + ':' +
                 prepUnit(date.getSeconds()) + ' / ' + prepUnit(date.getDate()) + '.' + prepUnit(date.getMonth() + 1);
-            //return date.toLocaleString(); //TODO
+
         }
 
         function prepUnit(unit) {
@@ -282,6 +290,16 @@
 
         function updatePage() {
             location.reload();
+        }
+        
+        function notify(text) {
+            var log = $(".log");
+            log.text(text);
+            log.addClass('show_log');
+            setTimeout(function () {
+                log.removeClass('show_log');
+            }, 3000)
+
         }
 
 
@@ -309,6 +327,7 @@
         <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'">Календарь</div>
         <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>
         <div class="datepicker-here"></div>
+        <div class="log log_message">Это просто такой текст лога</div>
 
 
     </div>

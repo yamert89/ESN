@@ -79,14 +79,14 @@
         }
 
         function exc(e) {
-            alert(e);
+            notify('Ошибка на сервере');
         }
 
 
         function addChild(parent) {
             var name = prompt("Введите название дочернего подразделения", "");
             while (name.length === 0) {
-                alert("Назавание не может быть пустым");
+                notify("Назавание не может быть пустым");
                 name = prompt("Введите название подраздела", "");
             }
             var nodeId = Date.now();

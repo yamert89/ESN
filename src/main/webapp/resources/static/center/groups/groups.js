@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     $("#right_arrow").click(function () {
         if (emptyGroups()) {
-            alert("Вначале создайте новую группу");
+            notify("Вначале создайте новую группу");
             return;
         }
         insertUsersInGroup();
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     $("#left_arrow").click(function () {
         if (emptyGroups()) {
-            alert("Вначале создайте новую группу");
+            notify("Вначале создайте новую группу");
             return;
         }
         removeUsersFromGroup();
@@ -113,11 +113,11 @@ function saveGroup(){
 }
 
 function successSave() {
-    alert("Group saved")
+    notify('Группа сохранена');
 }
 
 function error(err, stat) {
-    alert("Ошибка сохранения группы: " + stat)
+    notify("Ошибка сохранения группы: " + stat);
 }
 
 function deleteGroup(){
@@ -155,6 +155,6 @@ $(window).on("beforeunload", function () {
     //saveGroup();
 });
 
-//TODO уведомить о сохранении log
+
 
 

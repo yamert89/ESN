@@ -97,9 +97,10 @@
                 var shared = input.attr("data-shared");
                 data.append( 'file', file);
                 data.append('shared', shared);
-                $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data});
+                $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data, success: function () {
+                        notify('Файл загружен');
+                    }});
 
-                //TODO уведомить пользователя о загрузке файла
                 input.get(0).value = '';
                 var ico = getFileIco(file.name);
                 var fileContainer;
@@ -108,7 +109,7 @@
                     fileContainer.append('<div class="file">\n' +
                         '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'">\n' +
                         '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'">\n' +
-                        '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +  //TODO link
+                        '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +
                         '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                         '            </div>');
                 }
@@ -128,16 +129,22 @@
             });
         });
 
+
+
         function rename(el) {
             var oldName = el.getAttribute("title");
-            $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: oldName, update: "rename", newName: el.value}});
+            $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: oldName, update: "rename", newName: el.value}, success: function () {
+                    notify('Файл переименован')
+                }, error: function () {
+                    notify('Ошибка переименования')
+                }});
             el.setAttribute("title", el.value);
             el.setAttribute("value", el.value);
 
             var sharedEl =  $('[title="' + oldName  +'"');
            sharedEl.attr("title", el.value);
            sharedEl.attr("value", el.value);
-            //TODO уведомить пользователя о переименовании файла
+
         }
 
 
