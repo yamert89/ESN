@@ -3,9 +3,12 @@
 }
 .storage{
     /*padding: 2% 5%;*/
-    display: table;
+    display: flex;
     width: 100%;
-    height: calc(100% - 10px);
+    /*height: calc(100% - 10px);*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
 
 }
 .storage_wrapper{
@@ -15,8 +18,9 @@
 
 }
 .storage_public, .storage_private{
-    display: table-cell;
-    width: 45%;
+    /* display: table-cell;
+     width: 45%;*/
+    flex: 1 0 auto;
 
     border: 1px solid rgba(0, 0, 0, 0.09);
     overflow-y: visible;
@@ -51,7 +55,7 @@
     border: 0;
     background-color: transparent;
     width: 15em;
-   /* position: absolute;*/
+    /* position: absolute;*/
 
 }
 .file_author{

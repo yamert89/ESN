@@ -1,12 +1,10 @@
 html{
     max-height: 100%;
 }
-.tools, .contacts, .center{
+/*.tools, .contacts, .center{
     height: 100%;
     position: relative;
-
-
-}
+}*/
 .tools{
 
 }
@@ -108,6 +106,7 @@ iframe{
     /*height: 90%;*/
     /*max-height: 90%;*/
     flex: 1 1 auto;
+    position: relative;
 
 }
 
