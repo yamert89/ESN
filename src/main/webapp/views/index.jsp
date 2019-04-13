@@ -106,11 +106,6 @@
                     },
                     onSelect: function onSelect(fd, date) {
                         var title = '', content = '';
-                        /*if (!window.inited){
-                            window.inited = true;
-                            return;
-                        }*/
-                       /* if (new Date().getFullYear() != year) return;*/ //TODO
 
                         var monthNumber = pickerObj.loc.months.indexOf(
                             $picker.find('.datepicker--nav-title').text().split(',')[0]);
@@ -177,17 +172,7 @@
 
         });
 
-        /*function connectWS() {
-            var socket = new SockJS('/' + orgUrl + '/messages');
-            stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
-                stompClient.subscribe('/' + orgUrl + '/esn/genchat', function(data){
-                    alert(data);
-                    $(".new_gen_mes").css("display", "none");
 
-                });
-            });
-        }*/
 
         function connectWS() {
             var socket = new SockJS('/messages');
