@@ -22,7 +22,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
         urls = orgDAO.getAllOrgs().stream().map(el ->  "/genchat" + el.getId())
                 .peek(System.out::println).toArray(String[]::new);
-        registry.enableSimpleBroker(urls); //mes to client
+        String[] urls2 = new String[urls.length + 2];
+        for (int i = 0; i < urls.length; i++){
+            urls2[i] = urls[i];
+        }
+        urls2[urls2.length - 2] = "/message";
+        urls2[urls2.length - 1] = "/user";
+        registry.enableSimpleBroker(urls2); //mes to client
         //registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
 
         System.out.println(" configureMessageBroker");

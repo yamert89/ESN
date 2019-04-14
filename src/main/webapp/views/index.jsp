@@ -180,9 +180,9 @@
             var subscribePrefix = "/user/" + userId;
             stompClient.connect({}, function(frame) {
 
-                stompClient.subscribe(subscribePrefix + '/genchat' + orgId , function(data){
+                stompClient.subscribe('/genchat' + orgId , function(data){
                     var resp = JSON.parse(data.body);
-                    if (resp.initiatorId == userId) return;
+                    //if (resp.initiatorId == userId) return;
                     switch (resp._alert) {
                         case 'genmessage':
                             if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
@@ -206,15 +206,20 @@
                             break;
                         case 'privatemessage':
                             alert(resp);
-                            $(".contacts-frame").find("[data-id=" + resp.uId + "]").children().get(1).css("display", "block");
+                            $(".contacts-frame").find("[data-id=" + resp.uId + "]").children().first().css("display", "block");
                             break;
 
                     }
                 });
 
-                stompClient.subscribe('/netstatus' + orgId, function (data) {
 
-                })
+
+                stompClient.subscribe(subscribePrefix + '/message', function (data) {
+                    var resp = JSON.parse(data.body);
+                    $(".contacts-frame").contents().find("[data-id=" + resp.uId + "]").each(function () {
+                        $(this).children().first().next().css("display", "inline-block") ;
+                    })
+                }) //TODO непрочитанное сообщение получать офлайн
             });
         }
 
