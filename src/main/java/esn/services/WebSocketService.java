@@ -51,9 +51,12 @@ public class WebSocketService {
     }
 
     public void newPrivateMessageAlert(int orgId, int userId){
-        template.convertAndSend("/genchat" + orgId,
-                "{\"_alert\":\"privatemessage\", \"uId\":" + userId + "}"); //TODO
+
+        template.convertAndSendToUser("user2", "/genchat" + orgId,
+                "{\"_alert\":\"privatemessage\", \"uId\":" + userId + "}");
     }
+
+
 
 
 

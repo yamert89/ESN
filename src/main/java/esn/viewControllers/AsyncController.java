@@ -25,12 +25,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static esn.configs.GeneralSettings.TIME_PATTERN;
 
 @Controller
 @SessionAttributes({"user", "orgId"})
@@ -112,8 +109,15 @@ public class AsyncController {
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
                                    @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = userDAO.getUserById(Integer.valueOf(companionId));
+        if (text.length() > 800) {
+            String[] messages = text.split(".{800}"); //TODO test
+            for (String m :
+                    messages) {
+                privateChatMessageDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
+            }
+        }
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
-        //webSocketService.newPrivateMessageAlert(orgId, user.getId()); TODO uncomment
+        webSocketService.newPrivateMessageAlert(orgId, user.getId()); //TODO uncomment
     }
 
 
@@ -142,7 +146,7 @@ public class AsyncController {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
             user = userDAO.getUserById(user.getId());
-            user.getGroups().add(new ContactGroup(groupName, user, ids, true)); //TODO expandable
+            user.getGroups().add(new ContactGroup(groupName, user, ids, true));
            // userDAO.refresh(user); //TODO id обнуляется
             user = userDAO.updateUser(user);
             session.setAttribute("user", user);

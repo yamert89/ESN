@@ -177,9 +177,10 @@
         function connectWS() {
             var socket = new SockJS('/messages');
             stompClient = Stomp.over(socket);
+            var subscribePrefix = "/user/" + userId;
             stompClient.connect({}, function(frame) {
 
-                stompClient.subscribe('/genchat' + orgId , function(data){
+                stompClient.subscribe(subscribePrefix + '/genchat' + orgId , function(data){
                     var resp = JSON.parse(data.body);
                     if (resp.initiatorId == userId) return;
                     switch (resp._alert) {
@@ -204,6 +205,7 @@
                             usDom.find(":first-child").attr("id", stat);
                             break;
                         case 'privatemessage':
+                            alert(resp);
                             $(".contacts-frame").find("[data-id=" + resp.uId + "]").children().get(1).css("display", "block");
                             break;
 
@@ -284,7 +286,7 @@
         
         function notify(text) {
             var log = $(".log");
-            log.text('<span class="log_text">' + text + '</span>');
+            log.html('<span class="log_text">' + text + '</span>');
             log.addClass('show_log');
             setTimeout(function () {
                 log.removeClass('show_log');

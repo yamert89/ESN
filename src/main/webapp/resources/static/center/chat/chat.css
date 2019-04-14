@@ -44,19 +44,25 @@ input{
     display: table-cell;
     vertical-align: middle;
 }
+.new_message_container{
+    display: flex;
+    align-items: center;
+}
 
 .new_genchat_message{
     font-size: 1.2em;
-    width: 60%;
+    /*width: 60%;*/
     border-radius: 10px;
     outline: 0;
     padding: 0 1em;
+    flex: 10 1 auto;
 }
 .new_genchat_message_btn{
-    width: 10%;
+    /*width: 10%;*/
     font-size: 1.2em;
     border-radius: 10px;
     outline: 0;
+    flex: 1 0 auto;
 }
 button:hover{
     box-shadow: 0 0 5px black;

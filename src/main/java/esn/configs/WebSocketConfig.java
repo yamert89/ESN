@@ -27,8 +27,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         System.out.println(" configureMessageBroker");
 
-
-
     }
 
 
