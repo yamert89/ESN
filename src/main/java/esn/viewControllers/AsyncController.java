@@ -108,7 +108,8 @@ public class AsyncController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
                                    @SessionAttribute User user, @SessionAttribute int orgId){
-        User compan = userDAO.getUserById(Integer.valueOf(companionId));
+        int cId = Integer.valueOf(companionId);
+        User compan = userDAO.getUserById(cId);
         if (text.length() > 800) {
             String[] messages = text.split(".{800}"); //TODO test
             for (String m :
@@ -117,7 +118,7 @@ public class AsyncController {
             }
         }
         privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
-        webSocketService.newPrivateMessageAlert(orgId, user.getId()); //TODO uncomment
+        webSocketService.newPrivateMessageAlert(cId, user.getId(), text);
     }
 
 

@@ -3,7 +3,10 @@ package esn.services;
 import esn.entities.User;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Service;
 
 @Service("webSocketService")
@@ -50,10 +53,17 @@ public class WebSocketService {
         template.convertAndSend("/genchat" + initiator.getOrganization().getId(), jsonObject.toString());
     }
 
-    public void newPrivateMessageAlert(int orgId, int userId){
+    public void newPrivateMessageAlert(int receiverId, int senderId, String text){
+        receiverId = 5;
+        senderId = 7;
 
-        template.convertAndSendToUser("2", "/message",
-                "{\"_alert\":\"privatemessage\", \"uId\":" + 3 + "}");
+        template.convertAndSendToUser(String.valueOf(receiverId), "/message",
+                "{\"type\" : \"private\", \"senderId\":" + senderId + ", \"text\": \"" + text + "\"}");
+    }
+
+    @MessageMapping("/messages")
+    public void readPrivateMessageAlert(SimpMessageHeaderAccessor accessor, int senderId){
+        template.convertAndSendToUser(String.valueOf(senderId), "/message", "{\"type\" : \"private_alert_read\"}");
     }
 
 

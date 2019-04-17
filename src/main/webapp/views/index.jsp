@@ -206,10 +206,6 @@
                             var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                             usDom.find(":first-child").attr("id", stat);
                             break;
-                        case 'privatemessage':
-                            alert(resp);
-                            $(".contacts-frame").find("[data-id=" + resp.uId + "]").children().first().css("display", "block");
-                            break;
 
                     }
                 });
@@ -218,9 +214,28 @@
 
                 stompClient.subscribe(subscribePrefix + '/message', function (data) {
                     var resp = JSON.parse(data.body);
-                    $(".contacts-frame").contents().find("[data-id=" + resp.uId + "]").each(function () {
-                        $(this).children().first().next().css("display", "inline-block") ;
-                    })
+                    switch (resp.type) {
+                        case 'private':
+                            var currentCompanion = $('.contacts-frame').contents().find('.selected');
+
+                            if (currentCompanion.length > 0 && currentCompanion.attr("data-id") == resp.senderId){
+                                $('.private_chat_container').prepend('<div class="private_chat comment_bubble_left"><div class="time-left">' +
+                                    getDate(new Date()) + ' </div>' + resp.text + ' </div>');
+                                stompClient.send("/app/messages", {}, resp.senderId);
+                                //TODO уведомлять о прочтении
+                            }else {
+                                $(".contacts-frame").contents().find("[data-id=" + resp.senderId + "]").each(function () {
+                                    $(this).children().first().next().css("display", "inline-block") ;
+                                })
+                            }
+                            break;
+                        case 'private_alert_read':
+
+                            break;
+
+                    }
+
+
                 }) //TODO непрочитанное сообщение получать офлайн
             });
         }

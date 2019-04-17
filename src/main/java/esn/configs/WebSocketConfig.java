@@ -29,6 +29,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         urls2[urls2.length - 2] = "/message";
         urls2[urls2.length - 1] = "/user";
         registry.enableSimpleBroker(urls2); //mes to client
+        registry.setApplicationDestinationPrefixes("/app");
         //registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
 
         System.out.println(" configureMessageBroker");
