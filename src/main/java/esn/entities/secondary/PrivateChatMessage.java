@@ -14,7 +14,7 @@ public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 800) //TODO сказать юзеру при превышении
+    @Column(nullable = false, length = 800)
     private String text;
 
     @Column(nullable = false)
@@ -22,6 +22,9 @@ public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
 
     @Column(nullable = false)
     private int recipient_id;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean readed;
 
     private int orgId;
 
@@ -56,9 +59,23 @@ public class PrivateChatMessage implements Comparable<PrivateChatMessage>{
         return recipient_id;
     }
 
+    public boolean getReaded() {
+        return readed;
+    }
+
     @Override
     public int compareTo(PrivateChatMessage o) {
         int comp = this.time.compareTo(o.time);
         return  comp * -1;
     }
+
+    public void setReaded(boolean readed) {
+        this.readed = readed;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+
 }

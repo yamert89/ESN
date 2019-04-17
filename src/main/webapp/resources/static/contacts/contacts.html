@@ -17,9 +17,12 @@
         }
 
         $(document).ready(function () {
+            var date = new Date();
+            console.log('contacts ready ' + new Date().getSeconds() + ':' + date.getMilliseconds());
 
 
             $(document).on('click','.person_item', function(){
+                $(this).addClass('selected');
                 //location.href = $(this).attr('data-id') //TODO ?
                 var login = $(this).attr("data-login");
                 //window.parent.callFrame("/" + orgUrl + "/users/" + login); //TODO replace

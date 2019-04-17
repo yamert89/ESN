@@ -39,6 +39,18 @@ public class PrivateChatMessageDAO {
 
     }
 
+    public void updateReadedMessages(Long[] ids){
+        try {
+            for (Long id :
+                    ids) {
+                if (id == null) return;
+                em.createQuery("update PrivateChatMessage m set m.readed = true where m.id = :id").setParameter("id", id).executeUpdate(); //TODO one query
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public User getSender(long senderId){
         return em.find(User.class, senderId);
     }

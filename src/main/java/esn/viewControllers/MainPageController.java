@@ -84,11 +84,19 @@ public class MainPageController {
         model.addAttribute("companion", compan);
         Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(user, compan, orgId);
         Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
+        Long[] ids = new Long[privateMessages.size()];
+        int i = 0;
         for (PrivateChatMessage mes :
                 privateMessages) {
             Boolean userMessage = mes.getSender_id() == user.getId();
+            if (!userMessage) {
+                mes.setReaded(true);
+                ids[i++] = mes.getId();
+            }
             messages.put(mes, userMessage);
+
         }
+        privateChatMessageDAO.updateReadedMessages(ids);
 
         model.addAttribute("messages", messages);
         return "private_chat";

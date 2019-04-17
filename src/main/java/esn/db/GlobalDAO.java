@@ -73,16 +73,16 @@ public class GlobalDAO {
         try {
             if (mesClass == GenChatMessage.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_MYSQL + "'generalchat'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
 
                 Query query = lastIdx == -1 ?
-                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL)
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_POSTGRES)
                                 .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                                 .setParameter(1, orgId) :
-                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL_WITHIDX)
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_POSTGRES_WITHIDX)
                                 .setParameter(3, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                                 .setParameter(1, orgId)
                                 .setParameter(2, lastIdx);
@@ -96,15 +96,15 @@ public class GlobalDAO {
                 }
             } else if (mesClass == Post.class) {
                 try {
-                    em.createNativeQuery(CHECKTABLE_MYSQL + "'wall'").getSingleResult();
+                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
                 }catch (NoResultException e){
                     return null;
                 }
                 Query query = lastIdx == -1 ?
-                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL)
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_POSTGRES)
                                 .setParameter(2, GeneralSettings.AMOUNT_WALL_MESSAGES)
                                 .setParameter(1, orgId) :
-                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL_WITHIDX)
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_POSTGRES_WITHIDX)
                                 .setParameter(3, GeneralSettings.AMOUNT_WALL_MESSAGES)
                                 .setParameter(1, orgId)
                                 .setParameter(2, lastIdx);

@@ -15,6 +15,26 @@
     <link rel="stylesheet" href="<c:url value="/resources/static/index.css"/>">
     <script type="text/javascript">
         $(document).ready(function () {
+            var date = new Date();
+            console.log('private ready ' + new Date().getSeconds() + ':' + date.getMilliseconds());
+            setTimeout(selectCompan, 50);
+
+
+            function selectCompan(){
+                var date = new Date();
+                console.log('func start ' + new Date().getSeconds() + ':' + date.getMilliseconds());
+                var companId = $('.person_container').attr('data-companion-id');
+                var currentCompanion = $('.contacts-frame').contents().find('[data-id=' + companId + ']');
+                if(currentCompanion.length < 1) {
+                    setTimeout(selectCompan, 50);
+                    return;
+                }
+                currentCompanion.addClass("selected");
+            }
+
+
+
+
             var sizeMes = 800;
             var textField = $(".new_genchat_message");
             var messBtn = $(".new_genchat_message_btn");
@@ -44,11 +64,11 @@
 <div class="private_chat_profile">
     <div class="person_container" data-companion-id="${companion.id}" data-companion-login="${companion.login}">
         <img src='<c:url value="/resources/avatars/${companion.photo}"/>' class="person_photo_chat"><br>
-        <c:if test="${companion.netStatus} == false">
+        <c:if test="${!companion.netStatus}">
             <div class="net_status_circle" id="net_status_off"></div>
             <span class="net_status">не в сети</span>
         </c:if>
-        <c:if test="${companion.netStatus} == true">
+        <c:if test="${companion.netStatus}">
             <div class="net_status_circle"></div>
             <span class="net_status">в сети</span>
         </c:if>
@@ -62,12 +82,18 @@
 <div class="private_chat_container">
 
     <c:forEach var="mes" items="${messages}">
-        <c:if test="${mes.value == true}">
+    <c:choose>
+        <c:when test="${mes.value && mes.key.readed}">
             <div class="private_chat comment_bubble_right"><div class="time-right">
-        </c:if>
-        <c:if test="${mes.value == false}">
+        </c:when>
+        <c:when test="${!mes.value && mes.key.readed}">
             <div class="private_chat comment_bubble_left"><div class="time-left">
-        </c:if><fmt:formatDate value="${mes.key.time.time}" pattern="HH:mm:ss / dd.MM"/>
+        </c:when>
+        <c:when test="${mes.value && !mes.key.readed}">
+            <div class="private_chat comment_bubble_right unreaded"><div class="time-right">
+        </c:when>
+    </c:choose>
+        <fmt:formatDate value="${mes.key.time.time}" pattern="HH:mm:ss / dd.MM"/>
         </div>${mes.key.text}
         </div>
     </c:forEach>

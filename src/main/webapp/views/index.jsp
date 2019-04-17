@@ -22,6 +22,8 @@
 
         window.listOfDatesNoted = [];
         $(document).ready(function () {
+            var date = new Date();
+            console.log('index ready ' + new Date().getSeconds() + ':' + date.getMilliseconds());
             var uName = $(".user_name");
             var uTitle = $(".title");
 
@@ -174,7 +176,7 @@
 
 
 
-        function connectWS() {
+        function connectWS() { //TODO connect only first load
             var socket = new SockJS('/messages');
             stompClient = Stomp.over(socket);
             var subscribePrefix = "/user/" + userId;
