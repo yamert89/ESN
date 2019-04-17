@@ -221,7 +221,7 @@
                             if (currentCompanion.length > 0 && currentCompanion.attr("data-id") == resp.senderId){
                                 $('.private_chat_container').prepend('<div class="private_chat comment_bubble_left"><div class="time-left">' +
                                     getDate(new Date()) + ' </div>' + resp.text + ' </div>');
-                                stompClient.send("/app/messages", {}, resp.senderId);
+                                stompClient.send("/app/messages", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));
                                 //TODO уведомлять о прочтении
                             }else {
                                 $(".contacts-frame").contents().find("[data-id=" + resp.senderId + "]").each(function () {
@@ -230,6 +230,14 @@
                             }
                             break;
                         case 'private_alert_read':
+                            $(".private_chat_container").find(".unreaded").each(function () {
+                                var elHash = hash($(this).children().get(1)); //TODO test
+                                if (resp.hash == elHash) {
+                                    $(this).removeClass("unread");
+                                    break;
+                                }
+                            });
+
 
                             break;
 
@@ -315,6 +323,18 @@
             }, 3000)
 
         }
+
+
+        function hash(input){
+            var arr = input.split("");
+            var res = 0;
+            arr.forEach(function(el, idx){
+                if(idx > 15) return;
+                res += el.codePointAt();
+            });
+            return res;
+        }
+
 
 
         /*$(function(){
