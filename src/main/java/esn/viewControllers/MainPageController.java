@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/{organization}")
-@SessionAttributes
+//@SessionAttributes
 public class MainPageController {
 
 

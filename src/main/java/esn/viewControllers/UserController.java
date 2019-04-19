@@ -25,7 +25,7 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/{org}") //TODO refactor
-@SessionAttributes("user")
+//@SessionAttributes("user")
 public class UserController {
 
     private UserDAO userDAO;
