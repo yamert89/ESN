@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -142,13 +143,14 @@ public class AsyncController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          @SessionAttribute User user, HttpSession session){
+                          @ModelAttribute User user, HttpSession session){
         try {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
             user = userDAO.getUserById(user.getId());
             user.getGroups().add(new ContactGroup(groupName, user, ids, true));
-           // userDAO.refresh(user); //TODO id обнуляется
+           // userDAO.refresh(user); //TODO Session atributes не обновляются
+
             user = userDAO.updateUser(user);
             session.setAttribute("user", user);
 
