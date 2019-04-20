@@ -1,5 +1,6 @@
 package esn.db;
 
+import esn.entities.Session;
 import esn.entities.User;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
@@ -94,6 +95,23 @@ public class UserDAO {
     public Object createSomeQueryWithSingleResult(String query){
         return em.createQuery(query).getSingleResult();
     }
+
+    @Transactional
+    public void saveSession(Session session){
+        em.persist(session);
+    }
+
+    @Transactional
+    public Session getSession(String id){
+        return em.find(Session.class, id);
+    }
+
+    @Transactional
+    public void updateSession(Session session){
+        em.merge(session);
+    }
+
+
 
 
 

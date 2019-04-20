@@ -2,6 +2,7 @@ package esn.viewControllers;
 
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.entities.Session;
 import esn.entities.User;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
@@ -66,7 +67,7 @@ public class UserController {
     /*@PostMapping("/{org}/auth")*/
     @GetMapping("/auth1")
     public String confirmAuth(/*@RequestParam String login, @RequestParam String password,*/
-                              Model model, @PathVariable String org, HttpSession session){
+                              Model model, @PathVariable String org, HttpSession session, HttpServletRequest request){
         User user = null;
         try {
             user= userDAO.getUserByLogin("yamert"); //TODO  вернуть аутентификацию
@@ -95,6 +96,7 @@ public class UserController {
         }
 
         user.setNetStatus(true);
+        userDAO.saveSession(new Session(session.getId(), user, session.getCreationTime(), request.getRemoteAddr()));
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
@@ -110,7 +112,9 @@ public class UserController {
     @PostMapping("/exit")
     public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user){
         webSocketService.sendStatus(orgId, user.getId(), false);
-
+        Session sessionPersistent = userDAO.getSession(session.getId());
+        sessionPersistent.setEndTime(System.currentTimeMillis());
+        userDAO.updateSession(sessionPersistent);
         session.invalidate(); //TODO
     }
 

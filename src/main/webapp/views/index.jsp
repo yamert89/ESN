@@ -222,7 +222,7 @@
                                 $('.private_chat_container').prepend('<div class="private_chat comment_bubble_left"><div class="time-left">' +
                                     getDate(new Date()) + ' </div>' + resp.text + ' </div>');
                                 stompClient.send("/app/messages", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));
-                                //TODO уведомлять о прочтении
+
                             }else {
                                 $(".contacts-frame").contents().find("[data-id=" + resp.senderId + "]").each(function () {
                                     $(this).children().first().next().css("display", "inline-block") ;

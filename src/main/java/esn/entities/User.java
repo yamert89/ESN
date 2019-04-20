@@ -81,6 +81,9 @@ public class User {
     @JsonIgnore
     private Set<ContactGroup> groups;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Session> sessions;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "notes")
     @MapKeyColumn(name = "NOTE_TIME")
@@ -228,6 +231,10 @@ public class User {
 
     public void setUserInformation(UserInformation userInformation) {
         this.userInformation = userInformation;
+    }
+
+    public Set<Session> getSessions() {
+        return sessions;
     }
 
     public boolean isMale() {

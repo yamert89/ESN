@@ -17,9 +17,14 @@ public class WebSocketAlertController {
     }
 
     @MessageMapping("/messages")
-    public void readPrivateMessageAlert(SimpMessageHeaderAccessor accessor, @Payload PrivateMesReadAlert mesReadAlert){
+    public void readPrivateMessageAlert(@Payload PrivateMesReadAlert mesReadAlert){
 
         template.convertAndSendToUser(String.valueOf(mesReadAlert.getSenderId()), "/message",
                 "{\"type\" : \"private_alert_read\", \"hash\" : \"" + mesReadAlert.getHash() +"\"}");
+    }
+
+    @MessageMapping("/newmessages")
+    public void askingForNewMessages(SimpMessageHeaderAccessor accessor){
+
     }
 }
