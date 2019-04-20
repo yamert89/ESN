@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Repository("user_dao")
@@ -109,6 +108,12 @@ public class UserDAO {
     @Transactional
     public void updateSession(Session session){
         em.merge(session);
+    }
+
+    @Transactional
+    public long getLastSession(User user){
+        return (long) em.createQuery("select s.endTime from Session s where s.user = :user order by s.endTime DESC")
+                .setParameter("user", user).getSingleResult();
     }
 
 
