@@ -1,6 +1,6 @@
 import esn.db.DepartmentDAO;
+import esn.db.MessagesDAO;
 import esn.db.OrganizationDAO;
-import esn.db.PrivateChatMessageDAO;
 import esn.db.UserDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
@@ -107,7 +107,7 @@ public class Main {
     private static void privateChat() {
         ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/app_context.xml");
         UserDAO userDao = (UserDAO) context.getBean("userDao");
-        PrivateChatMessageDAO messageDao = (PrivateChatMessageDAO) context.getBean("messageDao");
+        MessagesDAO messageDao = (MessagesDAO) context.getBean("messageDao");
 
         //User user1 = (User) context.getBean("user1");
         //User user2 = (User) context.getBean("user2");

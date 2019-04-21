@@ -37,7 +37,7 @@ public class AsyncController {
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
-    private PrivateChatMessageDAO privateChatMessageDAO;
+    private MessagesDAO messagesDAO;
     private WebSocketService webSocketService;
 
     @Autowired
@@ -58,8 +58,8 @@ public class AsyncController {
         this.departmentDAO = departmentDAO;
     }
     @Autowired
-    public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
-        this.privateChatMessageDAO = privateChatMessageDAO;
+    public void setMessagesDAO(MessagesDAO messagesDAO) {
+        this.messagesDAO = messagesDAO;
     }
     @Autowired
     public void setWebSocketService(WebSocketService webSocketService) {
@@ -114,10 +114,10 @@ public class AsyncController {
             String[] messages = text.split(".{800}"); //TODO test
             for (String m :
                     messages) {
-                privateChatMessageDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
+                messagesDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
             }
         }
-        privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
+        messagesDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
         webSocketService.newPrivateMessageAlert(cId, user.getId(), text);
     }
 
@@ -131,7 +131,7 @@ public class AsyncController {
 
         for (int id :
                 group.getPersonIds()) {
-            privateChatMessageDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
+            messagesDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
         }
 
 

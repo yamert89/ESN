@@ -3,7 +3,7 @@ package esn.viewControllers;
 import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
-import esn.db.PrivateChatMessageDAO;
+import esn.db.MessagesDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -29,7 +29,7 @@ public class MainPageController {
 
 
 
-    private PrivateChatMessageDAO privateChatMessageDAO;
+    private MessagesDAO messagesDAO;
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
     private OrganizationDAO orgDao;
@@ -37,8 +37,8 @@ public class MainPageController {
 
 
     @Autowired
-    public void setPrivateChatMessageDAO(PrivateChatMessageDAO privateChatMessageDAO) {
-        this.privateChatMessageDAO = privateChatMessageDAO;
+    public void setMessagesDAO(MessagesDAO messagesDAO) {
+        this.messagesDAO = messagesDAO;
     }
     @Autowired
     public void setGlobalDAO(GlobalDAO globalDAO) {
@@ -82,7 +82,7 @@ public class MainPageController {
                               @RequestParam String companion, Model model, @SessionAttribute User user, @SessionAttribute int orgId){
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("companion", compan);
-        Set<PrivateChatMessage> privateMessages = privateChatMessageDAO.getMessages(user, compan, orgId);
+        Set<PrivateChatMessage> privateMessages = messagesDAO.getMessages(user, compan, orgId);
         Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
         Long[] ids = new Long[privateMessages.size()];
         int i = 0;
@@ -96,7 +96,7 @@ public class MainPageController {
             messages.put(mes, userMessage);
 
         }
-        privateChatMessageDAO.updateReadedMessages(ids);
+        messagesDAO.updateReadedMessages(ids);
 
         model.addAttribute("messages", messages);
         return "private_chat";

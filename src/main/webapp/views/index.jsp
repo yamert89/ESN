@@ -246,6 +246,8 @@
 
                 }) //TODO непрочитанное сообщение получать офлайн
             });
+
+            stompClient.send("/app/newmessages", {}, orgId.toString());
         }
 
         function getFilteredArray(timeUnit){

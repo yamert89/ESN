@@ -1,7 +1,10 @@
 package esn.viewControllers;
 
+import esn.db.MessagesDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
+import esn.entities.secondary.GenChatMessage;
+import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.secondary.PrivateMesReadAlert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,10 +17,18 @@ import org.springframework.stereotype.Controller;
 public class WebSocketAlertController {
     private SimpMessagingTemplate template;
     private UserDAO userDAO;
+    private MessagesDAO messagesDAO;
+
+    @Autowired
+    public void setMessagesDAO(MessagesDAO messagesDAO) {
+        this.messagesDAO = messagesDAO;
+    }
+
     @Autowired
     public void setTemplate(SimpMessagingTemplate template) {
         this.template = template;
     }
+
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -32,10 +43,16 @@ public class WebSocketAlertController {
     }
 
     @MessageMapping("/newmessages")
-    public void askingForNewMessages(SimpMessageHeaderAccessor accessor){
+    public void askingForNewMessages(SimpMessageHeaderAccessor accessor, @Payload String orgId){
         int userId = Integer.parseInt(accessor.getUser().getName());
         User user = userDAO.getUserById(userId);
         long lastVisitTime = userDAO.getLastSession(user);
+        int orgID = Integer.parseInt(orgId);
+        long lastGenM = messagesDAO.getLastTimeOfMessage(GenChatMessage.class, orgID);
+        long lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
+        boolean gen = lastVisitTime < lastGenM;
+        boolean private_ = lastVisitTime < lastPrivateM;
+
         //TODO
     }
 }
