@@ -1,5 +1,7 @@
 package esn.viewControllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.db.MessagesDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
@@ -12,6 +14,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+
+import java.sql.Timestamp;
 
 @Controller
 public class WebSocketAlertController {
@@ -44,15 +48,27 @@ public class WebSocketAlertController {
 
     @MessageMapping("/newmessages")
     public void askingForNewMessages(SimpMessageHeaderAccessor accessor, @Payload String orgId){
+        System.out.println("_______ ASKING NEW MES__________");
         int userId = Integer.parseInt(accessor.getUser().getName());
         User user = userDAO.getUserById(userId);
-        long lastVisitTime = userDAO.getLastSession(user);
+        Timestamp lastVisitTime = userDAO.getLastSession(user);
         int orgID = Integer.parseInt(orgId);
-        long lastGenM = messagesDAO.getLastTimeOfMessage(GenChatMessage.class, orgID);
-        long lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
-        boolean gen = lastVisitTime < lastGenM;
-        boolean private_ = lastVisitTime < lastPrivateM;
-        template.convertAndSendToUser(String.valueOf(userId), "", "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_+ "}");
+        Timestamp lastGenM = messagesDAO.getLastTimeOfMessage(GenChatMessage.class, orgID);
+        Timestamp lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
+        boolean gen = lastVisitTime.before(lastGenM);
+        boolean private_ = lastVisitTime.before(lastPrivateM);
+        String privIds = null;
+        ObjectMapper om = new ObjectMapper();
+
+        if (private_) {
+            try {
+                privIds = om.writeValueAsString(messagesDAO.getOfflinePrivateMSenderIds(lastVisitTime, orgID));
+            }catch (JsonProcessingException e){
+                e.printStackTrace();
+            }
+        }
+        template.convertAndSendToUser(String.valueOf(userId), "",
+                "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_+ ", \"private_ids\" : " + privIds + "}");
 
 
 

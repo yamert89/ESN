@@ -21,6 +21,7 @@ import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class UserController {
     /*@PostMapping("/{org}/auth")*/
     @GetMapping("/auth1")
     public String confirmAuth(/*@RequestParam String login, @RequestParam String password,*/
-                              Model model, @PathVariable String org, HttpSession session, HttpServletRequest request){
+                              Model model, @PathVariable String org, HttpSession session){
         User user = null;
         try {
             user= userDAO.getUserByLogin("yamert"); //TODO  вернуть аутентификацию
@@ -96,7 +97,7 @@ public class UserController {
         }
 
         user.setNetStatus(true);
-        userDAO.saveSession(new Session(session.getId(), user, session.getCreationTime(), request.getRemoteAddr()));
+
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
         session.setAttribute("orgUrl", org);
@@ -110,11 +111,12 @@ public class UserController {
     }
 
     @PostMapping("/exit")
-    public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user){
+    public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user, HttpServletRequest request){
         webSocketService.sendStatus(orgId, user.getId(), false);
         Session sessionPersistent = userDAO.getSession(session.getId());
-        sessionPersistent.setEndTime(System.currentTimeMillis());
-        userDAO.updateSession(sessionPersistent);
+        sessionPersistent.setEndTime(new Timestamp(System.currentTimeMillis()));
+        userDAO.saveSession(new Session(session.getId(), user, new Timestamp(session.getCreationTime()), request.getRemoteAddr()));
+        //userDAO.updateSession(sessionPersistent);
         session.invalidate(); //TODO
     }
 

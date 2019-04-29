@@ -33,8 +33,8 @@
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSourcePostgres"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapterPostgres"/>
+        <property name="dataSource" ref="dataSourceMySQL"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapterMySQL"/>
         <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">
             <props>
@@ -55,10 +55,7 @@
     <!--<bean id="orgDao" class="esn.db.OrganizationDAO"></bean>
     <bean id="userDao" class="esn.db.UserDAO"></bean>
     <bean id="departmentDao" class="esn.db.DepartmentDAO"></bean>
-    <bean id="messageDao" class="esn.db.PrivateChatMessageDAO"></bean>-->
-
-
-
+    <bean id="messageDao" class="esn.db.MessagesDAO-->
 
 
 </beans>

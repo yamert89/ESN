@@ -218,7 +218,7 @@
                         case 'private':
                             var currentCompanion = $('.contacts-frame').contents().find('.selected');
 
-                            if (currentCompanion.length > 0 && currentCompanion.attr("data-id") == resp.senderId){
+                            if (currentCompanion.length > 0 && currentCompanion.attr("data-id") === resp.senderId){
                                 $('.private_chat_container').prepend('<div class="private_chat comment_bubble_left"><div class="time-left">' +
                                     getDate(new Date()) + ' </div>' + resp.text + ' </div>');
                                 stompClient.send("/app/messages", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));
@@ -237,15 +237,24 @@
                             });
                             break;
                         case 'new_messages':
+                            alert(resp);
+                            console.log(resp.gen);
+                            console.log(resp.private_ids);
+                            if (resp.gen) $("#chat_m").css("display", "block");
+                            if (resp.private) resp.private_ids.forEach(function (el) {
+                                privateMessageAlert(el);
+                            })
 
 
                     }
 
 
+                }, function () {
+                    stompClient.send("/app/newmessages", {}, orgId.toString());
                 })
             });
 
-            stompClient.send("/app/newmessages", {}, orgId.toString());
+
         }
 
         function privateMessageAlert(senderId){
@@ -253,6 +262,7 @@
                 $(this).children().first().next().css("display", "inline-block") ;
             })
         }
+
 
         function getFilteredArray(timeUnit){
             switch (timeUnit) {
@@ -358,8 +368,10 @@
 <body>
 <div class="container">
     <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
-        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
-        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат<img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="chat_m"></div>
+        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента
+            <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
+        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат
+            <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="chat_m"></div>
         <div class="tool" id="staff" onclick="location.href = '/${orgUrl}/staff'">Структура</div>
         <div class="tool" id="groups" onclick="location.href = '/${orgUrl}/groups'">Группы</div>
         <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'">Файлообменник</div>
@@ -375,7 +387,8 @@
         <t:insertAttribute name="center"/>
     </div>
     <div class="contacts">
-        <iframe src="<c:url value='/resources/static/contacts/contacts.html'/>" frameborder="0" class="contacts-frame"></iframe>
+        <iframe src="<c:url value='/resources/static/contacts/contacts.html'/>" frameborder="0" class="contacts-frame">
+        </iframe>
     </div>
 
 </div>

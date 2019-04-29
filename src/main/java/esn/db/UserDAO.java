@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.sql.Timestamp;
 
 @Repository("user_dao")
 @Transactional
@@ -111,8 +112,8 @@ public class UserDAO {
     }
 
     @Transactional
-    public long getLastSession(User user){
-        return (long) em.createQuery("select s.endTime from Session s where s.user = :user order by s.endTime DESC")
+    public Timestamp getLastSession(User user){
+        return (Timestamp) em.createQuery("select s.endTime from Session s where s.user = :user order by s.endTime DESC")
                 .setParameter("user", user).getSingleResult();
     }
 

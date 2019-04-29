@@ -170,11 +170,18 @@ public class MessagesDAO {
     }
 
     @Transactional
-    public long getLastTimeOfMessage(Class<?> clas, int orgId){
+    public Timestamp getLastTimeOfMessage(Class<?> clas, int orgId){
         String query = clas == GenChatMessage.class ?
                 "select time from generalchat where orgId = :orgId order by time desc limit 1" :
                 "select time from private_chat_history where orgId = :orgId order by time desc limit 1";
-        Timestamp time = (Timestamp) em.createNativeQuery(query).setParameter("orgId", orgId).getSingleResult();
-        return time.getTime();
+        return (Timestamp) em.createNativeQuery(query).setParameter("orgId", orgId).getSingleResult();
+    }
+
+    @Transactional
+    public Object[] getOfflinePrivateMSenderIds(Timestamp visitTime, int orgId){
+        return em.createQuery("select m.sender_id from PrivateChatMessage m where m.orgId = :orgId and m.time > :visitTime")
+                .setParameter("orgId", orgId)
+                .setParameter("visitTime", visitTime)
+                .getResultList().toArray();
     }
 }

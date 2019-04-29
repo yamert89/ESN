@@ -55,7 +55,7 @@ public class MainPageController {
 
     @GetMapping(value = "/wall")
     public String wall(Model model, @SessionAttribute int orgId, HttpSession session){
-        List<AbstractMessage> messages = globalDAO.getMessages(orgId, -1, Post.class);
+        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, Post.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
         model.addAttribute("messages", messages);
@@ -70,7 +70,7 @@ public class MainPageController {
     @GetMapping("/chat")
     public String genChat(Model model, @SessionAttribute int orgId, @SessionAttribute User user, HttpSession session){
         model.addAttribute("photo", user.getPhoto_small());
-        List<AbstractMessage> messages = globalDAO.getMessages(orgId, -1, GenChatMessage.class);
+        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, GenChatMessage.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
         model.addAttribute("messages", messages);

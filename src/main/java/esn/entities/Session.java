@@ -3,6 +3,7 @@ package esn.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.sql.Timestamp;
 
 @Entity
 public class Session {
@@ -13,16 +14,16 @@ public class Session {
     @ManyToOne
     private User user;
 
-    private long startTime;
+    private Timestamp startTime;
 
-    private long endTime;
+    private Timestamp endTime;
 
     private String ip;
 
     public Session() {
     }
 
-    public Session(String id, User user, long startTime, String ip) {
+    public Session(String id, User user, Timestamp startTime, String ip) {
         this.id = id;
         this.user = user;
         this.startTime = startTime;
@@ -37,11 +38,11 @@ public class Session {
         return user;
     }
 
-    public long getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public long getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
@@ -49,7 +50,7 @@ public class Session {
         return ip;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 }
