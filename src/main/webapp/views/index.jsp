@@ -224,9 +224,7 @@
                                 stompClient.send("/app/messages", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));
 
                             }else {
-                                $(".contacts-frame").contents().find("[data-id=" + resp.senderId + "]").each(function () {
-                                    $(this).children().first().next().css("display", "inline-block") ;
-                                })
+                               privateMessageAlert(resp.senderId);
                             }
                             break;
                         case 'private_alert_read':
@@ -237,17 +235,23 @@
                                     break;
                                 }
                             });
-
-
                             break;
+                        case 'new_messages':
+
 
                     }
 
 
-                }) //TODO непрочитанное сообщение получать офлайн
+                })
             });
 
             stompClient.send("/app/newmessages", {}, orgId.toString());
+        }
+
+        function privateMessageAlert(senderId){
+            $(".contacts-frame").contents().find("[data-id=" + senderId + "]").each(function () {
+                $(this).children().first().next().css("display", "inline-block") ;
+            })
         }
 
         function getFilteredArray(timeUnit){

@@ -52,6 +52,9 @@ public class WebSocketAlertController {
         long lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
         boolean gen = lastVisitTime < lastGenM;
         boolean private_ = lastVisitTime < lastPrivateM;
+        template.convertAndSendToUser(String.valueOf(userId), "", "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_+ "}");
+
+
 
         //TODO
     }

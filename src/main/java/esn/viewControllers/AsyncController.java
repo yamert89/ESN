@@ -71,7 +71,7 @@ public class AsyncController {
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
                             @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
         try {
-            globalDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
+            messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
             webSocketService.newGenChatMessageAlert(user, time, text);
 
         }catch (Exception e){
@@ -82,7 +82,7 @@ public class AsyncController {
     @PostMapping("/deletemessage") //TODO удалять у других через ws
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteGenMessage(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
-        globalDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
+        messagesDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
     }
 
     @PostMapping("/savepost")
@@ -90,7 +90,7 @@ public class AsyncController {
     public void savePost(@RequestParam String userId, @RequestParam String text,
                          @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
         try {
-            globalDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
+            messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
             webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class AsyncController {
     @PostMapping("/deletepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deletePost(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
-        globalDAO.deleteMessage(user.getId(), text, orgId, Post.class);
+        messagesDAO.deleteMessage(user.getId(), text, orgId, Post.class);
     }
 
 
@@ -425,7 +425,7 @@ public class AsyncController {
     public ResponseEntity<String> getChatPiece(HttpSession session, @SessionAttribute int orgId){
         int oldIndex = (int) session.getAttribute("lastIdx_genchat");
         if (oldIndex == -1) return null;
-        List<AbstractMessage> messages = globalDAO.getMessages(orgId, oldIndex, GenChatMessage.class);
+        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, oldIndex, GenChatMessage.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
         ObjectMapper om = new ObjectMapper();
@@ -445,7 +445,7 @@ public class AsyncController {
     public ResponseEntity<String> getWallPiece(HttpSession session, @SessionAttribute int orgId){
         int oldIndex = (int) session.getAttribute("lastIdx_wall");
         if (oldIndex == -1) return null;
-        List<AbstractMessage> messages = globalDAO.getMessages(orgId, oldIndex, Post.class);
+        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, oldIndex, Post.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
         ObjectMapper om = new ObjectMapper();
