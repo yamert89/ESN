@@ -178,7 +178,8 @@
 
         function connectWS() { //TODO connect only first load
             var socket = new SockJS('/messages');
-            stompClient = Stomp.over(socket);
+            var stompClient = Stomp.over(socket);
+
             var subscribePrefix = "/user/" + userId;
             stompClient.connect({}, function(frame) {
 
@@ -249,10 +250,15 @@
                     }
 
 
-                }, function () {
-                    stompClient.send("/app/newmessages", {}, orgId.toString());
                 })
-            });
+            } );
+
+
+            console.log("new");
+            stompClient.send("/app/messages", {}, orgId.toString()); //TODO переехать на STOMP.js https://stomp-js.github.io/guide/stompjs/2018/06/28/using-stompjs-v5.html
+
+
+
 
 
         }

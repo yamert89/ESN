@@ -39,14 +39,14 @@ public class WebSocketAlertController {
         this.userDAO = userDAO;
     }
 
-    @MessageMapping("/messages")
+    @MessageMapping("/messages222222")
     public void readPrivateMessageAlert(@Payload PrivateMesReadAlert mesReadAlert){
 
         template.convertAndSendToUser(String.valueOf(mesReadAlert.getSenderId()), "/message",
                 "{\"type\" : \"private_alert_read\", \"hash\" : \"" + mesReadAlert.getHash() +"\"}");
     }
 
-    @MessageMapping("/newmessages")
+    @MessageMapping("/messages")
     public void askingForNewMessages(SimpMessageHeaderAccessor accessor, @Payload String orgId){
         System.out.println("_______ ASKING NEW MES__________");
         int userId = Integer.parseInt(accessor.getUser().getName());
