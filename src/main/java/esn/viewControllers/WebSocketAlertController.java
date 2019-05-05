@@ -75,7 +75,7 @@ public class WebSocketAlertController {
                     e.printStackTrace();
                 }
             }
-            template.convertAndSendToUser(String.valueOf(userId), "",
+            template.convertAndSendToUser(String.valueOf(userId), "/message",
                     "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_ + ", \"private_ids\" : " + privIds + "}");
         }catch (Exception e){
             e.printStackTrace();

@@ -238,7 +238,6 @@
                             });
                             break;
                         case 'new_messages':
-                            alert(resp);
                             console.log(resp.gen);
                             console.log(resp.private_ids);
                             if (resp.gen) $("#chat_m").css("display", "block");
@@ -254,6 +253,7 @@
             } );
 
             setTimeout(function () {
+                alert(document.cookie) //TODO coockie?
                 console.log("new");
                 stompClient.send("/app/messages", {us : "2"}, orgId.toString()); //TODO make soft
             }, 1000)
