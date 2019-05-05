@@ -253,9 +253,13 @@
                 })
             } );
 
+            setTimeout(function () {
+                console.log("new");
+                stompClient.send("/app/messages", {us : "2"}, orgId.toString()); //TODO make soft
+            }, 1000)
 
-            console.log("new");
-            stompClient.send("/app/messages", {}, orgId.toString()); //TODO переехать на STOMP.js https://stomp-js.github.io/guide/stompjs/2018/06/28/using-stompjs-v5.html
+
+
 
 
 

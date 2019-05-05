@@ -5,8 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import esn.db.UserDAO;
 import esn.entities.User;
 import esn.entities.converters.JsonTimeSerializer;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
+import java.util.Calendar;
 
 
 public abstract class AbstractMessage {
@@ -21,8 +22,10 @@ public abstract class AbstractMessage {
     public String imgUrl;
 
     public String text;
+
     @JsonSerialize(using = JsonTimeSerializer.class)
-    public Timestamp time;
+    @CreationTimestamp
+    public Calendar time;
 
     @JsonIgnore
     public int orgId; //TODO delete?
@@ -31,7 +34,7 @@ public abstract class AbstractMessage {
     public UserDAO userDAO;
 
 
-    public AbstractMessage(int id, int userId, String text, Timestamp time, int orgId, UserDAO userDAO) {
+    public AbstractMessage(int id, int userId, String text, int orgId, UserDAO userDAO) {
         this.userDAO = userDAO;
         this.userId = userId;
         User user = userDAO.getUserById(userId);
@@ -39,7 +42,6 @@ public abstract class AbstractMessage {
         userName = user.getName(); //TODO mb needs optimizing
         imgUrl = user.getPhoto_small();
         this.text = text;
-        this.time = time;
         this.orgId = orgId;
         this.id = id;
     }
@@ -52,7 +54,7 @@ public abstract class AbstractMessage {
         return text;
     }
 
-    public Timestamp getTime() {
+    public Calendar getTime() {
         return time;
     }
 

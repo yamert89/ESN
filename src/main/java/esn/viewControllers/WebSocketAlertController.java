@@ -9,13 +9,14 @@ import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.secondary.PrivateMesReadAlert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.sql.Timestamp;
+import javax.persistence.NoResultException;
+import java.util.Calendar;
 
 @Controller
 public class WebSocketAlertController {
@@ -47,28 +48,38 @@ public class WebSocketAlertController {
     }
 
     @MessageMapping("/messages")
-    public void askingForNewMessages(SimpMessageHeaderAccessor accessor, @Payload String orgId){
-        System.out.println("_______ ASKING NEW MES__________");
-        int userId = Integer.parseInt(accessor.getUser().getName());
-        User user = userDAO.getUserById(userId);
-        Timestamp lastVisitTime = userDAO.getLastSession(user);
-        int orgID = Integer.parseInt(orgId);
-        Timestamp lastGenM = messagesDAO.getLastTimeOfMessage(GenChatMessage.class, orgID);
-        Timestamp lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
-        boolean gen = lastVisitTime.before(lastGenM);
-        boolean private_ = lastVisitTime.before(lastPrivateM);
-        String privIds = null;
-        ObjectMapper om = new ObjectMapper();
-
-        if (private_) {
+    public void askingForNewMessages(@Header String us, @Payload String orgId){
+        try {
+            System.out.println("_______ ASKING NEW MES__________");
+            int userId = Integer.parseInt(us);
+            User user = userDAO.getUserById(userId);
+            Calendar lastVisitTime = null;
             try {
-                privIds = om.writeValueAsString(messagesDAO.getOfflinePrivateMSenderIds(lastVisitTime, orgID));
-            }catch (JsonProcessingException e){
-                e.printStackTrace();
+                lastVisitTime = userDAO.getLastSession(user);
+            }catch (NoResultException e){
+                System.out.println("NoResultException, first session ");
+                return;
             }
+            int orgID = Integer.parseInt(orgId);
+            Calendar lastGenM = messagesDAO.getLastTimeOfMessage(GenChatMessage.class, orgID);
+            Calendar lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
+            boolean gen = lastGenM != null && lastVisitTime.before(lastGenM);
+            boolean private_ = lastPrivateM != null && lastVisitTime.before(lastPrivateM);
+            String privIds = null;
+            ObjectMapper om = new ObjectMapper();
+
+            if (private_) {
+                try {
+                    privIds = om.writeValueAsString(messagesDAO.getOfflinePrivateMSenderIds(lastVisitTime, orgID));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+            template.convertAndSendToUser(String.valueOf(userId), "",
+                    "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_ + ", \"private_ids\" : " + privIds + "}");
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        template.convertAndSendToUser(String.valueOf(userId), "",
-                "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_+ ", \"private_ids\" : " + privIds + "}");
 
 
 

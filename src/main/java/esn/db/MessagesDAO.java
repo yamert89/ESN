@@ -15,10 +15,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -92,7 +89,7 @@ public class MessagesDAO {
         try {
             String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
 
-            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_POSTGRES) //TODO Учесть ограничения базы (везде) !!!
+            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_MYSQL) //TODO Учесть ограничения базы (везде) !!!
                     .executeUpdate();  //TODO Создать таблицу до её чтения в wall
             Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(message, userId, time, orgId) values (?, ?, ?, ?)"))
                     .setParameter(1, message)
@@ -119,17 +116,13 @@ public class MessagesDAO {
         List<Object[]> arr = null;
         try {
             if (mesClass == GenChatMessage.class) {
-                try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'generalchat'").getSingleResult();
-                }catch (NoResultException e){
-                    return null;
-                }
+                if (!checkTableExists(CHECKTABLE_MYSQL, "g")) return null;
 
                 Query query = lastIdx == -1 ?
-                        em.createNativeQuery(SELECT_CHAT_MESSAGES_POSTGRES)
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL)
                                 .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                                 .setParameter(1, orgId) :
-                        em.createNativeQuery(SELECT_CHAT_MESSAGES_POSTGRES_WITHIDX)
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL_WITHIDX)
                                 .setParameter(3, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                                 .setParameter(1, orgId)
                                 .setParameter(2, lastIdx);
@@ -139,26 +132,22 @@ public class MessagesDAO {
                 for (Object[] row :
                         arr) {
 
-                    list.add(new GenChatMessage((int) row[0], (int) row[2], (String) row[1], (Timestamp) row[3], (int) row[4], userDAO));
+                    list.add(new GenChatMessage((int) row[0], (int) row[2], (String) row[1], (int) row[4], userDAO));
                 }
             } else if (mesClass == Post.class) {
-                try {
-                    em.createNativeQuery(CHECKTABLE_POSTGRES + "'wall'").getSingleResult();
-                }catch (NoResultException e){
-                    return null;
-                }
+                if (!checkTableExists(CHECKTABLE_MYSQL, "w")) return null;
                 Query query = lastIdx == -1 ?
-                        em.createNativeQuery(SELECT_WALL_MESSAGES_POSTGRES)
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL)
                                 .setParameter(2, GeneralSettings.AMOUNT_WALL_MESSAGES)
                                 .setParameter(1, orgId) :
-                        em.createNativeQuery(SELECT_WALL_MESSAGES_POSTGRES_WITHIDX)
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL_WITHIDX)
                                 .setParameter(3, GeneralSettings.AMOUNT_WALL_MESSAGES)
                                 .setParameter(1, orgId)
                                 .setParameter(2, lastIdx);
                 arr = query.getResultList();
                 for (Object[] row :
                         arr) {
-                    list.add(new Post((int) row[0], (int) row[2], (String) row[1], (Timestamp) row[3], (int) row[4], userDAO));
+                    list.add(new Post((int) row[0], (int) row[2], (String) row[1], (int) row[4], userDAO));
                 }
             }
         }catch (Exception e){
@@ -170,18 +159,53 @@ public class MessagesDAO {
     }
 
     @Transactional
-    public Timestamp getLastTimeOfMessage(Class<?> clas, int orgId){
-        String query = clas == GenChatMessage.class ?
-                "select time from generalchat where orgId = :orgId order by time desc limit 1" :
-                "select time from private_chat_history where orgId = :orgId order by time desc limit 1";
-        return (Timestamp) em.createNativeQuery(query).setParameter("orgId", orgId).getSingleResult();
+    public Calendar getLastTimeOfMessage(Class<?> clas, int orgId){
+        try {
+            String tableName = clas == GenChatMessage.class ? "g" : "p";
+            if (!checkTableExists(CHECKTABLE_MYSQL, tableName)) return null;
+            String query = clas == GenChatMessage.class ?
+                    "select time from generalchat where orgId = :orgId order by time desc limit 1" :
+                    "select time from private_chat_history where orgId = :orgId order by time desc limit 1";
+            Timestamp timestamp = (Timestamp) em.createNativeQuery(query).setParameter("orgId", orgId).getSingleResult();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(timestamp.getTime());
+            return calendar;
+        }catch (NoResultException e){
+            System.out.println("No result, first session");
+            return null;
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Transactional
-    public Object[] getOfflinePrivateMSenderIds(Timestamp visitTime, int orgId){
+    public Object[] getOfflinePrivateMSenderIds(Calendar visitTime, int orgId){
         return em.createQuery("select m.sender_id from PrivateChatMessage m where m.orgId = :orgId and m.time > :visitTime")
                 .setParameter("orgId", orgId)
                 .setParameter("visitTime", visitTime)
                 .getResultList().toArray();
+    }
+
+    @Transactional
+    protected boolean checkTableExists(String dbType, String table) {
+        String tableName = "";
+        try {
+            switch (table) {
+                case "g":
+                    tableName = "'generalchat'";
+                    break;
+                case "w":
+                    tableName = "'wall'";
+                    break;
+                case "p":
+                    tableName = "'private_chat_history'";
+                    break;
+            }
+            em.createNativeQuery(dbType + tableName).getSingleResult();
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 }

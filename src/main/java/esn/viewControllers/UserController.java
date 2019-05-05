@@ -21,7 +21,6 @@ import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -114,8 +113,8 @@ public class UserController {
     public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user, HttpServletRequest request){
         webSocketService.sendStatus(orgId, user.getId(), false);
         Session sessionPersistent = userDAO.getSession(session.getId());
-        sessionPersistent.setEndTime(new Timestamp(System.currentTimeMillis()));
-        userDAO.saveSession(new Session(session.getId(), user, new Timestamp(session.getCreationTime()), request.getRemoteAddr()));
+        sessionPersistent.setEndTime(Calendar.getInstance());
+        userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr()));
         //userDAO.updateSession(sessionPersistent);
         session.invalidate(); //TODO
     }

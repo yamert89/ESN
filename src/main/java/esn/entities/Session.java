@@ -1,9 +1,11 @@
 package esn.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
 public class Session {
@@ -14,19 +16,19 @@ public class Session {
     @ManyToOne
     private User user;
 
-    private Timestamp startTime;
+    @CreationTimestamp
+    private Calendar startTime;
 
-    private Timestamp endTime;
+    private Calendar endTime;
 
     private String ip;
 
     public Session() {
     }
 
-    public Session(String id, User user, Timestamp startTime, String ip) {
+    public Session(String id, User user, String ip) {
         this.id = id;
         this.user = user;
-        this.startTime = startTime;
         this.ip = ip;
     }
 
@@ -38,11 +40,11 @@ public class Session {
         return user;
     }
 
-    public Timestamp getStartTime() {
+    public Calendar getStartTime() {
         return startTime;
     }
 
-    public Timestamp getEndTime() {
+    public Calendar getEndTime() {
         return endTime;
     }
 
@@ -50,7 +52,7 @@ public class Session {
         return ip;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(Calendar endTime) {
         this.endTime = endTime;
     }
 }
