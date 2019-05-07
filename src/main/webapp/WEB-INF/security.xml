@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+        xmlns:beans="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/security
-      http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+      http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
-   <!-- <security:http auto-config="true">
-        <security:intercept-url pattern="/**" access="ROLE_USER"/>
-    </security:http>-->
 
-</beans>
+   <http pattern="resources/**" security="none"/>
+   <http auto-config="true">
+      <intercept-url pattern="/auth*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/reg*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/**" access="ROLE_USER"/>
+      <form-login login-page="views/auth/auth.jsp"/>
+   </http>
+   <authentication-manager>
+      <authentication-provider>
+
+      </authentication-provider>
+   </authentication-manager>
+
+</beans:beans>

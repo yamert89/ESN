@@ -54,7 +54,7 @@ public class UserController {
         //TODO проверка на сущестование орг юрл
 
         //TODO get cookies
-        return "redirect:/" + org + "/auth1";
+        return "redirect:/" + org + "/auth2";
     }
 
 
