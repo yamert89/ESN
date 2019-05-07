@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.Calendar;
 
 @Repository("user_dao")
@@ -114,8 +115,10 @@ public class UserDAO {
 
     @Transactional
     public Calendar getLastSession(User user)throws NoResultException {
-        return (Calendar) em.createQuery("select s.endTime from Session s where s.user = :user order by s.endTime DESC")
-                .setParameter("user", user).getSingleResult();
+        Query query = em.createQuery("select s.endTime from Session s where s.user = :user order by s.endTime DESC")
+                .setParameter("user", user);
+        Calendar calendar = (Calendar) query.getSingleResult();
+        return calendar;
     }
 
 

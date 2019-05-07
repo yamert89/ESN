@@ -70,7 +70,7 @@ public class WebSocketAlertController {
 
             if (private_) {
                 try {
-                    privIds = om.writeValueAsString(messagesDAO.getOfflinePrivateMSenderIds(lastVisitTime, orgID));
+                    privIds = om.writeValueAsString(messagesDAO.getOfflinePrivateMSenderIds(lastVisitTime, user, orgID));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

@@ -15,6 +15,11 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
+        if (getCookie("first") == null) {
+
+            document.cookie = "first=true";
+            console.log("write first cookie");
+        }
         function DayWithText(day){
             this.day = day;
             this.notes = [];
@@ -250,16 +255,22 @@
 
 
                 })
+                sendNewMReq();
             } );
 
-            setTimeout(function () {
-                alert(document.cookie) //TODO coockie?
-                console.log("new");
-                stompClient.send("/app/messages", {us : "2"}, orgId.toString()); //TODO make soft
-            }, 1000)
-
-
-
+            if (getCookie("first") == "true") {
+                function sendNewMReq() {
+                    try{
+                        setTimeout(function () { //TODO check connection
+                            console.log("new");
+                            stompClient.send("/app/messages", {us : "5"}, orgId.toString()); //TODO make soft
+                        }, 200)
+                    }catch (e) {
+                        console.log("try reconnection...");
+                        sendNewMReq();
+                    }
+                }
+            }
 
 
 
@@ -358,6 +369,14 @@
                 if(idx > 15) return;
                 res += el.codePointAt();
             });
+            return res;
+        }
+
+        function getCookie(name){
+            console.log("cookies : " + document.cookie);
+            var matches = document.cookie.match((new RegExp(name + "=[^;]*")));
+            var res = matches != null ? matches.toString().replace(/.*=/, "") : null;
+            console.log("get cookie : " + res);
             return res;
         }
 
