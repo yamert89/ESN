@@ -15,11 +15,7 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript">
         var myTree = null;
-        if (getCookie("first") == null) {
 
-            document.cookie = "first=true";
-            console.log("write first cookie");
-        }
         function DayWithText(day){
             this.day = day;
             this.notes = [];
@@ -167,8 +163,10 @@
                 });
 
             }
+            //if (getCookie("first") == null) ////TODO connect only first load
+                connectWS();
 
-            connectWS();
+
 
 
 
@@ -181,7 +179,7 @@
 
 
 
-        function connectWS() { //TODO connect only first load
+        function connectWS() {
             var socket = new SockJS('/messages');
             var stompClient = Stomp.over(socket);
 
@@ -254,23 +252,29 @@
                     }
 
 
-                })
-                sendNewMReq();
-            } );
+                });
 
-            if (getCookie("first") == "true") {
-                function sendNewMReq() {
-                    try{
-                        setTimeout(function () { //TODO check connection
-                            console.log("new");
-                            stompClient.send("/app/messages", {us : "5"}, orgId.toString()); //TODO make soft
-                        }, 200)
-                    }catch (e) {
-                        console.log("try reconnection...");
-                        sendNewMReq();
+                if (getCookie("first") == null) {
+                    sendNewMReq();
+                    document.cookie = "first=true; path=/";
+                    console.log("write first cookie");
+                    function sendNewMReq() {
+                        try{
+                            setTimeout(function () {
+                                console.log("new");
+                                stompClient.send("/app/messages", {us : userId}, orgId.toString());
+                            }, 200)
+                        }catch (e) {
+                            console.log("try reconnection...");
+                            sendNewMReq();
+                        }
                     }
                 }
-            }
+
+            } );
+
+
+
 
 
 
