@@ -14,7 +14,8 @@
       <intercept-url pattern="/auth*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/reg*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/**" access="ROLE_USER"/>
-      <form-login login-page="views/auth/auth.jsp"/>
+      <form-login login-page="views/auth/auth.jsp" default-target-url="/wall" />
+      <session-management invalid-session-url="/views/service/invalid_session.jsp"/>
    </http>
    <authentication-manager>
       <authentication-provider>
