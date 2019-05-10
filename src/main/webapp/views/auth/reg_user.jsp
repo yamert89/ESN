@@ -35,6 +35,13 @@
     <sf:form enctype="multipart/form-data" method="post" modelAttribute="user">
     <div class="reg_block">
         <label>
+            Введите корпоративный ключ:
+            <input name="orgKey" size="50" maxlength="50" class="reg_field"/>
+            <img src="/resources/checkbox.jpg" class="checkbox">
+        </label>
+    </div>
+    <div class="reg_block">
+        <label>
             Введите Ваше имя:
             <sf:input path="name" size="50" maxlength="50" cssClass="reg_field"/>
             <img src="/resources/checkbox.jpg" class="checkbox">

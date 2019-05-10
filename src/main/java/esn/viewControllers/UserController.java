@@ -10,6 +10,9 @@ import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,15 +20,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/{org}") //TODO refactor
 //@SessionAttributes("user")
 public class UserController {
 
@@ -49,41 +51,45 @@ public class UserController {
         this.orgDAO = orgDAO;
     }
 
-    @GetMapping(value = "/")
+    /*@GetMapping(value = "/")
     public String start(@PathVariable String org){
         //TODO проверка на сущестование орг юрл
 
         //TODO get cookies
         return "redirect:/" + org + "/auth2";
-    }
+    }*/
 
 
     @GetMapping("/auth")
-    public String showAuthPage(@PathVariable String org, Model model){
-        model.addAttribute("org", org);
+    public String showAuthPage(HttpServletRequest request){
+        System.out.println(request);
         return "auth";
     }
 
-    /*@PostMapping("/{org}/auth")*/
-    @GetMapping("/auth1")
+    @GetMapping("/postauth")
     public String confirmAuth(/*@RequestParam String login, @RequestParam String password,*/
-                              Model model, @PathVariable String org, HttpSession session){
-        User user = null;
-        try {
-            user= userDAO.getUserByLogin("yamert"); //TODO  вернуть аутентификацию
-            /*user = userDAO.getUserByLogin(login);
+                              Model model, HttpSession session, HttpServletRequest request, Principal principal){
+        SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
+        String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userDAO.getUserByLogin(login);
+
+        /*try {
+
+
 
             System.out.println(user.getPassword());
             System.out.println(SimpleUtils.getEncodedPassword(password));
-            *//*user.setPassword(SimpleUtils.getEncodedPassword(password));
-            userDAO.updateUser(user);*//*
+            user.setPassword(SimpleUtils.getEncodedPassword(password));
+            userDAO.updateUser(user);
 
 
             if (!SimpleUtils.getEncodedPassword(password).equals(user.getPassword()))  {
 
                 model.addAttribute("error", "Пароль введен неверно");
                 return "auth";
-            }*/
+            }
 
         }catch (NoResultException e){
             System.out.println("NO RESULT");
@@ -93,9 +99,11 @@ public class UserController {
             e.printStackTrace();
             model.addAttribute("error", "Ошибка на сервере");
             return "auth";
-        }
+        }*/
 
         user.setNetStatus(true);
+
+        String org = user.getOrganization().getUrlName();
 
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
@@ -121,7 +129,7 @@ public class UserController {
 
 
     @GetMapping("/reg")
-    public String regUser(Model model, @PathVariable String org){
+    public String regUser(Model model){
         model.addAttribute(new User());
         return "reg";
     }
@@ -129,8 +137,11 @@ public class UserController {
     @PostMapping("/reg")
     @ResponseStatus(code = HttpStatus.CREATED)
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
-                                  @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable String org){
-        System.out.println(bindingResult.getFieldErrors().size());
+                                  @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
+        System.out.println("orgKey = " + orgKey);
+        String org = orgDAO.getOrgByKey(orgKey).getUrlName(); //TODO запихать в сессию?
+
+
         if (bindingResult.hasErrors()) return "reg";
         if (orgDAO.getLogins().contains(user.getLogin())) {
             bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
@@ -148,6 +159,8 @@ public class UserController {
 
         System.out.println(user);
         System.out.println(user.getPassword());
+
+
 
 
         user.setOrganization(orgDAO.getOrgByURL(org));

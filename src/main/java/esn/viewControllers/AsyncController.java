@@ -463,9 +463,7 @@ public class AsyncController {
 
 
 
-    @GetMapping("/favicon")
-    @ResponseBody
-    public void fav(){}
+
 
 
 

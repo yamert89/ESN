@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 
 @Repository("orgDao")
@@ -48,6 +47,12 @@ public class OrganizationDAO {
     }
 
     @Transactional
+    public Organization getOrgByKey(String key){
+        return (Organization) em.createQuery("select org from Organisation org where org.key = :k")
+                .setParameter("k", key).getSingleResult();
+    }
+
+    @Transactional
     public List<String> getNickNames(){
         List<String> list = em.createQuery("select u.nickName from User u").getResultList();
         list.forEach(String::intern);
@@ -67,5 +72,7 @@ public class OrganizationDAO {
         List<Organization> list = em.createQuery("select o from Organization o").getResultList();
         return list;
     }
+
+
 
 }

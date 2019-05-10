@@ -55,7 +55,7 @@ public class UserDAO {
     }
 
     @Transactional
-    public User getUserByLogin(String login) throws Exception {
+    public User getUserByLogin(String login) {
         return (User) em.createQuery("select u from User u where u.login = :login").setParameter("login", login).getSingleResult();
 
     }

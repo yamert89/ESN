@@ -31,6 +31,8 @@ public class GeneralSettings {
             e.printStackTrace();
             System.out.println("ERROR: Ошибка загрузки файла свойств");
         }
+
+        //TODO CSRF Protection security.xml
     }
 
 

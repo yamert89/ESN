@@ -7,9 +7,9 @@
     <definition name="reg" extends="template">
         <put-attribute name="auth_reg" value="/views/auth/reg_user.jsp" />
     </definition>
-    <!--<definition name="auth" extends="template">
+    <definition name="auth" extends="template">
         <put-attribute name="auth_reg" value="/views/auth/auth.jsp" />
-    </definition>-->
+    </definition>
     <definition name="neworg" extends="template">
         <put-attribute name="auth_reg" value="/views/auth/neworg.jsp"/>
     </definition>

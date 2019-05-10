@@ -216,5 +216,10 @@ public class MainPageController {
         return bb.body(js.toString());
     }
 
+    @RequestMapping("/favicon.ico")
+    public String getFavicon(){
+        return "forward:/resources/favicon.ico";
+    }
+
 
 }

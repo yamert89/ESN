@@ -12,6 +12,8 @@ public class Organization {
     @GeneratedValue
     private Integer id;
 
+    private String key;
+
     @NotNull
     @Column(nullable = false)
     private String name;
@@ -30,9 +32,6 @@ public class Organization {
     @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
     @Column(name = "POSITION")
     private Set<String> positions = new HashSet<>();;
-
-    // wall
-    // chat
 
 
     public Organization() {
@@ -96,9 +95,13 @@ public class Organization {
         this.departments = departments;
     }
 
+    public String getKey() {
+        return key;
+    }
 
-
-
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public User getUserByLogin(String nickname){
         try {

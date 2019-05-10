@@ -12,8 +12,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -34,14 +36,17 @@ public class User {
     @Column(nullable = false)
     private String login;
 
-    @Size(min = 6, max = 32, message = "От 6 до 32 символов")
+    @Size(min = 6, max = 60, message = "От 6 до 60 символов")
     @NotNull(message = "пароль не может быть пустым")
     @Column(nullable = false)
     @JsonIgnore
     private String password;
 
     @JsonIgnore
-    private boolean admin;
+    private boolean admin; //TODO replace with role
+
+    @JsonIgnore
+    private String role;
 
     @JsonIgnore
     @Column(columnDefinition = "boolean default true")
@@ -49,6 +54,8 @@ public class User {
 
     @Column(columnDefinition = "varchar(50) default ' '")
     private String position = "";
+
+    private String authority;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "DEPARTMENT_ID")
@@ -259,7 +266,7 @@ public class User {
 
     @Override
     public String toString() {
-        return groups.stream().map(ContactGroup::getName).collect(Collectors.joining(", "));
+        return name;//groups.stream().map(ContactGroup::getName).collect(Collectors.joining(", "));
         /*"hashGroups: " + groups.hashCode() + "user Createtime: " + new Date();*/
         /*return "User{" +
                 "name='" + name + '\'' +

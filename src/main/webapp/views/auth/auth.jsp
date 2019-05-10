@@ -14,11 +14,11 @@
 </head>
 <body>
 <div class="reg_container">
-    <form method="post" id="send" action="/${org}/auth">
+    <form method="post" id="send" action="/login">
         <div class="reg_block">
             <label>
                 Введите Ваше имя:&nbsp
-                <input type="text" form="send" name="login"/>
+                <input type="text" form="send" name="username"/>
 
             </label>
         </div>
@@ -29,8 +29,14 @@
 
             </label>
         </div>
+       <%-- <div class="reg_block">
+            <label>
+                Запомнить меня:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="checkbox" name="_spring_security_remember_me">
+            </label>
+        </div>--%>
         <div class="reg_block">
-            <a href="/${org}/reg">Регистрация</a>
+            <a href="/reg">Регистрация</a>
             <input type="submit" class="auth_submit_button" value="Войти">
         </div>
 
