@@ -40,7 +40,7 @@ public class WebSocketAlertController {
         this.userDAO = userDAO;
     }
 
-    @MessageMapping("/messages222222")
+    @MessageMapping("/readprivate")
     public void readPrivateMessageAlert(@Payload PrivateMesReadAlert mesReadAlert){
 
         template.convertAndSendToUser(String.valueOf(mesReadAlert.getSenderId()), "/message",

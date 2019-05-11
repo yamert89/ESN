@@ -23,7 +23,6 @@
 
             $(document).on('click','.person_item', function(){
                 $(this).addClass('selected');
-                //location.href = $(this).attr('data-id') //TODO ?
                 var login = $(this).attr("data-login");
                 //window.parent.callFrame("/" + orgUrl + "/users/" + login); //TODO replace
                 //$.get("/" + orgUrl + "/private-chat", {companion: login});

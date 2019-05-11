@@ -6,13 +6,13 @@ import esn.entities.Session;
 import esn.entities.User;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
-import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -117,13 +117,12 @@ public class UserController {
         //return "wall";
     }
 
-    @PostMapping("/exit")
+    @PostMapping("/logout")
     public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user, HttpServletRequest request){
         webSocketService.sendStatus(orgId, user.getId(), false);
         Session sessionPersistent = userDAO.getSession(session.getId());
         sessionPersistent.setEndTime(Calendar.getInstance());
         userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr()));
-        //userDAO.updateSession(sessionPersistent);
         session.invalidate(); //TODO
     }
 
@@ -164,7 +163,8 @@ public class UserController {
 
 
         user.setOrganization(orgDAO.getOrgByURL(org));
-        user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));
+ /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userDAO.persistUser(user);
 
         return "redirect:/" + org + "/user/" + user.getLogin();
@@ -184,7 +184,7 @@ public class UserController {
     }*/
 
 
-    @GetMapping("/users/{login}")
+    @GetMapping("{org}/users/{login}")
     public String showUserProfile(@PathVariable String login, @PathVariable String org,
                                   @SessionAttribute User user, Model model, HttpSession session){
         try {
@@ -209,7 +209,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/users/{login}")
+    @PostMapping("{org}/users/{login}")
     public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute User user, BindingResult bindingResult,
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
         Calendar birth = null;
@@ -238,27 +238,29 @@ public class UserController {
         return "userSettings";
     }
 
-    @DeleteMapping("/users/{login}")
-    public String deleteProfile(@PathVariable String login, @SessionAttribute User user){
+    @DeleteMapping("{org}/users/{login}")
+    public String deleteProfile(@PathVariable String login,  @PathVariable String org,  @SessionAttribute User user){
         userDAO.deleteUser(user); //TODO test
         return "reg";
     }
-    @PostMapping("/users/{login}/p")
+    @PostMapping("{org}/users/{login}/p")
     @ResponseBody
     public ResponseEntity<Boolean> changePassword(@RequestParam(required = false) String newPass, @RequestParam(required = false) String oldPass,
-                                  @PathVariable String login, @SessionAttribute User user, HttpSession session, HttpServletRequest request){
-
-        if (!SimpleUtils.getEncodedPassword(oldPass).equals(user.getPassword())) ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
-        user.setPassword(SimpleUtils.getEncodedPassword(newPass));
+                                  @PathVariable String login, @PathVariable String org,  @SessionAttribute User user, HttpSession session, HttpServletRequest request){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.encode(oldPass).equals(user.getPassword())) ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
+        user.setPassword(encoder.encode(newPass));
         userDAO.updateUser(user);
         session.invalidate();
         return ResponseEntity.ok().contentLength(4).body(Boolean.TRUE);
     }
 
-    @GetMapping("/users/{login}/p")
+    @GetMapping("{org}/users/{login}/p")
     @ResponseBody
-    public ResponseEntity<Boolean> checkPassword(@PathVariable String login, @RequestParam String pass, @SessionAttribute User user){
-        boolean res = SimpleUtils.getEncodedPassword(pass).equals(user.getPassword());
+    public ResponseEntity<Boolean> checkPassword(@PathVariable String login,  @PathVariable String org,
+                                                 @RequestParam String pass, @SessionAttribute User user){
+
+        boolean res = new BCryptPasswordEncoder().encode(pass).equals(user.getPassword());
         return ResponseEntity.ok().contentLength(res ? 4 : 5).body(res);
     }
 

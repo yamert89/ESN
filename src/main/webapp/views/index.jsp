@@ -186,7 +186,7 @@
             var subscribePrefix = "/user/" + userId;
             stompClient.connect({}, function(frame) {
 
-                stompClient.subscribe('/genchat' + orgId , function(data){
+                stompClient.subscribe('/allusers' + orgId , function(data){
                     var resp = JSON.parse(data.body);
                     //if (resp.initiatorId == userId) return;
                     switch (resp._alert) {
@@ -225,7 +225,7 @@
                             if (currentCompanion.length > 0 && currentCompanion.attr("data-id") === resp.senderId){
                                 $('.private_chat_container').prepend('<div class="private_chat comment_bubble_left"><div class="time-left">' +
                                     getDate(new Date()) + ' </div>' + resp.text + ' </div>');
-                                stompClient.send("/app/messages", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));
+                                stompClient.send("/app/readprivate", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));
 
                             }else {
                                privateMessageAlert(resp.senderId);

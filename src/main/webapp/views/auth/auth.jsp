@@ -29,12 +29,12 @@
 
             </label>
         </div>
-       <%-- <div class="reg_block">
+        <div class="reg_block">
             <label>
                 Запомнить меня:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" name="_spring_security_remember_me">
+                <input type="checkbox" name="remember-me">
             </label>
-        </div>--%>
+        </div>
         <div class="reg_block">
             <a href="/reg">Регистрация</a>
             <input type="submit" class="auth_submit_button" value="Войти">

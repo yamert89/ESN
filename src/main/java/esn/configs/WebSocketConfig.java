@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
-        urls = orgDAO.getAllOrgs().stream().map(el ->  "/genchat" + el.getId())
+        urls = orgDAO.getAllOrgs().stream().map(el ->  "/allusers" + el.getId())
                 .peek(System.out::println).toArray(String[]::new);
         String[] urls2 = new String[urls.length + 2];
         for (int i = 0; i < urls.length; i++){
