@@ -39,6 +39,6 @@ public class OrgController {
         System.out.println();
         org.setKey(SimpleUtils.getEncodedPassword(org.getName() + "3ff42fsf2423fsdf"));
         orgDao.persistOrg(org);
-        return "/infoprg"; //TODO mapping
+        return "/infoorg"; //TODO mapping
     }
 }
