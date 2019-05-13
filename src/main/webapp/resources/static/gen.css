@@ -70,7 +70,7 @@ table{
     border-radius: 10px;
 }
 
-button{
+button, input[type='submit']{
     border-radius: 10px;
     background-color: #F0F4C3;
     font-size: 1.1em;

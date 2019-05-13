@@ -14,11 +14,13 @@ div{
 label{
     font-size: 1.2em;
     margin-right: 10px;
-
+    max-width: 30%;
+    line-height: 0.9em;
 }
 img{
     /*height: 15px;*/
     width: 17px;
+    margin-left: 5px;
 }
 a{
     margin-right: 30px;
@@ -28,7 +30,7 @@ textarea{
     height: 4em;
 }
 button{
-    margin-right: 15px;
+    margin: 0 15px;
 
 }
 
@@ -85,13 +87,28 @@ span{
     width: 150px;
 }
 .reg_org_container{
-    width: 620px;
+    /*width: 620px;*/
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+.reg_block_org{
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin: 20px;
+}
+.reg_el{
+    flex: 1 1 auto;
 }
 .department_adder{
     width: 200px;
 }
 input[type='radio']{
     width: auto;
+}
+input[type='text']{
+    background-color: white;
 }
 
 
