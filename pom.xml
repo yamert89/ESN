@@ -124,6 +124,21 @@
       <artifactId>postgresql</artifactId>
       <version>42.2.5</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.googlecode.log4jdbc/log4jdbc -->
+    <dependency>
+      <groupId>com.googlecode.log4jdbc</groupId>
+      <artifactId>log4jdbc</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/net.ttddyy/datasource-proxy -->
+    <dependency>
+      <groupId>net.ttddyy</groupId>
+      <artifactId>datasource-proxy</artifactId>
+      <version>1.5.1</version>
+    </dependency>
+
+
+
 
 
 

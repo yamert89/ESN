@@ -2,7 +2,6 @@ package esn.viewControllers;
 
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
-import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,9 @@ public class OrgController {
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
         System.out.println();
-        org.setKey(SimpleUtils.getEncodedPassword(org.getName() + "3ff42fsf2423fsdf"));
+        /*String key = new BCryptPasswordEncoder().encode(org.getName() + "3ff42fsf2423fsdf");
+        System.out.println(key);
+        org.setKey(key);*/
         orgDao.persistOrg(org);
         return "/infoorg"; //TODO mapping
     }

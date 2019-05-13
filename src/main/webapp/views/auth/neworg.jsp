@@ -19,7 +19,7 @@
             $(":button").click(function () {
                 $(this).addClass("clicked");
                 var input = $(".department_adder");
-                $("#ps").append("<option value='" + input.value() + "'/>");
+                $("#ps").append("<option value='" + input.val() + "'/>");
                 setTimeout(unselect, 200);
                 input.val('');
             });
@@ -35,28 +35,39 @@
     <div class="reg_block_org">
         <label class="reg_el">Введите название организации:</label>
         <springform:input path="name" type="text" class="reg_el"/>
-        <springform:errors path="name" cssClass="error"/>
+
         <%--<img src="../../resources/checkbox.jpg">--%>
 
     </div>
     <div class="reg_block_org">
         <label class="reg_el">Добавьте описание:</label>
         <springform:textarea path="description" class="reg_el"></springform:textarea>
-        <springform:errors path="description" cssClass="error"/>
+
         <%--<img src="../../resources/checkbox.jpg">--%>
     </div>
     <div class="reg_block_org">
+        <label class="reg_el">Введите URL на латинице:</label>
+        <springform:input path="urlName"  type="text" class="reg_el" title="Относительный путь, который будет отображаться в строке браузера.
+         Должен состоять только из символов латинского алфавита и цифр, исключая другие символы"></springform:input>
+
+            <%--<img src="../../resources/checkbox.jpg">--%>
+    </div>
+    <div class="reg_block_org">
         <label class="reg_el">Добавьте перечень должностей:</label>
-        <springform:input path="positions" list="ps"/>
+        <springform:input path="positions" list="ps" cssClass="department_adder"/>
             <datalist id="ps">
-                <option value="demo1"/>
             </datalist>
+
 
         <%--<springform:select path="positions" cssClass="department_adder" size="1" class="reg_el">
             <springform:option value="dep" class="reg_el">Без названия</springform:option>
         </springform:select>--%>
         <button type="button" class="reg_el">добавить</button>
     </div>
+        <springform:errors path="name" cssClass="jspError"/>
+        <springform:errors path="description" cssClass="jspError"/>
+        <springform:errors path="urlName" cssClass="jspError"/>
+        <springform:errors path="positions" cssClass="jspError"/>
     <div class="reg_block_org">
         <input type="submit" value="Зарегистрировать">
     </div>

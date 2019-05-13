@@ -2,6 +2,8 @@ package esn.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,12 +16,19 @@ public class Organization {
 
     private String key;
 
-    @NotNull
-    @Column(nullable = false)
+    @NotNull(message = "название не должно быть пустым")
+    @Column(nullable = false, length = 100)
+    @Size(max = 100, message = "название организации должно быть не более 100 символов")
     private String name;
 
+    @NotNull(message = "введите относительный URL")
+    @Column(nullable = false, length = 20)
+    @Size(min = 4, max = 20, message = "")
+    @Pattern(regexp = "[A-Za-z0-9]{4,20}", message = "URL должен иметь от 4 до 20 латинских символов или цифр")
     private String urlName;
 
+    @Size(max = 1000, message = "описание должно быть не более 1000 символов")
+    @Column(length = 1000)
     private String description;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -30,8 +39,9 @@ public class Organization {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
-    @Column(name = "POSITION")
-    private Set<String> positions = new HashSet<>();;
+    @Column(name = "POSITION", length = 50)
+    @Size(max = 50, message = "не более 50 символов")
+    private Set<String> positions = new HashSet<>();
 
 
     public Organization() {

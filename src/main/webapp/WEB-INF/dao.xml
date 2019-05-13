@@ -10,6 +10,7 @@
         <property name="password" value="yamert"/>
     </bean>
 
+
     <bean id="dataSourcePostgres"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
@@ -33,7 +34,7 @@
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSourceMySQL"/>
+        <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapterMySQL"/>
         <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">
@@ -51,6 +52,42 @@
           p:entityManagerFactory-ref="emf"/>
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <!-- LOGGING -->
+
+    <bean id="dataSource" primary="true" class="net.ttddyy.dsproxy.support.ProxyDataSource">
+        <property name="dataSource" ref="dataSourceMySQL"/>
+        <property name="proxyConfig" ref="proxyConfig"/>
+
+    </bean>
+
+    <bean id="proxyConfig"
+          factory-bean="proxyConfigSupport"
+          factory-method="create"/>
+
+    <bean id="proxyConfigSupport" class="net.ttddyy.dsproxy.support.ProxyConfigSpringXmlSupport">
+        <property name="dataSourceName" value="my-ds"/>
+        <property name="queryListener" ref="queryListener"/>
+        <property name="methodListener" ref="methodListener"/>
+    </bean>
+
+    <bean id="queryListener" class="net.ttddyy.dsproxy.listener.ChainListener">
+        <property name="listeners">
+            <list>
+                <bean class="net.ttddyy.dsproxy.listener.logging.SystemOutQueryLoggingListener"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="methodListener" class="net.ttddyy.dsproxy.listener.CompositeMethodListener">
+        <property name="listeners">
+            <list>
+                <bean class="net.ttddyy.dsproxy.listener.TracingMethodListener"/>
+            </list>
+        </property>
+    </bean>
+
+
 
     <!--<bean id="orgDao" class="esn.db.OrganizationDAO"></bean>
     <bean id="userDao" class="esn.db.UserDAO"></bean>
