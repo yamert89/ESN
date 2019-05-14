@@ -97,6 +97,10 @@ public class Organization {
         positions.add(position);
     }
 
+    public void setPositions(Set<String> positions) {
+        this.positions = positions;
+    }
+
     public void addDepartment(Department department){
         departments.add(department);
     }

@@ -16,7 +16,7 @@
     <script src="<core:url value='/resources/libs/jquery_3.1.0.js'/>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(":button").click(function () {
+            $("button").click(function () {
                 $(this).addClass("clicked");
                 var input = $(".department_adder");
                 $("#ps").append("<option value='" + input.val() + "'/>");
@@ -25,13 +25,21 @@
             });
         });
         function unselect() {
-            $(":button").removeClass("clicked");
+            $("button").removeClass("clicked");
         }
+        $(document).on('submit', function () {
+
+            var res = '';
+            $("datalist").children().each(function (idx, el) {
+                res = res + '|' + el.getAttribute('value');
+            });
+            $("#input").attr('value', res);
+        })
     </script>
 </head>
 <body>
 <div class="reg_container reg_org_container">
-    <springform:form method="post" modelAttribute="organization">
+    <springform:form enctype="multipart/form-data" method="post" modelAttribute="organization">
     <div class="reg_block_org">
         <label class="reg_el">Введите название организации:</label>
         <springform:input path="name" type="text" class="reg_el"/>
@@ -54,7 +62,7 @@
     </div>
     <div class="reg_block_org">
         <label class="reg_el">Добавьте перечень должностей:</label>
-        <springform:input path="positions" list="ps" cssClass="department_adder"/>
+        <input list="ps" class="department_adder" name="positions" id="input"/>
             <datalist id="ps">
             </datalist>
 
