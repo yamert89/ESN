@@ -12,6 +12,7 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/auth" security="none"/>
     <http pattern="/views/service/**" security="none"/>
+    <http pattern="/reg" security="none"/>
     <!--<http pattern="/login" security="none"/>-->
    <http auto-config="true" use-expressions="true">
       <!--<intercept-url pattern="/" access="hasRole('ANONYMOUSLY')"/>

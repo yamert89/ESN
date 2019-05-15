@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Collections;
 
 @Controller
 public class OrgController {
@@ -33,13 +34,14 @@ public class OrgController {
 
     @PostMapping("/neworg")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam String positions, HttpServletRequest request){
-        System.out.println(positions);
+    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam String pos){
+        System.out.println("positions : " + pos);
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
-        System.out.println();
         String key = new BCryptPasswordEncoder().encode(org.getName() + "3ff42fsf2423fsdf");
         System.out.println(key);
+        String[] poss = pos.split("@@@");
+        Collections.addAll(org.getPositions(), poss );
         org.setKey(key);
         orgDao.persistOrg(org);
         return "/infoorg"; //TODO mapping

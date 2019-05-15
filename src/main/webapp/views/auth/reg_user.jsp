@@ -36,7 +36,7 @@
     <div class="reg_block">
         <label>
             Введите корпоративный ключ:
-            <input name="orgKey" size="50" maxlength="50" class="reg_field"/>
+            <input name="orgKey" size="60" maxlength="60" class="reg_field"/>
             <img src="/resources/checkbox.jpg" class="checkbox">
         </label>
     </div>

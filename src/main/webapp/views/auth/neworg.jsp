@@ -28,18 +28,25 @@
             $("button").removeClass("clicked");
         }
         $(document).on('submit', function () {
+            console.log('submit');
 
             var res = '';
-            $("datalist").children().each(function (idx, el) {
-                res = res + '|' + el.getAttribute('value');
-            });
-            $("#input").attr('value', res);
+            try{
+                $("datalist").children().each(function (idx, el) {
+                    res = res + '@@@' + el.getAttribute('value');
+                });
+                $("#input").val(res.substr(3));
+            }catch (e) {
+                console.log(e);
+            }
+
+
         })
     </script>
 </head>
 <body>
 <div class="reg_container reg_org_container">
-    <springform:form enctype="multipart/form-data" method="post" modelAttribute="organization">
+    <springform:form method="post" modelAttribute="organization" id="organization">
     <div class="reg_block_org">
         <label class="reg_el">Введите название организации:</label>
         <springform:input path="name" type="text" class="reg_el"/>
@@ -62,7 +69,7 @@
     </div>
     <div class="reg_block_org">
         <label class="reg_el">Добавьте перечень должностей:</label>
-        <input list="ps" class="department_adder" name="positions" id="input"/>
+        <input list="ps" class="department_adder" name="pos" id="input" form="organization"/>
             <datalist id="ps">
             </datalist>
 
@@ -75,7 +82,7 @@
         <springform:errors path="name" cssClass="jspError"/>
         <springform:errors path="description" cssClass="jspError"/>
         <springform:errors path="urlName" cssClass="jspError"/>
-        <springform:errors path="positions" cssClass="jspError"/>
+       <%-- <springform:errors path="positions" cssClass="jspError"/>--%>
     <div class="reg_block_org">
         <input type="submit" value="Зарегистрировать">
     </div>

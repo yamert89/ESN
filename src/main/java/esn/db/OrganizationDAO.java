@@ -48,7 +48,7 @@ public class OrganizationDAO {
 
     @Transactional
     public Organization getOrgByKey(String key){
-        return (Organization) em.createQuery("select org from Organisation org where org.key = :k")
+        return (Organization) em.createQuery("select org from Organization org where org.key = :k")
                 .setParameter("k", key).getSingleResult();
     }
 

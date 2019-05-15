@@ -167,7 +167,7 @@ public class UserController {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userDAO.persistUser(user);
 
-        return "redirect:/" + org + "/user/" + user.getLogin();
+        return "redirect:/" + org + "/users/" + user.getLogin();
     }
 
    /* @GetMapping("/{org}/user/{login}")
