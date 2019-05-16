@@ -4,6 +4,7 @@ import esn.db.OrganizationDAO;
 import esn.entities.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +45,15 @@ public class OrgController {
         Collections.addAll(org.getPositions(), poss );
         org.setKey(key);
         orgDao.persistOrg(org);
-        return "/infoorg"; //TODO mapping
+
+        return "redirect:/" + org.getUrlName();
+    }
+
+    @GetMapping("/{org}")
+    /*@Secured(value = "ROLE_ADMIN")*/
+    public String orgProfile(@PathVariable String org, Model model){
+        Organization organization = orgDao.getOrgByURL(org); //TODO session?
+        model.addAttribute(organization);
+        return "org_profile";
     }
 }

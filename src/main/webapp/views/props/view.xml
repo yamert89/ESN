@@ -10,9 +10,10 @@
     <definition name="userSettings" extends="pref_template">
         <put-attribute name="pref_page" value="/views/props/user_properties.jsp"/>
     </definition>
-    <definition name="appSettings" extends="pref_template">
-        <put-attribute name="pref_page" value="/views/props/user_profile.jsp"/>
+    <definition name="org_profile" extends="pref_template">
+        <put-attribute name="pref_page" value="/views/props/org_properties.jsp"/>
     </definition>
+
 
 
 </tiles-definitions>
