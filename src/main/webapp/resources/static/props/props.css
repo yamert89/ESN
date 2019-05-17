@@ -20,7 +20,7 @@ select{
     border-radius: 10px;
 }
 .prop_line{
-    margin: 20px;
+    margin: 5px;
 }
 .prop_label{
     display: inline-block;
@@ -97,6 +97,7 @@ img{
     background-color: rgba(0, 0, 0, 0.11);
     padding: 5px;
     border-radius: 3px;
+    min-height: 2em;
 }
 .position{
     display: flex;
@@ -115,4 +116,11 @@ input{
 button, input[type=submit]{
     font-size: 0.9em!important;
     margin: 0 5px;
+}
+hr{
+    size: 1px;
+    border-color: rgba(240, 232, 173, 0.44);
+    flex: 1 0 1px;
+    width: 90%;
+
 }

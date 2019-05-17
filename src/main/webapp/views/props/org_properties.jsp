@@ -12,6 +12,28 @@
 <head>
     <title>Title</title>
     <script type="text/javascript">
+        $(document).ready(function () {
+           $('.position_add_button').click(addPosition);
+           $(document).on('click', '.position_delete', function () {
+               $(this).parent().remove();
+           });
+            $(document).keypress(function (event) {
+                if (event.which === 13 && $('.position_add_input').is(':focus')) { //TODO enter run on form
+                    addPosition();
+                }
+            });
+            $(document).on('submit', function () {
+                var str = '';
+                $('.position').each(function (idx, el) {
+                    el = el.getElementsByClassName('position_name')[0];
+                    str += "@@@" + el.innerHTML;
+                });
+                console.log(str);
+                $('.position_add_input').val(str);
+                return false;
+
+            })
+        });
         function copy() {
             var el = document.querySelector('#key');
             el.focus();
@@ -25,6 +47,16 @@
                 console.log('Oops, unable to copy');
             }
         }
+
+        function addPosition() {
+            $('.positions').append('<div class="position">\n' +
+                '                            <div class="position_name">' + $('.position_add_input').val() + '</div>\n' +
+                '                            <img class="position_delete" src="/resources/cross.png" title="Удалить должность"/>\n' +
+                '                    </div>')
+        }
+
+
+
     </script>
 </head>
 <body>
@@ -38,14 +70,14 @@
                 <s:errors path="name" cssClass="jspError"/>
             </div>
         </div>
-        <hr>
+        <div><hr></div>
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Фон хэдера:</div>
                 <input type="file" name="image" accept="image/*" class="inline"/>
             </div>
         </div>
-        <hr>
+        <div><hr></div>
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Перечень должностей:</div>
@@ -59,11 +91,11 @@
                 </div>
             </div>
             <div class="inline">
-                <button>Добавить должность:</button>
-                <input/>
+                <button type="button" class="position_add_button">Добавить должность:</button>
+                <input class="position_add_input"/>
             </div>
         </div>
-        <hr>
+        <div><hr></div>
         <div class="prop_line">
             <div class="inline">
 
