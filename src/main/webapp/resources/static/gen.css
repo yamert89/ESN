@@ -65,7 +65,7 @@ table{
     margin-left: 10px;
     display: none;
 }
-.delete_message:hover, .file_delete:hover{
+.delete_message:hover, .file_delete:hover, .position_delete:hover{
     background-color: rgba(255, 77, 86, 0.61);
     border-radius: 10px;
 }

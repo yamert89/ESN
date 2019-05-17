@@ -38,18 +38,23 @@
                 <s:errors path="name" cssClass="jspError"/>
             </div>
         </div>
+        <hr>
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Фон хэдера:</div>
                 <input type="file" name="image" accept="image/*" class="inline"/>
             </div>
         </div>
+        <hr>
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Перечень должностей:</div>
-                <sp class="positions">
+                <div class="positions">
                     <c:forEach var="pos" items="${organization.positions}">
-                    <span class="position">${pos}</span><img src="" />
+                    <div class="position">
+                            <div class="position_name">${pos}</div>
+                            <img class="position_delete" src="<c:url value="/resources/cross.png"/>" title="Удалить должность"/>
+                    </div>
                     </c:forEach>
                 </div>
             </div>
@@ -58,6 +63,7 @@
                 <input/>
             </div>
         </div>
+        <hr>
         <div class="prop_line">
             <div class="inline">
 
@@ -83,7 +89,7 @@
         </div>
     </s:form>
     <div class="prop_line">
-        <input class="commit" type="submit" value="Удалить аккаунт" id="delete_profile">
+        <input class="commit" type="submit" value="Удалить профиль" id="delete_profile" title="Удаление профиля организации. В течение месяца его можно будет восстановить, используя корпоративный ключ">
     </div>
 
     <span class="prop_log_view"></span>

@@ -43,6 +43,8 @@ public class Organization {
     @Size(max = 50, message = "не более 50 символов")
     private Set<String> positions = new HashSet<>();
 
+    private boolean disabled;
+
 
     public Organization() {
     }
@@ -115,6 +117,14 @@ public class Organization {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
     public User getUserByLogin(String nickname){
