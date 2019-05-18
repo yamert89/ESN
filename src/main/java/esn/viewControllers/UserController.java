@@ -148,12 +148,13 @@ public class UserController {
         }
 
         if (!image.isEmpty()) {
-            ImageUtil.writeImage(user, image);
+            ImageUtil.writeAvatar(user, image);
         } else {
             String defAvatarName = user.isMale() ? "/man.jpg" : "/wom.jpg";
             String defAvatarName_small = user.isMale() ? "/man_small.jpg" : "/wom_small.jpg";
             user.setPhoto(defAvatarName);
             user.setPhoto_small(defAvatarName_small); //TODO TEST
+
         }
 
         System.out.println(user);
@@ -165,6 +166,8 @@ public class UserController {
         user.setOrganization(orgDAO.getOrgByURL(org));
  /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setAuthority("ROLE_USER");
+
         userDAO.persistUser(user);
 
         return "redirect:/" + org + "/users/" + user.getLogin();
@@ -222,7 +225,7 @@ public class UserController {
             return "userSettings";
         }
         if (!image.isEmpty()) {
-            ImageUtil.writeImage(user, image);
+            ImageUtil.writeAvatar(user, image);
         }
         if (boss.contains(" - ")){
             String[] bossParams = boss.split(" - ");

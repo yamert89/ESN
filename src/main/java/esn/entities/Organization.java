@@ -31,6 +31,8 @@ public class Organization {
     @Column(length = 1000)
     private String description;
 
+    private String headerPath;
+
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<Department> departments = new HashSet<>(0);
 
@@ -125,6 +127,14 @@ public class Organization {
 
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public String getHeaderPath() {
+        return headerPath;
+    }
+
+    public void setHeaderPath(String headerPath) {
+        this.headerPath = headerPath;
     }
 
     public User getUserByLogin(String nickname){

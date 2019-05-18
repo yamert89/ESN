@@ -18,8 +18,9 @@
                $(this).parent().remove();
            });
             $(document).keypress(function (event) {
-                if (event.which === 13 && $('.position_add_input').is(':focus')) { //TODO enter run on form
-                    addPosition();
+                if (event.which === 13) {
+                    if ($('.position_add_input').is(':focus')) addPosition();
+                    event.preventDefault();
                 }
             });
             $(document).on('submit', function () {
@@ -29,8 +30,8 @@
                     str += "@@@" + el.innerHTML;
                 });
                 console.log(str);
-                $('.position_add_input').val(str);
-                return false;
+                $('.position_add_input').val(str.substr(3));
+
 
             })
         });
@@ -73,8 +74,16 @@
         <div><hr></div>
         <div class="prop_line">
             <div class="inline">
+                <div class="prop_label">Относительный URL:</div>
+                <s:input path="urlName" type="text" value="${organization.urlName}" readonly="true"/>
+                <s:errors path="urlName" cssClass="jspError"/>
+            </div>
+        </div>
+        <div><hr></div>
+        <div class="prop_line">
+            <div class="inline">
                 <div class="prop_label">Фон хэдера:</div>
-                <input type="file" name="image" accept="image/*" class="inline"/>
+                <input type="file" name="header" accept="image/*" class="inline"/>
             </div>
         </div>
         <div><hr></div>
@@ -92,7 +101,7 @@
             </div>
             <div class="inline">
                 <button type="button" class="position_add_button">Добавить должность:</button>
-                <input class="position_add_input"/>
+                <input class="position_add_input" name="pos"/>
             </div>
         </div>
         <div><hr></div>

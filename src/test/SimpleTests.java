@@ -31,7 +31,7 @@ public class SimpleTests {
     }*/
 
     public static  void props(){
-        System.out.println(GeneralSettings.AVATAR_PATH);
+        System.out.println(GeneralSettings.STORAGE_PATH);
     }
 
 }

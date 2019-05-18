@@ -1,6 +1,7 @@
 package esn.utils;
 
 import esn.configs.GeneralSettings;
+import esn.entities.Organization;
 import esn.entities.User;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,17 +65,19 @@ public class ImageUtil {
         }
     }
 
-    public static void writeImage(User user, MultipartFile image){
+    public static void writeAvatar(User user, MultipartFile image){ //TODO изменить путь в соответтвии с организац
         try {
             String extension = ImageUtil.getExtension(image);
 
-            String fileName = "/".concat(user.getLogin()).concat("/").concat(user.getLogin()).concat(".").concat(extension);
-            String fileNameSmall = "/".concat(user.getLogin()).concat("/").concat(user.getLogin()).concat("_small").concat(".").concat(extension);
+            String fileName = "/".concat(user.getLogin()).concat("/avatar_big.").concat(extension);
+            String fileNameSmall = "/".concat(user.getLogin()).concat("/avatar_small.").concat(extension);
             byte[] bytes = image.getBytes();
             byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
             byte[] smallImage = ImageUtil.resizeSmall(bytes, extension);
+            writeImage(fileName, bigImage);
+            writeImage(fileNameSmall, smallImage);
             //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-            File big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
+            /*File big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
             File small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
             if (big.exists()) {
                 fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
@@ -85,7 +88,7 @@ public class ImageUtil {
             small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
 
             FileUtils.writeByteArrayToFile(big,bigImage);
-            FileUtils.writeByteArrayToFile(small,smallImage);
+            FileUtils.writeByteArrayToFile(small,smallImage);*/
             user.setPhoto(fileName);
             user.setPhoto_small(fileNameSmall);
 
@@ -94,4 +97,62 @@ public class ImageUtil {
             System.out.println("Ошибка записи аватара");
         }
     }
+
+    public static void writeHeader(Organization org, MultipartFile image){
+        try {
+            String extension = ImageUtil.getExtension(image);
+
+            String fileName = "/".concat(org.getUrlName()).concat("/header.").concat(extension);
+
+            byte[] bytes = image.getBytes();
+            //byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
+
+            writeImage(fileName, bytes);
+
+            //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
+           /* File big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
+            File small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
+            if (big.exists()) {
+                fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
+                fileNameSmall = fileNameSmall.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
+            }
+
+            big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
+            small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
+
+            FileUtils.writeByteArrayToFile(big,bigImage);
+            FileUtils.writeByteArrayToFile(small,smallImage);*/
+            org.setHeaderPath(fileName);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка записи аватара");
+        }
+    }
+
+    private static void writeImage(String fileName, byte[] imageBytes){
+        try {
+
+            //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
+            File file = new File(GeneralSettings.STORAGE_PATH.concat(fileName));
+
+           /* if (file.exists()) {
+                fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
+                fileNameSmall = fileNameSmall.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
+            }*/
+           if (file.exists()) FileUtils.forceDelete(file);
+
+            /*big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
+            small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));*/
+
+            FileUtils.writeByteArrayToFile(file, imageBytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка записи картинки");
+        }
+    }
+
+
+
 }

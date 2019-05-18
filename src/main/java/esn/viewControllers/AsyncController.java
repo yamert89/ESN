@@ -277,7 +277,7 @@ public class AsyncController {
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
         try {
-            FileUtils.writeByteArrayToFile(new File(GeneralSettings.STORED_FILES_PATH + user.getLogin() + "/" + name), file.getBytes());
+            FileUtils.writeByteArrayToFile(new File(GeneralSettings.STORAGE_PATH + "/stored_files/" + user.getLogin() + "/" + name), file.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -306,12 +306,12 @@ public class AsyncController {
                     storedFile.setShared(false);
                     break;
                 case "delete":
-                    String path = GeneralSettings.STORED_FILES_PATH + user.getLogin() + "/";
+                    String path = GeneralSettings.STORAGE_PATH + "/stored_files/" + user.getLogin() + "/";
                     user.getStoredFiles().remove(storedFile);
                     FileUtils.forceDelete(new File(path + storedFile.getName() + "." + storedFile.getExtension()));
                     break;
                 case "rename":
-                    String path2 = GeneralSettings.STORED_FILES_PATH + user.getLogin() + "/";
+                    String path2 = GeneralSettings.STORAGE_PATH + "/stored_files/" + user.getLogin() + "/";
                     File oldFile = new File(path2 + storedFile.getName() + "." + storedFile.getExtension());
 
                     FileUtils.copyFile(oldFile, new File(path2 + newName + "." + storedFile.getExtension()));

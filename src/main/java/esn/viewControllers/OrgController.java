@@ -2,17 +2,16 @@ package esn.viewControllers;
 
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
+import esn.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Collections;
 
@@ -49,11 +48,22 @@ public class OrgController {
         return "redirect:/" + org.getUrlName();
     }
 
-    @GetMapping("/{org}")
+    @GetMapping("/{org}/profile")
     /*@Secured(value = "ROLE_ADMIN")*/
     public String orgProfile(@PathVariable String org, Model model){
         Organization organization = orgDao.getOrgByURL(org); //TODO session?
         model.addAttribute(organization);
         return "org_profile";
+    }
+
+    @PostMapping("/{org}/profile")
+    public String profileSubmit(@Valid @ModelAttribute Organization organization, @RequestParam String pos,
+                                @RequestParam MultipartFile header, @PathVariable String org){
+        String[] poss = pos.split("@@@");
+        organization.getPositions().clear();
+        Collections.addAll(organization.getPositions(), poss );
+        if (!header.isEmpty()) ImageUtil.writeHeader(organization, header);
+        orgDao.update(organization);
+        return "redirect:/" + org;
     }
 }

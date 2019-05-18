@@ -55,6 +55,7 @@ public class User {
     @Column(columnDefinition = "varchar(50) default ' '")
     private String position = "";
 
+    @Column(columnDefinition = "varchar(15) default 'ROLE_USER'")
     private String authority;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -246,6 +247,14 @@ public class User {
 
     public boolean isMale() {
         return male;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     @Override
