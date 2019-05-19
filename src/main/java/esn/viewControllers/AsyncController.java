@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-//@SessionAttributes({"user", "orgId"})
+@SessionAttributes({"user", "orgId"}) //TODO test mb problem with update user ?
 public class AsyncController {
 
     private GlobalDAO globalDAO;
@@ -142,7 +143,7 @@ public class AsyncController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          @SessionAttribute User user, HttpSession session){
+                          @SessionAttribute User user, HttpSession session, Model model){
         try {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
@@ -151,7 +152,8 @@ public class AsyncController {
            // userDAO.refresh(user);
 
             user = userDAO.updateUser(user);
-            session.setAttribute("user", user);
+            //session.setAttribute("user", user);
+            model.addAttribute(user);
 
         }catch (Exception e){
             e.printStackTrace();

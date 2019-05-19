@@ -55,7 +55,7 @@
 </div>
 <div class="shadow">
     <c:forEach var="group" items="${groups}">
-        <div class="group_temp" data-name="${group.key}">
+        <div class="group_temp" data-name="${group.corpKey}">
             <c:forEach var="person" items="${group.value}">
                 <table class="person_staff">
                     <tr>

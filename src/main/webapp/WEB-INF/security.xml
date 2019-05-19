@@ -25,9 +25,9 @@
        <intercept-url pattern="/login" access="permitAll" />
       <!--<intercept-url pattern="/**"  access="hasRole('USER')"/>-->
 
-      <!--<form-login default-target-url="/postauth" always-use-default-target="true"
+      <form-login default-target-url="/postauth" always-use-default-target="true"
                   login-processing-url="/login"
-                  login-page="/auth"/>-->
+                  login-page="/auth"/>
        <csrf disabled="true"/>
       <!--<session-management invalid-session-url="/views/service/invalid_session.jsp" session-authentication-error-url="/views/service/error_auth.jsp"/>-->
        <remember-me token-validity-seconds="259200"/>

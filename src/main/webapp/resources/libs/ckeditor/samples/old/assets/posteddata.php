@@ -27,9 +27,9 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
 if (!empty($_POST))
 {
-	foreach ( $_POST as $key => $value )
+	foreach ( $_POST as $corpKey => $value )
 	{
-		if ( ( !is_string($value) && !is_numeric($value) ) || !is_string($key) )
+		if ( ( !is_string($value) && !is_numeric($value) ) || !is_string($corpKey) )
 			continue;
 
 		if ( get_magic_quotes_gpc() )
@@ -38,7 +38,7 @@ if (!empty($_POST))
 			$value = htmlspecialchars( (string)$value );
 ?>
 		<tr>
-			<th style="vertical-align: top"><?php echo htmlspecialchars( (string)$key ); ?></th>
+			<th style="vertical-align: top"><?php echo htmlspecialchars( (string)$corpKey ); ?></th>
 			<td><pre class="samples"><?php echo $value; ?></pre></td>
 		</tr>
 	<?php

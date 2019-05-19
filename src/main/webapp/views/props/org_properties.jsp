@@ -36,7 +36,7 @@
             })
         });
         function copy() {
-            var el = document.querySelector('#key');
+            var el = document.querySelector('#corpKey');
             el.focus();
             el.select();
             //document.execCommand('copy');
@@ -118,9 +118,9 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Корпоративный ключ:</div>
-                <input type="text" readonly value="${organization.key}" title="Необходим при регистрации пользователей" id="key" size="60" minlength="60"/>
+                <input type="text" readonly value="${organization.corpKey}" title="Необходим при регистрации пользователей" id="corpKey" size="60" minlength="60"/>
                 <button type="button" onclick="copy()">Скопировать</button>
-                <s:errors path="key" cssClass="jspError"/>
+                <s:errors path="corpKey" cssClass="jspError"/>
             </div>
         </div>
 

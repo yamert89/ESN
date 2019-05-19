@@ -14,7 +14,7 @@ public class Organization {
     @GeneratedValue
     private Integer id;
 
-    private String key;
+    private String corpKey;
 
     @NotNull(message = "название не должно быть пустым")
     @Column(nullable = false, length = 100)
@@ -113,12 +113,12 @@ public class Organization {
         this.departments = departments;
     }
 
-    public String getKey() {
-        return key;
+    public String getCorpKey() {
+        return corpKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setCorpKey(String corpKey) {
+        this.corpKey = corpKey;
     }
 
     public boolean isDisabled() {

@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Controller
-//@SessionAttributes("user")
+@SessionAttributes("user") //TODO session.setAtribute replace model.addAttr with @SessionAttr
 public class UserController {
 
     private UserDAO userDAO;
@@ -72,6 +72,7 @@ public class UserController {
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("AUTHENTICATION......");
 
         User user = userDAO.getUserByLogin(login);
 

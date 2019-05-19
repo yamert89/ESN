@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.Collections;
 
 @Controller
+@SessionAttributes("organization")
 public class OrgController {
 
     private OrganizationDAO orgDao;
@@ -42,7 +43,7 @@ public class OrgController {
         System.out.println(key);
         String[] poss = pos.split("@@@");
         Collections.addAll(org.getPositions(), poss );
-        org.setKey(key);
+        org.setCorpKey(key);
         orgDao.persistOrg(org);
 
         return "redirect:/" + org.getUrlName();
@@ -58,12 +59,14 @@ public class OrgController {
 
     @PostMapping("/{org}/profile")
     public String profileSubmit(@Valid @ModelAttribute Organization organization, @RequestParam String pos,
-                                @RequestParam MultipartFile header, @PathVariable String org){
+                                @RequestParam MultipartFile header, @PathVariable String org, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) return "org_profile";
         String[] poss = pos.split("@@@");
         organization.getPositions().clear();
         Collections.addAll(organization.getPositions(), poss );
         if (!header.isEmpty()) ImageUtil.writeHeader(organization, header);
         orgDao.update(organization);
-        return "redirect:/" + org;
+        model.addAttribute(organization);
+        return "org_profile";
     }
 }
