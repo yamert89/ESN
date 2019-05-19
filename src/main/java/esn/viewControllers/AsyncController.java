@@ -462,6 +462,14 @@ public class AsyncController {
         return ResponseEntity.ok().headers(responseHeaders).body(json);
     }
 
+    @GetMapping("/delete_org")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOrg(@RequestParam int orgId){
+        Organization organization = orgDAO.getOrgById(orgId);
+        organization.setDisabled(true);
+        orgDAO.update(organization);
+    }
+
 
 
 

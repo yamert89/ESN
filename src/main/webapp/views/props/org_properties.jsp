@@ -33,6 +33,15 @@
                 $('.position_add_input').val(str.substr(3));
 
 
+            });
+
+            $("#delete_profile").click(function () {
+                var res = confirm('Вы уверены, что хотите удалить профиль организации? В течение месяца его можно будет восстановить, используя корпоративный ключ');
+
+                if (res) {
+                    var id = $(".properties_board").attr('data-id');
+                    $.ajax({url:"/delete_org", data:{orgId:id}})
+                }
             })
         });
         function copy() {
@@ -61,7 +70,7 @@
     </script>
 </head>
 <body>
-<div class="properties_board">
+<div class="properties_board" data-id="${organization.id}">
     <div class="prop_line title_pref"><h2>Настройки</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="organization" method="post">
         <div class="prop_line">
@@ -75,7 +84,7 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Относительный URL:</div>
-                <s:input path="urlName" type="text" value="${organization.urlName}" readonly="true"/>
+                <s:input path="urlName" type="text" value="/${organization.urlName}" readonly="true"/>
                 <s:errors path="urlName" cssClass="jspError"/>
             </div>
         </div>
@@ -130,7 +139,7 @@
         </div>
     </s:form>
     <div class="prop_line">
-        <input class="commit" type="submit" value="Удалить профиль" id="delete_profile" title="Удаление профиля организации. В течение месяца его можно будет восстановить, используя корпоративный ключ">
+        <input class="commit" type="button" value="Удалить профиль" id="delete_profile" title="Удаление профиля организации. В течение месяца его можно будет восстановить, используя корпоративный ключ">
     </div>
 
     <span class="prop_log_view"></span>
