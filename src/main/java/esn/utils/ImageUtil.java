@@ -18,11 +18,11 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ImageUtil {
 
-    public static byte[] resizeBig(byte[] input, String format){
+    private static byte[] resizeBig(byte[] input, String format){
         return resize(input,128, format);
     }
 
-    public static byte[] resizeSmall(byte[] input, String format){
+    private static byte[] resizeSmall(byte[] input, String format){
          return resize(input,32, format);
     }
 
@@ -46,10 +46,9 @@ public class ImageUtil {
             e.printStackTrace();
         }
         return null;
-
     }
 
-    public static String getExtension(MultipartFile image){
+    private static String getExtension(MultipartFile image){
         switch (image.getContentType()){
             case  "image/jpeg":
                 return "jpg";
@@ -59,9 +58,7 @@ public class ImageUtil {
                 return "png";
             case "image/bmp":
                 return "bmp";
-
             default: return "jpg";
-
         }
     }
 
@@ -69,26 +66,13 @@ public class ImageUtil {
         try {
             String extension = ImageUtil.getExtension(image);
 
-            String fileName = "/".concat(user.getLogin()).concat("/avatar_big.").concat(extension);
-            String fileNameSmall = "/".concat(user.getLogin()).concat("/avatar_small.").concat(extension);
+            String fileName = GeneralSettings.STORAGE_PATH.concat("/").concat(user.getLogin()).concat("/avatar_big.").concat(extension);
+            String fileNameSmall = GeneralSettings.STORAGE_PATH.concat("/").concat(user.getLogin()).concat("/avatar_small.").concat(extension);
             byte[] bytes = image.getBytes();
             byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
             byte[] smallImage = ImageUtil.resizeSmall(bytes, extension);
             writeImage(fileName, bigImage);
             writeImage(fileNameSmall, smallImage);
-            //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-            /*File big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
-            File small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
-            if (big.exists()) {
-                fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
-                fileNameSmall = fileNameSmall.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
-            }
-
-            big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
-            small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
-
-            FileUtils.writeByteArrayToFile(big,bigImage);
-            FileUtils.writeByteArrayToFile(small,smallImage);*/
             user.setPhoto(fileName);
             user.setPhoto_small(fileNameSmall);
 
@@ -101,29 +85,10 @@ public class ImageUtil {
     public static void writeHeader(Organization org, MultipartFile image){
         try {
             String extension = ImageUtil.getExtension(image);
-
-            String fileName = "/".concat(org.getUrlName()).concat("/header.").concat(extension);
-
+            String fileName = GeneralSettings.STORAGE_PATH.concat("/").concat(org.getUrlName()).concat("/header.").concat(extension);
             byte[] bytes = image.getBytes();
-            //byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
-
             writeImage(fileName, bytes);
-
-            //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-           /* File big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
-            File small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
-            if (big.exists()) {
-                fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
-                fileNameSmall = fileNameSmall.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
-            }
-
-            big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
-            small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));
-
-            FileUtils.writeByteArrayToFile(big,bigImage);
-            FileUtils.writeByteArrayToFile(small,smallImage);*/
             org.setHeaderPath(fileName);
-
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Ошибка записи аватара");
@@ -132,21 +97,9 @@ public class ImageUtil {
 
     private static void writeImage(String fileName, byte[] imageBytes){
         try {
-
-            //if (bigImage == null || smallImage == null) return "reg"; //TODO если ошибка
-            File file = new File(GeneralSettings.STORAGE_PATH.concat(fileName));
-
-           /* if (file.exists()) {
-                fileName = fileName.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
-                fileNameSmall = fileNameSmall.replaceAll("\\..{2,6}$", System.currentTimeMillis() + "." + extension);
-            }*/
-           if (file.exists()) FileUtils.forceDelete(file);
-
-            /*big = new File(GeneralSettings.AVATAR_PATH.concat(fileName));
-            small = new File(GeneralSettings.AVATAR_PATH.concat(fileNameSmall));*/
-
+            File file = new File(fileName);
+            if (file.exists()) FileUtils.forceDelete(file);
             FileUtils.writeByteArrayToFile(file, imageBytes);
-
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Ошибка записи картинки");

@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 @Repository("messageDao")
 @Transactional
 public class MessagesDAO {
+    private boolean mysql = false;
 
     private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=";
     private final String CHECKTABLE_MYSQL = "show tables like ";
@@ -35,6 +36,26 @@ public class MessagesDAO {
     private final String SELECT_WALL_MESSAGES_POSTGRES_WITHIDX = "select * from wall where orgId = ? and id < ? order by time desc limit ?";
     private final String SELECT_CHAT_MESSAGES_POSTGRES = "select * from generalchat where orgId = ? order by time desc limit ?";
     private final String SELECT_WALL_MESSAGES_POSTGRES = "select * from wall where orgId = ? order by time desc limit ?";
+
+
+    private String CHECKTABLE;
+    private String CREATE_TABLE_CONSTRAINTS;
+    private String SELECT_CHAT_MESSAGES;
+    private String SELECT_WALL_MESSAGES;
+    private String SELECT_CHAT_MESSAGES_WITHIDX;
+    private String SELECT_WALL_MESSAGES_WITHIDX;
+
+    {
+        CHECKTABLE = mysql ? CHECKTABLE_MYSQL : CHECKTABLE_POSTGRES;
+        CREATE_TABLE_CONSTRAINTS = mysql ? CREATE_TABLE_CONSTRAINTS_MYSQL : CREATE_TABLE_CONSTRAINTS_POSTGRES;
+        SELECT_CHAT_MESSAGES = mysql ? SELECT_CHAT_MESSAGES_MYSQL : SELECT_CHAT_MESSAGES_POSTGRES;
+        SELECT_WALL_MESSAGES = mysql ? SELECT_WALL_MESSAGES_MYSQL : SELECT_WALL_MESSAGES_POSTGRES;
+        SELECT_CHAT_MESSAGES_WITHIDX = mysql ? SELECT_CHAT_MESSAGES_MYSQL_WITHIDX : SELECT_CHAT_MESSAGES_POSTGRES_WITHIDX;
+        SELECT_WALL_MESSAGES_WITHIDX = mysql ? SELECT_WALL_MESSAGES_MYSQL_WITHIDX : SELECT_WALL_MESSAGES_POSTGRES_WITHIDX;
+
+    }
+
+
 
     private UserDAO userDAO;
 
@@ -89,7 +110,7 @@ public class MessagesDAO {
         try {
             String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
 
-            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS_MYSQL) //TODO Учесть ограничения базы (везде) !!!
+            em.createNativeQuery("create table if not exists " + tableName + CREATE_TABLE_CONSTRAINTS) //TODO Учесть ограничения базы (везде) !!!
                     .executeUpdate();  //TODO Создать таблицу до её чтения в wall
             Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(message, userId, time, orgId) values (?, ?, ?, ?)"))
                     .setParameter(1, message)
@@ -116,13 +137,13 @@ public class MessagesDAO {
         List<Object[]> arr = null;
         try {
             if (mesClass == GenChatMessage.class) {
-                if (!checkTableExists(CHECKTABLE_MYSQL, "g")) return null;
+                if (!checkTableExists(CHECKTABLE, "g")) return null;
 
                 Query query = lastIdx == -1 ?
-                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL)
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES)
                                 .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                                 .setParameter(1, orgId) :
-                        em.createNativeQuery(SELECT_CHAT_MESSAGES_MYSQL_WITHIDX)
+                        em.createNativeQuery(SELECT_CHAT_MESSAGES_WITHIDX)
                                 .setParameter(3, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
                                 .setParameter(1, orgId)
                                 .setParameter(2, lastIdx);
@@ -135,12 +156,12 @@ public class MessagesDAO {
                     list.add(new GenChatMessage((int) row[0], (int) row[2], (String) row[1], (int) row[4], userDAO));
                 }
             } else if (mesClass == Post.class) {
-                if (!checkTableExists(CHECKTABLE_MYSQL, "w")) return null;
+                if (!checkTableExists(CHECKTABLE, "w")) return null;
                 Query query = lastIdx == -1 ?
-                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL)
+                        em.createNativeQuery(SELECT_WALL_MESSAGES)
                                 .setParameter(2, GeneralSettings.AMOUNT_WALL_MESSAGES)
                                 .setParameter(1, orgId) :
-                        em.createNativeQuery(SELECT_WALL_MESSAGES_MYSQL_WITHIDX)
+                        em.createNativeQuery(SELECT_WALL_MESSAGES_WITHIDX)
                                 .setParameter(3, GeneralSettings.AMOUNT_WALL_MESSAGES)
                                 .setParameter(1, orgId)
                                 .setParameter(2, lastIdx);
@@ -162,7 +183,7 @@ public class MessagesDAO {
     public Calendar getLastTimeOfMessage(Class<?> clas, int orgId){
         try {
             String tableName = clas == GenChatMessage.class ? "g" : "p";
-            if (!checkTableExists(CHECKTABLE_MYSQL, tableName)) return null;
+            if (!checkTableExists(CHECKTABLE, tableName)) return null;
             String query = clas == GenChatMessage.class ?
                     "select time from generalchat where orgId = :orgId order by time desc limit 1" :
                     "select time from private_chat_history where orgId = :orgId order by time desc limit 1";

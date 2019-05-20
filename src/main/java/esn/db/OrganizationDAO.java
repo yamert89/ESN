@@ -73,6 +73,12 @@ public class OrganizationDAO {
         return list;
     }
 
+    @Transactional
+    public boolean hasAdmin(String orgUrl){
+        return (boolean) em.createQuery("select org.hasAdmin from Organization org where org.urlName = :url")
+                .setParameter("url", orgUrl).getSingleResult();
+    }
+
 
 
 

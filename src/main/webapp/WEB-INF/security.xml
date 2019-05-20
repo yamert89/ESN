@@ -7,6 +7,7 @@
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+    <global-method-security pre-post-annotations="enabled"/>
 
     <http pattern="/neworg" security="none"/>
     <http pattern="/resources/**" security="none"/>
@@ -21,9 +22,9 @@
       <intercept-url pattern="/auth" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth1" access="hasRole('ANONYMOUSLY')"/>-->
        <intercept-url pattern="favicon.ico" access="permitAll" />
-       <intercept-url pattern="/**" access="permitAll" />                             <!--убрать-->
+       <!--<intercept-url pattern="/**" access="permitAll" />  -->                           <!--убрать-->
        <intercept-url pattern="/login" access="permitAll" />
-      <!--<intercept-url pattern="/**"  access="hasRole('USER')"/>-->
+      <intercept-url pattern="/**"  access="hasRole('USER')"/>
 
       <form-login default-target-url="/postauth" always-use-default-target="true"
                   login-processing-url="/login"
@@ -35,7 +36,7 @@
    </http>
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service id="userService" data-source-ref="dataSourceMySQL"
+            <jdbc-user-service id="userService" data-source-ref="dataSourcePostgres"
             users-by-username-query="select login, password, true from users where login = ?"
             authorities-by-username-query="select login, authority from users where login = ?"/>
             <password-encoder ref="passwordEncoder"/>

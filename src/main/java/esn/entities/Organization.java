@@ -31,6 +31,7 @@ public class Organization {
     @Column(length = 1000)
     private String description;
 
+    @Column(columnDefinition = "varchar(255) default '/resources/header.jpg")
     private String headerPath;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -45,7 +46,10 @@ public class Organization {
     @Size(max = 50, message = "не более 50 символов")
     private Set<String> positions = new HashSet<>();
 
+    private boolean hasAdmin;
+
     private boolean disabled;
+
 
 
     public Organization() {
@@ -135,6 +139,14 @@ public class Organization {
 
     public void setHeaderPath(String headerPath) {
         this.headerPath = headerPath;
+    }
+
+    public boolean isHasAdmin() {
+        return hasAdmin;
+    }
+
+    public void setHasAdmin(boolean hasAdmin) {
+        this.hasAdmin = hasAdmin;
     }
 
     public User getUserByLogin(String nickname){

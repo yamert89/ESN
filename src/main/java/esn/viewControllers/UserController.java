@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Controller
-@SessionAttributes("user") //TODO session.setAtribute replace model.addAttr with @SessionAttr
+@SessionAttributes({"user", "organization"}) //TODO session.setAtribute replace model.addAttr with @SessionAttr
 public class UserController {
 
     private UserDAO userDAO;
@@ -108,10 +108,11 @@ public class UserController {
 
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
-        session.setAttribute("orgUrl", org);
+        session.setAttribute("orgUrl", org); //TODO replace with org
+        model.addAttribute("organization", user.getOrganization());
 
         int orgId = orgDAO.getOrgByURL(org).getId();
-        session.setAttribute("orgId", orgId);
+        session.setAttribute("orgId", orgId); //TODO replace with org
         session.setAttribute("loginUrl", user.getLogin());
         webSocketService.sendStatus(orgId, user.getId(), true);
         return "redirect:/" + org + "/wall/";
