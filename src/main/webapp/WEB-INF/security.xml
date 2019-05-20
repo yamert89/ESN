@@ -7,13 +7,15 @@
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security-4.2.xsd">
-    <global-method-security pre-post-annotations="enabled"/>
+
+    <global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
 
     <http pattern="/neworg" security="none"/>
     <http pattern="/resources/**" security="none"/>
     <http pattern="/auth" security="none"/>
     <http pattern="/views/service/**" security="none"/>
     <http pattern="/reg" security="none"/>
+    <!--<http pattern="/**/profile" security="none"/>-->
     <!--<http pattern="/login" security="none"/>-->
    <http auto-config="true" use-expressions="true">
       <!--<intercept-url pattern="/" access="hasRole('ANONYMOUSLY')"/>
@@ -24,7 +26,7 @@
        <intercept-url pattern="favicon.ico" access="permitAll" />
        <!--<intercept-url pattern="/**" access="permitAll" />  -->                           <!--убрать-->
        <intercept-url pattern="/login" access="permitAll" />
-      <intercept-url pattern="/**"  access="hasRole('USER')"/>
+      <intercept-url pattern="/**"  access="hasRole('USER') or hasRole('ADMIN')"/>
 
       <form-login default-target-url="/postauth" always-use-default-target="true"
                   login-processing-url="/login"
@@ -36,7 +38,7 @@
    </http>
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service id="userService" data-source-ref="dataSourcePostgres"
+            <jdbc-user-service id="userService" data-source-ref="dataSourceMySQL"
             users-by-username-query="select login, password, true from users where login = ?"
             authorities-by-username-query="select login, authority from users where login = ?"/>
             <password-encoder ref="passwordEncoder"/>

@@ -5,6 +5,7 @@ import esn.entities.Organization;
 import esn.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collections;
 
 @Controller
@@ -51,11 +53,11 @@ public class OrgController {
     }
 
     @GetMapping("/{org}/profile")
-    /*@Secured(value = "ROLE_ADMIN")*/
-    @PreAuthorize("!#orgDao.hasAdmin(#org) || hasRole('ROLE_ADMIN')") //T
-    public String orgProfile(@PathVariable String org, Model model){
+    @Secured(value = "ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String orgProfile(@PathVariable String org, Model model, Principal principal){
 
-        Organization organization = orgDao.getOrgByURL(org); //TODO session?
+        Organization organization = orgDao.getOrgByURL(org);
         model.addAttribute(organization);
         return "org_profile";
     }
