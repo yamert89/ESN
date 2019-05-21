@@ -99,6 +99,13 @@
       <artifactId>spring-security-config</artifactId>
       <version>5.1.4.RELEASE</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.annotation/jsr250-api -->
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>jsr250-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+
 
 
 
