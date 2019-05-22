@@ -45,7 +45,7 @@
             Введите Ваше имя:
             <sf:input path="name" size="50" maxlength="50" cssClass="reg_field"/>
             <img src="/resources/checkbox.jpg" class="checkbox">
-            <sf:errors path="name" cssClass="jspError"/>
+
         </label>
     </div>
     <div class="reg_block">
@@ -53,7 +53,7 @@
             Введите логин:
             <sf:input path="login" size="20" maxlength="20" cssClass="reg_field"/>
             <img src="/resources/checkbox.jpg" class="checkbox">
-            <sf:errors path="login" cssClass="jspError"/>
+
         </label>
     </div>
     <div class="reg_block">
@@ -61,7 +61,7 @@
             Введите пароль:
             <sf:password path="password" size="20" cssClass="reg_field" id="pass1"/>
             <img src="/resources/checkbox.jpg" class="checkbox">
-            <sf:errors path="password" cssClass="jspError"/>
+
         </label>
     </div>
     <div class="reg_block">
@@ -78,9 +78,12 @@
             <label for="male">М</label><input type="radio" class="reg_field" id="male">
             <label for="female">Ж</label><input type="radio" class="reg_field" id="female">
             <img src="/resources/checkbox.jpg" class="checkbox">
-            <span class="jspError" id="error_sex"></span>
         </label>
     </div>
+        <sf:errors path="name" cssClass="jspError"/>
+        <sf:errors path="login" cssClass="jspError"/>
+        <sf:errors path="password" cssClass="jspError"/>
+        <span class="jspError" id="error_sex"></span>
     <div class="form_photo reg_block">
         <label>Загрузите фото:
             <input type="file" name="image" class="select_avatar">

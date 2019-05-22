@@ -2,6 +2,7 @@ package esn.viewControllers;
 
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
 import esn.services.WebSocketService;
@@ -140,8 +141,12 @@ public class UserController {
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
         System.out.println("orgKey = " + orgKey);
-        String org = orgDAO.getOrgByKey(orgKey).getUrlName(); //TODO запихать в сессию?
-
+        Organization organization = orgDAO.getOrgByKey(orgKey); //TODO запихать в сессию?
+        if (organization == null){
+            bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
+            return "reg";
+        }
+        String org = organization.getUrlName();
 
         if (bindingResult.hasErrors()) return "reg";
         if (orgDAO.getLogins().contains(user.getLogin())) {

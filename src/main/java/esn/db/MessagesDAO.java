@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 @Repository("messageDao")
 @Transactional
 public class MessagesDAO {
-    private boolean mysql = false;
+    private boolean mysql = true;
 
     private final String CHECKTABLE_POSTGRES = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=";
     private final String CHECKTABLE_MYSQL = "show tables like ";

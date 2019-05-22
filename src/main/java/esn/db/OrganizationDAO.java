@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -48,8 +49,14 @@ public class OrganizationDAO {
 
     @Transactional
     public Organization getOrgByKey(String key){
-        return (Organization) em.createQuery("select org from Organization org where org.corpKey = :k or org.adminKey = :k")
-                .setParameter("k", key).getSingleResult();
+        try {
+            return (Organization) em.createQuery("select org from Organization org where org.corpKey = :k or org.adminKey = :k")
+                    .setParameter("k", key).getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
+
+
     }
 
     @Transactional
