@@ -74,9 +74,12 @@
     </div>
     <div class="reg_block">
         <label>
-            Укажите ваш пол:
-            <label for="male">М</label><input type="radio" class="reg_field" id="male">
-            <label for="female">Ж</label><input type="radio" class="reg_field" id="female">
+            Укажите ваш пол:<br/>
+            <%--<label for="male">М</label><input type="radio" class="reg_field" id="male">
+            <label for="female">Ж</label><input type="radio" class="reg_field" id="female">--%>
+            Мужской:
+            <sf:radiobutton path="male" value="true"/> <br/> Женский:
+            <sf:radiobutton path="male" value="false"/>
             <img src="/resources/checkbox.jpg" class="checkbox">
         </label>
     </div>
