@@ -20,7 +20,7 @@ select{
     border-radius: 10px;
 }
 .prop_line{
-    margin: 5px;
+    margin: 5px 30px;
 }
 .prop_label{
     display: inline-block;
@@ -34,7 +34,7 @@ select{
 }
 .inline{
     display: flex;
-    margin: 0 30px;
+
     flex: 0 0 auto;
 }
 .inline_parent{
@@ -110,17 +110,18 @@ form{
     flex-direction: column;
 }
 input{
-    flex: 1 1 auto;
+    flex: 0 1 70%;
     border-radius: 3px;
 }
 button, input[type=submit]{
     font-size: 0.9em!important;
     margin: 0 5px;
+    flex: 1 0 auto;
 }
 hr{
     size: 1px;
     border-color: rgba(240, 232, 173, 0.44);
     flex: 1 0 1px;
-    width: 90%;
+    width: 92%;
 
 }

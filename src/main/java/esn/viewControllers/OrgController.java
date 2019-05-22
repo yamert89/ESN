@@ -45,11 +45,14 @@ public class OrgController {
         System.out.println("positions : " + pos);
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
-        String key = new BCryptPasswordEncoder().encode(org.getName() + "3ff42fsf2423fsdf");
-        System.out.println(key);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String corpKey = encoder.encode(org.getName() + "3ff42fsf2423fsdf");
+        String adminKey = encoder.encode(org.getName() + "3ff42fsf24hjgfdsesdf23fsdf");
+
         String[] poss = pos.split("@@@");
         Collections.addAll(org.getPositions(), poss );
-        org.setCorpKey(key);
+        org.setCorpKey(corpKey);
+        org.setAdminKey(adminKey);
         orgDao.persistOrg(org);
 
         return "redirect:/" + org.getUrlName();

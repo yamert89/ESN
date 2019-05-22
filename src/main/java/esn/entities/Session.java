@@ -5,9 +5,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Calendar;
 
 @Entity
+@Table(name = "session")
 public class Session {
 
     @Id

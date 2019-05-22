@@ -44,11 +44,10 @@
                 }
             })
         });
-        function copy() {
-            var el = document.querySelector('#corpKey');
+        function copy(selector) {
+            var el = document.querySelector(selector);
             el.focus();
             el.select();
-            //document.execCommand('copy');
             try {
                 var successful = document.execCommand('copy');
                 var msg = successful ? 'successful' : 'unsuccessful';
@@ -59,8 +58,10 @@
         }
 
         function addPosition() {
+            var name = $('.position_add_input').val();
+            if (name == '') return;
             $('.positions').append('<div class="position">\n' +
-                '                            <div class="position_name">' + $('.position_add_input').val() + '</div>\n' +
+                '                            <div class="position_name">' + name + '</div>\n' +
                 '                            <img class="position_delete" src="/resources/cross.png" title="Удалить должность"/>\n' +
                 '                    </div>')
         }
@@ -110,34 +111,30 @@
             </div>
             <div class="inline">
                 <button type="button" class="position_add_button">Добавить должность:</button>
-                <input class="position_add_input" name="pos"/>
+                <input class="position_add_input" name="pos" type="text"/>
             </div>
         </div>
         <div><hr></div>
         <div class="prop_line">
             <div class="inline">
-
+                <div class="prop_label">Ключ администратора:</div>
+                <input type="text" readonly value="${organization.adminKey}" title="Необходим при регистрации пользователя с правами администратора" id="adminKey" size="60" minlength="60"/>
+                <button type="button" onclick="copy('#adminKey')">Скопировать</button>
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
-
-            </div>
-        </div>
-        <div class="prop_line">
-            <div class="inline">
-                <div class="prop_label">Корпоративный ключ:</div>
+                <div class="prop_label">Общий корпоративный ключ:</div>
                 <input type="text" readonly value="${organization.corpKey}" title="Необходим при регистрации пользователей" id="corpKey" size="60" minlength="60"/>
-                <button type="button" onclick="copy()">Скопировать</button>
-                <s:errors path="corpKey" cssClass="jspError"/>
+                <button type="button" onclick="copy('#corpKey')">Скопировать</button>
             </div>
         </div>
-
-
+        <div><hr></div>
         <div class="prop_line">
             <input class="commit" type="submit" value="Применить Настройки" id="settings_submit">
         </div>
     </s:form>
+    <div><hr></div>
     <div class="prop_line">
         <input class="commit" type="button" value="Удалить профиль" id="delete_profile" title="Удаление профиля организации. В течение месяца его можно будет восстановить, используя корпоративный ключ">
     </div>

@@ -16,6 +16,8 @@ public class Organization {
 
     private String corpKey;
 
+    private String adminKey;
+
     @NotNull(message = "название не должно быть пустым")
     @Column(nullable = false, length = 100)
     @Size(max = 100, message = "название организации должно быть не более 100 символов")
@@ -147,6 +149,14 @@ public class Organization {
 
     public void setHasAdmin(boolean hasAdmin) {
         this.hasAdmin = hasAdmin;
+    }
+
+    public String getAdminKey() {
+        return adminKey;
+    }
+
+    public void setAdminKey(String adminKey) {
+        this.adminKey = adminKey;
     }
 
     public User getUserByLogin(String nickname){
