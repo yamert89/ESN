@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
@@ -25,19 +24,16 @@ public class User {
     @GeneratedValue
     private Integer id;
 
-    @Size(min = 4, max = 50, message = "От 4х до 50 символов")
+    @Size(min = 4, max = 50, message = "введите имя от 4х до 50 символов")
     @Column(nullable = false)
-    @NotNull(message = "имя не должно быть пустым")
     private String name;
 
-    @Size(min = 4, max = 20, message = "От 3х до 20 символов")
-    @NotNull
+    @Size(min = 4, max = 20, message = "введите логин от 3х до 20 символов")
     @JsonIgnore
     @Column(nullable = false)
     private String login;
 
-    @Size(min = 6, max = 60, message = "От 6 до 60 символов")
-    @NotNull(message = "пароль не может быть пустым")
+    @Size(min = 6, max = 60, message = "введите пароль от 6 до 60 символов")
     @Column(nullable = false)
     @JsonIgnore
     private String password;

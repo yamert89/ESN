@@ -13,6 +13,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/storage/storage.css"/>">
     <script type="text/javascript">
+        var filesPath;
         $("#storage").addClass("selected");
         var extensions = {'.xls' : 'excel.png', '.xlsx' : 'excel.png',
             '.doc' : 'word.png', '.docx' : 'word.png',
@@ -127,6 +128,14 @@
 
 
             });
+            filesPath = $(".storage").attr('data-path');
+            $(document).on('click', '.file_ico', function () {
+                var name = $(this).next().val() + $(this).attr('data-ext');
+                var link = document.createElement('a');
+                link.setAttribute('href',filesPath + name); //ToDO
+                link.setAttribute('download','download');
+                link.click();
+            })
         });
 
 
@@ -149,11 +158,13 @@
 
 
 
+
+
     </script>
 </head>
 <body>
 
-<div class="storage">
+<div class="storage" data-path="${filesPath}">
     <div class="storage_public">
 
         <div class="storage_header">Общие файлы</div>

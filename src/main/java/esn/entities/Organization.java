@@ -18,7 +18,7 @@ public class Organization {
 
     private String adminKey;
 
-    @NotNull(message = "название не должно быть пустым")
+    @NotNull(message = "введите название организации")
     @Column(nullable = false, length = 100)
     @Size(max = 100, message = "название организации должно быть не более 100 символов")
     private String name;
@@ -45,7 +45,6 @@ public class Organization {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
     @Column(name = "POSITION", length = 50)
-    @Size(max = 50, message = "не более 50 символов")
     private Set<String> positions = new HashSet<>();
 
     private boolean hasAdmin;

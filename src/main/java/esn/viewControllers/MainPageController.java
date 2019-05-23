@@ -156,6 +156,7 @@ public class MainPageController {
             user = userDAO.getUserWithFiles(user.getId());
         }
         model.addAttribute("sharedFiles", globalDAO.getSharedFiles());
+        model.addAttribute("filesPath", GeneralSettings.STORAGE_PATH+ "/stored_files/" + user.getLogin() + "/");
         session.setAttribute("user", user);
         return "storage";
     }
