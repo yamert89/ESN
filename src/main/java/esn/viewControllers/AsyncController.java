@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@SessionAttributes({"user", "orgId"}) //TODO test mb problem with update user ?
+//@SessionAttributes({"user", "orgId"}) //TODO test mb problem with update user ?
 public class AsyncController {
 
     private GlobalDAO globalDAO;
@@ -82,14 +82,16 @@ public class AsyncController {
 
     @PostMapping("/deletemessage") //TODO удалять у других через ws
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteGenMessage(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
+    public void deleteGenMessage(@RequestParam String text,  @SessionAttribute int orgId, HttpSession session){
+        User user = (User) session.getAttribute("user");
         messagesDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
     }
 
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
-                         @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
+                         @RequestParam String time, @SessionAttribute int orgId, HttpSession session){
+        User user = (User) session.getAttribute("user");
         try {
             messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
             webSocketService.newPostAlert(user, time, text);
@@ -100,7 +102,8 @@ public class AsyncController {
 
     @PostMapping("/deletepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletePost(@RequestParam String text, @SessionAttribute User user, @SessionAttribute int orgId){
+    public void deletePost(@RequestParam String text,  @SessionAttribute int orgId, HttpSession session){
+        User user = (User) session.getAttribute("user");
         messagesDAO.deleteMessage(user.getId(), text, orgId, Post.class);
     }
 
@@ -108,7 +111,8 @@ public class AsyncController {
     @PostMapping("/save_private_message/{companionId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
-                                   @SessionAttribute User user, @SessionAttribute int orgId){
+                                    @SessionAttribute int orgId, HttpSession session){
+        User user = (User) session.getAttribute("user");
         int cId = Integer.valueOf(companionId);
         User compan = userDAO.getUserById(cId);
         if (text.length() > 800) {
@@ -126,7 +130,8 @@ public class AsyncController {
     @PostMapping("/groupmessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroupMessage(@RequestParam String text, @RequestParam String groupName,
-                                 @SessionAttribute User user, @SessionAttribute int orgId){
+                                  @SessionAttribute int orgId, HttpSession session){
+        User user = (User) session.getAttribute("user");
         ContactGroup group = user.getGroups().stream()
                         .filter(g -> g.getName().equals(groupName)).findAny().get();
 
@@ -143,7 +148,8 @@ public class AsyncController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          @SessionAttribute User user, HttpSession session, Model model){
+                           HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
         try {
             String[] ids_s = personIds.split(",");
             int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
@@ -163,7 +169,8 @@ public class AsyncController {
 
     @GetMapping("/deletegroup")
     @ResponseStatus(code = HttpStatus.OK)
-    public void deleteGroup(@RequestParam String groupName, @SessionAttribute User user, HttpSession session){
+    public void deleteGroup(@RequestParam String groupName,  HttpSession session){
+        User user = (User) session.getAttribute("user");
         try {
             Iterator<ContactGroup> it = user.getGroups().iterator();
             ContactGroup group = null;
@@ -181,7 +188,8 @@ public class AsyncController {
 
     @GetMapping("/expand-props")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveExpandStatus(@RequestParam String groups, @SessionAttribute User user, HttpSession session){
+    public void saveExpandStatus(@RequestParam String groups,  HttpSession session){
+        User user = (User) session.getAttribute("user");
         //[{"name" : "ddsf", "expand" : true},{}]
         ObjectMapper om = new ObjectMapper();
         List<PseudoContactGroup> grps = null;
@@ -210,7 +218,8 @@ public class AsyncController {
 
     @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.OK)
-    public boolean saveNote(@RequestParam String time, @RequestParam String text, @SessionAttribute User user, HttpSession session){
+    public boolean saveNote(@RequestParam String time, @RequestParam String text,  HttpSession session){
+        User user = (User) session.getAttribute("user");
         try {
             System.out.println(" /note   before   " + user);
             //time = "15.03.2019, 00:00:00";
@@ -229,7 +238,8 @@ public class AsyncController {
     }
 
     @GetMapping("/notes")
-    public ResponseEntity<String> getNotes(@SessionAttribute User user){
+    public ResponseEntity<String> getNotes(HttpSession session){
+        User user = (User) session.getAttribute("user");
         try {
             System.out.println(" /notes   " + user);
             Map<Timestamp, String> notes = user.getNotes();
@@ -275,7 +285,7 @@ public class AsyncController {
     @PostMapping("/savefile")
     @ResponseStatus(code = HttpStatus.OK)
     public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared,
-                         /*@SessionAttribute User user, */HttpSession session){
+                         /* */HttpSession session){
         User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
@@ -293,7 +303,8 @@ public class AsyncController {
     @GetMapping("/savefile")
     @ResponseStatus(code = HttpStatus.OK)
     public void updateFile(@RequestParam String fname, @RequestParam String update,
-                           @RequestParam(required = false) String newName, @SessionAttribute User user, HttpSession session){
+                           @RequestParam(required = false) String newName, HttpSession session){
+        User user = (User) session.getAttribute("user");
         Iterator<StoredFile> it = user.getStoredFiles().iterator();
         StoredFile storedFile = null;
         while (it.hasNext()){

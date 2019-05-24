@@ -2,11 +2,10 @@ package esn.viewControllers;
 
 import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
-import esn.db.OrganizationDAO;
 import esn.db.MessagesDAO;
+import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
-import esn.entities.Session;
 import esn.entities.User;
 import esn.entities.secondary.*;
 import org.hibernate.LazyInitializationException;
@@ -26,7 +25,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/{organization}")
-@SessionAttributes("user")
 public class MainPageController {
 
 
@@ -56,7 +54,8 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/wall")
-    public String wall(Model model, @SessionAttribute int orgId, HttpSession session){
+    public String wall(Model model, HttpSession session){
+        int orgId = (int) session.getAttribute("orgId");
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, Post.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
@@ -70,7 +69,9 @@ public class MainPageController {
     }
 
     @GetMapping("/chat")
-    public String genChat(Model model, @SessionAttribute int orgId, @SessionAttribute User user, HttpSession session){
+    public String genChat(Model model, HttpSession session){
+        int orgId = (int) session.getAttribute("orgId");
+        User user = (User) session.getAttribute("user");
         model.addAttribute("photo", user.getPhoto_small());
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, GenChatMessage.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
@@ -81,7 +82,9 @@ public class MainPageController {
 
     @GetMapping("/private-chat") //TODO url = login ?
     public String privateChat(@PathVariable String organization,
-                              @RequestParam String companion, Model model, @SessionAttribute User user, @SessionAttribute int orgId){
+                              @RequestParam String companion, Model model, HttpSession session){
+        int orgId = (int) session.getAttribute("orgId");
+        User user = (User) session.getAttribute("user");
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("companion", compan);
         Set<PrivateChatMessage> privateMessages = messagesDAO.getMessages(user, compan, orgId);
@@ -105,7 +108,8 @@ public class MainPageController {
     }
 
     @GetMapping("/groups")
-    public String groups(@PathVariable String organization, Model model, @SessionAttribute User user){
+    public String groups(@PathVariable String organization, Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
         Set<User> employers = new HashSet<>(orgDao.getOrgByURL(organization).getAllEmployers());
         employers.remove(user);
         model.addAttribute("employers", employers);
@@ -139,19 +143,22 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/notes")
-    public String notes(HttpSession session, @SessionAttribute User user){
+    public String notes(HttpSession session){
+        User user = (User) session.getAttribute("user");
         System.out.println(" /notes Main   " + user);
         session.setAttribute("user", userDAO.getUserById(user.getId()));
         return "notes";
     }
 
     @GetMapping(value = "/staff")
-    public String staff(@SessionAttribute User user){
+    public String staff(HttpSession session){
+        User user = (User) session.getAttribute("user");
         return user.isAdmin() ? "staff_admin" : "staff";
     }
 
     @GetMapping(value = "/storage")
-    public String storage(@SessionAttribute User user, Model model, SessionStatus status, HttpSession session){
+    public String storage(/*@SessionAttribute User user*/ Model model, SessionStatus status, HttpSession session){
+        User user = (User) session.getAttribute("user");
         status.setComplete();
         try{
             user.getStoredFiles().size();
@@ -170,7 +177,8 @@ public class MainPageController {
 
     @GetMapping("/contacts")
     @ResponseBody
-    public ResponseEntity<String> fullContactsList(@PathVariable String organization, @SessionAttribute User user){
+    public ResponseEntity<String> fullContactsList(@PathVariable String organization, HttpSession session){
+        User user = (User) session.getAttribute("user");
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type",
                 "application/json; charset=UTF-8");
@@ -227,10 +235,10 @@ public class MainPageController {
         return "forward:/resources/favicon.ico";
     }
 
-    @ModelAttribute
+    /*@ModelAttribute
     public User getUserWithFiles(int id){
         return userDAO.getUserWithFiles(id);
-    }
+    }*/
 
 
 }

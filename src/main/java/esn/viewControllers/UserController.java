@@ -29,7 +29,6 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Controller
-@SessionAttributes({"user", "organization"}) //TODO session.setAtribute replace model.addAttr with @SessionAttr
 public class UserController {
 
     private UserDAO userDAO;
@@ -121,7 +120,9 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void exit(HttpSession session, @SessionAttribute int orgId, @SessionAttribute User user, HttpServletRequest request){
+    public void exit(HttpSession session, HttpServletRequest request){
+        int orgId = (int) session.getAttribute("orgId");
+        User user = (User) session.getAttribute("user");
         webSocketService.sendStatus(orgId, user.getId(), false);
         Session sessionPersistent = userDAO.getSession(session.getId());
         sessionPersistent.setEndTime(Calendar.getInstance());
@@ -196,7 +197,8 @@ public class UserController {
 
     @GetMapping("{org}/users/{login}")
     public String showUserProfile(@PathVariable String login, @PathVariable String org,
-                                  @SessionAttribute User user, Model model, HttpSession session){
+                                  Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
         try {
             if (user.getLogin().equals(login)) {
                 user = userDAO.getUserWithInfo(user.getId());
@@ -249,14 +251,16 @@ public class UserController {
     }
 
     @DeleteMapping("{org}/users/{login}")
-    public String deleteProfile(@PathVariable String login,  @PathVariable String org,  @SessionAttribute User user){
+    public String deleteProfile(@PathVariable String login,  @PathVariable String org, HttpSession session){
+        User user = (User) session.getAttribute("user");
         userDAO.deleteUser(user); //TODO test
         return "reg";
     }
     @PostMapping("{org}/users/{login}/p")
     @ResponseBody
     public ResponseEntity<Boolean> changePassword(@RequestParam(required = false) String newPass, @RequestParam(required = false) String oldPass,
-                                  @PathVariable String login, @PathVariable String org,  @SessionAttribute User user, HttpSession session, HttpServletRequest request){
+                                  @PathVariable String login, @PathVariable String org, HttpSession session, HttpServletRequest request){
+        User user = (User) session.getAttribute("user");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (!encoder.encode(oldPass).equals(user.getPassword())) ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
         user.setPassword(encoder.encode(newPass));
@@ -268,8 +272,8 @@ public class UserController {
     @GetMapping("{org}/users/{login}/p")
     @ResponseBody
     public ResponseEntity<Boolean> checkPassword(@PathVariable String login,  @PathVariable String org,
-                                                 @RequestParam String pass, @SessionAttribute User user){
-
+                                                 @RequestParam String pass, HttpSession session){
+        User user = (User) session.getAttribute("user");
         boolean res = new BCryptPasswordEncoder().encode(pass).equals(user.getPassword());
         return ResponseEntity.ok().contentLength(res ? 4 : 5).body(res);
     }
