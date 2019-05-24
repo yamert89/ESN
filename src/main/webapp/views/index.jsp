@@ -395,7 +395,7 @@
     <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}' data-org-id='${sessionScope.get("orgId")}'>${user.organization.name}</div>
     <div class="user">
         <span class="user_name" data-login="${user.login}" data-user_id="${user.id}">${user.name}</span>
-        <img src='<c:url value="/resources/avatars${user.photo}"/>' class="user_photo">
+        <img src='<c:url value="/resources/avatars/${user.photo}"/>' class="user_photo">
     </div>
 </header>
 <body>

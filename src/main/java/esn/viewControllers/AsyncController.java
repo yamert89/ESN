@@ -275,7 +275,8 @@ public class AsyncController {
     @PostMapping("/savefile")
     @ResponseStatus(code = HttpStatus.OK)
     public void saveFile(@RequestParam(name = "file")MultipartFile file, @RequestParam String shared,
-                         @SessionAttribute User user, HttpSession session){
+                         /*@SessionAttribute User user, */HttpSession session){
+        User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
         try {
@@ -327,6 +328,7 @@ public class AsyncController {
         //user = userDAO.getUserWithFiles(user.getId());
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
+        System.out.println();
     }
 
     @GetMapping("/getstaff")

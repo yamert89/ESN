@@ -6,6 +6,7 @@ import esn.db.OrganizationDAO;
 import esn.db.MessagesDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
+import esn.entities.Session;
 import esn.entities.User;
 import esn.entities.secondary.*;
 import org.hibernate.LazyInitializationException;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/{organization}")
-//@SessionAttributes
+@SessionAttributes("user")
 public class MainPageController {
 
 
@@ -149,15 +151,18 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/storage")
-    public String storage(@SessionAttribute User user, Model model, HttpSession session){
+    public String storage(@SessionAttribute User user, Model model, SessionStatus status, HttpSession session){
+        status.setComplete();
         try{
             user.getStoredFiles().size();
         }catch (LazyInitializationException e){
             user = userDAO.getUserWithFiles(user.getId());
         }
         model.addAttribute("sharedFiles", globalDAO.getSharedFiles());
-        model.addAttribute("filesPath", GeneralSettings.STORAGE_PATH+ "/stored_files/" + user.getLogin() + "/");
+        model.addAttribute("filesPath", GeneralSettings.STORAGE_PATH+ "stored_files/" + user.getLogin() + "/");
+        model.addAttribute("user", user);
         session.setAttribute("user", user);
+
         return "storage";
     }
 
@@ -220,6 +225,11 @@ public class MainPageController {
     @RequestMapping("/favicon.ico")
     public String getFavicon(){
         return "forward:/resources/favicon.ico";
+    }
+
+    @ModelAttribute
+    public User getUserWithFiles(int id){
+        return userDAO.getUserWithFiles(id);
     }
 
 

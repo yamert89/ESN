@@ -190,7 +190,7 @@
 
         <div class="storage_header">Личные файлы</div>
         <div class="storage_wrapper" id="private_files">
-            <c:set var="files" value='${sessionScope.get("user").storedFiles}'/>
+            <c:set var="files" value='${user.storedFiles}'/>
             <c:forEach var="file" items='${files}'>
                 <div class="file">
                     <img src="" class="file_ico" data-ext="${file.extension}">
