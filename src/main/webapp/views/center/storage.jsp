@@ -130,9 +130,9 @@
             });
             filesPath = $(".storage").attr('data-path');
             $(document).on('click', '.file_ico', function () {
-                var name = $(this).next().val() + $(this).attr('data-ext');
+                var name = $(this).next().val() + '.' + $(this).attr('data-ext');
                 var link = document.createElement('a');
-                link.setAttribute('href',filesPath + name); //ToDO
+                link.setAttribute('href',filesPath + name);
                 link.setAttribute('download','download');
                 link.click();
             })
