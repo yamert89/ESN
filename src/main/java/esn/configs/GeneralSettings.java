@@ -2,13 +2,14 @@ package esn.configs;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Properties;
 
 
 public class GeneralSettings {
 /*    public static String AVATAR_PATH = "resources/avatars/";
     public static String STORED_FILES_PATH = "resources/stored_files/";*/
-    public static String STORAGE_PATH = System.getProperty("user.dir") + "\\src\\main\\webapp\\resources";
+    public static String STORAGE_PATH;
     public static int AMOUNT_GENCHAT_MESSAGES = 50;
     public static int AMOUNT_PRIVATECHAT_MESSAGES = 50;
     public static int AMOUNT_WALL_MESSAGES = 25;
@@ -16,6 +17,11 @@ public class GeneralSettings {
 
     static {
         try {
+            String path = GeneralSettings.class.getClassLoader().getResource("").getPath();
+            Path p = java.nio.file.Paths.get(path.substring(1));
+            p = java.nio.file.Paths.get(p.getParent().getParent().toString(), "/resources/");
+            STORAGE_PATH = p.toString();
+
             Properties properties = new Properties();
 
             InputStream inputStream = GeneralSettings.class.getClassLoader().getResourceAsStream("properties");

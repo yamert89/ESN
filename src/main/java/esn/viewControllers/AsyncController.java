@@ -289,8 +289,10 @@ public class AsyncController {
         User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
+        String path = GeneralSettings.STORAGE_PATH + "\\stored_files\\" + user.getLogin() + "\\" + name;
+        System.out.println("PATH " + path);
         try {
-            FileUtils.writeByteArrayToFile(new File(GeneralSettings.STORAGE_PATH + "/stored_files/" + user.getLogin() + "/" + name), file.getBytes());
+            FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

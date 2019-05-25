@@ -123,10 +123,6 @@
                     '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                     '                </div>');
 
-
-
-
-
             });
             filesPath = $(".storage").attr('data-path');
             $(document).on('click', '.file_ico', function () {
@@ -137,7 +133,6 @@
                 link.click();
             })
         });
-
 
 
         function rename(el) {
@@ -155,11 +150,6 @@
            sharedEl.attr("value", el.value);
 
         }
-
-
-
-
-
     </script>
 </head>
 <body>
@@ -205,7 +195,6 @@
                     <div class="file_time">${file.time}</div>
                 </div>
             </c:forEach>
-
 
         </div>
         <form action="" class="form_file" method="post" enctype="multipart/form-data">
