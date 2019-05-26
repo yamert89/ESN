@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.*;
 
 @Repository("department_dao")
@@ -91,7 +90,7 @@ public class DepartmentDAO {
         return set;
     }
 
-    @Transactional
+    /*@Transactional
     public void saveChildren(Department department, Set<Department> children){
         em.createNativeQuery("create table if not exists CHILDREN_DEPARTMENTS (dep_id int not null, children int unique)").executeUpdate();
         Set<Department> savedDepartments = getChildren(department);
@@ -100,16 +99,17 @@ public class DepartmentDAO {
             if (savedDepartments.contains(child)) continue;
             em.createNativeQuery("insert into CHILDREN_DEPARTMENTS values (?, ?)").setParameter(1, department).setParameter(2, child).executeUpdate();
         }
-    }
+    }*/
 
 
-    private List<Long> getHeadDepartmentsId(){
-        return (List<Long>) em.createQuery("select d.id from Department d where d.parent is null").getResultList();
+    private List<Long> getHeadDepartmentsId(Organization org){
+        return (List<Long>) em.createQuery("select d.id from Department d where d.organization = :org and d.parent is null")
+                .setParameter("org", org).getResultList();
     }
 
     @Transactional
-    public List<Department> getHeadDepartments(){ //TODO учесть организацию везде!!!
-        List<Long> ids = getHeadDepartmentsId();
+    public List<Department> getHeadDepartments(Organization org){
+        List<Long> ids = getHeadDepartmentsId(org);
         List<Department> deps = new ArrayList<>(ids.size());
         for (Long id :
                 ids) {

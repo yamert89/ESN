@@ -346,8 +346,8 @@ public class AsyncController {
 
     @GetMapping("/getstaff")
     @ResponseBody
-    public ResponseEntity<String> getStaff(@SessionAttribute User user){
-
+    public ResponseEntity<String> getStaff(HttpSession session){
+        User user = (User) session.getAttribute("user");
         String json = "";
         StringBuilder jsonS = null;
         try {
@@ -356,7 +356,7 @@ public class AsyncController {
 
             if (departments.size() == 0) json = "{error:error}";
 
-            List<Department> deps = departmentDAO.getHeadDepartments();
+            List<Department> deps = departmentDAO.getHeadDepartments(org);
             deps.add(0, departmentDAO.getDefaultDepartment(org));
 
             ObjectMapper om = new ObjectMapper();

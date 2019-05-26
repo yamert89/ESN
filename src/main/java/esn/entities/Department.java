@@ -6,7 +6,6 @@ import esn.db.DepartmentDAO;
 import esn.entities.converters.JsonNullSerializer;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -98,12 +97,6 @@ public class Department {
         this.children = children;
     }
 
-    public void addChildren(Department child){
-        if (children == null) children = new HashSet<>();
-        children.add(child);
-        departmentDAO.saveChildren(this, children); //TODO надо сохранять не каждый раз
-    }
-
     public long getId() {
         return id;
     }
@@ -143,7 +136,7 @@ public class Department {
         if (children != null) return children;
         return departmentDAO.getChildren(this);
     }
-    @Autowired
+
     public void setDepartmentDAO(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
     }

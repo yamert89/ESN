@@ -108,7 +108,7 @@
                 if (shared === "1") {
                     fileContainer = $("#shared_files");
                     fileContainer.append('<div class="file">\n' +
-                        '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'">\n' +
+                        '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
                         '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'">\n' +
                         '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +
                         '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
@@ -116,7 +116,7 @@
                 }
                 fileContainer = $("#private_files");
                 fileContainer.append('<div class="file">\n' +
-                    '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'">\n' +
+                    '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
                     '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '">\n' +
                     '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
                     '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
@@ -161,7 +161,7 @@
         <div class="storage_wrapper" id="shared_files">
             <c:forEach var="file" items='${sharedFiles}'>
                 <div class="file">
-                    <img src="" class="file_ico" data-ext="${file.extension}">
+                    <img src="" class="file_ico" data-ext="${file.extension}" title="Скачать">
                     <input class="fileName" readonly title="${file.name}" value="${file.name}">
                     <div class="file_author"><a href='/${sessionScope.get("orgUrl")}/users/${file.owner.login}'>${file.owner.name}</a></div>
                     <div class="file_time">${file.time}</div>
@@ -183,7 +183,7 @@
             <c:set var="files" value='${user.storedFiles}'/>
             <c:forEach var="file" items='${files}'>
                 <div class="file">
-                    <img src="" class="file_ico" data-ext="${file.extension}">
+                    <img src="" class="file_ico" data-ext="${file.extension}"  title="Скачать">
                     <input class="fileName" type="text" title="${file.name}" value="${file.name}" onchange="rename(this)">
                     <img src='<c:url value="/resources/cross.png"/>' class="file_delete" title="Удалить">
                     <c:if test="${file.shared == false}">

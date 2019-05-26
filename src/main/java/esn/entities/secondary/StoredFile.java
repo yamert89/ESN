@@ -1,5 +1,6 @@
 package esn.entities.secondary;
 
+import esn.entities.Organization;
 import esn.entities.User;
 
 import javax.persistence.*;
@@ -14,6 +15,8 @@ public class StoredFile {
     private Integer id;
     @Column(unique = false)
     private String name;
+
+    private Organization org;
 
     @Column(length = 7)
     private String extension;
@@ -33,6 +36,7 @@ public class StoredFile {
         this.time = time;
         this.owner = owner;
         this.shared = shared;
+        this.org = owner.getOrganization();
     }
 
     public StoredFile() {
@@ -72,6 +76,10 @@ public class StoredFile {
 
     public String getExtension() {
         return extension;
+    }
+
+    public Organization getOrg() {
+        return org;
     }
 
     @Override

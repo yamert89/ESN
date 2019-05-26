@@ -163,7 +163,7 @@ header{
     background-color: #DFF68F;
 }
 
-.multicast_icon:hover, .file_share:hover {
+.multicast_icon:hover, .file_share:hover, .file_ico:hover {
     background-color: rgba(189, 254, 140, 0.55);
 }
 

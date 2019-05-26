@@ -1,5 +1,6 @@
 package esn.db;
 
+import esn.entities.Organization;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
 import org.springframework.stereotype.Repository;
@@ -21,8 +22,9 @@ public class GlobalDAO {
 
 
     @Transactional
-    public List<StoredFile> getSharedFiles(){
-        return em.createQuery("select f from StoredFile f where f.shared = true").getResultList();
+    public List<StoredFile> getSharedFiles(Organization org){
+        return em.createQuery("select f from StoredFile f where f.org = :org and shared = true")
+                .setParameter("org",org).getResultList();
     }
 
     @Transactional

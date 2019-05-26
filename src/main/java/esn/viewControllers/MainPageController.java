@@ -165,7 +165,7 @@ public class MainPageController {
         }catch (LazyInitializationException e){
             user = userDAO.getUserWithFiles(user.getId());
         }
-        model.addAttribute("sharedFiles", globalDAO.getSharedFiles());
+        model.addAttribute("sharedFiles", globalDAO.getSharedFiles(user.getOrganization()));
         model.addAttribute("filesPath", "/resources/stored_files/" + user.getLogin() + "/");
         model.addAttribute("user", user);
         session.setAttribute("user", user);
