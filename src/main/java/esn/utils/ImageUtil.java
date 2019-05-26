@@ -62,12 +62,15 @@ public class ImageUtil {
         }
     }
 
-    public static void writeAvatar(User user, MultipartFile image){ //TODO изменить путь в соответтвии с организац
+    public static void writeAvatar(User user, MultipartFile image){
         try {
             String extension = ImageUtil.getExtension(image);
 
-            String fileName = GeneralSettings.STORAGE_PATH.concat("/").concat(user.getLogin()).concat("/avatar_big.").concat(extension);
-            String fileNameSmall = GeneralSettings.STORAGE_PATH.concat("/").concat(user.getLogin()).concat("/avatar_small.").concat(extension);
+            String path = GeneralSettings.STORAGE_PATH.concat("/avatars/").concat(user.getOrganization().getUrlName())
+                    .concat("/").concat(user.getLogin());
+
+            String fileName = path.concat("/avatar_big.").concat(extension);
+            String fileNameSmall = path.concat("/avatar_small.").concat(extension);
             byte[] bytes = image.getBytes();
             byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
             byte[] smallImage = ImageUtil.resizeSmall(bytes, extension);

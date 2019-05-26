@@ -91,7 +91,7 @@
             var data = '<div class="post">\n' +
                 '            <div class="message_info_wrapper">\n' +
                 '                <div class="message_info_w">\n' +
-                '                    <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
+                '                    <img src="/resources/avatars/' + orgUrl + '/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                    <div class="person_name_w">' + mes.userName + '</div>\n' +
                 '                    <div class="message_time_w">' + mes.time + '</div>\n' +
                 '                </div><img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
@@ -134,10 +134,12 @@
     </script>
 </head>
 <body>
+<c:set var="user" value="${sessionScope.get('user')}"/>
+<c:set var="orgUrl" value="${sessionScope.get('org').getUrlName()}"/>
 <div class="wall_container">
-<div class="post_add_wrapper"><c:set var="user" value="${sessionScope.get('user')}"/>
+<div class="post_add_wrapper">
     <button class="post_add" data-name="${user.name}" data-img="${user.photo}"
-            data-userId="${user.id}" data-ogrUrl="${sessionScope.get("orgUrl")}"  data-img-small="${user.photo_small}">Добавить новость</button></div>
+            data-userId="${user.id}" data-ogrUrl="${orgUrl}"  data-img-small="${user.photo_small}">Добавить новость</button></div>
 <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
 <button class="post_submit">Опубликовать новость</button>
 <textarea name="sample_editor" class="sample_editor" rows="10" cols="80"></textarea>
@@ -146,7 +148,7 @@
         <div class="post">
             <div class="message_info_wrapper">
                 <div class="message_info_w">
-                    <img src='<c:url value="/resources/avatars/${mes.imgUrl}"/>' class="person_photo_small">
+                    <img src='<c:url value="/resources/avatars/${orgUrl}/${mes.imgUrl}"/>' class="person_photo_small">
                     <div class="person_name_w">${mes.userName}</div>
                     <div class="message_time_w"><fmt:formatDate value="${mes.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>

@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-//@SessionAttributes({"user", "orgId"}) //TODO test mb problem with update user ?
+//@SessionAttributes({"user", "orgId"})
 public class AsyncController {
 
     private GlobalDAO globalDAO;

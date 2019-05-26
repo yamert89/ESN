@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Controller
+@SessionAttributes(types = Organization.class)
 public class UserController {
 
     private UserDAO userDAO;
@@ -53,7 +54,7 @@ public class UserController {
 
     /*@GetMapping(value = "/")
     public String start(@PathVariable String org){
-        //TODO проверка на сущестование орг юрл
+
 
         //TODO get cookies
         return "redirect:/" + org + "/auth2";
@@ -108,11 +109,8 @@ public class UserController {
 
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
-        session.setAttribute("orgUrl", org); //TODO replace with org
-        model.addAttribute("organization", user.getOrganization());
-
+        model.addAttribute("org", user.getOrganization());
         int orgId = orgDAO.getOrgByURL(org).getId();
-        session.setAttribute("orgId", orgId); //TODO replace with org
         session.setAttribute("loginUrl", user.getLogin());
         webSocketService.sendStatus(orgId, user.getId(), true);
         return "redirect:/" + org + "/wall/";
@@ -142,7 +140,7 @@ public class UserController {
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
         System.out.println("orgKey = " + orgKey);
-        Organization organization = orgDAO.getOrgByKey(orgKey); //TODO запихать в сессию?
+        Organization organization = orgDAO.getOrgByKey(orgKey);
         if (organization == null){
             bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
             return "reg";

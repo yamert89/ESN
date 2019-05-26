@@ -1,6 +1,7 @@
 package esn.db;
 
 import esn.entities.Organization;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class OrganizationDAO {
     EntityManager em;
 
     @Transactional
-    public void persistOrg(Organization org){
+    public void persistOrg(Organization org) throws ConstraintViolationException {
         em.persist(org);
     }
 

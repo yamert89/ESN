@@ -163,7 +163,7 @@
                 <div class="file">
                     <img src="" class="file_ico" data-ext="${file.extension}" title="Скачать">
                     <input class="fileName" readonly title="${file.name}" value="${file.name}">
-                    <div class="file_author"><a href='/${sessionScope.get("orgUrl")}/users/${file.owner.login}'>${file.owner.name}</a></div>
+                    <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.name}</a></div>
                     <div class="file_time">${file.time}</div>
                 </div>
             </c:forEach>

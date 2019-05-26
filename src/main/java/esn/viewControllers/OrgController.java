@@ -3,14 +3,16 @@ package esn.viewControllers;
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
 import esn.utils.ImageUtil;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,14 +52,20 @@ public class OrgController {
         Collections.addAll(org.getPositions(), poss );
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
-        orgDao.persistOrg(org);
+        try {
+            orgDao.persistOrg(org);
+        } catch (ConstraintViolationException e){
+            result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой")); //TODO test
+            return "neworg";
+        }
+
 
         return "redirect:/" + org.getUrlName();
     }
 
     @GetMapping("/{org}/profile")
     /*Secured(value = "ROLE_USER")*/
-    @PostAuthorize("hasRole('ROLE_ADMIN') or !@orgDao.hasAdmin(#org)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or !@orgDao.hasAdmin(#org)")
     public String orgProfile(@PathVariable @P("org") String org, Model model, Principal principal){
 
         Organization organization = orgDao.getOrgByURL(org);

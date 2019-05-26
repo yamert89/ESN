@@ -26,7 +26,7 @@
                 var login = $(this).attr("data-login");
                 //window.parent.callFrame("/" + orgUrl + "/users/" + login); //TODO replace
                 //$.get("/" + orgUrl + "/private-chat", {companion: login});
-                window.parent.callFrame("/" + orgUrl + "/private-chat?companion=" + login);
+                window.parent.callFrame("/" + orgUrl + "/private-chat/" + login);
 
             });
             $(document).on('click', '.multicast_icon', function (event) {

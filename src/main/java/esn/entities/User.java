@@ -1,11 +1,9 @@
 package esn.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import esn.db.UserDAO;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
 import esn.entities.secondary.UserInformation;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -39,18 +37,13 @@ public class User {
     private String password;
 
     @JsonIgnore
-    private boolean admin; //TODO replace with role
-
-    @JsonIgnore
-    private String role;
-
-    @JsonIgnore
     @Column(columnDefinition = "boolean default true")
     private boolean male;
 
     @Column(columnDefinition = "varchar(50) default ' '")
     private String position = "";
 
+    @JsonIgnore
     @Column(columnDefinition = "varchar(15) default 'ROLE_USER'")
     private String authority;
 
@@ -67,6 +60,7 @@ public class User {
     @Basic(fetch = FetchType.LAZY)
     @Valid
     private UserInformation userInformation;
+
     @Column(nullable = false)
     private String photo;  //filename
 
@@ -101,12 +95,6 @@ public class User {
     private boolean netStatus;
 
 
-
-    @Transient
-    @JsonIgnore
-    private UserDAO userDAO; //TODO delete if unnecessary
-
-
     public User() {
     }
 
@@ -115,21 +103,12 @@ public class User {
         this.organization = org;
     }
 
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public boolean isAdmin() {
-        return admin;
     }
 
     public String getPosition() {
@@ -258,15 +237,14 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return  isAdmin() == user.isAdmin() &&
-                Objects.equals(getName(), user.getName()) &&
+        return  Objects.equals(getName(), user.getName()) &&
                 Objects.equals(getLogin(), user.getLogin()) &&
                 Objects.equals(getPosition(), user.getPosition());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getLogin(), isAdmin(), getPosition());
+        return Objects.hash(getName(), getLogin(), getPosition());
     }
 
     @Override

@@ -80,9 +80,9 @@ public class MainPageController {
         return "gen_chat";
     }
 
-    @GetMapping("/private-chat") //TODO url = login ?
+    @GetMapping("/private-chat/{companion}")
     public String privateChat(@PathVariable String organization,
-                              @RequestParam String companion, Model model, HttpSession session){
+                              @PathVariable String companion, Model model, HttpSession session){
         int orgId = (int) session.getAttribute("orgId");
         User user = (User) session.getAttribute("user");
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
@@ -153,7 +153,7 @@ public class MainPageController {
     @GetMapping(value = "/staff")
     public String staff(HttpSession session){
         User user = (User) session.getAttribute("user");
-        return user.isAdmin() ? "staff_admin" : "staff";
+        return user.getAuthority().equals("ROLE_ADMIN") ? "staff_admin" : "staff";
     }
 
     @GetMapping(value = "/storage")

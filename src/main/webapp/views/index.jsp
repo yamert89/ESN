@@ -391,16 +391,18 @@
 
             });*/
 
-    </script><c:set var="user" value='${sessionScope.get("user")}'/>
-    <div class="title" align="center" data-url='${sessionScope.get("orgUrl")}' data-org-id='${sessionScope.get("orgId")}'>${user.organization.name}</div>
+    </script>
+    <c:set var="user" value='${sessionScope.get("user")}'/>
+    <c:set var="orgUrl" value='${sessionScope.get("org").getUrlName()}'/>
+    <div class="title" align="center" data-url='${orgUrl}' data-org-id='${sessionScope.get("org").getId()}'>${user.organization.name}</div>
     <div class="user">
         <span class="user_name" data-login="${user.login}" data-user_id="${user.id}">${user.name}</span>
-        <img src='<c:url value="/resources/avatars/${user.photo}"/>' class="user_photo">
+        <img src='<c:url value="/resources/avatars/${orgUrl}/${user.photo}"/>' class="user_photo">
     </div>
 </header>
 <body>
 <div class="container">
-    <div class="tools"><c:set var="orgUrl" value='${sessionScope.get("orgUrl")}'/>
+    <div class="tools">
         <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента
             <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
         <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат
