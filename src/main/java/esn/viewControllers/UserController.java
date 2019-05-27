@@ -5,6 +5,7 @@ import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
+import esn.entities.secondary.UserInformation;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -220,12 +222,25 @@ public class UserController {
 
     }
 
+    /*@ModelAttribute("user")
+    public void getUser(@RequestParam(required = false) Integer id, Model model){
+        if (id == null || model == null){
+            return;
+        }
+        model.addAttribute(userDAO.getUserById(id));
+    }*/
+
+
     @PostMapping("{org}/users/{login}")
-    public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute User user, BindingResult bindingResult,
+    public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
+        User userFromSession = (User) session.getAttribute("user");
+
+
         Calendar birth = null;
         if (bindingResult.hasErrors()) {
-            birth = userDAO.getBirthDate(user.getId());
+            /*birth = userDAO.getBirthDate(user.getId());*/
+            birth = userFromSession.getUserInformation().getBirthDate(); //TODO заменить обращения к базе на обращение к сессии. держать в сессии последнего юзера
             user.getUserInformation().setBirthDate(birth);
             Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
             model.addAttribute("bosses", allUsers);
@@ -237,15 +252,32 @@ public class UserController {
         }
         if (boss.contains(" - ")){
             String[] bossParams = boss.split(" - ");
-            user.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], bossParams[1]));
+            userFromSession.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], bossParams[1])); //TODO boss doesn't saves
         }
-        userDAO.updateUser(user);
+        String position = user.getPosition();
+        UserInformation inf = user.getUserInformation();
+        birth = inf.getBirthDate();
+        String phoneMobile = inf.getPhoneMobile();
+        String phoneWork = inf.getPhoneWork();
+        String phoneInternal = inf.getPhoneInternal();
+        String email = inf.getEmail();
+
+        UserInformation inf2 = userFromSession.getUserInformation();
+        if ( position != null) userFromSession.setPosition(position);
+        if (birth != null) inf2.setBirthDate(birth);
+        if (phoneMobile != null) inf2.setPhoneMobile(phoneMobile);
+        if (phoneWork != null) inf2.setPhoneWork(phoneWork);
+        if (phoneInternal != null) inf2.setPhoneInternal(phoneInternal);
+        if (email != null) inf2.setEmail(email);
+
+        userDAO.updateUser(userFromSession);
         model.addAttribute("saved", 1);
-        User us = userDAO.getUserWithInfo(user.getId());
+        User us = userDAO.getUserWithInfo(userFromSession.getId());
         model.addAttribute(us);
         Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
         model.addAttribute("bosses", allUsers);
         model.addAttribute("saved", true);
+        model.addAttribute("user", us);
         session.setAttribute("user", us);
         return "userSettings";
     }
