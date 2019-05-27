@@ -40,7 +40,7 @@
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSourcePostgres"/>
+        <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapterPostgres"/>
         <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">

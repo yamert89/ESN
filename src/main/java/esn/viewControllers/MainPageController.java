@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/{organization}")
+@SessionAttributes(types = Organization.class)
 public class MainPageController {
 
 
@@ -54,8 +55,8 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/wall")
-    public String wall(Model model, HttpSession session){
-        int orgId = (int) session.getAttribute("orgId");
+    public String wall(Model model, HttpSession session, @SessionAttribute Organization org){
+        int orgId = org.getId();
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, Post.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
@@ -69,8 +70,8 @@ public class MainPageController {
     }
 
     @GetMapping("/chat")
-    public String genChat(Model model, HttpSession session){
-        int orgId = (int) session.getAttribute("orgId");
+    public String genChat(Model model, HttpSession session, @SessionAttribute Organization org){
+        int orgId = org.getId();
         User user = (User) session.getAttribute("user");
         model.addAttribute("photo", user.getPhoto_small());
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, GenChatMessage.class);
@@ -82,8 +83,8 @@ public class MainPageController {
 
     @GetMapping("/private-chat/{companion}")
     public String privateChat(@PathVariable String organization,
-                              @PathVariable String companion, Model model, HttpSession session){
-        int orgId = (int) session.getAttribute("orgId");
+                              @PathVariable String companion, Model model, HttpSession session, @SessionAttribute Organization org){
+        int orgId = org.getId();
         User user = (User) session.getAttribute("user");
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("companion", compan);
@@ -199,7 +200,7 @@ public class MainPageController {
                         .put("login", u.getLogin());
                 usrs.put(us);
             });
-            js.put("name", "Все").put("users", usrs);
+            js.put("name", "Все").put("users", usrs).put("expanded", true);
             return bb.body(js.toString());
         }
         long start = System.currentTimeMillis();

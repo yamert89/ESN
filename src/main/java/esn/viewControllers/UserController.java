@@ -109,6 +109,7 @@ public class UserController {
 
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
+        session.setAttribute("org", user.getOrganization());
         model.addAttribute("org", user.getOrganization());
         int orgId = orgDAO.getOrgByURL(org).getId();
         session.setAttribute("loginUrl", user.getLogin());
@@ -118,8 +119,8 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void exit(HttpSession session, HttpServletRequest request){
-        int orgId = (int) session.getAttribute("orgId");
+    public void exit(HttpSession session, HttpServletRequest request, @SessionAttribute Organization org){
+        int orgId = org.getId();
         User user = (User) session.getAttribute("user");
         webSocketService.sendStatus(orgId, user.getId(), false);
         Session sessionPersistent = userDAO.getSession(session.getId());
@@ -224,11 +225,11 @@ public class UserController {
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
         Calendar birth = null;
         if (bindingResult.hasErrors()) {
-            birth = (Calendar) userDAO.createSomeQueryWithSingleResult("select u.userInformation.birthDate from User u where u.id = " + user.getId());
+            birth = userDAO.getBirthDate(user.getId());
             user.getUserInformation().setBirthDate(birth);
             Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
             model.addAttribute("bosses", allUsers);
-            model.addAttribute("saved", 0);
+            model.addAttribute("saved", false);
             return "userSettings";
         }
         if (!image.isEmpty()) {
@@ -244,6 +245,7 @@ public class UserController {
         model.addAttribute(us);
         Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
         model.addAttribute("bosses", allUsers);
+        model.addAttribute("saved", true);
         session.setAttribute("user", us);
         return "userSettings";
     }

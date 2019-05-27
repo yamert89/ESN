@@ -34,8 +34,8 @@ select{
 }
 .inline{
     display: flex;
-
     flex: 0 0 auto;
+    margin: 3px 0;
 }
 .inline_parent{
     text-align: right;
@@ -47,11 +47,15 @@ input[type=file]{
 .title_pref{
     text-align: center;
 }
-h3{
-    transform: translateY(-50px);
-}
 input[type='checkbox']{
     width: auto;
+}
+input[type=button]{
+    margin: 0 5px;
+    width: 30%;
+}
+h3{
+    transform: translateX(100%);
 }
 
 .password_board{
@@ -72,9 +76,11 @@ input[type='checkbox']{
     transition: 1s ease-out 1.5s;
 }
 #password_cancel, #password_save{
-    display: inline-block;
-    width: 20%;
     margin-right: 30px;
+    flex: 0 1 25%;
+}
+span{
+    flex: 1 0 auto;
 }
 img{
     border: 1px solid rgba(128, 128, 128, 0.41);
@@ -113,7 +119,7 @@ input{
     flex: 0 1 70%;
     border-radius: 3px;
 }
-button, input[type=submit]{
+button, input[type=submit], input[type=button]{
     font-size: 0.9em!important;
     margin: 0 5px;
     flex: 1 0 auto;

@@ -69,9 +69,14 @@
 
 
         function contactsFill(data) {
-            data.forEach(function (item) {
-                renderGroup(item);
-            });
+            if (!$.isArray(data)) {
+                renderGroup(data);
+            }else {
+                data.forEach(function (item) {
+                    renderGroup(item);
+                });
+            }
+
             $("body").children().last().remove();
         }
 

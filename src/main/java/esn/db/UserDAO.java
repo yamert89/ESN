@@ -94,8 +94,9 @@ public class UserDAO {
     }
 
     @Transactional
-    public Object createSomeQueryWithSingleResult(String query){
-        return em.createQuery(query).getSingleResult();
+    public Calendar getBirthDate(int id){
+        return (Calendar) em.createQuery("select u.userInformation.birthDate from User u where u.id = :id")
+                .setParameter("id", id).getSingleResult();
     }
 
     @Transactional

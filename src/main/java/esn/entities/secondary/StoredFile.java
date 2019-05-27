@@ -16,6 +16,7 @@ public class StoredFile {
     @Column(unique = false)
     private String name;
 
+    @ManyToOne
     private Organization org;
 
     @Column(length = 7)
