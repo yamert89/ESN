@@ -184,6 +184,9 @@
         <s:errors path="userInformation.email" cssClass="jspError"/>
     </div>
     </div>
+        <c:choose>
+            <c:set value="<c:when test='${userProp.boss == null}'></c:when>" var="el"/>
+        </c:choose>
     <div class="prop_line">
     <div class="inline">
         <div class="prop_label">Непосредственный начальник:</div>

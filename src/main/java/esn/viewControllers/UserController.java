@@ -250,9 +250,10 @@ public class UserController {
         if (!image.isEmpty()) {
             ImageUtil.writeAvatar(user, image);
         }
-        if (boss.contains(" - ")){
+        if (boss.contains(" -")){
             String[] bossParams = boss.split(" - ");
-            userFromSession.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], bossParams[1])); //TODO boss doesn't saves
+            String pos = bossParams.length < 2 || bossParams[1].equals("") ? null : bossParams[1];
+            userFromSession.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], pos)); //TODO boss doesn't saves
         }
         String position = user.getPosition();
         UserInformation inf = user.getUserInformation();
