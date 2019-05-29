@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -250,11 +249,8 @@ public class UserController {
         if (!image.isEmpty()) {
             ImageUtil.writeAvatar(user, image);
         }
-        if (boss.contains(" -")){
-            String[] bossParams = boss.split(" - ");
-            String pos = bossParams.length < 2 || bossParams[1].equals("") ? null : bossParams[1];
-            userFromSession.getUserInformation().setBoss(userDAO.getUserByNameAndPosition(bossParams[0], pos)); //TODO boss doesn't saves
-        }
+
+        userFromSession.getUserInformation().setBoss(userDAO.getUserById(Integer.parseInt(boss)));
         String position = user.getPosition();
         UserInformation inf = user.getUserInformation();
         birth = inf.getBirthDate();

@@ -118,7 +118,14 @@
             function err(ex, stat) {
                 alert(ex + stat);
             }
-            //TODO уведомление о сохранении?
+
+            /*$(document).on('submit', function () {
+                /!*var bossSelect = $("#boss");
+                var bossName = bossSelect.val();
+                var bossId = bossSelect.find("option:contains('" + bossName + "')").first().val();
+                bossSelect.val(bossId);*!/
+            });*/
+
 
         });
     </script>
@@ -184,19 +191,29 @@
         <s:errors path="userInformation.email" cssClass="jspError"/>
     </div>
     </div>
-        <c:choose>
-            <c:set value="<c:when test='${userProp.boss == null}'></c:when>" var="el"/>
-        </c:choose>
     <div class="prop_line">
     <div class="inline">
         <div class="prop_label">Непосредственный начальник:</div>
-        <select name="boss">
+        <select name="boss" id="boss">
             <c:if test="${userProp.boss == null}"><option selected>Не указан</option></c:if>
         <c:forEach var="usr" items="${bosses}">
             <c:choose>
-                <c:when test="${userProp.boss == usr}"><option selected>${usr.name} - ${usr.position}</option></c:when>
-                <c:otherwise><option>${usr.name} - ${usr.position}</option></c:otherwise>
+                <c:when test="${userProp.boss == usr}">
+                    <option selected value="${usr.id}">
+                </c:when>
+                <c:otherwise>
+                    <option  value="${usr.id}">
+                </c:otherwise>
             </c:choose>
+            <c:choose>
+                <c:when test='${usr.position.equals("")}'>
+                    ${usr.name}
+                </c:when>
+                <c:otherwise>
+                    ${usr.name} - ${usr.position}
+                </c:otherwise>
+            </c:choose>
+            </option>
         </c:forEach>
         </select>
     </div>
