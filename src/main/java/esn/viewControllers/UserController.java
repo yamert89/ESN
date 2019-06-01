@@ -204,6 +204,7 @@ public class UserController {
                 user = userDAO.getUserWithInfo(user.getId());
                 session.setAttribute("user", user);
                 Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
+                allUsers.remove(user);
                 model.addAttribute("bosses", allUsers);
                 model.addAttribute(user);
                 model.addAttribute("saved", 0);

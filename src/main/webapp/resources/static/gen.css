@@ -122,7 +122,7 @@ button:hover{
 
 
 .wall_container, .notes_container, .chat_gen_container, .private_chat_wrapper{
-    width: 70%;
+    /*width: 70%;*/
     margin: auto;
     border: 3px double rgba(0, 0, 0, 0.1);
     border-top: none;
