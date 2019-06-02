@@ -80,6 +80,7 @@ public class User {
     private Set<ContactGroup> groups;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Session> sessions;
 
     @ElementCollection(fetch = FetchType.EAGER)

@@ -32,7 +32,7 @@
         <div class="reg_block">
             <label>
                 Запомнить меня:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="checkbox" name="remember-me">
+                <input type="checkbox" name="remember-me" id="remember-me">
             </label>
         </div>
         <div class="reg_block">

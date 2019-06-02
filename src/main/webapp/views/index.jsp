@@ -121,9 +121,7 @@
                                 ++idx;
                             }
                         });
-                        //var showText = window.dates[]; //TODO поиск текста и показ
 
-                       // alert(text);
 
                         var note = prompt(text + '\n' + "Добавить новую заметку?", "");
                         if (note == null) return;
@@ -136,13 +134,7 @@
                                     }, 500)
 
                                 }}});
-                        //TODO
 
-
-                        // Если выбрана дата с событием, то отображаем его
-                        /*if (date && eventDates.indexOf(date.getDate()) != -1) {
-
-                        }*/
 
                     },
                     onChangeMonth: function (monthN, year) {

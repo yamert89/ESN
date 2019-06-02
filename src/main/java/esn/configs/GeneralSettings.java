@@ -41,8 +41,7 @@ public class GeneralSettings {
         }
 
         //TODO CSRF Protection security.xml
-        //TODO remember me dont work
-        //TODO wall center post add html bag on small display
+
 
     }
 

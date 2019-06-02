@@ -18,7 +18,44 @@
             $("span").click(function (e) {
                 e.preventDefault();
 
-            })
+            });
+
+
+            clearNodeTools();
+
+            function clearNodeTools() {
+                var iframe = document.getElementsByTagName('iframe')[0];
+
+                var iframeDoc = iframe.contentWindow.document;
+
+                /*if (iframeDoc.readyState == 'complete') {
+                    iframeDoc.body.style.backgroundColor = 'green';
+                }*/
+                iframe.onload = function() {
+                    var iframeDoc = iframe.contentWindow.document;
+                    iframeDoc.body.style.backgroundColor = 'orange'; //TODO
+                }
+            }
+
+
+            
+            /*function clearNodeTools(){
+                console.log("try clear nodetools");
+                var tools = $(".flowchart_frame").contents().find(".node_tools");
+                if (tools.length == 0){
+                    setTimeout( clearNodeTools, 100);
+                    return;
+                }
+                tools.remove();
+                console.log("Node tools removed")
+            }*/
+            
+
+
+            
+
+
+
 
         });
 

@@ -3,7 +3,7 @@
     display: inline-block;
 }
 .staff_container{
-    /*   width: 30%;*/
+    min-width: 200px;
     overflow-y: auto;
     display: inline-block;
     /* max-height: 95%;*/
@@ -55,7 +55,7 @@ canvas{
 }
 .flowchart_wrapper{
     display: flex;
-    /* width: 70%;*/
+     min-width: 300px;
     /* height: calc(100% - 41px);
      line-height: calc(100% - 41px);
      max-height: calc(100% - 41px);*/

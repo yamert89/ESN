@@ -346,12 +346,12 @@ public class AsyncController {
 
     @GetMapping("/getstaff")
     @ResponseBody
-    public ResponseEntity<String> getStaff(HttpSession session){
+    public ResponseEntity<String> getStaff(HttpSession session, @SessionAttribute Organization org){
         User user = (User) session.getAttribute("user");
         String json = "";
         StringBuilder jsonS = null;
         try {
-            Organization org = user.getOrganization();
+
             Set<Department> departments = org.getDepartments();
 
             if (departments.size() == 0) json = "{error:error}";
