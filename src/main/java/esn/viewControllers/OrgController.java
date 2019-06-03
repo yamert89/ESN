@@ -21,7 +21,6 @@ import java.security.Principal;
 import java.util.Collections;
 
 @Controller
-@SessionAttributes("organization")
 public class OrgController {
 
     private OrganizationDAO orgDao;

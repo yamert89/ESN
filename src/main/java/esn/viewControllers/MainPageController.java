@@ -55,7 +55,8 @@ public class MainPageController {
     }
 
     @GetMapping(value = "/wall")
-    public String wall(Model model, HttpSession session, @SessionAttribute Organization org){
+    public String wall(Model model, HttpSession session){
+        Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, Post.class);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
@@ -70,7 +71,8 @@ public class MainPageController {
     }
 
     @GetMapping("/chat")
-    public String genChat(Model model, HttpSession session, @SessionAttribute Organization org){
+    public String genChat(Model model, HttpSession session){
+        Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         User user = (User) session.getAttribute("user");
         model.addAttribute("photo", user.getPhoto_small());
@@ -83,7 +85,8 @@ public class MainPageController {
 
     @GetMapping("/private-chat/{companion}")
     public String privateChat(@PathVariable String organization,
-                              @PathVariable String companion, Model model, HttpSession session, @SessionAttribute Organization org){
+                              @PathVariable String companion, Model model, HttpSession session){
+        Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         User user = (User) session.getAttribute("user");
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);

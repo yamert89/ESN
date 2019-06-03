@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-//@SessionAttributes({"user", "orgId"})
 public class AsyncController {
 
     private GlobalDAO globalDAO;
@@ -70,7 +69,9 @@ public class AsyncController {
     @PostMapping("/savemessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveMessage(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, @SessionAttribute int orgId, @SessionAttribute User user){
+                            @RequestParam String time, HttpSession session){
+        int orgId = ((Organization) session.getAttribute("org")).getId();
+        User user = (User) session.getAttribute("user");
         try {
             messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
             webSocketService.newGenChatMessageAlert(user, time, text);
@@ -82,16 +83,18 @@ public class AsyncController {
 
     @PostMapping("/deletemessage") //TODO удалять у других через ws
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteGenMessage(@RequestParam String text,  @SessionAttribute int orgId, HttpSession session){
+    public void deleteGenMessage(@RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         messagesDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
     }
 
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
-                         @RequestParam String time, @SessionAttribute int orgId, HttpSession session){
+                         @RequestParam String time,HttpSession session){
         User user = (User) session.getAttribute("user");
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         try {
             messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
             webSocketService.newPostAlert(user, time, text);
@@ -102,8 +105,9 @@ public class AsyncController {
 
     @PostMapping("/deletepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletePost(@RequestParam String text,  @SessionAttribute int orgId, HttpSession session){
+    public void deletePost(@RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         messagesDAO.deleteMessage(user.getId(), text, orgId, Post.class);
     }
 
@@ -111,8 +115,9 @@ public class AsyncController {
     @PostMapping("/save_private_message/{companionId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
-                                    @SessionAttribute int orgId, HttpSession session){
+                                     HttpSession session){
         User user = (User) session.getAttribute("user");
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         int cId = Integer.valueOf(companionId);
         User compan = userDAO.getUserById(cId);
         if (text.length() > 800) {
@@ -130,8 +135,9 @@ public class AsyncController {
     @PostMapping("/groupmessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroupMessage(@RequestParam String text, @RequestParam String groupName,
-                                  @SessionAttribute int orgId, HttpSession session){
+                                  HttpSession session){
         User user = (User) session.getAttribute("user");
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         ContactGroup group = user.getGroups().stream()
                         .filter(g -> g.getName().equals(groupName)).findAny().get();
 
@@ -346,8 +352,9 @@ public class AsyncController {
 
     @GetMapping("/getstaff")
     @ResponseBody
-    public ResponseEntity<String> getStaff(HttpSession session, @SessionAttribute Organization org){
+    public ResponseEntity<String> getStaff(HttpSession session){
         User user = (User) session.getAttribute("user");
+        Organization org = (Organization) session.getAttribute("org");
 
         String json = "";
         StringBuilder jsonS = null;
@@ -405,9 +412,10 @@ public class AsyncController {
 
     @PostMapping("/department")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<Long> saveDepartment(@SessionAttribute int orgId, @RequestParam String newname,
-                              @RequestParam String oldname, @RequestParam String ids){
-        Organization organization = orgDAO.getOrgById(orgId);
+    public ResponseEntity<Long> saveDepartment(@RequestParam String newname,
+                              @RequestParam String oldname, @RequestParam String ids, HttpSession session){
+
+        Organization organization = (Organization) session.getAttribute("org");
         ObjectMapper om = new ObjectMapper();
         Department department = null;
         try {
@@ -433,16 +441,17 @@ public class AsyncController {
     @DeleteMapping("/departments")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.GONE)
-    public void clearDeps(@SessionAttribute int orgId){
-        Organization organization = orgDAO.getOrgById(orgId);
-        organization.getDepartments().clear();
-        orgDAO.update(organization);
+    public void clearDeps(HttpSession session){
+        Organization org = (Organization) session.getAttribute("org");
+        org.getDepartments().clear();
+        session.setAttribute("org", orgDAO.update(org));
         //TODO протестировать
     }
 
     @GetMapping("/chatpiece")
     @ResponseBody
-    public ResponseEntity<String> getChatPiece(HttpSession session, @SessionAttribute int orgId){
+    public ResponseEntity<String> getChatPiece(HttpSession session){
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         int oldIndex = (int) session.getAttribute("lastIdx_genchat");
         if (oldIndex == -1) return null;
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, oldIndex, GenChatMessage.class);
@@ -462,7 +471,8 @@ public class AsyncController {
 
     @GetMapping("/wallpiece")
     @ResponseBody
-    public ResponseEntity<String> getWallPiece(HttpSession session, @SessionAttribute int orgId){
+    public ResponseEntity<String> getWallPiece(HttpSession session){
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         int oldIndex = (int) session.getAttribute("lastIdx_wall");
         if (oldIndex == -1) return null;
         List<AbstractMessage> messages = messagesDAO.getMessages(orgId, oldIndex, Post.class);

@@ -25,8 +25,8 @@ public class OrganizationDAO {
     }
 
     @Transactional
-    public void update(Organization org){
-        em.merge(org);
+    public Organization update(Organization org){
+        return em.merge(org);
     }
 
     @Transactional

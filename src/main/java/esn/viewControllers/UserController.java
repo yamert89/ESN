@@ -30,7 +30,6 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Controller
-@SessionAttributes(types = Organization.class)
 public class UserController {
 
     private UserDAO userDAO;
@@ -105,13 +104,14 @@ public class UserController {
         }*/
 
         user.setNetStatus(true);
+        Organization organization = orgDAO.getOrgById(user.getOrganization().getId());
 
         String org = user.getOrganization().getUrlName();
 
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
-        session.setAttribute("org", user.getOrganization());
-        model.addAttribute("org", user.getOrganization());
+        session.setAttribute("org", organization);
+        model.addAttribute("org", organization);
         int orgId = orgDAO.getOrgByURL(org).getId();
         session.setAttribute("loginUrl", user.getLogin());
         webSocketService.sendStatus(orgId, user.getId(), true);
@@ -120,8 +120,8 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void exit(HttpSession session, HttpServletRequest request, @SessionAttribute Organization org){
-        int orgId = org.getId();
+    public void exit(HttpSession session, HttpServletRequest request){
+        int orgId = ((Organization) session.getAttribute("org")).getId();
         User user = (User) session.getAttribute("user");
         webSocketService.sendStatus(orgId, user.getId(), false);
         Session sessionPersistent = userDAO.getSession(session.getId());
