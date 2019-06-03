@@ -57,14 +57,14 @@
 
         function createData(data) {
 
-            if (data[0].name !== 'default') return;
+            if (data[0][0].name !== 'default') return;
 
-            window.top.setStructData(data);
-            for (var i = 1; i < data.length; i++) {
-                addChildFromData(data[i]);
+            window.top.setStructData(data[0]);
+            for (var i = 1; i < data[0].length; i++) {
+                addChildFromData(data[0][i]);
             }
 
-
+            if (!data[1]) $(".node_tools").remove();
 
         }
 

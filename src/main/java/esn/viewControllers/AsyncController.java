@@ -348,6 +348,7 @@ public class AsyncController {
     @ResponseBody
     public ResponseEntity<String> getStaff(HttpSession session, @SessionAttribute Organization org){
         User user = (User) session.getAttribute("user");
+
         String json = "";
         StringBuilder jsonS = null;
         try {
@@ -359,8 +360,10 @@ public class AsyncController {
             List<Department> deps = departmentDAO.getHeadDepartments(org);
             deps.add(0, departmentDAO.getDefaultDepartment(org));
 
+            Object[] res = new Object[]{deps, user.getAuthority().equals("ROLE_ADMIN")};
+
             ObjectMapper om = new ObjectMapper();
-            json = om.writeValueAsString(deps); // TODO exception
+            json = om.writeValueAsString(res); // TODO exception
             System.out.println(json);
             System.out.println();
         }catch (Exception e){
