@@ -94,6 +94,7 @@
             //exportData = exportData.concat('{"name": \"' + name + '\", "id" : ' + nodeId +', "parentId" :' + parent + '},')
             exportData.push(new ExportDep(name, nodeId, parent));
             window.top.enableSaveStruct();
+            window.top.addChildToData(nodeId, name, parent);
 
         }
         

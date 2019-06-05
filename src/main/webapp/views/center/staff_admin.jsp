@@ -102,40 +102,46 @@
 
         window.enableSaveStruct = function(){
             $(".save_flowchart").removeAttr("disabled");
-        }
+            //[[{"id":0,"name":"default","employers":[{"id":208,"name":"FuckedUnit","position":"","userInformation":null,"photo":"/wom.jpg"},{"}],"parentId":"0","children":[]}],true]
+        };
+
+        window.addChildToData = function(id, name, parentId){
+            var parent = findChild(window.DATA, parentId);
+            parent.children.push({id : id, parentId : parentId, name : name, employers:[], children : []});
+
+        };
 
 
         window.loadSt = function (nodeid) {
           foreachEmpl(DATA, nodeid);
         };
 
-        function foreachEmpl(dep, nodeid){
-            dep.forEach(function (el) {
-                if (el.id == nodeid) {
-                    /*if (el.selected === undefined) {
-                        el.selected = false;
-                        $('#' + nodeid).addClass("node_selected");
-                    }*/
-
-
-                    $(".staff_container").empty();
-                    if (el.selected) {
-                        foreachDeselect(DATA_SUB);
-                        window.SELECTED_DEP = null;
-                        //el.selected = false;
-                        fillStaff(DATA[0].employers);
-                        //return;
-                    } else {
-                        foreachDeselect(DATA_SUB);
-                        window.SELECTED_DEP = el;
-                        el.selected = true;
-
-
-                        fillStaff(el.employers);
-                    }
+        function findChild(depsArray, id) {
+            return depsArray.forEach(function (el) {
+                if (el.id == id) {
+                    return el;
                 }
-                foreachEmpl(el.children, nodeid);
-            })
+                else findChild(el.children, id);
+            });
+        }
+
+        function foreachEmpl(dep, nodeid){
+            var el = findChild(dep, nodeid);
+            $(".staff_container").empty();
+            if (el.selected) {
+                foreachDeselect(DATA_SUB);
+                window.SELECTED_DEP = null;
+                //el.selected = false;
+                fillStaff(DATA[0].employers);
+                //return;
+            } else {
+                foreachDeselect(DATA_SUB);
+                window.SELECTED_DEP = el;
+                el.selected = true;
+
+
+                fillStaff(el.employers);
+            }
         }
 
         function foreachDeselect(dep){

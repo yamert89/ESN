@@ -2,6 +2,7 @@ package esn.db;
 
 import esn.configs.GeneralSettings;
 import esn.db.syntax.MySQLSyntax;
+import esn.db.syntax.PostgresSyntax;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.entities.secondary.GenChatMessage;
@@ -25,7 +26,7 @@ import java.util.stream.Stream;
 @Transactional
 public class MessagesDAO {
 
-    private MySQLSyntax syntax;
+    private PostgresSyntax syntax = new PostgresSyntax();
 
     private UserDAO userDAO;
 
