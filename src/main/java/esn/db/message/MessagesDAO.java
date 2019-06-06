@@ -1,7 +1,7 @@
-package esn.db;
+package esn.db.message;
 
 import esn.configs.GeneralSettings;
-import esn.db.syntax.MySQLSyntax;
+import esn.db.UserDAO;
 import esn.db.syntax.PostgresSyntax;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
@@ -9,7 +9,6 @@ import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,7 @@ import java.util.stream.Stream;
 
 @Repository("messageDao")
 @Transactional
-public class MessagesDAO {
+public abstract class MessagesDAO {
 
     private PostgresSyntax syntax = new PostgresSyntax();
 
@@ -44,16 +43,18 @@ public class MessagesDAO {
     }
 
     public Set<PrivateChatMessage> getMessages(User owner, User companion, int orgId){
-        Query query = em.createQuery("select m from PrivateChatMessage m where m.sender_id = :sender and m.recipient_id = :recipient and m.orgId = :orgId")
-                .setParameter("sender", owner.getId()).setParameter("recipient", companion.getId()).setParameter("orgId", orgId);
-        List res1 = query.getResultList();
-        List res2 = query.setParameter("sender", companion.getId()).setParameter("recipient", owner.getId()).getResultList();
-
-        return (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream())
-                .limit(GeneralSettings.AMOUNT_PRIVATECHAT_MESSAGES)
-                .collect(Collectors.toCollection(TreeSet::new));
-
-
+        try {
+            Query query = em.createQuery("select m from PrivateChatMessage m where m.sender_id = :sender and m.recipient_id = :recipient and m.orgId = :orgId")
+                    .setParameter("sender", owner.getId()).setParameter("recipient", companion.getId()).setParameter("orgId", orgId);
+            List res1 = query.getResultList();
+            List res2 = query.setParameter("sender", companion.getId()).setParameter("recipient", owner.getId()).getResultList();
+            return (Set<PrivateChatMessage>) Stream.concat(res1.stream(), res2.stream())
+                    .limit(GeneralSettings.AMOUNT_PRIVATECHAT_MESSAGES)
+                    .collect(Collectors.toCollection(TreeSet::new));
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void updateReadedMessages(Long[] ids){
@@ -80,9 +81,6 @@ public class MessagesDAO {
     public void saveMessage(int userId, String message, Timestamp time, int orgId, Class<? extends AbstractMessage> mesClass){
         try {
             String tableName = mesClass == GenChatMessage.class ? "generalchat" : "wall";
-
-            em.createNativeQuery("create table if not exists " + tableName + syntax.CREATE_TABLE_CONSTRAINTS) //TODO Учесть ограничения базы (везде) !!!
-                    .executeUpdate();  //TODO Создать таблицу до её чтения в wall
             Query query = em.createNativeQuery("insert into ".concat(tableName).concat("(message, userId, time, orgId) values (?, ?, ?, ?)"))
                     .setParameter(1, message)
                     .setParameter(2, userId)
@@ -90,6 +88,8 @@ public class MessagesDAO {
                     .setParameter(4, orgId);
             query.executeUpdate();
         }catch (Exception e){
+            createTable(mesClass);
+            saveMessage(userId, message, time, orgId, mesClass);
             e.printStackTrace();
         }
     }
@@ -108,8 +108,6 @@ public class MessagesDAO {
         List<Object[]> arr = null;
         try {
             if (mesClass == GenChatMessage.class) {
-                if (!checkTableExists(syntax.CHECKTABLE, "g")) return null;
-
                 Query query = lastIdx == -1 ?
                         em.createNativeQuery(syntax.SELECT_CHAT_MESSAGES)
                                 .setParameter(2, GeneralSettings.AMOUNT_GENCHAT_MESSAGES)
@@ -127,7 +125,6 @@ public class MessagesDAO {
                     list.add(new GenChatMessage((int) row[0], (int) row[2], (String) row[1], (int) row[4], userDAO));
                 }
             } else if (mesClass == Post.class) {
-                if (!checkTableExists(syntax.CHECKTABLE, "w")) return null;
                 Query query = lastIdx == -1 ?
                         em.createNativeQuery(syntax.SELECT_WALL_MESSAGES)
                                 .setParameter(2, GeneralSettings.AMOUNT_WALL_MESSAGES)
@@ -143,6 +140,8 @@ public class MessagesDAO {
                 }
             }
         }catch (Exception e){
+            createTable(mesClass);
+            getMessages(orgId, lastIdx, mesClass);
             e.printStackTrace();
         }
 
@@ -151,7 +150,7 @@ public class MessagesDAO {
     }
 
     @Transactional
-    public Calendar getLastTimeOfMessage(Class<?> clas, int orgId){
+    public Calendar getLastTimeOfMessage(Class<? extends AbstractMessage> clas, int orgId){
         try {
             String tableName = clas == GenChatMessage.class ? "g" : "p";
             if (!checkTableExists(syntax.CHECKTABLE, tableName)) return null;
@@ -167,6 +166,9 @@ public class MessagesDAO {
             return null;
         }catch (ClassCastException e){
             e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+            createTable(clas);
         }
         return null;
     }
@@ -180,7 +182,7 @@ public class MessagesDAO {
                 .getResultList().toArray();
     }
 
-    @Transactional
+    /*@Transactional
     protected boolean checkTableExists(String dbType, String table) {
         String tableName = "";
         try {
@@ -200,5 +202,12 @@ public class MessagesDAO {
             return false;
         }
         return true;
+    }*/
+
+    @Transactional
+    void createTable(Class<? extends AbstractMessage> mesType){
+        String tableName = mesType == Post.class ? "wall" : "generalchat";
+        em.createNativeQuery("create table if not exists " + tableName + syntax.CREATE_TABLE_CONSTRAINTS_WALL_GEN_MESSAGE) //TODO Учесть ограничения базы (везде) !!!
+                .executeUpdate();
     }
 }

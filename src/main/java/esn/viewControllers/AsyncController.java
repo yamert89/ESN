@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.configs.GeneralSettings;
 import esn.db.*;
+import esn.db.message.MessagesDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;

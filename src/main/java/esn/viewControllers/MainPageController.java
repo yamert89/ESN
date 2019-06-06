@@ -2,7 +2,7 @@ package esn.viewControllers;
 
 import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
-import esn.db.MessagesDAO;
+import esn.db.message.MessagesDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
@@ -92,7 +92,12 @@ public class MainPageController {
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("companion", compan);
         Set<PrivateChatMessage> privateMessages = messagesDAO.getMessages(user, compan, orgId);
+
         Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
+        if (privateMessages == null) {
+            model.addAttribute("messages", messages);
+            return "private_chat";
+        }
         Long[] ids = new Long[privateMessages.size()];
         int i = 0;
         for (PrivateChatMessage mes :

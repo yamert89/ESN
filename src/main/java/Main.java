@@ -1,5 +1,5 @@
 import esn.db.DepartmentDAO;
-import esn.db.MessagesDAO;
+import esn.db.message.MessagesDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Department;

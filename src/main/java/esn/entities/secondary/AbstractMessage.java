@@ -7,6 +7,8 @@ import esn.entities.User;
 import esn.entities.converters.JsonTimeSerializer;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 
@@ -25,7 +27,7 @@ public abstract class AbstractMessage {
 
     @JsonSerialize(using = JsonTimeSerializer.class)
     @CreationTimestamp
-    public Calendar time;
+    public Timestamp time;
 
     @JsonIgnore
     public int orgId; //TODO delete?
@@ -54,7 +56,7 @@ public abstract class AbstractMessage {
         return text;
     }
 
-    public Calendar getTime() {
+    public Timestamp getTime() {
         return time;
     }
 

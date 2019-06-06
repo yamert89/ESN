@@ -64,7 +64,7 @@
             var data = '<div class="message">\n' +
                 '            <div class="message_text">' + mes.text + '</div>\n' +
                 '            <div class="message_info">\n' +
-                '                <img src="/resources/avatars/' + mes.imgUrl + '" class="person_photo_small">\n' +
+                '                <img src="/resources/avatars/'  + orgUrl  + '/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                <div class="person_name">' + mes.userName + '</div>\n' +
                 '                <div class="message_time">' + mes.time + '</div>\n' +
                 '                <img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
@@ -78,6 +78,7 @@
     </script>
 </head>
 <body>
+<c:set var="orgUrl" value="${sessionScope.get('org').getUrlName()}"/>
 <div class="chat_gen_container">
     <input type="text" placeholder="Добавить сообщение" class="new_genchat_message" data-img="${photo}">
     <button class="new_genchat_message_btn">Отправить</button>
@@ -86,7 +87,7 @@
         <div class="message">
             <div class="message_text">${mes.text}</div>
             <div class="message_info">
-                <img src='<c:url value="/resources/avatars/${mes.imgUrl}"/>' class="person_photo_small">
+                <img src='<c:url value="/resources/avatars/${orgUrl}/${mes.imgUrl}"/>' class="person_photo_small">
                 <div class="person_name">${mes.userName}</div>
                 <div class="message_time"><fmt:formatDate value="${mes.time}" pattern="HH:mm:ss / dd.MM"/></div>
             </div>

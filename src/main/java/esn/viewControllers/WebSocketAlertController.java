@@ -2,7 +2,7 @@ package esn.viewControllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import esn.db.MessagesDAO;
+import esn.db.message.MessagesDAO;
 import esn.db.UserDAO;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
