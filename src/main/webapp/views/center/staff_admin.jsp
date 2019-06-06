@@ -117,12 +117,15 @@
         };
 
         function findChild(depsArray, id) {
-            return depsArray.forEach(function (el) {
-                if (el.id == id) {
-                    return el;
+            var res = {};
+            for (var i = 0; i < depsArray.length; i++) {
+                if (depsArray[i].id == id) {
+                    res = depsArray[i];
+                    break;
                 }
-                else findChild(el.children, id);
-            });
+                else res = findChild(depsArray[i].children, id);
+            }
+            return res;
         }
 
         function foreachEmpl(dep, nodeid){

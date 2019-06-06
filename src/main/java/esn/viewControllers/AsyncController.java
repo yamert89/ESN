@@ -421,6 +421,7 @@ public class AsyncController {
         try {
             int[] empls = om.readValue(ids, int[].class);
             department = departmentDAO.getDepartmentByName(oldname, organization);
+
             department.setName(newname);
             Set<User> employers = new HashSet<>();
             User user = null;
