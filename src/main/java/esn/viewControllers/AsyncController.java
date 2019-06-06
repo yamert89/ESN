@@ -364,10 +364,11 @@ public class AsyncController {
 
             if (departments.size() == 0) json = "{error:error}";
 
-            List<Department> deps = departmentDAO.getHeadDepartments(org);
-            deps.add(0, departmentDAO.getDefaultDepartment(org));
-
-            Object[] res = new Object[]{deps, user.getAuthority().equals("ROLE_ADMIN")};
+            Set<Department> deps = departmentDAO.getHeadDepartments(org);
+            Department head = new Department("default", 0L, -1L, deps);
+            /*deps.add(0, departmentDAO.getDefaultDepartment(org));
+*/
+            Object[] res = new Object[]{head, user.getAuthority().equals("ROLE_ADMIN")};
 
             ObjectMapper om = new ObjectMapper();
             json = om.writeValueAsString(res); // TODO exception

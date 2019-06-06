@@ -107,7 +107,7 @@
 
         window.addChildToData = function(id, name, parentId){
             var parent = findChild(window.DATA, parentId);
-            parent.children.push({id : id, parentId : parentId, name : name, employers:[], children : []});
+            parent.children.push({id : id, parentId : parentId, name : name, employers:[], children : [], new : true});
 
         };
 
@@ -123,7 +123,10 @@
                     res = depsArray[i];
                     break;
                 }
-                else res = findChild(depsArray[i].children, id);
+                else {
+                    res = findChild(depsArray[i].children, id);
+                    if (res.name != undefined) break;
+                }
             }
             return res;
         }
@@ -131,6 +134,8 @@
         function foreachEmpl(dep, nodeid){
             var el = findChild(dep, nodeid);
             $(".staff_container").empty();
+            if (el.new) $(".staff_choose_btn").attr("disabled", "true");
+            else $(".staff_choose_btn").removeAttr("disabled");
             if (el.selected) {
                 foreachDeselect(DATA_SUB);
                 window.SELECTED_DEP = null;
@@ -157,7 +162,7 @@
         window.setStructData = function (data) {
             window.DATA = data;
             window.DATA_SUB = [];
-            for (var i = 1; i < DATA.length; i++) {
+            for (var i = 0; i < DATA.length; i++) {
                 DATA_SUB[i] = DATA[i];
             }
             //alert(data[0].employers);

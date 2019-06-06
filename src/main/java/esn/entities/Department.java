@@ -63,6 +63,13 @@ public class Department {
         if (parent != null) parentId = parent.getId();
     }
 
+    public Department(String name, long id, Long parentId, Set<Department> children) {
+        this.name = name;
+        this.id = id;
+        this.children = children;
+        this.parentId = parentId;
+    }
+
     public Department(String name, String description) {
         this.name = name;
         this.description = description;

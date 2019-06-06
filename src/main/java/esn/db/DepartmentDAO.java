@@ -108,9 +108,9 @@ public class DepartmentDAO {
     }
 
     @Transactional
-    public List<Department> getHeadDepartments(Organization org){
+    public Set<Department> getHeadDepartments(Organization org){
         List<Long> ids = getHeadDepartmentsId(org);
-        List<Department> deps = new ArrayList<>(ids.size());
+        Set<Department> deps = new HashSet<>(ids.size());
         for (Long id :
                 ids) {
             deps.add(getDepartmentWithUsersAndChildrenALTER(id));
@@ -119,7 +119,7 @@ public class DepartmentDAO {
 
     }
 
-    @Transactional
+  /*  @Transactional
     public Department getDefaultDepartment(Organization org) throws Exception{
 
         Department department = new Department("default", "", null);
@@ -127,7 +127,7 @@ public class DepartmentDAO {
         department.setEmployers(users);
         department.setChildren(new HashSet<>());
         return department;
-    }
+    }*/
 
 
 

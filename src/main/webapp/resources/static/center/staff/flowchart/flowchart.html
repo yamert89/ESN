@@ -31,7 +31,7 @@
         });
         function clickNode(tree, targetid, nodeid) {
             if (targetid == '') targetid = nodeid;
-            //alert('tree ' + tree + ' targetid: .' + targetid + '. nodeid: ' + nodeid); //FIXME отделы не выделяются
+            //alert('tree ' + tree + ' targetid: .' + targetid + '. nodeid: ' + nodeid);
             window.top.loadSt(nodeid);
             ECOTree._canvasNodeClickHandler(tree, targetid, nodeid);
 
@@ -57,11 +57,11 @@
 
         function createData(data) {
 
-            if (data[0][0].name !== 'default') return;
+            if (data[0].name !== 'default') return;
 
-            window.top.setStructData(data[0]);
-            for (var i = 1; i < data[0].length; i++) {
-                addChildFromData(data[0][i]);
+            window.top.setStructData(data[0].children);
+            for (var i = 0; i < data[0].children.length; i++) {
+                addChildFromData(data[0].children[i]);
             }
 
             if (!data[1]) $(".node_tools").remove();
