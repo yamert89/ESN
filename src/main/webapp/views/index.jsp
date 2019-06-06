@@ -347,13 +347,14 @@
             location.reload();
         }
         
-        function notify(text) {
+        function notify(text, time) {
+            if (time == undefined) time = 3000;
             var log = $(".log");
             log.html('<span class="log_text">' + text + '</span>');
             log.addClass('show_log');
             setTimeout(function () {
                 log.removeClass('show_log');
-            }, 3000)
+            }, time)
 
         }
 
