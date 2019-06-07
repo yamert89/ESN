@@ -32,16 +32,13 @@ public abstract class AbstractMessage {
     @JsonIgnore
     public int orgId; //TODO delete?
 
-    @JsonIgnore
-    public UserDAO userDAO;
 
 
-    public AbstractMessage(int id, int userId, String text, int orgId, UserDAO userDAO) {
-        this.userDAO = userDAO;
-        this.userId = userId;
-        User user = userDAO.getUserById(userId);
+    public AbstractMessage(int id, String text, int orgId, User user) {
+
         if (user == null) user = new User("Пользователь удалён", null);
-        userName = user.getName(); //TODO mb needs optimizing
+        this.userId = user.getId();
+        userName = user.getName();
         imgUrl = user.getPhoto_small();
         this.text = text;
         this.orgId = orgId;
@@ -70,10 +67,6 @@ public abstract class AbstractMessage {
 
     public String getImgUrl() {
         return imgUrl;
-    }
-
-    public UserDAO getUserDAO() {
-        return userDAO;
     }
 
     public int getId() {

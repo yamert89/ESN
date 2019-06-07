@@ -53,6 +53,7 @@ public class OrgController {
         org.setAdminKey(adminKey);
         try {
             orgDao.persistOrg(org);
+            orgDao.initOrgDB();
         } catch (ConstraintViolationException e){
             result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой")); //TODO test
             return "neworg";

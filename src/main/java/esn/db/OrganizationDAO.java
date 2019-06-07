@@ -1,5 +1,7 @@
 package esn.db;
 
+import esn.db.syntax.PostgresSyntax;
+import esn.db.syntax.Syntax;
 import esn.entities.Organization;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,8 @@ public class OrganizationDAO {
 
     @PersistenceContext
     EntityManager em;
+
+    Syntax syntax = new PostgresSyntax();
 
     @Transactional
     public void persistOrg(Organization org) throws ConstraintViolationException {
@@ -56,8 +60,6 @@ public class OrganizationDAO {
         }catch (NoResultException e){
             return null;
         }
-
-
     }
 
     @Transactional
@@ -86,6 +88,12 @@ public class OrganizationDAO {
         boolean res = (boolean) em.createQuery("select org.hasAdmin from Organization org where org.urlName = :url")
                 .setParameter("url", orgUrl).getSingleResult();
         return res;
+    }
+
+    @Transactional
+    public void initOrgDB(){
+        em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
+        em.createNativeQuery("create table generalchat " + syntax.createTableConstraints()).executeUpdate();
     }
 
 

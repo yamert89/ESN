@@ -1,11 +1,39 @@
 package esn.db.syntax;
 
-public class MySQLSyntax{
-    public final String CHECKTABLE = "show tables like ";
-    public final String CREATE_TABLE_CONSTRAINTS_WALL_GEN_MESSAGE = " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?
-    public final String CREATE_TABLE_CONSTRAINTS_PRIVATE = " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?
-    public final String SELECT_CHAT_MESSAGES = "select * from generalchat where orgId = ? order by time desc limit ?";
-    public final String SELECT_WALL_MESSAGES = "select * from wall where orgId = ? order by time desc limit ?";
-    public final String SELECT_CHAT_MESSAGES_WITHIDX = "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";
-    public final String SELECT_WALL_MESSAGES_WITHIDX = "select * from wall where orgId = ? and id < ? order by time desc limit ?";
+public class MySQLSyntax implements Syntax{
+
+    @Override
+    public final String checkTable() {
+        return "show tables like ";
+    }
+
+    @Override
+    public final String createTableConstraints() {
+        return " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+    }
+
+    @Override
+    public final String createTableConstraintsPrivate() {
+        return " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+    }
+
+    @Override
+    public final String selectChatMessages() {
+        return "select * from generalchat where orgId = ? order by time desc limit ?";
+    }
+
+    @Override
+    public final String selectWallMessages() {
+        return "select * from wall where orgId = ? order by time desc limit ?";
+    }
+
+    @Override
+    public final String selectChatMessagesWithIdx() {
+        return "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";
+    }
+
+    @Override
+    public final String selectWallMessagesWithIdx() {
+        return "select * from wall where orgId = ? and id < ? order by time desc limit ?";
+    }
 }

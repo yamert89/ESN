@@ -1,4 +1,5 @@
 import esn.db.OrganizationDAO;
+import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,6 +17,9 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
     @Autowired
     OrganizationDAO organizationDAO;
 
+    @Autowired
+    WallDAO wallDAO;
+
     @PersistenceContext
     EntityManager em;
 
@@ -29,6 +33,11 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
         }catch (NoResultException e){
             System.out.println("NO RESULT");
         }
+    }
+
+    @Test
+    public void wallBag(){
+
     }
 
 }

@@ -2,9 +2,11 @@ package esn.viewControllers;
 
 import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
-import esn.db.message.MessagesDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.db.message.GenDAO;
+import esn.db.message.PrivateDAO;
+import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.*;
@@ -28,19 +30,13 @@ import java.util.stream.Collectors;
 @SessionAttributes(types = Organization.class)
 public class MainPageController {
 
-
-
-    private MessagesDAO messagesDAO;
+    private WallDAO wallDAO;
+    private GenDAO genDAO;
+    private PrivateDAO privateDAO;
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
     private OrganizationDAO orgDao;
 
-
-
-    @Autowired
-    public void setMessagesDAO(MessagesDAO messagesDAO) {
-        this.messagesDAO = messagesDAO;
-    }
     @Autowired
     public void setGlobalDAO(GlobalDAO globalDAO) {
         this.globalDAO = globalDAO;
@@ -53,12 +49,24 @@ public class MainPageController {
     public void setOrgDao(OrganizationDAO orgDao) {
         this.orgDao = orgDao;
     }
+    @Autowired
+    public void setWallDAO(WallDAO wallDAO) {
+        this.wallDAO = wallDAO;
+    }
+    @Autowired
+    public void setGenDAO(GenDAO genDAO) {
+        this.genDAO = genDAO;
+    }
+    @Autowired
+    public void setPrivateDAO(PrivateDAO privateDAO) {
+        this.privateDAO = privateDAO;
+    }
 
     @GetMapping(value = "/wall")
     public String wall(Model model, HttpSession session){
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
-        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, Post.class);
+        List<AbstractMessage> messages = wallDAO.getMessages(orgId, -1);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
         model.addAttribute("messages", messages);
@@ -76,7 +84,7 @@ public class MainPageController {
         int orgId = org.getId();
         User user = (User) session.getAttribute("user");
         model.addAttribute("photo", user.getPhoto_small());
-        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, -1, GenChatMessage.class);
+        List<AbstractMessage> messages = genDAO.getMessages(orgId, -1);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
         model.addAttribute("messages", messages);
@@ -91,7 +99,7 @@ public class MainPageController {
         User user = (User) session.getAttribute("user");
         User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
         model.addAttribute("companion", compan);
-        Set<PrivateChatMessage> privateMessages = messagesDAO.getMessages(user, compan, orgId);
+        Set<PrivateChatMessage> privateMessages = privateDAO.getMessages(user, compan, orgId);
 
         Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
         if (privateMessages == null) {
@@ -110,7 +118,7 @@ public class MainPageController {
             messages.put(mes, userMessage);
 
         }
-        messagesDAO.updateReadedMessages(ids);
+        privateDAO.updateReadedMessages(ids);
 
         model.addAttribute("messages", messages);
         return "private_chat";

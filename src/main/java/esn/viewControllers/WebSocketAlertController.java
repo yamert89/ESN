@@ -2,8 +2,9 @@ package esn.viewControllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import esn.db.message.MessagesDAO;
 import esn.db.UserDAO;
+import esn.db.message.GenDAO;
+import esn.db.message.PrivateDAO;
 import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.PrivateChatMessage;
@@ -22,19 +23,21 @@ import java.util.Calendar;
 public class WebSocketAlertController {
     private SimpMessagingTemplate template;
     private UserDAO userDAO;
-    private MessagesDAO messagesDAO;
+    private GenDAO genDAO;
+    private PrivateDAO privateDAO;
 
     @Autowired
-    public void setMessagesDAO(MessagesDAO messagesDAO) {
-        this.messagesDAO = messagesDAO;
+    public void setGenDAO(GenDAO genDAO) {
+        this.genDAO = genDAO;
     }
-
+    @Autowired
+    public void setPrivateDAO(PrivateDAO privateDAO) {
+        this.privateDAO = privateDAO;
+    }
     @Autowired
     public void setTemplate(SimpMessagingTemplate template) {
         this.template = template;
     }
-
-
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -61,8 +64,8 @@ public class WebSocketAlertController {
                 return;
             }
             int orgID = Integer.parseInt(orgId);
-            Calendar lastGenM = messagesDAO.getLastTimeOfMessage(GenChatMessage.class, orgID);
-            Calendar lastPrivateM = messagesDAO.getLastTimeOfMessage(PrivateChatMessage.class, orgID);
+            Calendar lastGenM = genDAO.getLastTimeOfMessage(orgID);
+            Calendar lastPrivateM = privateDAO.getLastTimeOfMessage(orgID);
             boolean gen = lastGenM != null && lastVisitTime.before(lastGenM);
             boolean private_ = lastPrivateM != null && lastVisitTime.before(lastPrivateM);
             String privIds = null;
@@ -70,7 +73,7 @@ public class WebSocketAlertController {
 
             if (private_) {
                 try {
-                    privIds = om.writeValueAsString(messagesDAO.getOfflinePrivateMSenderIds(lastVisitTime, user, orgID));
+                    privIds = om.writeValueAsString(privateDAO.getOfflinePrivateMSenderIds(lastVisitTime, user, orgID));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

@@ -1,11 +1,30 @@
 package esn.db.syntax;
 
-public class PostgresSyntax {
-    public final String CHECKTABLE = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=";
-    public final String CREATE_TABLE_CONSTRAINTS_WALL_GEN_MESSAGE = " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?
-    public final String SELECT_CHAT_MESSAGES = "select * from generalchat where orgId = ? order by time desc limit ?";
-    public final String SELECT_WALL_MESSAGES = "select * from wall where orgId = ? order by time desc limit ?";
-    public final String SELECT_CHAT_MESSAGES_WITHIDX = "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";
-    public final String SELECT_WALL_MESSAGES_WITHIDX = "select * from wall where orgId = ? and id < ? order by time desc limit ?";
+public class PostgresSyntax implements Syntax{
+    @Override
+    public final String checkTable() {
+        return "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=";
+    }
 
+    @Override
+    public final String createTableConstraints() {return " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)";}
+
+    @Override
+    public final String createTableConstraintsPrivate() {
+        return " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+    }
+
+    @Override
+    public final String selectChatMessages() {return "select * from generalchat where orgId = ? order by time desc limit ?";}
+
+    @Override
+    public final String selectWallMessages() {
+        return "select * from wall where orgId = ? order by time desc limit ?";
+    }
+
+    @Override
+    public final String selectChatMessagesWithIdx() {return "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";}
+
+    @Override
+    public final String selectWallMessagesWithIdx() { return "select * from wall where orgId = ? and id < ? order by time desc limit ?";}
 }

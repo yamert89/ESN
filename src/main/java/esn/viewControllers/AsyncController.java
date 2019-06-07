@@ -5,7 +5,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.configs.GeneralSettings;
 import esn.db.*;
-import esn.db.message.MessagesDAO;
+import esn.db.message.GenDAO;
+import esn.db.message.PrivateDAO;
+import esn.db.message.WallDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -38,7 +40,9 @@ public class AsyncController {
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
-    private MessagesDAO messagesDAO;
+    private WallDAO wallDAO;
+    private GenDAO genDAO;
+    private PrivateDAO privateDAO;
     private WebSocketService webSocketService;
 
     @Autowired
@@ -59,9 +63,18 @@ public class AsyncController {
         this.departmentDAO = departmentDAO;
     }
     @Autowired
-    public void setMessagesDAO(MessagesDAO messagesDAO) {
-        this.messagesDAO = messagesDAO;
+    public void setWallDAO(WallDAO wallDAO) {
+        this.wallDAO = wallDAO;
     }
+    @Autowired
+    public void setGenDAO(GenDAO genDAO) {
+        this.genDAO = genDAO;
+    }
+    @Autowired
+    public void setPrivateDAO(PrivateDAO privateDAO) {
+        this.privateDAO = privateDAO;
+    }
+
     @Autowired
     public void setWebSocketService(WebSocketService webSocketService) {
         this.webSocketService = webSocketService;
@@ -74,7 +87,7 @@ public class AsyncController {
         int orgId = ((Organization) session.getAttribute("org")).getId();
         User user = (User) session.getAttribute("user");
         try {
-            messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, GenChatMessage.class);
+            genDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
             webSocketService.newGenChatMessageAlert(user, time, text);
 
         }catch (Exception e){
@@ -87,7 +100,7 @@ public class AsyncController {
     public void deleteGenMessage(@RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
         int orgId = ((Organization) session.getAttribute("org")).getId();
-        messagesDAO.deleteMessage(user.getId(), text, orgId, GenChatMessage.class);
+        genDAO.deleteMessage(user.getId(), text, orgId);
     }
 
     @PostMapping("/savepost")
@@ -97,7 +110,7 @@ public class AsyncController {
         User user = (User) session.getAttribute("user");
         int orgId = ((Organization) session.getAttribute("org")).getId();
         try {
-            messagesDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId, Post.class);
+            wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
             webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
             e.printStackTrace();
@@ -109,7 +122,7 @@ public class AsyncController {
     public void deletePost(@RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
         int orgId = ((Organization) session.getAttribute("org")).getId();
-        messagesDAO.deleteMessage(user.getId(), text, orgId, Post.class);
+        wallDAO.deleteMessage(user.getId(), text, orgId);
     }
 
 
@@ -125,10 +138,10 @@ public class AsyncController {
             String[] messages = text.split(".{800}"); //TODO test
             for (String m :
                     messages) {
-                messagesDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
+                privateDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
             }
         }
-        messagesDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
+        privateDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
         webSocketService.newPrivateMessageAlert(cId, user.getId(), text);
     }
 
@@ -144,7 +157,7 @@ public class AsyncController {
 
         for (int id :
                 group.getPersonIds()) {
-            messagesDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
+            privateDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
         }
 
 
@@ -457,7 +470,7 @@ public class AsyncController {
         int orgId = ((Organization) session.getAttribute("org")).getId();
         int oldIndex = (int) session.getAttribute("lastIdx_genchat");
         if (oldIndex == -1) return null;
-        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, oldIndex, GenChatMessage.class);
+        List<AbstractMessage> messages = genDAO.getMessages(orgId, oldIndex);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
         ObjectMapper om = new ObjectMapper();
@@ -478,7 +491,7 @@ public class AsyncController {
         int orgId = ((Organization) session.getAttribute("org")).getId();
         int oldIndex = (int) session.getAttribute("lastIdx_wall");
         if (oldIndex == -1) return null;
-        List<AbstractMessage> messages = messagesDAO.getMessages(orgId, oldIndex, Post.class);
+        List<AbstractMessage> messages = wallDAO.getMessages(orgId, oldIndex);
         int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
         ObjectMapper om = new ObjectMapper();
