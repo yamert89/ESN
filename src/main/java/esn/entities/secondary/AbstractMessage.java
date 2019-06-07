@@ -26,8 +26,7 @@ public abstract class AbstractMessage {
     public String text;
 
     @JsonSerialize(using = JsonTimeSerializer.class)
-    @CreationTimestamp
-    public Timestamp time;
+    public Calendar time = Calendar.getInstance();
 
     @JsonIgnore
     public int orgId; //TODO delete?
@@ -35,7 +34,6 @@ public abstract class AbstractMessage {
 
 
     public AbstractMessage(int id, String text, int orgId, User user) {
-
         if (user == null) user = new User("Пользователь удалён", null);
         this.userId = user.getId();
         userName = user.getName();
@@ -53,7 +51,7 @@ public abstract class AbstractMessage {
         return text;
     }
 
-    public Timestamp getTime() {
+    public Calendar getTime() {
         return time;
     }
 

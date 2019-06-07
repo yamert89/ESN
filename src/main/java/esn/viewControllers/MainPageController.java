@@ -103,7 +103,7 @@ public class MainPageController {
 
         Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
         if (privateMessages == null) {
-            model.addAttribute("messages", messages);
+            model.addAttribute("messages", null);
             return "private_chat";
         }
         Long[] ids = new Long[privateMessages.size()];

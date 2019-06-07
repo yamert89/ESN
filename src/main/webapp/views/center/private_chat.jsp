@@ -80,23 +80,25 @@
     </div>
 </div>
 <div class="private_chat_container">
-
-    <c:forEach var="mes" items="${messages}">
-    <c:choose>
-        <c:when test="${mes.value && mes.corpKey.readed}">
-            <div class="private_chat comment_bubble_right"><div class="time-right">
-        </c:when>
-        <c:when test="${!mes.value && mes.corpKey.readed}">
+    <c:if test="${messages != null}">
+        <c:forEach var="mes" items="${messages}">
+        <c:choose>
+        <c:when test="${mes.value && mes.key.readed}">
+        <div class="private_chat comment_bubble_right"><div class="time-right">
+            </c:when>
+            <c:when test="${!mes.value && mes.key.readed}">
             <div class="private_chat comment_bubble_left"><div class="time-left">
-        </c:when>
-        <c:when test="${mes.value && !mes.corpKey.readed}">
-            <div class="private_chat comment_bubble_right unreaded"><div class="time-right">
-        </c:when>
-    </c:choose>
-        <fmt:formatDate value="${mes.corpKey.time.time}" pattern="HH:mm:ss / dd.MM"/>
-        </div>${mes.corpKey.text}
-        </div>
-    </c:forEach>
+                </c:when>
+                <c:when test="${mes.value && !mes.key.readed}">
+                <div class="private_chat comment_bubble_right unreaded"><div class="time-right">
+                    </c:when>
+                    </c:choose>
+                    <fmt:formatDate value="${mes.key.time.time}" pattern="HH:mm:ss / dd.MM"/>
+                </div>${mes.key.text}
+                </div>
+                </c:forEach>
+    </c:if>
+
 </div></div>
 </body>
 </html>
