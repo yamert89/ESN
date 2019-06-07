@@ -134,6 +134,7 @@
     </script>
 </head>
 <body>
+<%--<img src="/resources/6.gif">--%>
 <c:set var="user" value="${sessionScope.get('user')}"/>
 <c:set var="orgUrl" value="${sessionScope.get('org').getUrlName()}"/>
 <div class="wall_container">

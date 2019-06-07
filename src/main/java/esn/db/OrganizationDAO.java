@@ -21,7 +21,7 @@ public class OrganizationDAO {
     @PersistenceContext
     EntityManager em;
 
-    Syntax syntax = new PostgresSyntax();
+
 
     @Transactional
     public void persistOrg(Organization org) throws ConstraintViolationException {
@@ -90,11 +90,7 @@ public class OrganizationDAO {
         return res;
     }
 
-    @Transactional
-    public void initOrgDB(){
-        em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
-        em.createNativeQuery("create table generalchat " + syntax.createTableConstraints()).executeUpdate();
-    }
+
 
 
 
