@@ -1,0 +1,234 @@
+.checkbox{
+    opacity: 0;
+}
+.checkbox_on{
+    opacity: 1;
+}
+.user_profile{
+    display: none;
+}
+
+
+.net_status_circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: blue;
+    display: inline-block;
+}
+#net_status_off{
+    background-color: #ded9dd;
+}
+
+.jspError{
+    color: red;
+    margin-bottom: 10px;
+    font-size: 0.7em;
+    display: block;
+    text-align: center;
+}
+form{
+    margin-bottom: 0;
+}
+.shadow{
+    display: none;
+}
+
+.person_staff {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+tr{
+    background-color: rgba(245, 255, 215, 0.71);
+}
+tr:hover{
+    background-color: rgba(226, 236, 200, 0.85);
+}
+.person_selected{
+    background-color: rgba(195, 255, 255, 0.77);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
+}
+td{
+    padding: 0;
+    height: 100px;
+}
+table{
+    border-spacing: 0;
+    padding: 0;
+    border-collapse: collapse;
+
+}
+
+.delete_message{
+    height: 1.2em;
+    margin-left: 10px;
+    display: none;
+}
+.delete_message:hover, .file_delete:hover, .position_delete:hover{
+    background-color: rgba(255, 77, 86, 0.61);
+    border-radius: 10px;
+}
+
+button, input[type=submit], input[type=button]{
+    border-radius: 10px;
+    background-color: #F0F4C3;
+    font-size: 1.1em;
+}
+button:hover{
+    background-color: #e7ebb9;
+}
+.note{
+    /*   border: 2px solid #91c26d;
+       background-color: #dfffc7;*/
+    border: 2px solid #859c4e;
+
+}
+
+/*.log{
+    box-shadow: 0 0 5px black inset;
+    background-color: #DFF68F;
+    height: 100px;
+    width: 240px;
+    margin-top: 20px;
+    padding: 5px;
+    position: absolute;
+    left: -250px;
+    bottom: 0;
+    transition: left 0.4s ease;
+    vertical-align: middle;
+}*/
+
+.log{
+    box-shadow: 0 0 5px black inset;
+    background-color: rgba(9, 7, 10, 0.73);
+    border-radius: 5px;
+    color: white;
+    height: 100px;
+    width: 240px;
+    margin-top: 20px;
+    padding: 5px;
+    position: absolute;
+    left: -255px;
+    bottom: 0;
+    transition: left 0.4s ease;
+    vertical-align: middle;
+}
+
+.show_log{
+    left: -2px;
+    transition: left 0.4s ease;
+}
+
+
+.wall_container, .notes_container, .chat_gen_container, .private_chat_wrapper{
+    /*width: 70%;*/
+    margin: auto;
+    border: 3px double rgba(0, 0, 0, 0.1);
+    border-top: none;
+    border-bottom: none;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 100%;
+
+}
+
+/*COLORS*/
+
+input[type=text]{
+    background-color: #f5f5f5;
+}
+
+
+
+.container{
+    background-color: beige;
+}
+.center{
+    background-color: #ebebd2;
+}
+header{
+    background-color: rgba(128, 128, 128, 0.38);
+
+}
+.message_info_wrapper, .post_add, .person_item, .post_submit, .storage_header, .date{
+    background-color: #DFF68F;
+}
+
+.post_submit:hover, .post_add:hover{
+    background-color: #DFF68F;
+}
+
+.multicast_icon:hover, .file_share:hover, .file_ico:hover {
+    background-color: rgba(189, 254, 140, 0.55);
+}
+
+.post, .note {
+    background-color: #f2ffce;;
+}
+
+
+
+.comment_bubble_left {
+    background: rgba(104, 201, 0, 0.13);
+}
+.comment_bubble_right {
+    background: rgba(107, 199, 206, 0.2);
+}
+
+
+.unreaded{
+    background-color: rgba(107, 199, 206, 0.5) !important;
+}
+
+
+.message {
+    background-color: #e4e4cb;
+}
+.group{
+    background-color: #8ad5f4;
+}
+.group:hover{
+    background-color: rgba(135, 202, 232, 0.86);
+}
+.group_selected {
+    background-color: #cbf4da;
+}
+.date{
+    /*background-color: #bdfa8a;*/
+
+}
+
+#myTreeContainer{
+    background-color: rgba(138, 213, 244, 0);
+}
+
+.storage_public{
+    background-color: #e7f5d8;
+}
+.storage_private{
+    background-color: #f5f0d8;
+}
+
+.properties_board{
+    background-color: #f2ffce;;
+}
+.tool{
+    background-color: rgba(0, 0, 0, 0.16);
+}
+.date_noted{
+    color: red;
+}
+
+.dp-note {
+    background: rgba(255, 0, 7, 0.68);
+}
+
+.selected{
+    box-shadow: 0 0 5px black;
+    background-color: rgba(255, 9, 0, 0.11);
+}

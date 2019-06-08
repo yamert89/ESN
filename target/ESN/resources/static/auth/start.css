@@ -1,0 +1,117 @@
+body{
+    text-align: center;
+    /*vertical-align: middle;*/
+    display: flex;
+    height: 800px;
+    background: url("../../back1.jpg") no-repeat;
+    background-size: 100%;
+}
+div{
+    width: 560px;
+    display: inline-block;
+    text-align: center;
+}
+label{
+    font-size: 1.2em;
+    margin-right: 10px;
+    max-width: 30%;
+    line-height: 0.9em;
+}
+img{
+    /*height: 15px;*/
+    width: 17px;
+    margin-left: 5px;
+}
+a{
+    margin-right: 30px;
+}
+textarea{
+    width: 300px;
+    height: 4em;
+}
+button{
+    margin: 0 15px;
+
+}
+
+.clicked{
+    background-color: rgba(189, 250, 138, 0.4);
+    transition: background-color 0.1s ease;
+}
+.commit{
+    margin-right: 30px;
+}
+
+
+input, .input_avatar{
+    width: 300px;
+
+}
+
+span{
+    font-size: 1.2em;
+}
+.reg_container{
+    margin: auto;
+    background-color: #f6f6f6;
+    border-radius: 20px;
+    border: 1px solid #8ad5f4;
+    box-shadow: 0 0 20px #000000;
+}
+.reg_block{
+    margin: 30px 0;
+    display: block;
+    text-align: right;
+    width: inherit;
+}
+.input, .avatar_container{
+    display: inline-block;
+}
+.form_photo{
+
+}
+.select_avatar{
+    width: 300px;
+}
+.send_avatar{
+    width: 80px;
+}
+.avatar_container{
+    width: 300px;
+}
+.input_avatar{
+    font-size: 0.5em;
+}
+.auth_submit_button{
+    margin-right: 20px;
+    width: 150px;
+}
+.reg_org_container{
+    /*width: 620px;*/
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+.reg_block_org{
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin: 20px;
+}
+.reg_el{
+    flex: 1 1 auto;
+}
+.department_adder{
+    width: 200px;
+}
+input[type='radio']{
+    width: auto;
+}
+input[type='text']{
+    background-color: white;
+}
+
+
+/*MODAL*/
+
+

@@ -1,0 +1,1991 @@
+body
+{
+    font-family: Verdana, "Trebuchet MS";
+}
+html{
+    width: 890px;
+    overflow-x: hidden;
+}
+.nav > li > a
+{
+    text-decoration: none;
+    font-family: Arial;
+}
+
+.yellow_band > .nav > li > a,
+.main_top_menu.nav > li > a
+{
+    font-family: 'futura_pt_demi_reg';
+}
+
+h3
+{
+    margin-top: 0;
+}
+
+/* правки общих ссылок сайта (на главной: черные без подчеркиваний, при наведении - красные) */
+a:link,
+a:active,
+a:visited
+{
+    color: #000;
+    transition: color 0.2s ease;
+}
+a:hover
+{
+    color: #C00;
+    transition: color 0.3s ease;
+}
+/* ----- правки общих ссылок сайта (на главной: черные без подчеркиваний, при наведении - красные) */
+
+
+/*Делаем поля нормального размера*/
+input.buh[type=text],
+input.buh[type=password] {
+    padding: 3px 7px;
+}
+
+span.error {
+    display: block;
+    padding: 0;
+    color: #FF0000;
+    font: 12px Arial;
+}
+
+/* страница 1С сопровождение */
+
+.content_page ul li
+{
+    background: url("/bitrix/templates/buh.ru.v2/images/li_dot.gif") no-repeat scroll 3px 8px rgba(0, 0, 0, 0);
+    list-style: none outside none;
+    margin: 0 0 10px;
+    padding: 0 0 0 15px;
+}
+.content_page .breadcrumbs ol li
+{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin: 0;
+    padding: 0;
+}
+
+.content_page ul ul
+{
+    padding-left: 30px;
+}
+
+.accordion-group .accordion-body
+{
+    line-height: 20px;
+
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+.accordion-group .accordion-body ul
+{
+    padding-left: 10px;
+    margin: -1px 0 10px 0;
+    line-height: 16px;
+}
+
+.accordion-group .accordion-body ul li
+{
+    margin: 10px 0;
+}
+
+.accordion-group .accordion-body ul li:after
+{
+    top: 8px;
+    left: -10px;
+    display: none;
+}
+
+.accordion-group .accordion-body h2,
+.accordion-group .accordion-body h3
+{
+    font-size: 20px;
+}
+
+.content_page .catalog-section-list ul
+{
+    background: none;
+    margin-top: 6px;
+}
+.content_page .catalog-section-list ul li
+{
+    background: none;
+}
+
+table.note
+{
+    line-height: 20px;
+
+    font-size: 12px;
+    font-family: Verdana;
+}
+
+.accordion-heading p
+{
+    line-height: 20px;
+    font-size: 12px;
+    font-family: Verdana;
+}
+.accordion-heading p.red_title
+{
+    font-size: 18px;
+}
+
+.accordion-body p
+{
+    line-height: 20px;
+}
+
+.form_lined input
+{
+    float: left;
+    margin-right: 0 !important;
+    position: relative;
+    top: 4px;
+}
+.form_lined input.rfst
+{
+    margin-right: 200px !important;
+}
+.form_lined input.rlast
+{
+    margin-right: 2px !important;
+    float: right;
+}
+
+/* ----- новости, статьи, страница 1С сопровождение */
+
+
+/* дополнительные стили для комментариев */
+#send_message_anch
+{
+    position: absolute;
+    top: -300px;
+}
+
+/* поправляем журнал, чтобы пункты меню "Вы можете оформить подписку следующими способами:" не скакали в firefox */
+
+.zurnal-tabs .nav-tabs li.active a:link, .zurnal-tabs .nav-tabs li a:link,
+.zurnal-tabs .nav-tabs li.active a:active, .zurnal-tabs .nav-tabs li a:active,
+.zurnal-tabs .nav-tabs li.active a:visited, .zurnal-tabs .nav-tabs li a:visited
+{
+    margin: 0px;
+    height: 68px;
+    line-height: 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0;
+    white-space: normal;
+}
+.zurnal-tabs .nav-tabs li.active a:hover, .zurnal-tabs .nav-tabs li a:hover{
+    /*line-height: 20px;
+    height: 68px;*/
+}
+
+.zurnal-tabs .nav-tabs li a span{
+    font-weight: normal;
+}
+
+/* добавляем стили для единообразия содержания журанала */
+.content_page .magazine-list .journl_area
+{
+    display: none;
+}
+.content_page .magazine-list .journl_area.act
+{
+    display: block;
+}
+
+.content_page .magazine-list ul li
+{
+    background: none;
+    margin: 0 0 1px;
+}
+
+.magazine-contents h3
+{
+    color: #CC0000;
+    font-size: 13pt !important;
+    margin-bottom: 7px !important;
+    margin-top: 15px !important;
+}
+
+#send_message
+{
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#mess_reset:link,
+#mess_reset:active,
+#mess_reset:visited,
+#mess_reset:hover
+{
+    display: none;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: #000000;
+    text-decoration: none;
+}
+#mess_reset.act
+{
+    display: block;
+}
+
+#mess_reset span
+{
+    color: #AA0000;
+}
+
+/* список новостей */
+.content_part
+{
+    position: relative;
+}
+
+.div_line
+{
+    font-size: 1px;
+    height: 1px;
+    margin: 15px -5px 30px -10px;
+    background-color: #EEE;
+}
+
+h3.margin_line-height
+{
+    margin-bottom: 15px;
+    margin-right: 145px;
+}
+
+form.date_filter
+{
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    width: 415px;
+}
+
+#date_filt_start
+{
+    padding: 2px 5px;
+    float: left;
+    font-size: 90%;
+    margin-right: 5px;
+    width: 150px;
+}
+
+#date_filt_end
+{
+    padding: 2px 5px;
+    float: left;
+    font-size: 90%;
+    margin-right: 5px;
+    width: 150px;
+}
+
+
+#date_filt_subm
+{
+    display: inline-block !important;
+    height: 30px !important;
+    min-width: 90px;
+    padding: 0 5px !important;
+    width: 30px !important;
+    position: relative;
+    margin-left: 0 !important;
+    bottom: 0;
+    line-height: 2px !important;
+}
+#date_filt_subm:after
+{
+    display: none;
+}
+
+a.calendar-icon
+{
+    margin: 0 2px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    left: 1px;
+    text-decoration: none;
+    background: url(/bitrix/js/main/core/images/calendar-icon.gif) center center no-repeat
+}
+
+/* календарь (в правой колонке + производственный) */
+form[name="action_filter"]
+{
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    width: 440px;
+}
+
+form[name="action_filter"] input[type="submit"]
+{
+    width: 95px !important;
+}
+.right-collon .white_box div.bMonthCalendar div.bMonthCalendar__eMDays table tr td.currentDay
+{
+    background: #C4161C !important;
+}
+
+.calendar-info-block .kvartal-block .kvartal-item table tr td a.cur_data
+{
+    background: #CC0000 !important;
+    color: #FFFFFF !important;
+}
+
+.calend-day b
+{
+    text-align: right;
+}
+/* ----- календарь (в правой колонке + производственный) */
+
+/* правка съехавшей верстки поиска */
+.search-block .form-control
+{
+    font: 14px Tahoma;
+}
+
+form.search-block
+{
+    top: 1px;
+}
+
+div.search-page input.search-query
+{
+    width: 610px;
+}
+
+div.search-page input.search-button
+{
+    bottom: 2px;
+    position: relative;
+    bottom: 3px;
+}
+
+.search-item-date label:before,
+.search-sorting label:before
+{
+    display: none;
+}
+.search-item-date label,
+.search-sorting label
+{
+    display: inline;
+    padding: 0;
+}
+
+.search-filter .select-field
+{
+    margin: 0;
+    height: 26px;
+}
+
+td.search-filter-name
+{
+    width: 50px;
+}
+td.search-filter-field
+{
+    width: auto;
+}
+
+.content_page .zurnal-tabs ul.nav-tabs
+{
+    background: none;
+    margin: 0;
+}
+
+.content_page .nav-tabs li
+{
+    padding: 0 25px;
+    background: #ECEDED;
+}
+.content_page .nav-tabs li.active
+{
+    background: #C21A24;
+}
+.content_page .zurnal-tabs .nav-tabs li
+{
+    background: none;
+    padding: 0 14px;
+}
+.content_page .zurnal-tabs .nav-tabs li.active
+{
+    background: #FEDB31;
+}
+.content_page .meeting-block .nav-tabs li
+{
+    padding: 0 23px;
+}
+
+
+/* уравнивание блоков мероприятия на главной */
+.sides_container
+{
+    margin-bottom: 10px;
+}
+
+.sides_container td
+{
+    width: 49%;
+    margin: 5px;
+}
+
+.sides_container td.mdl
+{
+    width: 1%;
+}
+
+.input_area
+{
+    display: block;
+    float: left;
+    margin-right: 5px;
+    width: 150px;
+    border: 1px solid #C5C5C5;
+    border-radius: 3px;
+    height: 29px;
+    line-height: 26px;
+
+    background: #FFFFFF;
+    background: linear-gradient(to bottom, #F1F1F1, #FFFFFF);
+}
+
+.input_area input
+{
+    font-size: 90%;
+    padding: 2px 25px 2px 5px !important;
+    border: none;
+    background: url(/bitrix/templates/buh.ru.v2/images/calendar.png) 96% 3px no-repeat;
+    border-radius: 0;
+    margin: 0 !important;
+    width: 120px !important;
+    position: relative;
+    top: 4px;
+}
+
+.met-item.sml
+{
+    margin-bottom: 7px;
+}
+
+/* главная - сопровождение и автоматизация учета  */
+.banner_mynw
+{
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 1px #CCCCCC;
+    float: left;
+    height: 396px;
+    margin: 0 10px 0 0;
+    position: relative;
+    width: 283px;
+}
+.banner_mynw.i2
+{
+    margin: 0;
+}
+
+.banner_mynw .redhead
+{
+    background: #c01923 url(/bitrix/templates/buh.ru.v2/images/1.png) 30px 30px no-repeat;
+    background: linear-gradient(to top, #b6151d, #ce1f2b) url(/bitrix/templates/buh.ru.v2/images/2.png) 30px 30px no-repeat;
+    height: 90px;
+}
+.banner_mynw.i2 .redhead
+{
+    background: #c01923 url(/bitrix/templates/buh.ru.v2/images/2.png) 30px 30px no-repeat;
+    background: linear-gradient(to top, #b6151d, #ce1f2b) url(/bitrix/templates/buh.ru.v2/images/2.png) 30px 30px no-repeat;
+}
+
+.banner_mynw .redhead .text
+{
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    padding: 21px 15px 0 70px;
+    position: relative;
+    text-align: left;
+}
+.banner_mynw.i2 .redhead .text
+{
+    padding-top: 30px;
+}
+
+.banner_mynw .banner_mynw_body
+{
+    position: relative;
+}
+
+.banner_mynw .banner_mynw_body a:link,
+.banner_mynw .banner_mynw_body a:active,
+.banner_mynw .banner_mynw_body a:visited
+{
+    color: #C21A24 !important;
+    font-weight: bold;
+    text-decoration: underline;
+    display: block;
+    text-align: left;
+    margin: 25px 0 0 20px;
+}
+.banner_mynw .banner_mynw_body a:hover
+{
+    color: #C21A24 !important;
+    text-decoration: none;
+}
+
+.content_page
+{
+    padding-bottom: 40px;
+}
+
+.content_page a:link,
+.content_page a:active,
+.content_page a:visited
+{
+    color: #CC0000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.content_page a:hover
+{
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.right_buttons .btn-group a
+{
+    color: #000000;
+}
+
+.white_box
+{
+    overflow: visible;
+}
+.white_box.fm_topics
+{
+    height: 515px;
+    position: relative;
+}
+.white_box.bnrs_area
+{
+    height: 426px;
+}
+
+.white_box.fm_topics h1
+{
+    margin-top: 0;
+    font: 24px/36px 'futura_pt_demi_reg';
+}
+
+.white_box.fm_topics .btn_gray
+{
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+}
+
+.white_box.bl1,
+.white_box.fst
+{
+    height: 426px;
+    position: relative;
+}
+.white_box.bl2
+{
+    height: 590px;
+    position: relative;
+}
+.white_box.bl3
+{
+    height: 156px;
+    font-size: 12px;
+    font-family: Verdana;
+}
+.white_box.vote
+{
+    margin-top: 11px;
+}
+.left-collon.wd .white_box.white_box__paddingNone
+{
+    width: 1171px;
+}
+.white_box.ws,
+.white_box.fm
+{
+    overflow: visible;
+}
+.white_box.tr
+{
+    height: 426px;
+}
+
+.left-collon.wd
+{
+    width: auto;
+}
+
+.content_page span.btn_gray {
+    cursor: pointer;
+}
+
+.content_page a.btn_gray
+{
+    color: #47494B;
+}
+
+.white_box .btn_gray.rb:link,
+.white_box .btn_gray.rb:active,
+.white_box .btn_gray.rb:visited,
+.white_box .btn_gray.rb:hover
+{
+    display: block;
+    position: absolute;
+    bottom: 22px;
+    right: 25px;
+}
+
+.views:after
+{
+    left: 7px;
+}
+.data_post .views:after,.data_post .edit:after
+{
+    left: -5px;
+}
+.edit:after
+{
+    left: 10px;
+}
+
+.views, .edit
+{
+    padding-left: 27px;
+}
+.data_post .views
+{
+    padding-left: 15px;
+}
+
+.votes .media.spw
+{
+    width: 260px;
+    position: relative;
+    left: -12px;
+}
+
+.votes .media textarea
+{
+    max-width: 84%;
+    min-width: 84%;
+    max-height: 50px;
+    margin-left: 25px;
+}
+.detail_vote_page .votes .media textarea
+{
+    max-height: 1000px;
+}
+
+.votes ol
+{
+    list-style: none;
+}
+
+.votes .vote-answer-table tr td:first-of-type
+{
+    background: transparent url(/bitrix/templates/buh.ru.v2/images/li_dot.gif) 3px 11px no-repeat;
+    padding-left: 15px;
+}
+
+.votes .vote-answer-table tr td.no_dots,
+.votes .vote-answer-table tr td.no_dots:first-of-type
+{
+    background: transparent;
+}
+
+.vote-bar-table td
+{
+    vertical-align: top;
+}
+
+.voting-result-box .vote-bar-table .vote-bar-square
+{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.banner_1s
+{
+    width: 289px;
+}
+.right-collon .banner_1s
+{
+    float: none;
+    margin: 0;
+    position: relative;
+    right: 2px;
+    height: 235px;
+}
+
+.votes form
+{
+    margin: 10px 0 0;
+}
+
+/* правое плавающее меню */
+
+#side_navigation
+{
+    transition: width 0.3s ease, padding 0.3s ease;
+    display: block;
+    background-color: #FFFFFF;
+}
+#side_navigation.small
+{
+    width: 45px;
+    padding-bottom: 0;
+    transition: width 0.3s ease, padding 0.3s ease;
+}
+#side_navigation.opc
+{
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.sprite-group
+{
+    background-position: -90px -141px;
+}
+a:hover .sprite-group,
+a:active .sprite-group
+{
+    background-position: -64px -141px;
+}
+
+.sprite-discuss
+{
+    background-position: -29px -192px;
+    height: 27px;
+    width: 26px;
+}
+.sprite-favorites
+{
+    background-position: -29px -168px;
+    height: 24px;
+    width: 25px;
+}
+
+
+#side_navigation a
+{
+    outline: 0;
+    transition: padding 0.3s ease;
+}
+#side_navigation.small a:link,
+#side_navigation.small a:active,
+#side_navigation.small a:visited,
+#side_navigation.small a:hover
+{
+    color: transparent !important;
+    font-size: 1px !important;
+    padding: 20px 0 0 0;
+    display: block;
+    position: relative;
+    left: 9px;
+    transition: padding 0.3s ease;
+}
+
+#side_navigation a .tip
+{
+    display: none;
+}
+#side_navigation.small a:link .tip,
+#side_navigation.small a:active .tip,
+#side_navigation.small a:visited .tip
+{
+    display: none;
+    position: absolute;
+    width: 180px;
+    height: 80px;
+    background: url(/bitrix/templates/buh.ru.v2/images/mess_tip.png) top left no-repeat;
+    top: 0;
+    left: -175px;
+}
+#side_navigation.small a:hover .tip
+{
+    display: block;
+}
+
+#side_navigation.small a .tip .text
+{
+    color: #777777;
+    font-size: 12px;
+    position: relative;
+    top: 19px;
+}
+
+#side_navigation a i
+{
+    position: relative;
+}
+#side_navigation.small a i
+{
+    position: relative;
+    right: 5px;
+}
+
+#side_navigation .gr_line
+{
+    position: relative;
+    top: 10px;
+    font-size: 1px;
+    height: 1px;
+    background-color: #e5e5e5;
+    margin-top: 10px;
+}
+#side_navigation.small .gr_line
+{
+    margin-top: 0;
+    top: 0;
+}
+#side_navigation.opc .gr_line
+{
+    display: none;
+}
+
+
+#side_navigation a:link .fm_img,
+#side_navigation a:active.fm_img,
+#side_navigation a:visited .fm_img
+{
+    display: block;
+    position: relative;
+    left: 0px;
+    top: -2px;
+    margin:  auto;
+    width: 32px;
+    height: 32px;
+    background: url(/bitrix/templates/buh.ru.v2/images/fixed_menu_bo.png) top left no-repeat;
+}
+#side_navigation a:hover .fm_img
+{
+    background-position: top right;
+}
+#side_navigation.small a:link .fm_img,
+#side_navigation.small a:active .fm_img,
+#side_navigation.small a:visited .fm_img
+{
+    display: block;
+    top: -8px;
+    position: relative;
+    left: -4px;
+    margin:  auto;
+    width: 16px;
+    height: 16px;
+    background: url(/bitrix/templates/buh.ru.v2/images/fixed_menu_so.png) left top no-repeat;
+}
+#side_navigation.small a:hover .fm_img
+{
+    background-position: top right;
+}
+
+/* ----- правое плавающее меню */
+
+/* кнопка "Добавить в избранное" */
+.sprite2-favorite {
+    background-position: -394px -253px;
+    width: 18px;
+    height: 19px;
+}
+.sprite2-favorite.on {
+    background-position: -376px -253px;
+}
+/* ----- кнопка "Добавить в избранное" */
+
+.white_box.fm_topics .list_doc.nav.last_comments_list
+{
+    padding-left: 0;
+}
+
+.white_box.fm_topics .list_doc.nav.last_comments_list li
+{
+    font-size: 13px;
+}
+
+.white_box.fm_topics .list_doc.nav > li > a:link,
+.white_box.fm_topics .list_doc.nav > li > a:active,
+.white_box.fm_topics .list_doc.nav > li > a:visited
+{
+    color: #000;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-family: Arial;
+    font-size: 13px;
+}
+.white_box.fm_topics .list_doc.nav > li > a:hover
+{
+    color: #C00;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-family: Arial;
+}
+.white_box.fm_topics .list_doc.nav > li:after
+{
+    display: block;
+    background-position: -52px -59px;
+    width: 17px;
+    height: 16px;
+    left: -23px;
+    top: 3px;
+}
+.white_box.fm_topics .list_doc.nav.last_comments_list > li:after
+{
+    display: none;
+}
+
+.white_box.fm_topics .specdiv
+{
+    margin-bottom: 10px;
+}
+
+.white_box.fm_topics .list_doc.nav.last_comments_list li a:link,
+.white_box.fm_topics .list_doc.nav.last_comments_list li a:active,
+.white_box.fm_topics .list_doc.nav.last_comments_list li a:visited
+{
+    color: #cc0000;
+    transition: color 0.3s ease 0s;
+}
+.white_box.fm_topics .list_doc.nav.last_comments_list li a:hover
+{
+    color: #000000;
+    transition: color 0.2s ease 0s;
+}
+
+.footer-item-one a:link,
+.footer-item-one a:active,
+.footer-item-one a:visited,
+.footer-item-one a:hover
+{
+    text-decoration: none;
+}
+
+.footer-item-one
+{
+    font-size: 13px;
+}
+
+.footer-item-two p
+{
+    font-size: 13px;
+}
+
+.footer-item-three
+{
+    font-size: 13px;
+}
+
+.breadcrumbs li.active a:link,
+.breadcrumbs li.active a:active,
+.breadcrumbs li.active a:visited,
+.breadcrumbs li.active a:hover
+{
+    text-decoration: none;
+}
+
+.info-left .gray_bg_box a,
+.info-right .gray_bg_box a
+{
+    font-family: Tahoma;
+}
+
+.info-left > div,
+.info-right > div
+{
+    min-height: 225px;
+}
+
+.logo-block p a:link,
+.logo-block p a:active,
+.logo-block p a:visited
+{
+    text-decoration: underline;
+    color: #000;
+    transition: color 0.3s ease;
+    font-size: 12px;
+    font-family: 'Tahoma';
+    letter-spacing: -0.5px
+}
+.logo-block p a:hover
+{
+    text-decoration: none;
+    color: #C00;
+    transition: color 0.2s ease;
+}
+
+.banner_1s .nav
+{
+    position: relative;
+    bottom: 44px;
+}
+
+.left-collon
+{
+    position: relative;
+}
+
+.dot_light li:after,
+.list_doc li:after
+{
+    display: none;
+}
+
+.white_box.gray_grad.tags-block
+{
+    font-family: Arial;
+}
+
+.white_box.gray_grad.tags-block .showHideAllTags
+{
+    float: none;
+    width: 100px;
+    text-align: center;
+    margin: auto 0 auto auto;
+    display: block;
+}
+
+.rght_bn
+{
+    height: 487px;
+    overflow: hidden;
+    box-shadow: 0 1px 1px #BBB;
+}
+
+.internal-menu a:link,
+.internal-menu a:active,
+.internal-menu a:visited,
+.internal-menu a:hover
+{
+    color: #000000;
+    text-decoration: none;
+}
+
+.socium
+{
+    font-size: 12px;
+}
+
+.white_box.fm .internal-menu
+{
+    left: 35px;
+    position: absolute;
+    top: 0;
+}
+.white_box.fm .internal-menu.noleft
+{
+    left: 0;
+    margin-left: 0;
+}
+
+.white_box.fm .content_part
+{
+    padding-top: 45px;
+}
+
+.categories-list
+{
+    cursor: default;
+}
+
+.kvartal-item .ui-datepicker-calendar a
+{
+    cursor: default;
+}
+
+.social-tw:hover
+{
+    background-position: -58px -58px;
+}
+
+.social-odn:hover
+{
+    background-position: -29px -58px;
+}
+
+.social-fbk:hover
+{
+    background-position: left -58px;
+}
+
+.social-vk:hover
+{
+    background-position: -29px bottom;
+}
+
+.social-rss:hover
+{
+    background-position: left bottom;
+}
+
+.social-mail:hover
+{
+    background-position: -58px bottom;
+}
+
+.link-gmail:hover
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/social.png) -87px -58px no-repeat;
+}
+
+.link-mail:hover
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/social.png) -87px bottom no-repeat;
+}
+
+.main_top_menu > li > a:hover,
+.main_top_menu > li > a
+{
+    padding-bottom: 0px !important;
+}
+
+.its_p
+{
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.favorite-block.hoshow
+{
+    display: none;
+}
+
+.unsub_form
+{
+    margin: 50px auto;
+    width: 700px;
+    text-align: center;
+    line-height: 32px;
+}
+
+.unsub_form .name
+{
+    padding-bottom: 20px;
+}
+
+.unsub_form form a.canc:link,
+.unsub_form form a.canc:active,
+.unsub_form form a.canc:visited
+{
+    display: block;
+    float: left;
+    margin-left: 150px;
+    padding: 5px 10px;
+    background: #EEE;
+    border: none;
+    height: 20px;
+    color: #000;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #000;
+}
+.unsub_form form a.canc:hover
+{
+    background: #FFF;
+    color: #000;
+}
+
+.unsub_form form a.subm:link,
+.unsub_form form a.subm:active,
+.unsub_form form a.subm:visited
+{
+    display: block;
+    float: right;
+    margin-right: 150px;
+    padding: 5px 10px;
+    background: #EEE;
+    border: none;
+    height: 20px;
+    color: #000;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #000;
+}
+.unsub_form form a.subm:hover
+{
+    background: #FFF;
+    color: #000;
+}
+
+.unsub_form form input[type="submit"]
+{
+    display: block;
+    float: right;
+    margin-right: 150px;
+    padding: 5px 10px;
+    background: #EEE;
+    border: none;
+    height: 20px;
+    font-size: 14px;
+    line-height: 14px;
+    border: 1px solid #000;
+}
+
+.detail_vote_page .votes .submit_btn
+{
+    float: left !important;
+}
+
+.specdiv
+{
+    font-family: 'futura_pt_demi_reg';
+    font-size: 24px;
+    font-weight: 400;
+    font-style:    normal;
+    line-height: 36px;
+    color: #000;
+    margin-bottom: 24px;
+}
+.votes .specdiv
+{
+    margin-bottom: 0;
+}
+.footer .specdiv
+{
+    border-bottom: 2px solid #d5dcde;
+    margin: 20px 0;
+    padding: 0 0 10px;
+}
+h1.phead.specdiv
+{
+    margin-bottom: 15px;
+    margin-right: 145px;
+    line-height: 30px;
+    color: #000;
+    font-family: 'futura_pt_demi_reg';
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.article .video_obj
+{
+    position: relative;
+}
+
+.article .video_info
+{
+    background: none repeat scroll 0 0 #fff;
+    border: 3px double #000;
+    line-height: 20px;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 470px;
+    z-index: 1;
+}
+
+.article .video_info .video_item
+{
+    margin-top: 20px;
+}
+
+.article .video_info .close
+{
+    position: relative;
+    float: right;
+    color: #c10000;
+    font-family: Arial;
+    cursor: pointer;
+}
+
+.article .show_video_details
+{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 50px;
+    color: #c10000;
+}
+
+.new_com_sign
+{
+    position: absolute;
+    top: 1px;
+    left: -12px;
+    color: #c10000;
+}
+
+.content_page .navigation a.active
+{
+    color: #000000;
+}
+
+.btn_gray.comm
+{
+    font-size: 12px !important;
+}
+
+.b_popup_icons_area.article_send_to_mail
+{
+    width: 520px;
+    margin-left: -260px;
+}
+
+.b_popup_icons_area.article_send_to_mail .form_header
+{
+    font-family: 'futura_pt_demi_reg';
+    font-size: 36px;
+    line-height: 42px;
+    color: #d32e16;
+    margin-bottom: 25px;
+}
+
+.b_popup_icons_area.article_send_to_mail input[type="text"]
+{
+    margin: 2px;
+    padding: 2px 5px;
+    font: 14px Tahoma;
+    line-height: 26px;
+    height: 26px;
+    border: 1px solid #C5C5C5;
+    border-radius: 3px;
+    background: linear-gradient(to bottom, #F1F1F1, #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.b_popup_icons_area.article_send_to_mail input[type="button"]
+{
+    display: inline-block;
+    position: relative;
+    top: -2px;
+    left: 3px;
+    height: 32px;
+    padding: 0 20px;
+    width: 127px;
+    cursor: pointer;
+    color: #c21a24;
+    font-weight: bold;
+    border: none;
+    border-bottom: 3px solid #e98022;
+
+    font-size: 15px;
+    line-height: 26px;
+    background-image: linear-gradient(to bottom, #ffdc2d, #ffbd2d);
+    border-radius: 4px;
+}
+
+.b_popup_icons_area.article_send_to_mail .error_area
+{
+    padding: 5px;
+    color: #d32e16;
+}
+.b_popup_icons_area.article_send_to_mail .error_area.green
+{
+    color: #008000;
+}
+
+/* стили для юбилейного раздела */
+.rrs-nom-list {
+    border-top: 1px solid #e7e7e7;
+    margin: 32px 0;
+}
+.rrs-nomination i {
+    background: url("/images/nominations.png") no-repeat scroll 0 0;
+    position: absolute;
+    width: 200px;
+    height: 180px;
+}
+.nom-loyal i {
+    background-position: -716px -194px;
+}
+.nom-help i {
+    background-position: -272px -174px;
+}
+.nom-finder i {
+    background-position: -40px -186px;
+}
+.nom-prof i {
+    background-position: -468px -186px;
+}
+
+.rrs-nomination h3 {
+    margin-left: 220px;
+    margin-bottom: 12px;
+}
+.rrs-nomination p {
+    margin-left: 220px;
+}
+.rrs-nomination {
+    border-bottom: 1px solid #e7e7e7;
+    line-height: 22px;
+    min-height: 154px;
+    padding: 32px 0;
+}
+
+/* article feedback form */
+.article_message_area .form-help{
+    font-size: 90%;
+    color:gray;
+}
+.messages-body span.help-block {
+    color:gray;
+}
+.messages-body .form_label{
+    width: 90px;
+    text-align: right;
+    line-height: 35px;
+}
+.messages-body .form_textarea, .form_input{
+    width: 100%;
+}
+.messages-body .form_head{
+    color: #000;
+    font-family: "futura_pt_demi_reg";
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23px;
+    margin-bottom: 15px;
+    margin-right: 145px;
+
+}
+.messages-body .mt15{
+    margin-top: 15px;
+}
+.messages-body .ml7{
+    margin-left: 15px;
+
+}
+.messages-body .ml25{
+    margin-left: 25px;
+
+}
+.messages-body table.form_question  tr td{
+    padding-top:10px;
+    vertical-align: top;
+}
+.messages-body .submit_btn {
+    padding: 0 20px;
+    top: 0;
+    height: 43px !important;
+    line-height: 35px;
+}
+.messages-body .td_form_input{
+    width: 40%;
+}
+/* ----- article feedback form */
+
+
+
+
+.widget_fb
+{
+	background: url('/images/widget_fb.jpg') no-repeat top left;
+}
+.widget_ok
+{
+	background: url('/images/widget_ok.png') no-repeat top left;
+}
+.widget_vk
+{
+	background: url('/images/widget_vk.jpg') no-repeat top left;
+}
+.widget_gplus
+{
+	background: url('/images/widget_gplus.png') no-repeat top left;
+}
+
+.buh_socials_go_popup_back
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #FFFFFF;
+    opacity: 0.7;
+    z-index: 1000;
+}
+
+.buh_socials_go_popup
+{
+    position: fixed;
+    top: 150px;
+    width: 627px;
+    height: 445px;
+    left: 50%;
+    margin-left: -266px;
+    border: 1px solid #c49230;
+    border-radius: 1px;
+    z-index: 1001;
+    background: #FFFFFF;
+}
+
+.buh_socials_go_popup .buh_socials_top_area
+{
+    position: relative;
+    bottom: 1px;
+    height: 58px;
+    border: 1px solid #c08b22;
+    margin-left: -1px;
+    margin-right: -1px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_headback.jpg) top left repeat-x;
+}
+
+.buh_socials_go_popup .buh_socials_top_area .soc_logo
+{
+    position: absolute;
+    top: 12px;
+    left: 38px;
+    width: 166px;
+    height: 34px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_mini.png) top left no-repeat;
+}
+
+.buh_socials_go_popup .buh_socials_top_area .soc_slogan
+{
+    position: absolute;
+    top: 12px;
+    left: 225px;
+    width: 219px;
+    height: 36px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_text.png) top left no-repeat;
+}
+
+.buh_socials_go_popup .buh_socials_top_area .close
+{
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 54px;
+    height: 58px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_close.png) center center no-repeat;
+    border: 1px solid #ba8521;
+    cursor: pointer;
+}
+
+.buh_socials_go_popup .buh_socials_tab_area
+{
+    position: relative;
+    bottom: 1px;
+    height: 104px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_top_back.jpg) top left no-repeat;
+}
+
+.buh_socials_go_popup .buh_socials_tab_area .top_shadow
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_top_shadow.png) center top no-repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 19px;
+}
+
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item
+{
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 96px;
+    height: 71px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_fb.png) center center no-repeat;
+    cursor: pointer;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.active
+{
+    background-color: #FFFFFF !important;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item:hover
+{
+    background-color: #FFFFFF;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.vkon
+{
+    width: 98px;
+    left: 98px;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_vk.png) center center no-repeat;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.vkon:hover
+{
+    background-color: #FFFFFF;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.odnok
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_odn.png) center center no-repeat;
+    width: 134px;
+    left: 198px;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.odnok:hover
+{
+    background-color: #FFFFFF;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.teleg
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_teleg.png) center center no-repeat;
+    width: 97px;
+    left: 334px;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.teleg:hover
+{
+    background-color: #FFFFFF;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.twitt
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_tw.png) center center no-repeat;
+    width: 96px;
+    left: 434px;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.twitt:hover
+{
+    background-color: #FFFFFF;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.yout
+{
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_you.png) center center no-repeat;
+    width: 94px;
+    left: 532px;
+}
+.buh_socials_go_popup .buh_socials_tab_area .buh_socials_item.yout:hover
+{
+    background-color: #FFFFFF;
+}
+
+.buh_socials_go_popup .buh_socials_work_area
+{
+    position: relative;
+    width: 470px;
+    height: 250px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.buh_socials_work_area_inner
+{
+    position: relative;
+    height: 250px;
+    width: 2820px;
+}
+
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item
+{
+    display: block;
+    float: left;
+    position: relative;
+    width: 470px;
+    height: 250px;
+}
+
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item.teleg
+{
+    width: 468px;
+    height: 248px;
+    border: 1px solid #e2e9ed;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_teleg_big.png) center center no-repeat;
+}
+
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item a:link,
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item a:active,
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item a:visited,
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item a:hover
+{
+    display: block;
+    height: 100%;
+    text-decoration: underline;
+    outline: 0;
+    cursor: pointer;
+}
+
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item.yout
+{
+    width: 468px;
+    height: 248px;
+    border: 1px solid #e2e9ed;
+    background: url(/bitrix/templates/buh.ru.v2/images/buh_social_yout.jpg) top left no-repeat;
+}
+
+.buh_socials_go_popup .buh_socials_work_area .buh_socials_item.yout .youtoube_area
+{
+    position: relative;
+    top: 127px;
+    left: 207px;
+}
+.allcomm
+{
+	bottom: unset !important;
+}
+
+/* trainer css */
+
+.trainer_area
+{
+    position: relative;
+    border: 1px dashed #DDD;
+}
+
+.trainer_area .trainer_slides_area
+{
+    position: relative;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item
+{
+    width: 660px;
+    height: 350px;
+    position: relative;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item table,
+.trainer_area .trainer_slides_area .trainer_slider_item table tr,
+.trainer_area .trainer_slides_area .trainer_slider_item table tr td
+{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item .big_text
+{
+    color: #FFF;
+    font-size: 26px;
+    line-height: 28px;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item .total_res_val
+{
+    font-size: 26px;
+    line-height: 30px;
+    padding-bottom: 25px;
+    color: #FFF;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item .diver
+{
+    position: relative;
+    margin: auto;
+    height: 1px;
+    overflow: hidden;
+    background: #FFF;
+    width: 200px;
+    display: none;
+    margin-top: 15px;
+}
+.trainer_area .trainer_slides_area .trainer_slider_item .diver.active
+{
+    display: block;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item .small_text
+{
+    margin-top: 10px;
+    color: #FFF;
+    font-size: 18px;
+    line-height: 20px;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item .fade_back
+{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.4;
+}
+
+.trainer_area .trainer_slides_area .trainer_slider_item .step_val
+{
+    position: absolute;
+    width: 30px;
+    top: 10px;
+    left: 50%;
+    margin-left: -15px;
+    color: #FFF;
+    font-size: 12px;
+    display: none;
+}
+.trainer_area .trainer_slides_area .trainer_slider_item .step_val.active
+{
+    display: block;
+}
+
+.trainer_area .error_text
+{
+    color: #c80000;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 15px 0;
+    width: 650px;
+}
+
+.trainer_area .text_area
+{
+    font-size: 16px;
+    line-height: 20px;
+    padding: 15px 0;
+    width: 650px;
+}
+
+.trainer_area .quest_area
+{
+    position: relative;
+}
+
+.trainer_area .quest_area .answer_line
+{
+    padding: 15px 0;
+}
+.trainer_area .quest_area .answer_line:first-of-type
+{
+    padding-top: 30px;
+}
+
+.trainer_area .quest_area .answer_line label
+{
+    position: relative;
+    bottom: 1px;
+    margin-left: 3px;
+    display: inline;
+}
+.trainer_area .quest_area .answer_line.r label
+{
+    color: #080;
+}
+.trainer_area .quest_area .answer_line.w label
+{
+    color: #c10000;
+}
+.trainer_area .quest_area .answer_line.rw label
+{
+    color: #4d4;
+}
+
+.trainer_area .quest_area .answer_line .res_val
+{
+    display: inline-block;position: relative;
+    bottom: 1px;
+    margin-left: 15px;
+}
+
+.button_trainer
+{
+    margin: 10px 0 10px 240px;
+    color: #000;
+    cursor: pointer;
+    background: #ffdd00;
+    padding: 8px 0;
+    width: 190px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+
+    /*-webkit-transition: 0.2s width ease-in-out;
+    -moz-transition: 0.2s width ease-in-out;
+    -ms-transition: 0.2s width ease-in-out;
+    -o-transition: 0.2s width ease-in-out;
+    transition: 0.2s width ease-in-out;*/
+}
+.button_trainer:hover
+{
+    color: #000;
+    /*width: 151px;*/
+    background: #ffeF2F;
+}
+.button_trainer.restart_trainer
+{
+    color: #FFF;
+    background: #d22829;
+}
+.button_trainer.restart_trainer:hover
+{
+    color: #FFF;
+    background: #e3393a;
+}
+
+/* ----- trainer css */
+
+
+h3.sup {
+    width: 100%;
+    text-align: center;
+    font-size: 19px;
+    /*font-weight: 200!important;*/
+    font-family: Verdana;
+}
+h3.sup2 {
+    margin: 0 0 5px 0;
+}
+.note .text_blocks td {
+    padding: 0px 22px 0px 22px;
+    width: 25%;
+    text-align: center;
+    vertical-align: top;
+}
+.note .photo_blocks td {
+    padding: 0px 22px 0px 22px;
+    width: 25%;
+    text-align: center;
+    vertical-align: top;
+}
+
+.note .photo_blocks img {
+    width: 80px;
+}
+
+.note ul {
+    margin-left: 20px;
+}
+
+.note ul li {
+    margin-bottom: 0px;
+}
+
+.note .n_link {
+    text-decoration:underline!important;
+}
+
+.t_block {
+    text-align: left;
+}
+
+.m_text {
+    font-size: 11px;
+}
+
+.pict_list img {
+    margin: 10px 10px 10px 0px;
+    width: 50px;
+}
+
+.pict_list .p_title {
+    font-size: 18px;
+}
+
+.pict_td {
+    width: 80px;
+    text-align: right;
+}

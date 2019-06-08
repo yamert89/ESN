@@ -1,0 +1,109 @@
+#myTreeContainer{
+    overflow: auto;
+    display: inline-block;
+}
+.staff_container{
+    min-width: 200px;
+    overflow-y: auto;
+    display: inline-block;
+    /* max-height: 95%;*/
+    margin-left: 5px;
+    flex: 1 1 auto;
+
+
+}
+canvas{
+    overflow: auto;
+    /* width: 2000px;
+     height: 2000px;*/
+}
+.block_item_container{
+    margin-top: 10px;
+}
+.person_photo_staff{
+    width: 100px;
+    margin: 2px 10px;
+}
+.person_photo_staff:hover{
+    opacity: 0.5;
+    border: 2px solid rgba(0, 0, 0, 0.51);
+    width: 96px;
+
+}
+
+.person_staff{
+    width: 100%;
+    height: 100px;
+    /*margin-top: 20px;*/
+    margin: 10px 0;
+    /*overflow: hidden;*/
+
+
+
+}
+
+.person_point{
+    display: inline-block;
+    line-height: 2em;
+
+
+
+}
+.person_name_staff{
+}
+.person_position{
+}
+.flowchart_wrapper{
+    display: flex;
+     min-width: 300px;
+    /* height: calc(100% - 41px);
+     line-height: calc(100% - 41px);
+     max-height: calc(100% - 41px);*/
+    flex: 5 1 auto;
+    flex-direction: column;
+}
+.flowchart_frame{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 7px;
+    flex: 1 1 auto;
+
+}
+
+.tree_wrapper{
+    margin: 5px;
+
+
+    display: flex;
+    justify-content: stretch;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+
+}
+.node_tool{
+    height: 24px;
+    margin: 0 5px;
+}
+.node_tool:hover{
+    opacity: 0.7;
+}
+
+.node_tools{
+    margin-top: 10px;
+    display: inline-block;
+}
+.block_item_container{
+    padding: 0 5px;
+}
+button{
+    margin: 0 20px;
+
+}
+.features{
+    flex: 0 0 auto;
+}
+

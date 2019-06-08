@@ -2,7 +2,6 @@ package esn.db.message;
 
 
 import esn.configs.GeneralSettings;
-import esn.db.syntax.Syntax;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.entities.secondary.Post;

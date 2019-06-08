@@ -1,0 +1,133 @@
+body{
+    background-color: rgba(59, 59, 31, 0.15);
+}
+label{
+    width: max-content;
+}
+
+input, select{
+    width: 60%;
+}
+select{
+    margin: 2px;
+}
+.properties_board{
+    width: 40%;
+    min-width: 768px;
+    margin: 50px auto;
+    padding: 10px 0;
+    border: 3px ridge #c3cda9;
+    border-radius: 10px;
+}
+.prop_line{
+    margin: 5px 30px;
+}
+.prop_label{
+    display: inline-block;
+    flex: 1 1 auto;
+    margin-right: 10px;
+    /*width: 38%;*/
+
+}
+.commit{
+    width: 30%;
+}
+.inline{
+    display: flex;
+    flex: 0 0 auto;
+    margin: 3px 0;
+}
+.inline_parent{
+    text-align: right;
+    vertical-align: middle;
+}
+input[type=file]{
+    width: auto;
+}
+.title_pref{
+    text-align: center;
+}
+input[type='checkbox']{
+    width: auto;
+}
+input[type=button]{
+    margin: 0 5px;
+    width: 30%;
+}
+h3{
+    transform: translateX(100%);
+}
+
+.password_board{
+    border-top: 1px solid rgba(128, 128, 128, 0.31);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.31);
+    display: none;
+    background-color: rgba(0, 0, 0, 0.09);
+    padding: 10px;
+}
+
+.prop_log_view{
+    color: red;
+    margin: 10px;
+    min-height: 1em;
+}
+.prop_log_fadeout{
+    color: transparent;
+    transition: 1s ease-out 1.5s;
+}
+#password_cancel, #password_save{
+    margin-right: 30px;
+    flex: 0 1 25%;
+}
+span{
+    flex: 1 0 auto;
+}
+img{
+    border: 1px solid rgba(128, 128, 128, 0.41);
+}
+#main-btn{
+    width: 150px;
+    margin: 0 auto;
+    display: block;
+}
+.position_delete{
+    height: 1em;
+    border: none;
+    margin-left: 10px;
+}
+.positions{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.11);
+    padding: 5px;
+    border-radius: 3px;
+    min-height: 2em;
+}
+.position{
+    display: flex;
+}
+.position_name{
+    flex: 1 1 auto;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+input{
+    flex: 0 1 70%;
+    border-radius: 3px;
+}
+button, input[type=submit], input[type=button]{
+    font-size: 0.9em!important;
+    margin: 0 5px;
+    flex: 1 0 auto;
+}
+hr{
+    size: 1px;
+    border-color: rgba(240, 232, 173, 0.44);
+    flex: 1 0 1px;
+    width: 92%;
+
+}

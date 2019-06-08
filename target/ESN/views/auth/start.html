@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../resources/static/auth/start.css">
+    <link rel="stylesheet" href="../../resources/static/gen.css">
+    <script src="../../resources/libs/jquery_3.1.0.js"></script>
+    <script type="text/javascript">
+        /*$(document).ready(function () {
+            $(":button").click(function () {
+                $(this).addClass("clicked");
+                var input = $(".department_adder");
+                $(".l").append("<option>" + input.val() + '</option>');
+                setTimeout(unselect, 200);
+                input.val('');
+            });
+        });
+        function unselect() {
+            $(":button").removeClass("clicked");
+        }*/
+    </script>
+</head>
+<body>
+
+<div class="reg_container reg_org_container">
+    <form>
+    <div class="reg_block">
+        <label>
+            Введите название организации:
+            <input type="text">
+            <img class="checkbox" src="../../resources/checkbox.jpg">
+        </label>
+    </div>
+    <div class="reg_block">
+        <label>
+            Добавьте описание:
+            <textarea></textarea>
+            <img class="checkbox" src="../../resources/checkbox.jpg">
+        </label>
+    </div>
+    <div class="reg_block">
+        <input type="submit" class="auth_submit_button" value="Зарегистрировать">
+    </div>
+    </form>
+
+</div>
+</body>
+</html>

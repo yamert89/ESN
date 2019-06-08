@@ -1,0 +1,66 @@
+.btn_gray.comm {
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.calendar-info-block .detail,
+.calendar-info-block .preview,
+.calendar-info-block ul,
+.calendar_annotation
+{
+    font-size: 12px;
+    font-family: Verdana;
+}
+
+.calendar-info-block .detail .yellow-border1
+{
+    padding: 20px;
+}
+
+
+div.calendar_annotation div.item_annotation {
+    display: inline-block;
+    height: 36px;
+    width: 300px;
+}
+
+
+.calendar-info-block .detail, .calendar-info-block .preview, .calendar-info-block ul, .calendar_annotation {
+    font-family: Verdana;
+    font-size: 12px;
+}
+
+div.calendar_annotation div.item_annotation a {
+    background: none repeat scroll 0 0 #E0DCBB;
+    display: inline-block;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    text-decoration: none;
+    width: 28px;
+}
+
+div.calendar_annotation a.dtype16475, .kvartal-block .kvartal-item table tr td a.dtype16475 {
+    color: #CC0000 !important;
+}
+
+div.calendar_annotation a.dtype16474, .kvartal-block .kvartal-item table tr td a.dtype16474 {
+    background: none repeat scroll 0 0 #F5F5F5 !important;
+    color: #333333 !important;
+}
+
+div.calendar_annotation a.dtype16477, .kvartal-block .kvartal-item table tr td a.dtype16477 {
+    color: #0066CC !important;
+}
+
+.messages .captchaError {
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #cc0000;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+.calendar_annotation{
+    margin: 10px;
+}

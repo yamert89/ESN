@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="block.css">
+    <link rel="stylesheet" href="../../../../libs/ECOTree-master/ECOTree.css">
+    <script src="../../../../libs/ECOTree-master/ECOTree.js"></script>
+    <script src="../../../../libs/jquery_3.1.0.js"></script>
+    <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v"/>
+    <style>v\:*{ behavior:url(#default#VML);}</style>
+    <xml:namespace ns="urn:schemas-microsoft-com:vml" prefix="v" />
+    <script>
+        var exportData = [];
+        function ExportDep(name, id, parentId){
+            this.name = name;
+            this.id = id;
+            this.parentId = parentId;
+        }
+        $(document).ready(function () {
+            createTree();
+
+
+
+            $("img").not(".node_plus").click(function () {
+               nodePlusOnClick();
+            });
+
+
+
+        });
+        function clickNode(tree, targetid, nodeid) {
+            if (targetid == '') targetid = nodeid;
+            //alert('tree ' + tree + ' targetid: .' + targetid + '. nodeid: ' + nodeid);
+            window.top.loadSt(nodeid);
+            ECOTree._canvasNodeClickHandler(tree, targetid, nodeid);
+
+        }
+
+
+
+        function createTree() {
+           myTree = new ECOTree('myTree','myTreeContainer');
+           var orgName = window.parent.orgName;
+           createSomeNode(0, -1, orgName);
+            console.log("createtree");
+
+           $.ajax({
+               url:"/getstaff",
+               type:"get",
+               contentType:"json",
+               success: createData,
+               error:exc,
+               timeout:30000
+           });
+        }
+
+        function createData(data) {
+
+            if (data[0].name !== 'default') return;
+
+            window.top.setStructData(data[0].children);
+            for (var i = 0; i < data[0].children.length; i++) {
+                addChildFromData(data[0].children[i]);
+            }
+
+            if (!data[1]) $(".node_tools").remove();
+
+        }
+
+        function addChildFromData(dep) {
+            var id = dep.id;
+            var name = dep.name;
+            var parentID = dep.parentId;
+            createSomeNode(id, parentID, name);
+            dep.children.forEach(function (el) {
+                addChildFromData(el);
+            });
+        }
+
+        function exc(e) {
+            notify('Ошибка на сервере');
+        }
+
+
+        function addChild(parent) {
+            var name = prompt("Введите название дочернего подразделения", "");
+            while (name.length === 0) {
+                notify("Назавание не может быть пустым");
+                name = prompt("Введите название подраздела", "");
+            }
+            var nodeId = Date.now();
+            createSomeNode(nodeId, parent, name);
+            //exportData = exportData.concat('{"name": \"' + name + '\", "id" : ' + nodeId +', "parentId" :' + parent + '},')
+            exportData.push(new ExportDep(name, nodeId, parent));
+            window.top.enableSaveStruct();
+            window.top.addChildToData(nodeId, name, parent);
+
+        }
+        
+        function createSomeNode(id, parent, name) {
+            var l = (name.length * 14) + 9;
+            if (l < 68) l = 68;
+            myTree.add(id, parent, name, l);
+            myTree.UpdateTree();
+            nodePlusOnClick();
+
+        }
+
+        function nodePlusOnClick() {
+            var node_pluse = $(".node_plus");
+            node_pluse.on("click", function () {
+                addChild($(this).parent().parent().attr('id'));
+            });
+            node_pluse.attr("src", "../../../../plus.png");
+        }
+    </script>
+</head>
+<body>
+<div id="myTreeContainer"></div>
+</body>
+</html>

@@ -6,8 +6,13 @@ import esn.entities.Organization;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +21,10 @@ import java.util.List;
 @Repository
 @Transactional
 public class GlobalDAO implements InitializingBean {
+
+    @Autowired
+    @Qualifier("transactionManager")
+    PlatformTransactionManager txManager;
 
 
 
@@ -37,16 +46,18 @@ public class GlobalDAO implements InitializingBean {
         em.persist(group);
     }
 
-    @Transactional
+
     public void initDB(){
+        TransactionStatus ts = txManager.getTransaction(new DefaultTransactionDefinition());
         em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
         em.createNativeQuery("create table generalchat " + syntax.createTableConstraints()).executeUpdate();
+        txManager.commit(ts);
     }
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-       // initDB(); //TODO
+       initDB(); //TODO
     }
 
 }
