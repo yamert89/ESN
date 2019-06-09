@@ -5,7 +5,6 @@ import esn.entities.Organization;
 import esn.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.Collections;
 
 @Controller
@@ -38,8 +36,8 @@ public class OrgController {
     }
 
     @PostMapping("/neworg")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam String pos){
+    //@ResponseStatus(code = HttpStatus.CREATED)
+    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam(required = false) String pos){
         System.out.println("positions : " + pos);
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
@@ -62,8 +60,8 @@ public class OrgController {
 
     @GetMapping("/{org}/profile")
     /*Secured(value = "ROLE_USER")*/
-    @PreAuthorize("hasRole('ROLE_ADMIN') or !@orgDao.hasAdmin(#org)")
-    public String orgProfile(@PathVariable @P("org") String org, Model model, Principal principal){
+    @PreAuthorize("!@orgDao.hasAdmin(#org) or hasRole('ROLE_ADMIN')")
+    public String orgProfile(@PathVariable @P("org") String org, Model model){
 
         Organization organization = orgDao.getOrgByURL(org);
         model.addAttribute(organization);

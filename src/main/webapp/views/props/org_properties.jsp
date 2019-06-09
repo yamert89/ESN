@@ -24,6 +24,9 @@
                 }
             });
             $(document).on('submit', function () {
+                var urlName = $(".urlName");
+                var val = urlName.val();
+                if (val[0] == "/") urlName.val(val.substr(1));
                 var str = '';
                 $('.position').each(function (idx, el) {
                     el = el.getElementsByClassName('position_name')[0];
@@ -85,7 +88,7 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Относительный URL:</div>
-                <s:input path="urlName" type="text" value="/${organization.urlName}" readonly="true"/>
+                <s:input path="urlName" type="text" value="/${organization.urlName}" readonly="true" cssClass="urlName"/>
                 <s:errors path="urlName" cssClass="jspError"/>
             </div>
         </div>
