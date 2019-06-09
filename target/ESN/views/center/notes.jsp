@@ -33,7 +33,7 @@
 System.out.println(((User) session.getAttribute("user")).getNotes());%>
     <c:forEach var="note" items='${sessionScope.get("user").notes}'>
         <div class="note">
-            <div class="date"><fmt:formatDate value="${note.corpKey}" pattern="HH:mm:ss / dd.MM"/></div>
+            <div class="date"><fmt:formatDate value="${note.key}" pattern="HH:mm:ss / dd.MM"/></div>
             <div class="note_text">${note.value}</div>
         </div>
     </c:forEach>

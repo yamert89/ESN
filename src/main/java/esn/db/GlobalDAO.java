@@ -48,16 +48,30 @@ public class GlobalDAO implements InitializingBean {
 
 
     public void initDB(){
+
         TransactionStatus ts = txManager.getTransaction(new DefaultTransactionDefinition());
-        em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
-        em.createNativeQuery("create table generalchat " + syntax.createTableConstraints()).executeUpdate();
-        txManager.commit(ts);
+        try {
+            em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
+            txManager.commit(ts);
+        }catch (Exception e){
+            txManager.rollback(ts);
+        }
+
+        ts = txManager.getTransaction(new DefaultTransactionDefinition());
+
+        try{
+            em.createNativeQuery("create table generalchat " + syntax.createTableConstraints()).executeUpdate();
+            txManager.commit(ts);
+        }catch (Exception e){
+            txManager.rollback(ts);
+        }
+
     }
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-       initDB(); //TODO
+       initDB(); //TODO uncomment
     }
 
 }

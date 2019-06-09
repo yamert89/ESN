@@ -39,9 +39,9 @@
             <a href="/reg">Регистрация</a>
             <input type="submit" class="auth_submit_button" value="Войти">
         </div>
+        <div class="reg_block jspError"><c:if test="${error}">Неправильный логин или пароль</c:if></div>
 
     </form>
-    <div class="jspError">${error}</div>
 </div>
 
 </body>

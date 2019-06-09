@@ -31,9 +31,12 @@
       <intercept-url pattern="/**"  access="hasRole('USER') or hasRole('ADMIN')"/>
 
 
-      <form-login default-target-url="/postauth" always-use-default-target="true"
+      <form-login default-target-url="/postauth"
+                  always-use-default-target="true"
                   login-processing-url="/login"
-                  login-page="/auth"/>
+                  login-page="/auth"
+                  authentication-failure-url="/auth?error=true"
+      />
        <csrf disabled="true"/>
       <!--<session-management invalid-session-url="/views/service/invalid_session.jsp" session-authentication-error-url="/views/service/error_auth.jsp"/>-->
        <remember-me token-validity-seconds="259200"/>

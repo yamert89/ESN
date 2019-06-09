@@ -59,7 +59,7 @@ public class OrgController {
         }
 
 
-        return "redirect:/" + org.getUrlName();
+        return "redirect:/" + org.getUrlName() + "/profile";
     }
 
     @GetMapping("/{org}/profile")

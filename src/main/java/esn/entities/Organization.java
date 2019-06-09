@@ -33,7 +33,7 @@ public class Organization {
     @Column(length = 1000)
     private String description;
 
-    @Column(columnDefinition = "varchar(255) default '/resources/header.jpg")
+    @Column(columnDefinition = "varchar(255) default '/resources/header.jpg'")
     private String headerPath;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)

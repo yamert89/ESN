@@ -62,8 +62,8 @@ public class UserController {
 
 
     @GetMapping("/auth")
-    public String showAuthPage(HttpServletRequest request){
-        System.out.println(request);
+    public String showAuthPage(@RequestParam(required = false) String error, Model model){
+        model.addAttribute("error", error != null);
         return "auth";
     }
 

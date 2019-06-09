@@ -2,10 +2,7 @@
 
 https://buh.ru/calendar/2019/
 
-user_properties
 
-- avatar
-- department
-- position
-- password
-- login
+
+//FIXME проверить на дубликаты при регистрации сущностей и отклик юзеру
+
