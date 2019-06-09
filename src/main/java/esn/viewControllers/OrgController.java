@@ -3,8 +3,8 @@ package esn.viewControllers;
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
 import esn.utils.ImageUtil;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
@@ -53,12 +53,10 @@ public class OrgController {
         org.setAdminKey(adminKey);
         try {
             orgDao.persistOrg(org);
-        } catch (ConstraintViolationException e){
-            result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой")); //TODO test
+        } catch (DataIntegrityViolationException e){
+            result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
             return "neworg";
         }
-
-
         return "redirect:/" + org.getUrlName() + "/profile";
     }
 

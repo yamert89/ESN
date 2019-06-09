@@ -137,7 +137,7 @@ public class Main {
         organization.addDepartment(department);
 
 
-        organizationDAO.persistOrg(organization);
+       // organizationDAO.persistOrg(organization);
 
     }
     private void pojoTest(){
