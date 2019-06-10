@@ -64,19 +64,20 @@ public class OrgController {
         return "redirect:/" + org.getUrlName() + "/profile";
     }
 
-    @GetMapping("/{org}/profile")
+    @GetMapping("/{organ}/profile")
     /*Secured(value = "ROLE_USER")*/
-    @PreAuthorize("!@orgDao.hasAdmin(#org) or hasRole('ROLE_ADMIN')")
-    public String orgProfile(@PathVariable @P("org") String org, Model model){
+    @PreAuthorize("!@orgDao.hasAdmin(#organ) or hasRole('ROLE_ADMIN')")
+    public String orgProfile(@PathVariable @P("organ") String organ, Model model, HttpSession session){
 
-        Organization organization = orgDao.getOrgByURL(org);
+        Organization organization = orgDao.getOrgByURL(organ);
+        session.setAttribute("org", organization);
         model.addAttribute("org", organization);
         return "org_profile";
     }
 
-    @PostMapping("/{org}/profile")
+    @PostMapping("/{organ}/profile")
     public String profileSubmit(@Valid @ModelAttribute Organization organization, @RequestParam String pos,
-                                @RequestParam MultipartFile header, @PathVariable String org, BindingResult bindingResult, Model model, HttpSession session){
+                                @RequestParam MultipartFile header, @PathVariable String organ, BindingResult bindingResult, Model model, HttpSession session){
         Organization orgFromSession = (Organization) session.getAttribute("org");
         if (bindingResult.hasErrors()) return "org_profile";
         String[] poss = pos.split("@@@");
@@ -88,7 +89,7 @@ public class OrgController {
         if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
         orgFromSession.updateFromForm(organization);
         orgDao.update(orgFromSession);
-        model.addAttribute(orgFromSession);
+        model.addAttribute("org", orgFromSession);
         return "org_profile";
     }
 }

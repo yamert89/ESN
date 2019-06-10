@@ -5,7 +5,6 @@ import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
-import esn.entities.secondary.UserInformation;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,7 +137,7 @@ public class UserController {
     }
 
     @PostMapping("/reg")
-    @ResponseStatus(code = HttpStatus.CREATED)
+    @ResponseStatus(code = HttpStatus.OK)
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
         System.out.println("orgKey = " + orgKey);
