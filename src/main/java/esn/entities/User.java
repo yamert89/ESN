@@ -9,14 +9,11 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Cloneable{
 
     @Id
     @GeneratedValue
@@ -231,6 +228,21 @@ public class User {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    public void updateFromForm(User source){
+        UserInformation inf = source.getUserInformation();
+        Calendar birth = inf.getBirthDate();
+        String phoneMobile = inf.getPhoneMobile();
+        String phoneWork = inf.getPhoneWork();
+        String phoneInternal = inf.getPhoneInternal();
+        String email = inf.getEmail();
+        if (source.position != null) this.position = source.position;
+        if (birth != null) userInformation.setBirthDate(birth);
+        if (phoneMobile != null) userInformation.setPhoneMobile(phoneMobile);
+        if (phoneWork != null) userInformation.setPhoneWork(phoneWork);
+        if (phoneInternal != null) userInformation.setPhoneInternal(phoneInternal);
+        if (email != null) userInformation.setEmail(email);
     }
 
     @Override

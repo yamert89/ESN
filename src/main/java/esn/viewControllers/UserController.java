@@ -252,7 +252,7 @@ public class UserController {
         }
 
         userFromSession.getUserInformation().setBoss(userDAO.getUserById(Integer.parseInt(boss)));
-        String position = user.getPosition();
+       /* String position = user.getPosition();
         UserInformation inf = user.getUserInformation();
         birth = inf.getBirthDate();
         String phoneMobile = inf.getPhoneMobile();
@@ -266,17 +266,19 @@ public class UserController {
         if (phoneMobile != null) inf2.setPhoneMobile(phoneMobile);
         if (phoneWork != null) inf2.setPhoneWork(phoneWork);
         if (phoneInternal != null) inf2.setPhoneInternal(phoneInternal);
-        if (email != null) inf2.setEmail(email);
+        if (email != null) inf2.setEmail(email);*/
+
+        userFromSession.updateFromForm(user);
 
         userDAO.updateUser(userFromSession);
         model.addAttribute("saved", 1);
-        User us = userDAO.getUserWithInfo(userFromSession.getId());
-        model.addAttribute(us);
+        //User us = userDAO.getUserWithInfo(userFromSession.getId());
+        model.addAttribute(userFromSession);
         Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
         model.addAttribute("bosses", allUsers);
         model.addAttribute("saved", true);
-        model.addAttribute("user", us);
-        session.setAttribute("user", us);
+        model.addAttribute("user", userFromSession);
+        session.setAttribute("user", userFromSession);
         return "userSettings";
     }
 

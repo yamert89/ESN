@@ -158,6 +158,11 @@ public class Organization {
         this.adminKey = adminKey;
     }
 
+    public void updateFromForm(Organization source){
+        if (source.getName() != null) name = source.getName();
+        if (source.getUrlName() != null) urlName = source.getUrlName();
+    }
+
     public User getUserByLogin(String nickname){
         try {
             for (User user:

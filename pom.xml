@@ -27,6 +27,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+  <distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>Internal repo</name>
+      <url>file://D:/Java/JavaProject/esn</url>
+    </repository>
+  </distributionManagement>
 
 
   <dependencies>
@@ -41,6 +48,7 @@
       <groupId>org.webjars</groupId>
       <artifactId>jquery</artifactId>
       <version>3.1.0</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->

@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Collections;
 
@@ -70,14 +71,16 @@ public class OrgController {
 
     @PostMapping("/{org}/profile")
     public String profileSubmit(@Valid @ModelAttribute Organization organization, @RequestParam String pos,
-                                @RequestParam MultipartFile header, @PathVariable String org, BindingResult bindingResult, Model model){
+                                @RequestParam MultipartFile header, @PathVariable String org, BindingResult bindingResult, Model model, HttpSession session){
+        Organization orgFromSession = (Organization) session.getAttribute("org");
         if (bindingResult.hasErrors()) return "org_profile";
         String[] poss = pos.split("@@@");
-        organization.getPositions().clear();
-        Collections.addAll(organization.getPositions(), poss );
+        orgFromSession.getPositions().clear();
+        Collections.addAll(orgFromSession.getPositions(), poss );
         if (!header.isEmpty()) ImageUtil.writeHeader(organization, header);
-        orgDao.update(organization);
-        model.addAttribute(organization);
+        orgFromSession.updateFromForm(organization);
+        orgDao.update(orgFromSession);
+        model.addAttribute(orgFromSession);
         return "org_profile";
     }
 }
