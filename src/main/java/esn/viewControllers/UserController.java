@@ -155,15 +155,7 @@ public class UserController {
             return "reg";
         }
 
-        if (!image.isEmpty()) {
-            ImageUtil.writeAvatar(user, image);
-        } else {
-            String defAvatarName = user.isMale() ? "/man.jpg" : "/wom.jpg";
-            String defAvatarName_small = user.isMale() ? "/man_small.jpg" : "/wom_small.jpg";
-            user.setPhoto(defAvatarName);
-            user.setPhoto_small(defAvatarName_small); //TODO TEST
 
-        }
 
         System.out.println(user);
         System.out.println(user.getPassword());
@@ -175,6 +167,16 @@ public class UserController {
  /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setAuthority("ROLE_USER");
+
+        if (!image.isEmpty()) {
+            ImageUtil.writeAvatar(user, image);
+        } else {
+            String defAvatarName = user.isMale() ? "/man.jpg" : "/wom.jpg";
+            String defAvatarName_small = user.isMale() ? "/man_small.jpg" : "/wom_small.jpg";
+            user.setPhoto(defAvatarName);
+            user.setPhoto_small(defAvatarName_small); //TODO TEST
+
+        }
 
         userDAO.persistUser(user);
 

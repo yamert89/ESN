@@ -13,6 +13,7 @@
     <title>Title</title>
     <script type="text/javascript">
         $(document).ready(function () {
+            var orgUrl = $(".properties_board").attr('data-url');
            $('.position_add_button').click(addPosition);
            $(document).on('click', '.position_delete', function () {
                $(this).parent().remove();
@@ -46,6 +47,10 @@
                     $.ajax({url:"/delete_org", data:{orgId:id}})
                 }
             })
+
+            $("#main-btn").click(function () {
+                location.href = "/" + orgUrl + "/wall/"
+            });
         });
         function copy(selector) {
             var el = document.querySelector(selector);
@@ -74,13 +79,13 @@
     </script>
 </head>
 <body>
-<div class="properties_board" data-id="${organization.id}">
+<div class="properties_board" data-id="${org.id}" data-url="${org.urlName}">
     <div class="prop_line title_pref"><h2>Настройки</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="organization" method="post">
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Название:</div>
-                <s:input path="name" type="text" value="${organization.name}"/>
+                <s:input path="name" type="text" value="${org.name}"/>
                 <s:errors path="name" cssClass="jspError"/>
             </div>
         </div>
@@ -88,7 +93,7 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Относительный URL:</div>
-                <s:input path="urlName" type="text" value="/${organization.urlName}" readonly="true" cssClass="urlName"/>
+                <s:input path="urlName" type="text" value="/${org.urlName}" readonly="true" cssClass="urlName"/>
                 <s:errors path="urlName" cssClass="jspError"/>
             </div>
         </div>
@@ -104,12 +109,15 @@
             <div class="inline">
                 <div class="prop_label">Перечень должностей:</div>
                 <div class="positions">
-                    <c:forEach var="pos" items="${organization.positions}">
-                    <div class="position">
-                            <div class="position_name">${pos}</div>
-                            <img class="position_delete" src="<c:url value="/resources/cross.png"/>" title="Удалить должность"/>
-                    </div>
-                    </c:forEach>
+                    <c:if test="${org.positions.size() > 0}">
+                        <c:forEach var="pos" items="${org.positions}">
+                            <div class="position">
+                                <div class="position_name">${pos}</div>
+                                <img class="position_delete" src="<c:url value="/resources/cross.png"/>" title="Удалить должность"/>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+
                 </div>
             </div>
             <div class="inline">
@@ -121,14 +129,14 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Ключ администратора:</div>
-                <input type="text" readonly value="${organization.adminKey}" title="Необходим при регистрации пользователя с правами администратора" id="adminKey" size="60" minlength="60"/>
+                <input type="text" readonly value="${org.adminKey}" title="Необходим при регистрации пользователя с правами администратора" id="adminKey" size="60" minlength="60"/>
                 <button type="button" onclick="copy('#adminKey')">Скопировать</button>
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Общий корпоративный ключ:</div>
-                <input type="text" readonly value="${organization.corpKey}" title="Необходим при регистрации пользователей" id="corpKey" size="60" minlength="60"/>
+                <input type="text" readonly value="${org.corpKey}" title="Необходим при регистрации пользователей" id="corpKey" size="60" minlength="60"/>
                 <button type="button" onclick="copy('#corpKey')">Скопировать</button>
             </div>
         </div>

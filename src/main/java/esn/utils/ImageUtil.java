@@ -66,18 +66,19 @@ public class ImageUtil {
         try {
             String extension = ImageUtil.getExtension(image);
 
-            String path = GeneralSettings.STORAGE_PATH.concat("/avatars/").concat(user.getOrganization().getUrlName())
-                    .concat("/").concat(user.getLogin());
+            String avatarsPath = "/" + user.getOrganization().getUrlName() + "/" + user.getLogin();
 
-            String fileName = path.concat("/avatar_big.").concat(extension);
-            String fileNameSmall = path.concat("/avatar_small.").concat(extension);
+            String path = GeneralSettings.STORAGE_PATH + avatarsPath;
+
+            String fileName = "/avatar_big." + extension;
+            String fileNameSmall = "/avatar_small." + extension;
             byte[] bytes = image.getBytes();
             byte[] bigImage = ImageUtil.resizeBig(bytes, extension);
             byte[] smallImage = ImageUtil.resizeSmall(bytes, extension);
-            writeImage(fileName, bigImage);
-            writeImage(fileNameSmall, smallImage);
-            user.setPhoto(fileName);
-            user.setPhoto_small(fileNameSmall);
+            writeImage(path + fileName, bigImage);
+            writeImage(path + fileNameSmall, smallImage);
+            user.setPhoto(avatarsPath + fileName);
+            user.setPhoto_small(avatarsPath + fileNameSmall);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,13 +89,14 @@ public class ImageUtil {
     public static void writeHeader(Organization org, MultipartFile image){
         try {
             String extension = ImageUtil.getExtension(image);
-            String fileName = GeneralSettings.STORAGE_PATH.concat("/").concat(org.getUrlName()).concat("/header.").concat(extension);
+            String headerPath = "/" + org.getUrlName() + "/header." + extension;
+            String fileName = GeneralSettings.STORAGE_PATH.concat(headerPath);
             byte[] bytes = image.getBytes();
             writeImage(fileName, bytes);
-            org.setHeaderPath(fileName);
+            org.setHeaderPath(headerPath);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Ошибка записи аватара");
+            System.out.println("Ошибка записи хэдера");
         }
     }
 

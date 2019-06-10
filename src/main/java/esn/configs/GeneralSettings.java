@@ -19,7 +19,7 @@ public class GeneralSettings {
         try {
             String path = GeneralSettings.class.getClassLoader().getResource("").getPath();
             Path p = java.nio.file.Paths.get(path.substring(1));
-            p = java.nio.file.Paths.get(p.getParent().getParent().toString(), "/resources/");
+            p = java.nio.file.Paths.get(p.getParent().getParent().toString(), "/resources/data/");
             STORAGE_PATH = p.toString();
 
             Properties properties = new Properties();

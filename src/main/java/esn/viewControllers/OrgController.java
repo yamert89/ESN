@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class OrgController {
@@ -38,7 +40,7 @@ public class OrgController {
 
     @PostMapping("/neworg")
     //@ResponseStatus(code = HttpStatus.CREATED)
-    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam(required = false) String pos){
+    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam(required = false) String pos, HttpSession session){
         System.out.println("positions : " + pos);
         if (result.hasErrors()) return "neworg";
         System.out.println(result.getFieldErrors().size());
@@ -48,6 +50,8 @@ public class OrgController {
 
         String[] poss = pos.split("@@@");
         Collections.addAll(org.getPositions(), poss );
+        if (org.getPositions() == null) org.setPositions(new HashSet<>());
+        org.getPositions().clear();
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
         try {
@@ -56,6 +60,7 @@ public class OrgController {
             result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
             return "neworg";
         }
+        session.setAttribute("org", org);
         return "redirect:/" + org.getUrlName() + "/profile";
     }
 
@@ -65,7 +70,7 @@ public class OrgController {
     public String orgProfile(@PathVariable @P("org") String org, Model model){
 
         Organization organization = orgDao.getOrgByURL(org);
-        model.addAttribute(organization);
+        model.addAttribute("org", organization);
         return "org_profile";
     }
 
@@ -75,9 +80,12 @@ public class OrgController {
         Organization orgFromSession = (Organization) session.getAttribute("org");
         if (bindingResult.hasErrors()) return "org_profile";
         String[] poss = pos.split("@@@");
+        Set<String> positions = orgFromSession.getPositions();
+        if (positions == null) orgFromSession.setPositions(new HashSet<>());
         orgFromSession.getPositions().clear();
         Collections.addAll(orgFromSession.getPositions(), poss );
-        if (!header.isEmpty()) ImageUtil.writeHeader(organization, header);
+        /*String headerPath*/
+        if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
         orgFromSession.updateFromForm(organization);
         orgDao.update(orgFromSession);
         model.addAttribute(orgFromSession);
