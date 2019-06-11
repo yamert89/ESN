@@ -34,7 +34,7 @@ public class OrgController {
 
     @GetMapping("/neworg")
     public String newOrg(Model model){
-        model.addAttribute(new Organization());
+        model.addAttribute("org", new Organization());
         return "neworg";
     }
 

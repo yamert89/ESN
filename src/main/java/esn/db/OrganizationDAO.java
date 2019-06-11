@@ -70,8 +70,8 @@ public class OrganizationDAO {
     }
 
     @Transactional
-    public List<String> getLogins(){
-        List<String> list = em.createQuery("select u.login from User u").getResultList();
+    public List<String> getLogins(Organization org){
+        List<String> list = em.createQuery("select u.login from User u where u.organization = :org").setParameter("org", org).getResultList();
         System.out.println(list.size());
         list.forEach(item -> item = item.intern());
         return list;

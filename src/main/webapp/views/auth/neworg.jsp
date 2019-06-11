@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="reg_container reg_org_container">
-    <springform:form method="post" modelAttribute="organization" id="organization">
+    <springform:form method="post" modelAttribute="org" id="organization">
     <div class="reg_block_org">
         <label class="reg_el">Введите название организации:</label>
         <springform:input path="name" type="text" class="reg_el"/>
