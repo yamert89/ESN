@@ -10,8 +10,10 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href='<c:url value="/resources/static/error.css"/>'>
 </head>
 <body>
-${errorMsg}
+<div class="http_error">${errorMsg}</div>
+
 </body>
 </html>
