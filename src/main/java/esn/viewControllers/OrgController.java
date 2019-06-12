@@ -5,6 +5,7 @@ import esn.entities.Organization;
 import esn.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -67,16 +71,26 @@ public class OrgController {
     @GetMapping("/{organ}/profile")
     /*Secured(value = "ROLE_USER")*/
     @PreAuthorize("!@orgDao.hasAdmin(#organ) or hasRole('ROLE_ADMIN')")
-    public String orgProfile(@PathVariable @P("organ") String organ, Model model, HttpSession session){
-
+    public ModelAndView orgProfile(@PathVariable @P("organ") String organ, Model model, HttpSession session, RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("org_profile");
         Organization organization = orgDao.getOrgByURL(organ);
+        if (organization == null){
+            RedirectView rw = new RedirectView("error");
+            rw.setStatusCode(HttpStatus.NOT_FOUND);
+            redirectAttributes.addAttribute("status", 404);
+            modelAndView.setViewName("redirect:/error");
+            //modelAndView.setStatus(HttpStatus.NOT_FOUND);
+            return modelAndView;
+        }
+
         session.setAttribute("org", organization);
-        model.addAttribute("org", organization);
-        return "org_profile";
+        modelAndView.addObject("org", organization);
+        //model.addAttribute("org", organization);
+        return modelAndView;
     }
 
     @PostMapping("/{organ}/profile")
-    public String profileSubmit(@Valid @ModelAttribute Organization organization, @RequestParam String pos,
+    public String profileSubmit(@Valid @ModelAttribute Organization org, @RequestParam String pos,
                                 @RequestParam MultipartFile header, @PathVariable String organ, BindingResult bindingResult, Model model, HttpSession session){
         Organization orgFromSession = (Organization) session.getAttribute("org");
         if (bindingResult.hasErrors()) return "org_profile";
@@ -87,7 +101,7 @@ public class OrgController {
         Collections.addAll(orgFromSession.getPositions(), poss );
         /*String headerPath*/
         if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
-        orgFromSession.updateFromForm(organization);
+        orgFromSession.updateFromForm(org);
         orgDao.update(orgFromSession);
         model.addAttribute("org", orgFromSession);
         return "org_profile";

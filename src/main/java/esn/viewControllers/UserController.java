@@ -60,7 +60,7 @@ public class UserController {
     }*/
 
 
-    @GetMapping("/auth")
+    @GetMapping(value = "/auth", headers = "Accept=text/html")
     public String showAuthPage(@RequestParam(required = false) String error, Model model){
         model.addAttribute("error", error != null);
         return "auth";
@@ -136,7 +136,7 @@ public class UserController {
         return "reg";
     }
 
-    @PostMapping("/reg")
+    @PostMapping(value = "/reg")
     @ResponseStatus(code = HttpStatus.OK)
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){

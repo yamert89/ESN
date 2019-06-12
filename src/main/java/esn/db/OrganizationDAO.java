@@ -1,7 +1,5 @@
 package esn.db;
 
-import esn.db.syntax.PostgresSyntax;
-import esn.db.syntax.Syntax;
 import esn.entities.Organization;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
@@ -11,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 
 @Repository("orgDao")
@@ -45,9 +42,9 @@ public class OrganizationDAO {
         try {
             organization = (Organization) em.createQuery("select org from Organization org where org.urlName = :url")
                     .setParameter("url", url).getSingleResult();
-        }catch (NoSuchElementException e){
+        }catch (NoResultException e){
             System.out.println("URL " + url);
-            e.printStackTrace();
+            return null;
         }
         return organization;
     }
@@ -85,8 +82,13 @@ public class OrganizationDAO {
 
     @Transactional
     public boolean hasAdmin(String orgUrl){
-        boolean res = (boolean) em.createQuery("select org.hasAdmin from Organization org where org.urlName = :url")
-                .setParameter("url", orgUrl).getSingleResult();
+        boolean res = false;
+        try {
+            res = (boolean) em.createQuery("select org.hasAdmin from Organization org where org.urlName = :url")
+                    .setParameter("url", orgUrl).getSingleResult();
+        }catch (NoResultException e){
+            return false;
+        }
         return res;
     }
 

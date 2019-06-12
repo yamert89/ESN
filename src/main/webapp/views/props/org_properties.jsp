@@ -79,8 +79,8 @@
 
     </script>
 </head>
-<body>
-<div class="properties_board" data-id="${org.id}" data-url="${org.urlName}">
+<body><c:set value='${sessionScope.get("org")}' var="org"/>
+<div class="properties_board" data-id='${org.id}' data-url="${org.urlName}">
     <div class="prop_line title_pref"><h2>Настройки</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="org" method="post">
         <div class="prop_line">

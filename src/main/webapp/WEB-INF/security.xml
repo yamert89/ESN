@@ -26,7 +26,8 @@
       <intercept-url pattern="/views/service/**" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth1" access="hasRole('ANONYMOUSLY')"/>-->
-       <intercept-url pattern="favicon.ico" access="permitAll" />
+       <intercept-url pattern="/favicon.ico" access="permitAll" />
+       <intercept-url pattern="/error" access="permitAll" />
        <intercept-url pattern="/**/profile" access="permitAll" />
        <!--<intercept-url pattern="/**" access="permitAll" />  -->                           <!--убрать-->
        <intercept-url pattern="/login" access="permitAll" />
