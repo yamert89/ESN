@@ -104,6 +104,7 @@ public class OrgController {
         orgFromSession.updateFromForm(org);
         orgDao.update(orgFromSession);
         model.addAttribute("org", orgFromSession);
+        model.addAttribute("saved", true);
         return "org_profile";
     }
 }

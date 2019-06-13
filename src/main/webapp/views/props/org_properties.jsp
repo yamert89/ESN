@@ -13,6 +13,9 @@
     <title>Title</title>
     <script type="text/javascript">
         $(document).ready(function () {
+            var board = $(".properties_board");
+            var propLog = $(".prop_log_view");
+            if (board.attr('data-saved') == 'true') logMess("Сохранено");
             var orgUrl = $(".properties_board").attr('data-url');
            $('.position_add_button').click(addPosition);
            $(document).on('click', '.position_delete', function () {
@@ -52,6 +55,15 @@
             $("#main-btn").click(function () {
                 location.href = "/" + orgUrl + "/wall/"
             });
+
+            function logMess(message) {
+                propLog.text(message);
+                propLog.addClass("prop_log_fadeout");
+                setTimeout(function () {
+                    propLog.text("");
+                    propLog.removeClass("prop_log_fadeout");
+                }, 2500);
+            }
         });
         function copy(selector) {
             var el = document.querySelector(selector);
@@ -77,10 +89,12 @@
 
 
 
+
+
     </script>
 </head>
 <body><c:set value='${sessionScope.get("org")}' var="org"/>
-<div class="properties_board" data-id='${org.id}' data-url="${org.urlName}">
+<div class="properties_board" data-id='${org.id}' data-url="${org.urlName}" data-saved="${saved}">
     <div class="prop_line title_pref"><h2>Настройки</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="org" method="post">
         <div class="prop_line">
@@ -143,7 +157,7 @@
         </div>
         <div><hr></div>
         <div class="prop_line">
-            <input class="commit" type="submit" value="Применить Настройки" id="settings_submit">
+            <input class="commit" type="submit" value="Применить Настройки" id="settings_submit"><span class="prop_log_view"></span>
         </div>
     </s:form>
     <div><hr></div>
@@ -151,7 +165,7 @@
         <input class="commit" type="button" value="Удалить профиль" id="delete_profile" title="Удаление профиля организации. В течение месяца его можно будет восстановить, используя корпоративный ключ">
     </div>
 
-    <span class="prop_log_view"></span>
+
 </div>
 <button id="main-btn">На главную</button>
 </body>

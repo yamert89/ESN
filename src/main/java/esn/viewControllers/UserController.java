@@ -179,7 +179,7 @@ public class UserController {
 
         userDAO.persistUser(user);
 
-        return "redirect:/" + org + "/users/" + user.getLogin();
+        return "redirect:/auth";
     }
 
    /* @GetMapping("/{org}/user/{login}")
