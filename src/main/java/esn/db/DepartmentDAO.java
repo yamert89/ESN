@@ -81,7 +81,7 @@ public class DepartmentDAO {
 
     @Transactional
     public Set<Department> getChildren(Department parent){
-        List result = em.createNativeQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = ?").setParameter(1, parent).getResultList(); //TODO
+        List result = em.createQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = :parent").setParameter("parent", parent).getResultList(); //TODO
         HashSet<Department> set = new HashSet<>();
         for (Object i: result) {
             set.add(getDepartmentById((Long)i));

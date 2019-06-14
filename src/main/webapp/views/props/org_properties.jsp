@@ -28,6 +28,7 @@
                 }
             });
             $(document).on('submit', function () {
+                if()
                 var urlName = $(".urlName");
                 var val = urlName.val();
                 if (val[0] == "/") urlName.val(val.substr(1));
@@ -38,7 +39,7 @@
                 });
                 console.log(str);
                 $('.position_add_input').val(str.substr(3));
-                //TODO изменения сохранены
+
 
 
             });

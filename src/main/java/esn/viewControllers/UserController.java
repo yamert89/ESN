@@ -137,7 +137,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/reg")
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.SEE_OTHER)
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
         System.out.println("orgKey = " + orgKey);
