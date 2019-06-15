@@ -33,7 +33,6 @@
                 if(name.val() == name.attr("data-old")  &&
                     $("input[name=header]").val().length < 1 &&
                     !positionChange) {
-                    alert("work");
                     event.preventDefault();
                     return;
                 }
