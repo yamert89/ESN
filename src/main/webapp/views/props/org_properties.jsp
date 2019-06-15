@@ -12,6 +12,7 @@
 <head>
     <title>Title</title>
     <script type="text/javascript">
+        var positionChange = false;
         $(document).ready(function () {
             var board = $(".properties_board");
             var propLog = $(".prop_log_view");
@@ -27,8 +28,15 @@
                     event.preventDefault();
                 }
             });
-            $(document).on('submit', function () {
-                if()
+            $(document).on('submit', function (event) {
+                var name = $("input[name=name]");
+                if(name.val() == name.attr("data-old")  &&
+                    $("input[name=header]").val().length < 1 &&
+                    !positionChange) {
+                    alert("work");
+                    event.preventDefault();
+                    return;
+                }
                 var urlName = $(".urlName");
                 var val = urlName.val();
                 if (val[0] == "/") urlName.val(val.substr(1));
@@ -51,7 +59,7 @@
                     var id = $(".properties_board").attr('data-id');
                     $.ajax({url:"/delete_org", data:{orgId:id}})
                 }
-            })
+            });
 
             $("#main-btn").click(function () {
                 location.href = "/" + orgUrl + "/wall/"
@@ -86,6 +94,7 @@
                 '                            <div class="position_name">' + name + '</div>\n' +
                 '                            <img class="position_delete" src="/resources/cross.png" title="Удалить должность"/>\n' +
                 '                    </div>')
+            positionChange = true;
         }
 
 
@@ -101,7 +110,7 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Название:</div>
-                <s:input path="name" type="text" value="${org.name}"/>
+                <s:input path="name" type="text" value="${org.name}" data-old="${org.name}"/>
                 <s:errors path="name" cssClass="jspError"/>
             </div>
         </div>
