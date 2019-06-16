@@ -13,35 +13,39 @@
     <title>Auth</title>
 </head>
 <body>
-<div class="reg_container">
+<div class="properties_board" id="auth">
     <form method="post" id="send" action="/login">
-        <div class="reg_block">
-            <label>
-                Введите Ваше имя:&nbsp
+        <div class="prop_line">
+            <div class="inline">
+                <label class="prop_label">Введите Ваше имя:</label>
                 <input type="text" form="send" name="username"/>
+            </div>
 
-            </label>
         </div>
-        <div class="reg_block">
-            <label>
-                Введите пароль:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="prop_line">
+            <div class="inline">
+                <label class="prop_label">Введите пароль:</label>
                 <input type="password" form="send" name="password">
+            </div>
 
-            </label>
         </div>
-        <div class="reg_block">
-            <label>
-                Запомнить меня:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="prop_line">
+            <div class="inline">
+                <label class="prop_label">Запомнить меня:</label>
                 <input type="checkbox" name="remember-me" id="remember-me">
-            </label>
+            </div>
+
         </div>
-        <div class="reg_block">
-            <a href="/reg">Регистрация</a>
-            <input type="submit" class="auth_submit_button" value="Войти">
+        <div class="prop_line">
+            <div class="inline">
+                <a href="/reg">Регистрация</a>
+                <input type="submit" class="auth_submit_button commit" value="Войти">
+            </div>
+
         </div>
+        <div class="reg_block jspError"><c:if test="${error}">Неправильный логин или пароль</c:if></div>
 
     </form>
-    <div class="jspError">${error}</div>
 </div>
 
 </body>

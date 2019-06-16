@@ -40,7 +40,7 @@
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="dataSourceMySQL"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapterMySQL"/>
         <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">

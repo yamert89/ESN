@@ -9,6 +9,8 @@
       http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="esn.viewControllers" />
     <mvc:annotation-driven />
+    <!--<debug/>-->
+
 
     <http pattern="/neworg" security="none"/>
     <http pattern="/resources/**" security="none"/>
@@ -24,16 +26,21 @@
       <intercept-url pattern="/views/service/**" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth1" access="hasRole('ANONYMOUSLY')"/>-->
-       <intercept-url pattern="favicon.ico" access="permitAll" />
+       <intercept-url pattern="/favicon.ico" access="permitAll" />
+       <intercept-url pattern="/error" access="permitAll" />
+       <intercept-url pattern="/**/profile" access="permitAll" />
        <!--<intercept-url pattern="/**" access="permitAll" />  -->                           <!--убрать-->
        <intercept-url pattern="/login" access="permitAll" />
-       <intercept-url pattern="/**/profile"  access="hasRole('ANONYMOUSLY') or hasRole('USER')"/>
+       <!--<intercept-url pattern="/**/profile"  access="hasRole('ANONYMOUSLY') or hasRole('USER')"/>-->
       <intercept-url pattern="/**"  access="hasRole('USER') or hasRole('ADMIN')"/>
 
 
-      <form-login default-target-url="/postauth" always-use-default-target="true"
+      <form-login default-target-url="/postauth"
+                  always-use-default-target="true"
                   login-processing-url="/login"
-                  login-page="/auth"/>
+                  login-page="/auth"
+                  authentication-failure-url="/auth?error=true"
+      />
        <csrf disabled="true"/>
       <!--<session-management invalid-session-url="/views/service/invalid_session.jsp" session-authentication-error-url="/views/service/error_auth.jsp"/>-->
        <remember-me token-validity-seconds="259200"/>
@@ -54,5 +61,7 @@
    </authentication-manager>-->
     <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" >
     </beans:bean>
+
+
 
 </beans:beans>

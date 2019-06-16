@@ -35,8 +35,8 @@
     <sf:form enctype="multipart/form-data" method="post" modelAttribute="user">
         <div class="prop_line">
             <div class="inline">
-                <label class="prop_label">Введите корпоративный ключ:</label>
-                <input name="orgKey" size="60" maxlength="60" class="reg_field" id="small_input"/>
+                <label class="prop_label fixed_max">Введите корпоративный ключ:</label>
+                <input name="orgKey" size="60" maxlength="60" class="reg_field fixed_min" id="small_input"/>
                 <img src="/resources/checkbox.jpg" class="checkbox">
             </div>
         </div>

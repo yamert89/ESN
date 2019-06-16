@@ -20,6 +20,7 @@
     background-color: #ded9dd;
 }
 
+
 .jspError{
     color: red;
     margin-bottom: 10px;
@@ -215,7 +216,7 @@ header{
 }
 
 .properties_board{
-    background-color: #f2ffce;;
+    background-color: #f6f6f6;
 }
 .tool{
     background-color: rgba(0, 0, 0, 0.16);

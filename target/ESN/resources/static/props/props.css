@@ -1,5 +1,10 @@
 body{
-    background-color: rgba(59, 59, 31, 0.15);
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+    /*display: flex;*/
+    /*height: 800px;*/
+    background: url("../../back1.jpg") no-repeat;
+    background-size: 100%;
 }
 label{
     width: max-content;
@@ -12,12 +17,19 @@ select{
     margin: 2px;
 }
 .properties_board{
-    width: 40%;
-    min-width: 768px;
-    margin: 50px auto;
+    max-width: 70%;
+    /* min-width: 768px;*/
+    /*margin: 50px auto;
     padding: 10px 0;
     border: 3px ridge #c3cda9;
-    border-radius: 10px;
+    border-radius: 10px;*/
+    margin: 50px auto;
+    padding: 10px 0;
+
+    border-radius: 20px;
+    border: 1px solid #8ad5f4;
+    box-shadow: 0 0 20px #000000;
+
 }
 .prop_line{
     margin: 5px 30px;
@@ -47,12 +59,15 @@ input[type=file]{
 .title_pref{
     text-align: center;
 }
-input[type='checkbox']{
+/*input[type='checkbox']{
     width: auto;
-}
+}*/
 input[type=button]{
     margin: 0 5px;
     width: 30%;
+}
+input[type='text']{
+    background-color: white;
 }
 h3{
     transform: translateX(100%);
@@ -126,8 +141,43 @@ button, input[type=submit], input[type=button]{
 }
 hr{
     size: 1px;
-    border-color: rgba(240, 232, 173, 0.44);
+    border-color: rgb(200, 202, 209);
     flex: 1 0 1px;
     width: 92%;
 
+}
+img{
+    height: 15px;
+    width: 17px;
+    margin-left: 5px;
+}
+/*#reg{
+    width: 50%;
+}*/
+#small_input, #corpKey{
+    flex: 1 1 auto;
+}
+.fixed_min{
+    flex: 0 0 auto;
+}
+.fixed_max{
+    flex: 1 0 auto;
+}
+input[type=radio], input[type=checkbox]{
+    flex: 0 1 auto;
+    justify-content: left;
+    justify-items: left;
+    justify-self: left;
+}
+#auth{
+    width: 45%;
+}
+#org_props{
+    width: 60%;
+}
+#reg{
+    width: 50%;
+}
+.auth_submit_button{
+    flex: 0 1 200px!important;
 }

@@ -59,9 +59,9 @@ input[type=file]{
 .title_pref{
     text-align: center;
 }
-input[type='checkbox']{
+/*input[type='checkbox']{
     width: auto;
-}
+}*/
 input[type=button]{
     margin: 0 5px;
     width: 30%;
@@ -163,6 +163,21 @@ img{
 .fixed_max{
     flex: 1 0 auto;
 }
-input[type=radio]{
-    width: 5%;
+input[type=radio], input[type=checkbox]{
+    flex: 0 1 auto;
+    justify-content: left;
+    justify-items: left;
+    justify-self: left;
+}
+#auth{
+    width: 45%;
+}
+#org_props{
+    width: 60%;
+}
+#reg{
+    width: 50%;
+}
+.auth_submit_button{
+    flex: 0 1 200px!important;
 }
