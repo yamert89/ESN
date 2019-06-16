@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    background: linear-gradient(right, color-stop(0%, #fffbce), color-stop(50%, #d7f7c7));
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(210, 245, 255, 0.61)), color-stop(50%, rgba(215, 247, 199, 0.37)));
+}
+h1{
+    font-size: 2em;
+}
+div{
+
+}
+#header{
+    background: url("../data/office.jpg") no-repeat;
+    height: 784px;
+}
