@@ -152,14 +152,14 @@
         <div><hr></div>
         <div class="prop_line">
             <div class="inline">
-                <div class="prop_label">Ключ администратора:</div>
+                <div class="prop_label fixed_max">Ключ администратора:</div>
                 <input type="text" readonly value="${org.adminKey}" title="Необходим при регистрации пользователя с правами администратора" id="adminKey" size="60" minlength="60"/>
                 <button type="button" onclick="copy('#adminKey')">Скопировать</button>
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
-                <div class="prop_label">Общий корпоративный ключ:</div>
+                <div class="prop_label fixed_max">Общий корпоративный ключ:</div>
                 <input type="text" readonly value="${org.corpKey}" title="Необходим при регистрации пользователей" id="corpKey" size="60" minlength="60"/>
                 <button type="button" onclick="copy('#corpKey')">Скопировать</button>
             </div>

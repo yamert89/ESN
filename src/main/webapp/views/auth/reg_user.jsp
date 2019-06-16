@@ -73,10 +73,10 @@
         </div>
         <div class="prop_line">
             <div class="inline">
-                <label class="prop_label" id="fixed_max">Укажите ваш пол:</label>
-                <label class="prop_label" id="fixed_min">Мужской:</label>
+                <label class="prop_label fixed_max">Укажите ваш пол:</label>
+                <label class="prop_label fixed_min">Мужской:</label>
                 <sf:radiobutton path="male" value="true" id="small_input"/>
-                <label class="prop_label" id="fixed_min">Женский:</label>
+                <label class="prop_label fixed_min">Женский:</label>
                 <sf:radiobutton path="male" value="false" id="small_input"/>
                 <img src="/resources/checkbox.jpg" class="checkbox">
             </div>
