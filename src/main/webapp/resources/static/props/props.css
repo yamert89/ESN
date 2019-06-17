@@ -187,3 +187,6 @@ input[type=radio], input[type=checkbox]{
 .auth_submit_button{
     flex: 0 1 200px!important;
 }
+#user_profile, #user_props{
+    min-width: 35%;
+}

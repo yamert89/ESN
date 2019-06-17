@@ -204,7 +204,7 @@ public class UserController {
             if (user.getLogin().equals(login)) {
                 user = userDAO.getUserWithInfo(user.getId());
                 session.setAttribute("user", user);
-                Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
+                Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();
                 allUsers.remove(user);
                 model.addAttribute("bosses", allUsers);
                 model.addAttribute(user);
@@ -239,11 +239,11 @@ public class UserController {
 
 
         Calendar birth = null;
+        Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();
         if (bindingResult.hasErrors()) {
             /*birth = userDAO.getBirthDate(user.getId());*/
             birth = userFromSession.getUserInformation().getBirthDate(); //TODO заменить обращения к базе на обращение к сессии. держать в сессии последнего юзера
             user.getUserInformation().setBirthDate(birth);
-            Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
             model.addAttribute("bosses", allUsers);
             model.addAttribute("saved", false);
             return "userSettings";
@@ -275,7 +275,6 @@ public class UserController {
         model.addAttribute("saved", 1);
         //User us = userDAO.getUserWithInfo(userFromSession.getId());
         model.addAttribute(userFromSession);
-        Set<User> allUsers = orgDAO.getOrgByURL(org).getAllEmployers();
         model.addAttribute("bosses", allUsers);
         model.addAttribute("saved", true);
         model.addAttribute("user", userFromSession);

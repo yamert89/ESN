@@ -132,7 +132,7 @@
 </head>
 <body>
 <c:set var="userProp" value='${user.userInformation}'/>
-<div class="properties_board" data-orgurl="${sessionScope.get("org").getUrlName()}" data-login="${user.login}" data-saved="${saved}">
+<div class="properties_board" data-orgurl="${sessionScope.get("org").getUrlName()}" data-login="${user.login}" data-saved="${saved}" id="user_props">
     <div class="prop_line title_pref"><h2>Настройки профиля</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="user" method="post">
     <div class="prop_line">

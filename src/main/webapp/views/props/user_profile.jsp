@@ -27,7 +27,7 @@
     </script>
 </head>
 <body>
-<div class="properties_board" data-orgurl="${sessionScope.get("org").getUrlName()}">
+<div class="properties_board" data-orgurl="${sessionScope.get("org").getUrlName()}" id="user_profile">
     <div class="prop_line inline_parent">
         <div class="inline"><c:set var="user" value='${sessionScope.get("profile")}'/>
             <h3>${user.name}</h3>

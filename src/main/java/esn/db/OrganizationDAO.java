@@ -1,6 +1,7 @@
 package esn.db;
 
 import esn.entities.Organization;
+import org.hibernate.Hibernate;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,10 @@ public class OrganizationDAO {
 
     @Transactional
     public Organization getOrgByURL(String url){
+        return getOrgByUrlTrans(url);
+    }
+
+    private Organization getOrgByUrlTrans(String url){
         Organization organization = null;
 
         try {
@@ -48,6 +53,22 @@ public class OrganizationDAO {
         }
         return organization;
     }
+
+    @Transactional
+    public Organization getOrgByURLWithEmployers(String url){
+        Organization organization = getOrgByUrlTrans(url);
+        Hibernate.initialize(organization.getAllEmployers());
+        return organization;
+    }
+
+    @Transactional
+    public Organization getOrgByURLWithDepartments(String url){
+        Organization organization = getOrgByUrlTrans(url);
+        Hibernate.initialize(organization.getDepartments());
+        return organization;
+    }
+
+
 
     @Transactional
     public Organization getOrgByKey(String key){

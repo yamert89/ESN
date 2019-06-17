@@ -127,7 +127,7 @@ public class MainPageController {
     @GetMapping("/groups")
     public String groups(@PathVariable String organization, Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
-        Set<User> employers = new HashSet<>(orgDao.getOrgByURL(organization).getAllEmployers());
+        Set<User> employers = new HashSet<>(orgDao.getOrgByURLWithEmployers(organization).getAllEmployers());
         employers.remove(user);
         model.addAttribute("employers", employers);
         Set<ContactGroup> groups = user.getGroups();
@@ -202,7 +202,7 @@ public class MainPageController {
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
 
         if (user.getGroups().size() == 0){
-            Organization org = orgDao.getOrgByURL(organization);
+            Organization org = orgDao.getOrgByURLWithEmployers(organization);
             Set<User> users = new HashSet<>(org.getAllEmployers());
             users.remove(user);
 

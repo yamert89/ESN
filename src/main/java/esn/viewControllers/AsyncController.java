@@ -374,10 +374,6 @@ public class AsyncController {
         StringBuilder jsonS = null;
         try {
 
-            Set<Department> departments = org.getDepartments();
-
-            if (departments.size() == 0) json = "{error:error}";
-
             Set<Department> deps = departmentDAO.getHeadDepartments(org);
             Department head = new Department("default", 0L, -1L, deps);
             /*deps.add(0, departmentDAO.getDefaultDepartment(org));
@@ -400,11 +396,11 @@ public class AsyncController {
 
     @PostMapping("/{org}/savestructure")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveStructure(@RequestBody String data, @PathVariable String org){
+    public void saveStructure(@RequestBody String data, @PathVariable String org, HttpSession session){
         ObjectMapper om = new ObjectMapper();
         try {
             Department[] deps = om.readValue(data, new TypeReference<Department[]>(){});
-            Organization organization = orgDAO.getOrgByURL(org);
+            Organization organization = orgDAO.getOrgByURLWithDepartments(org);
             for (Department d :
                     deps) {
                 d.initDepartmentDaoTree(departmentDAO);
@@ -420,6 +416,8 @@ public class AsyncController {
             set.addAll(Arrays.asList(deps));
             //organization.setDepartments(set);
             orgDAO.update(organization);
+            session.setAttribute("org", organization);
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -459,7 +457,12 @@ public class AsyncController {
     @ResponseStatus(code = HttpStatus.GONE)
     public void clearDeps(HttpSession session){
         Organization org = (Organization) session.getAttribute("org");
-        org.getDepartments().clear();
+        try {
+            org.getDepartments().clear();
+        }catch (Exception e){
+            org = orgDAO.getOrgByURLWithDepartments(org.getUrlName());
+            org.getDepartments().clear();
+        }
         session.setAttribute("org", orgDAO.update(org));
         //TODO протестировать
     }
