@@ -11,13 +11,14 @@ label{
 }
 
 input, select{
-    width: 60%;
+    /*width: 60%;*/
 }
 select{
     margin: 2px;
 }
 .properties_board{
-    max-width: 70%;
+    /*max-width: 70%;*/
+    width: fit-content;
     /* min-width: 768px;*/
     /*margin: 50px auto;
     padding: 10px 0;
@@ -35,11 +36,16 @@ select{
     margin: 5px 30px;
 }
 .prop_label{
-    display: inline-block;
-    flex: 1 1 auto;
+    /*display: inline-block;*/
+    flex: 1 0 auto;
     margin-right: 10px;
+    white-space: nowrap;
+
     /*width: 38%;*/
 
+}
+textarea{
+    flex: 1 1 auto;
 }
 .commit{
     width: 30%;
@@ -131,13 +137,13 @@ form{
     flex-direction: column;
 }
 input{
-    flex: 0 1 70%;
+    flex: 10 1 auto;
     border-radius: 3px;
 }
-button, input[type=submit], input[type=button]{
-    font-size: 0.9em!important;
+button, input[type=submit], input[type=button], input[type=file]{
+    font-size: 0.8em!important;
     margin: 0 5px;
-    flex: 1 0 auto;
+    flex: 0 0 auto;
 }
 hr{
     size: 1px;
@@ -169,7 +175,7 @@ input[type=radio], input[type=checkbox]{
     justify-items: left;
     justify-self: left;
 }
-#auth{
+/*#auth{
     width: 45%;
 }
 #org_props{
@@ -177,7 +183,7 @@ input[type=radio], input[type=checkbox]{
 }
 #reg{
     width: 50%;
-}
+}*/
 .auth_submit_button{
     flex: 0 1 200px!important;
 }

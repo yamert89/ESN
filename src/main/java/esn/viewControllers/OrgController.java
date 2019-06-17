@@ -43,7 +43,7 @@ public class OrgController {
     }
 
     @PostMapping("/neworg")
-    //@ResponseStatus(code = HttpStatus.CREATED)
+    @ResponseStatus(code = HttpStatus.SEE_OTHER)
     public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam(required = false) String pos, HttpSession session){
         System.out.println("positions : " + pos);
         if (result.hasErrors()) return "neworg";
@@ -58,6 +58,7 @@ public class OrgController {
         org.getPositions().clear();
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
+        org.setHeaderPath("/header.jpg");
         try {
             orgDao.persistOrg(org);
         } catch (DataIntegrityViolationException e){
