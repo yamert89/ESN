@@ -474,7 +474,7 @@ public class AsyncController {
         int oldIndex = (int) session.getAttribute("lastIdx_genchat");
         if (oldIndex == -1) return null;
         List<AbstractMessage> messages = genDAO.getMessages(orgId, oldIndex);
-        int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        long newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
         ObjectMapper om = new ObjectMapper();
         String json = "";
@@ -495,7 +495,7 @@ public class AsyncController {
         int oldIndex = (int) session.getAttribute("lastIdx_wall");
         if (oldIndex == -1) return null;
         List<AbstractMessage> messages = wallDAO.getMessages(orgId, oldIndex);
-        int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        long newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
         ObjectMapper om = new ObjectMapper();
         String json = "";

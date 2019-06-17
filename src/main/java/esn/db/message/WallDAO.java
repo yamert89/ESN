@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class WallDAO extends MessagesDAO {
 
     @Override
-    AbstractMessage createMessage(int id, String text, int orgId, User user) {
+    AbstractMessage createMessage(long id, String text, int orgId, User user) {
         return new Post(id, text, orgId, user);
     }
 

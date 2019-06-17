@@ -67,7 +67,7 @@ public class MainPageController {
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         List<AbstractMessage> messages = wallDAO.getMessages(orgId, -1);
-        int newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        long newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_wall", newIdx);
         model.addAttribute("messages", messages);
         return "wall";
@@ -85,7 +85,7 @@ public class MainPageController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("photo", user.getPhoto_small());
         List<AbstractMessage> messages = genDAO.getMessages(orgId, -1);
-        int newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        long newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
         model.addAttribute("messages", messages);
         return "gen_chat";

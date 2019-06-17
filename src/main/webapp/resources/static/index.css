@@ -116,7 +116,7 @@ iframe{
 
 }
 
-.posts, .notes, .message_container, .private_chat_container{
+/*.posts,*/ .notes, .message_container, .private_chat_container{
     overflow-y: auto;
     /*max-height: calc(100% - 41px);*/
     /*max-height: 92%;*/

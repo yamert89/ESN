@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 /*
-Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 ?>
@@ -27,9 +27,9 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 
 if (!empty($_POST))
 {
-	foreach ( $_POST as $corpKey => $value )
+	foreach ( $_POST as $key => $value )
 	{
-		if ( ( !is_string($value) && !is_numeric($value) ) || !is_string($corpKey) )
+		if ( ( !is_string($value) && !is_numeric($value) ) || !is_string($key) )
 			continue;
 
 		if ( get_magic_quotes_gpc() )
@@ -38,7 +38,7 @@ if (!empty($_POST))
 			$value = htmlspecialchars( (string)$value );
 ?>
 		<tr>
-			<th style="vertical-align: top"><?php echo htmlspecialchars( (string)$corpKey ); ?></th>
+			<th style="vertical-align: top"><?php echo htmlspecialchars( (string)$key ); ?></th>
 			<td><pre class="samples"><?php echo $value; ?></pre></td>
 		</tr>
 	<?php
@@ -52,7 +52,7 @@ if (!empty($_POST))
 			CKEditor - The text editor for the Internet - <a class="samples" href="https://ckeditor.com/">https://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2018, <a class="samples" href="https://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+			Copyright &copy; 2003-2019, <a class="samples" href="https://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
 		</p>
 	</div>
 </body>

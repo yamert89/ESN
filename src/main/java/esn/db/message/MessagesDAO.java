@@ -1,8 +1,9 @@
 package esn.db.message;
 
-import com.mysql.cj.api.xdevapi.Collection;
+
 import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
+import esn.db.syntax.MySQLSyntax;
 import esn.db.syntax.PostgresSyntax;
 import esn.db.syntax.Syntax;
 import esn.entities.User;
@@ -19,6 +20,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,7 +36,7 @@ public abstract class MessagesDAO {
 
     private UserDAO userDAO;
 
-    protected Syntax syntax = new PostgresSyntax();
+    protected Syntax syntax = new MySQLSyntax();
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -49,7 +51,7 @@ public abstract class MessagesDAO {
     int abstractGetMessagesQueryAmountMessages(){return GeneralSettings.AMOUNT_GENCHAT_MESSAGES;}
     String abstractTableName(){return "generalchat";}
 
-    AbstractMessage createMessage(int id, String text, int orgId, User user){
+    AbstractMessage createMessage(long id, String text, int orgId, User user){
         return new GenChatMessage(id, text, orgId, user);
     };
 
@@ -73,7 +75,7 @@ public abstract class MessagesDAO {
 
             for (Object[] row :
                     arr) {
-                list.add(createMessage((int) row[0], (String) row[1], (int) row[4], userDAO.getUserById((int) row[2])));
+                list.add(createMessage(((BigInteger)row[0]).longValue(), (String) row[1], (int) row[4], userDAO.getUserById((int) row[2])));
             }
 
         }catch (Exception e){
