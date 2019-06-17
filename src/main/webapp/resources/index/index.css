@@ -1,15 +1,39 @@
 body{
-    display: flex;
+    margin: 0;
+   /* display: flex;*/
     background: linear-gradient(right, color-stop(0%, #fffbce), color-stop(50%, #d7f7c7));
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(210, 245, 255, 0.61)), color-stop(50%, rgba(215, 247, 199, 0.37)));
 }
 h1{
-    font-size: 2em;
-}
-div{
+    font-size: 6em;
+    color: #fff8e1;
+    text-shadow: 0 0 10px #000000, 0 0 4px black;
 
 }
+div{
+    padding: 100px;
+}
+.header_text_wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 100px 20px;
+}
 #header{
-    background: url("../data/office.jpg") no-repeat;
-    height: 784px;
+
+    text-align: center;
+    vertical-align: middle;
+    /*background: url("../data/office.jpg")  no-repeat center center fixed;
+    background-size: cover;*/
+    /*-webkit-background-size: 100%;*/
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.51);
+}
+.features, .variants{
+    margin: 0 auto;
+    width: 40%;
+    max-width: 80%;
+    font-size: 2em;
+    /*text-align: center;*/
 }

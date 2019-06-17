@@ -36,11 +36,11 @@ public class Organization {
     @Column(columnDefinition = "varchar(255) default '/header.jpg'", nullable = false)
     private String headerPath;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>(0);
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.EAGER)
-    private Set<User> allEmployers = new HashSet<>(); //TODO
+    private Set<User> allEmployers = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(joinColumns = @JoinColumn(name = "ORG_ID"))
