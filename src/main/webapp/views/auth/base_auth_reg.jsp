@@ -13,7 +13,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
     <link rel="stylesheet" href="<core:url value="/resources/static/props/props.css"/>">
-    <script src="<core:url value="/resources/libs/jquery_3.1.0.js"/>"></script>
+    <script src="<core:url value="/resources/libs/jquery-3.4.1.min.js"/>"></script>
 </head>
 <body>
 <t:insertAttribute name="auth_reg"/>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href='<c:url value="/resources/static/tools/tools.css"/>'>
     <link rel="stylesheet" href='<c:url value="/resources/static/center/notes/notes.css"/>'>
     <link rel="stylesheet" href='<c:url value="/resources/libs/air-datepicker-master/dist/css/datepicker.css"/>'>
-    <script src='<c:url value="/resources/libs/jquery_3.1.0.js"/>'></script>
+    <script src='<c:url value="/resources/libs/jquery-3.4.1.min.js"/>'></script>
     <script src='<c:url value="/resources/libs/air-datepicker-master/dist/js/datepicker.js"/>'></script>
     <script src='<c:url value="/resources/libs/sock.js"/>'></script>
     <script src='<c:url value="/resources/libs/stomp.js"/>'></script>
