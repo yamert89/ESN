@@ -7,7 +7,7 @@ import javax.persistence.AttributeConverter;
 
 public class UserConverter implements AttributeConverter<User, Integer> {
 
-    private UserDAO userDAO; //TODO связь
+    private UserDAO userDAO;
     @Override
     public Integer convertToDatabaseColumn(User user) {
         return user.getId();

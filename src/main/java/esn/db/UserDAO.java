@@ -70,7 +70,7 @@ public class UserDAO {
     public User getUserWithNotes(Integer id){//TODO delete
         User user = em.find(User.class, id);
         Hibernate.initialize(user.getNotes());
-        return user; //TODO оптимизировать все коллекции
+        return user;
     }
 
     @Transactional

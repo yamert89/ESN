@@ -2,7 +2,6 @@ package esn.db;
 
 import esn.entities.Department;
 import esn.entities.Organization;
-import esn.entities.User;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +78,7 @@ public class DepartmentDAO {
     }
 
 
-    @Transactional
+    /*@Transactional
     public Set<Department> getChildren(Department parent){
         List result = em.createQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = :parent").setParameter("parent", parent).getResultList(); //TODO
         HashSet<Department> set = new HashSet<>();
@@ -88,7 +87,7 @@ public class DepartmentDAO {
 
         }
         return set;
-    }
+    }*/
 
     /*@Transactional
     public void saveChildren(Department department, Set<Department> children){

@@ -99,8 +99,8 @@ public class AsyncController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteGenMessage(@RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        genDAO.deleteMessage(user.getId(), text, orgId);
+        //int orgId = ((Organization) session.getAttribute("org")).getId();
+        genDAO.deleteMessage(user.getId(), text);
     }
 
     @PostMapping("/savepost")
@@ -121,8 +121,8 @@ public class AsyncController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deletePost(@RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        wallDAO.deleteMessage(user.getId(), text, orgId);
+        //int orgId = ((Organization) session.getAttribute("org")).getId();
+        wallDAO.deleteMessage(user.getId(), text);
     }
 
 
@@ -405,15 +405,13 @@ public class AsyncController {
                     deps) {
                 d.initDepartmentDaoTree(departmentDAO);
                 if (d.getParentId() == 0) d.setParent(null);
-                else d.initParentById();
+                else d.initParentById(); //TODO replace Dao from department
 
                 d.setOrganization(organization);
                 d.initParentForTree();
                 d.initOrgForChildren();
             }
-            Set<Department> set = organization.getDepartments();
-
-            set.addAll(Arrays.asList(deps));
+            organization.getDepartments().addAll(Arrays.asList(deps));
             //organization.setDepartments(set);
             orgDAO.update(organization);
             session.setAttribute("org", organization);

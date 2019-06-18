@@ -101,9 +101,9 @@ public abstract class MessagesDAO {
     }
 
     @Transactional
-    public void deleteMessage(int userId, String text, int orgId){
-        em.createNativeQuery("delete from " + abstractTableName() + " where orgId = " + orgId + " and userId = " + userId + " and message = '" + text + "' " +
-                "order by time desc limit 1").executeUpdate(); //TODO benchmark
+    public void deleteMessage(int userId, String text){
+        em.createNativeQuery("delete from " + abstractTableName() + " where userId = " + userId + " and message = '" + text + "' " +
+                "order by time desc limit 1").executeUpdate();
     }
     @Transactional
     public Calendar getLastTimeOfMessage(int orgId){

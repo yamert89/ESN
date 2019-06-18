@@ -71,7 +71,7 @@ public class GlobalDAO implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-       initDB(); //TODO uncomment
+       initDB();
     }
 
 }

@@ -45,10 +45,13 @@ public class PrivateDAO extends MessagesDAO {
     @Transactional
     public void updateReadedMessages(Long[] ids){
         try {
+            Query query = em.createQuery("update PrivateChatMessage m set m.readed = true where m.id = :id");
             for (Long id :
                     ids) {
                 if (id == null) return;
-                em.createQuery("update PrivateChatMessage m set m.readed = true where m.id = :id").setParameter("id", id).executeUpdate(); //TODO one query
+                query.setParameter("id", id).executeUpdate();
+                /*em.createQuery("update PrivateChatMessage m set m.readed = true where m.id = :id").setParameter("id", id).executeUpdate();*/ //TODO one query
+
             }
         }catch (Exception e){
             e.printStackTrace();

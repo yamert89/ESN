@@ -140,8 +140,9 @@ public class Department {
 
 
     public Set<Department> getChildren() {
-        if (children != null) return children;
-        return departmentDAO.getChildren(this);
+        return children;
+        /*if (children != null) return children;
+        return departmentDAO.getChildren(this);*/
     }
 
     public void setDepartmentDAO(DepartmentDAO departmentDAO) {
