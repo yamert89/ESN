@@ -6,15 +6,18 @@
     <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="../libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
+
         $(document).ready(function () {
-            $(document).on("hover", function () {
-               //if ()
+            $(".wrapper").hover(function () {
+                var showed = $(".lets_go_showed");
+                showed.removeClass("lets_go_showed");
+                showed.addClass("lets_go");
+                var go = $(this).next();
+                go.removeClass("lets_go");
+                go.addClass("lets_go_showed");
             });
-           $(".deployment_type").hover(function () {
-               var go = $(this).next();
-               go.removeClass("lets_go");
-               go.addClass("lets_go_showed");
-           });
+
+
 
         });
     </script>
@@ -33,9 +36,10 @@
     <li></li>
 </div>
 <div class="variants">
-    Варианты развертывания:
-    <li class="deployment_type">облачный сервер</li><span class="lets_go">Начать использование</span>
-    <li class="deployment_type">ваш локальный сервер (потребуются навыки администрирования)</li><span class="lets_go">Начать использование</span>
+    Варианты развертывания:<br/>
+    <div class="wrapper"><li class="deployment_type">облачный сервер</li></div><span class="lets_go">Начать использование</span>
+    <br/>
+    <div class="wrapper"><li class="deployment_type">ваш локальный сервер</li></div><span class="lets_go">Начать использование</span>
 </div>
 
 
