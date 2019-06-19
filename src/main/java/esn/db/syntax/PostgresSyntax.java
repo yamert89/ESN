@@ -18,13 +18,11 @@ public class PostgresSyntax implements Syntax{
     public final String selectChatMessages() {return "select * from generalchat where orgId = ? order by time desc limit ?";}
 
     @Override
-    public final String selectWallMessages() {
-        return "select * from wall where orgId = ? order by time desc limit ?";
-    }
+    public final String selectWallMessages() {return "select * from wall where orgId = ?  or orgId = 0 order by time desc limit ?";}
 
     @Override
     public final String selectChatMessagesWithIdx() {return "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";}
 
     @Override
-    public final String selectWallMessagesWithIdx() { return "select * from wall where orgId = ? and id < ? order by time desc limit ?";}
+    public final String selectWallMessagesWithIdx() { return "select * from wall where orgId = ? or orgId = 0 and id < ? order by time desc limit ?";}
 }

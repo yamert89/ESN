@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>Enterprise software</title>
     <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="../libs/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("hover", function () {
+               //if ()
+            });
+           $(".deployment_type").hover(function () {
+               var go = $(this).next();
+               go.removeClass("lets_go");
+               go.addClass("lets_go_showed");
+           });
+
+        });
+    </script>
 </head>
 <body>
 <!--<div id="header"><h1>Корпоративный чат - програмное решение для связи сотрудников в пределах предприятия</h1></div>-->
@@ -19,9 +33,9 @@
     <li></li>
 </div>
 <div class="variants">
-    Варианты использования:
-    <li>облачный сервер</li>
-    <li>ваш локальный сервер (потребуются навыки администрирования)</li>
+    Варианты развертывания:
+    <li class="deployment_type">облачный сервер</li><span class="lets_go">Начать использование</span>
+    <li class="deployment_type">ваш локальный сервер (потребуются навыки администрирования)</li><span class="lets_go">Начать использование</span>
 </div>
 
 

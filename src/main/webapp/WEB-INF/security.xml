@@ -48,7 +48,7 @@
    </http>
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service id="userService" data-source-ref="dataSourceMySQL"
+            <jdbc-user-service id="userService" data-source-ref="dataSourcePostgres"
             users-by-username-query="select login, password, true from users where login = ?"
             authorities-by-username-query="select login, authority from users where login = ?"/>
             <password-encoder ref="passwordEncoder"/>

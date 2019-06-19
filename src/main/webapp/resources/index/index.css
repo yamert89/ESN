@@ -37,3 +37,10 @@ div{
     font-size: 2em;
     /*text-align: center;*/
 }
+.lets_go{
+    transform: translateX(100%);
+}
+.lets_go_showed{
+    transform: none;
+
+}

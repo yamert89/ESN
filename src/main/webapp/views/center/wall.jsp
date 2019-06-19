@@ -91,7 +91,7 @@
             var data = '<div class="post">\n' +
                 '            <div class="message_info_wrapper">\n' +
                 '                <div class="message_info_w">\n' +
-                '                    <img src="/resources/avatars/' + orgUrl + '/' + mes.imgUrl + '" class="person_photo_small">\n' +
+                '                    <img src="/resources/data/' + orgUrl + '/' + mes.imgUrl + '" class="person_photo_small">\n' +
                 '                    <div class="person_name_w">' + mes.userName + '</div>\n' +
                 '                    <div class="message_time_w">' + mes.time + '</div>\n' +
                 '                </div><img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
@@ -149,7 +149,7 @@
         <div class="post">
             <div class="message_info_wrapper">
                 <div class="message_info_w">
-                    <img src='<c:url value="/resources/avatars/${orgUrl}/${mes.imgUrl}"/>' class="person_photo_small">
+                    <img src='<c:url value="/resources/data/${orgUrl}/${mes.imgUrl}"/>' class="person_photo_small">
                     <div class="person_name_w">${mes.userName}</div>
                     <div class="message_time_w"><fmt:formatDate value="${mes.time.getTime()}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>

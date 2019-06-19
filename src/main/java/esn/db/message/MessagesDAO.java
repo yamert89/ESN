@@ -36,7 +36,7 @@ public abstract class MessagesDAO {
 
     private UserDAO userDAO;
 
-    protected Syntax syntax = new MySQLSyntax();
+    protected Syntax syntax = new PostgresSyntax();
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -75,7 +75,13 @@ public abstract class MessagesDAO {
 
             for (Object[] row :
                     arr) {
-                list.add(createMessage(((BigInteger)row[0]).longValue(), (String) row[1], (int) row[4], userDAO.getUserById((int) row[2])));
+                long id;
+                try{
+                    id = ((BigInteger)row[0]).longValue();
+                } catch (ClassCastException e){
+                    id = Long.parseLong(String.valueOf(row[0]));
+                }
+                list.add(createMessage(id , (String) row[1], (int) row[4], userDAO.getUserById((int) row[2]))); //TODO
             }
 
         }catch (Exception e){

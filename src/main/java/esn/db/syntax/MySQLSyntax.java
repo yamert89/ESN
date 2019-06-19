@@ -24,12 +24,12 @@ public class MySQLSyntax implements Syntax{
 
     @Override
     public final String selectWallMessages() {
-        return "select * from wall where orgId = ? order by time desc limit ?";
+        return "select * from wall where orgId = ?  or orgId = 0 order by time desc limit ?";
     }
 
     @Override
     public final String selectChatMessagesWithIdx() {
-        return "select * from generalchat where orgId = ? and id < ? order by time desc limit ?";
+        return "select * from generalchat where orgId = ? or orgId = 0 and id < ? order by time desc limit ?";
     }
 
     @Override
