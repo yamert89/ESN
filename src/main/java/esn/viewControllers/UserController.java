@@ -149,7 +149,7 @@ public class UserController {
         String org = organization.getUrlName();
 
         if (bindingResult.hasErrors()) return "reg";
-        if (orgDAO.getLogins(organization).contains(user.getLogin())) {
+        if (user.getLogin().equals("admin") || orgDAO.getLogins(organization).contains(user.getLogin())) {
             bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
             return "reg";
         }

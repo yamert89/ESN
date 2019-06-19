@@ -188,5 +188,5 @@ input[type=radio], input[type=checkbox]{
     flex: 0 1 200px!important;
 }
 #user_profile, #user_props{
-    min-width: 35%;
+    min-width: 600px;
 }

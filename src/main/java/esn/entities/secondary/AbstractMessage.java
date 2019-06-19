@@ -17,7 +17,7 @@ public abstract class AbstractMessage {
 
     public String userName;
 
-    public String imgUrl;
+    public String imgUrl; //TODO replace with user.getImg
 
     public String text;
 

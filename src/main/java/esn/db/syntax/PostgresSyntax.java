@@ -25,4 +25,11 @@ public class PostgresSyntax implements Syntax{
 
     @Override
     public final String selectWallMessagesWithIdx() { return "select * from wall where orgId = ? or orgId = 0 and id < ? order by time desc limit ?";}
+
+    @Override
+    public String currentDate() {
+        return "clock_timestamp()";
+    }
+
+
 }

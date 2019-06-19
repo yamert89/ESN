@@ -8,4 +8,5 @@ public interface Syntax {
     String selectWallMessages();
     String selectChatMessagesWithIdx();
     String selectWallMessagesWithIdx();
+    String currentDate();
 }

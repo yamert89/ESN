@@ -36,7 +36,7 @@ public abstract class MessagesDAO {
 
     private UserDAO userDAO;
 
-    protected Syntax syntax = new PostgresSyntax();
+    protected Syntax syntax = new MySQLSyntax();
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {

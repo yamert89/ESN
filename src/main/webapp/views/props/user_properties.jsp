@@ -139,7 +139,7 @@
         <div class="inline">
             <h3 class="title_pref">${user.name}</h3>
         </div>
-        <img class="user_photo inline" src='<c:url value="/resources/avatars/${user.photo}"/>'>
+        <img class="user_photo inline" src='<c:url value="/resources/data${user.photo}"/>'>
         <input type="file" name="image" accept="image/*" class="inline"/>
 
     </div>

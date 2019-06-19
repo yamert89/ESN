@@ -36,4 +36,11 @@ public class MySQLSyntax implements Syntax{
     public final String selectWallMessagesWithIdx() {
         return "select * from wall where orgId = ? and id < ? order by time desc limit ?";
     }
+
+    @Override
+    public String currentDate() {
+        return "NOW()";
+    }
+
+
 }

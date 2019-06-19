@@ -1,6 +1,6 @@
 package esn.db;
 
-import esn.db.syntax.PostgresSyntax;
+import esn.db.syntax.MySQLSyntax;
 import esn.db.syntax.Syntax;
 import esn.entities.Organization;
 import esn.entities.secondary.ContactGroup;
@@ -31,7 +31,7 @@ public class GlobalDAO implements InitializingBean {
     @PersistenceContext
     private EntityManager em;
 
-    private Syntax syntax = new PostgresSyntax();
+    private Syntax syntax = new MySQLSyntax();
 
 
 
@@ -56,7 +56,7 @@ public class GlobalDAO implements InitializingBean {
             em.createNativeQuery("insert into users(id, authority, login, male, name, password, photo, photo_small, org_id, boss_id) " +
                     "values(0, 'ROLE_ADMIN', 'admin', true, 'Разработчик', '$2a$10$YiGmQU.QDMGYvu0xK7HbueLGQ/rFDNfntMKUT6RKEw8391Hgt.wWS', '/man.jpg', '/man_small.jpg', 0, null);").executeUpdate();
             em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
-            em.createNativeQuery("insert into wall (id, message, userid, time, orgid) values (0, '<p>Приветствуем Вас в нашем чате!</p>', 0, clock_timestamp(), 0)").executeUpdate();
+            em.createNativeQuery("insert into wall (id, message, userid, time, orgid) values (0, '<p>Приветствуем Вас в нашем чате!</p>', 0, " + syntax.currentDate() + ", 0)").executeUpdate();
             txManager.commit(ts);
         }catch (Exception e){
             txManager.rollback(ts);

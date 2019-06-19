@@ -32,7 +32,7 @@
         <div class="inline"><c:set var="user" value='${sessionScope.get("profile")}'/>
             <h3>${user.name}</h3>
         </div>
-        <img class="user_photo inline" src="${user.photo}">
+        <img class="user_photo inline" src="/resources/data${user.photo}">
     </div>
     <div class="prop_line">
         <div class="prop_label">Должность:</div>
