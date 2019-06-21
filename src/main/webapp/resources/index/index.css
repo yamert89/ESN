@@ -37,18 +37,22 @@ div{
     /*text-align: center;*/
 }
 .lets_go{
-    right: -2000px;
+   transform: translateX(1000px);
     position: absolute;
+    opacity: 0;
+
 
 }
 .lets_go_showed{
     position: absolute;
-    right: 30%;
-    transition: right 0.5s ease;
+    transform: none;
+    opacity: 100%;
+    transition: transform 0.5s, opacity 0.5s;
     color: #2e9ad0;
+    text-shadow: 0 0 1px black;
     /*transition: transform 0.4s ease;*/
 }
-.lets_go_showed:hover{
+.lets_go_showed:hover, .lets_go:hover{
     color: red;
     cursor: default;
 }
@@ -56,4 +60,8 @@ div{
 .wrapper{
     padding: 0;
     display: inline-block;
+    width: 30%;
+}
+.wrapper:hover{
+    cursor: default;
 }
