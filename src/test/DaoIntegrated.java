@@ -1,9 +1,11 @@
 import esn.db.OrganizationDAO;
 import esn.db.message.WallDAO;
 import esn.entities.Organization;
+import esn.entities.secondary.Post;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 
 import javax.persistence.EntityManager;
@@ -38,6 +40,13 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
     @Test
     public void wallBag(){
 
+    }
+    
+    @Test
+    @Rollback(false)
+    public void test(){
+        Post post = new Post(777, "post", )
+        wallDAO
     }
 
 }
