@@ -1,0 +1,46 @@
+
+body{
+    background: url('../data/office2.jpg') no-repeat;
+    background-size: cover;
+    font-size: 2em;
+    text-align: center;
+    color: white;
+}
+html, body, .container{
+    width: 100%;
+    height: 100%;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.notice, .link{
+    max-width: 50%;
+    /*width: 50%;*/
+    /*margin: auto;*/
+    flex: 1 1 auto;
+    /*height: 50%;*/
+
+}
+.notice{
+    padding: 200px 100px 100px 100px;
+    text-align: justify;
+}
+.link{
+    color: #00d0e7;
+    transition: font-size 0.5s;
+}
+.link:hover{
+    color: red;
+    cursor: default;
+    font-size: 1.2em;
+    transition: font-size 0.3s;
+}
+span{
+    text-align: justify;
+}
