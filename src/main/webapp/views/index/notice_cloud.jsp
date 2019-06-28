@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Notice</title>
-    <link rel="stylesheet" href="notice.css">
+    <link rel="stylesheet" href="/resources/index/notice.css">
 </head>
 <body>
 <div class="container">
@@ -15,6 +15,7 @@
             <p>Рекомендуется наличие одного администратора.</p></div>
     </div>
     <div class="link">Зарегистрировать профиль</div>
+    <div class="a_wr"><a href="/">На главную</a></div>
 </div>
 </body>
 </html>

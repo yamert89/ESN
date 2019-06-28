@@ -49,7 +49,7 @@ div{
     opacity: 100%;
     transition: transform 0.5s, opacity 0.5s;
     color: #00e8ff;
-    text-shadow: 0 0 1px black;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.45);
     /*transition: transform 0.4s ease;*/
 }
 .lets_go_showed:hover, .lets_go:hover{

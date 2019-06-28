@@ -17,6 +17,9 @@
     <http pattern="/auth" security="none"/>
     <http pattern="/views/service/**" security="none"/>
     <http pattern="/reg" security="none"/>
+    <http pattern="/" security="none"/>
+    <http pattern="/notice_cloud" security="none"/>
+    <http pattern="/notice_local" security="none"/>
     <!--<http pattern="/postauth" security="none"/>-->
     <!--<http pattern="/**/profile" security="none"/>-->
     <!--<http pattern="/login" security="none"/>-->
@@ -29,6 +32,7 @@
        <intercept-url pattern="/favicon.ico" access="permitAll" />
        <intercept-url pattern="/error" access="permitAll" />
        <intercept-url pattern="/**/profile" access="permitAll" />
+
        <!--<intercept-url pattern="/**" access="permitAll" />  -->                           <!--убрать-->
        <intercept-url pattern="/login" access="permitAll" />
        <!--<intercept-url pattern="/**/profile"  access="hasRole('ANONYMOUSLY') or hasRole('USER')"/>-->
@@ -48,7 +52,7 @@
    </http>
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service id="userService" data-source-ref="dataSourceMySQL"
+            <jdbc-user-service id="userService" data-source-ref="dataSourcePostgres"
             users-by-username-query="select login, password, true from users where login = ?"
             authorities-by-username-query="select login, authority from users where login = ?"/>
             <password-encoder ref="passwordEncoder"/>

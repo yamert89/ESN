@@ -32,4 +32,7 @@
         <put-attribute name="center" value="/views/center/wall.jsp" />
     </definition>
     <definition name="error" template="/views/service/error.jsp" />
+    <definition name="index" template="/views/index/index.jsp" />
+    <definition name="notice_cloud" template="/views/index/notice_cloud.jsp" />
+    <definition name="notice_local" template="/views/index/notice_local.jsp" />
 </tiles-definitions>
