@@ -2,6 +2,7 @@ body{
     /*text-align: center;*/
     /*vertical-align: middle;*/
     display: flex;
+    flex-direction: column;
     /*height: 800px;*/
     background: url("../../data/office2.jpg") no-repeat;
     background-size: 100%;
