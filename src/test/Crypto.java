@@ -5,7 +5,7 @@ public class Crypto {
     @Test
     public void bcrypt(){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String adminKey = encoder.encode("Roslesinforg" + "3ff42fsf24hjgfdsesdf23fsdf");
+        String adminKey = encoder.encode("fucker66");
         System.out.println(adminKey);
 
     }

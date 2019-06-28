@@ -45,8 +45,7 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
     @Test
     @Rollback(false)
     public void test(){
-        Post post = new Post(777, "post", )
-        wallDAO
+
     }
 
 }
