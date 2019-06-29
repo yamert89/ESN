@@ -228,7 +228,7 @@
                                 var elHash = hash($(this).children().get(1)); //TODO test
                                 if (resp.hash == elHash) {
                                     $(this).removeClass("unread");
-                                    break;
+
                                 }
                             });
                             break;
@@ -347,7 +347,7 @@
             location.reload();
         }
         
-        function notify(text, time) {
+        window.notify = function(text, time) {
             if (time == undefined) time = 3000;
             var log = $(".log");
             log.html('<span class="log_text">' + text + '</span>');
@@ -356,7 +356,7 @@
                 log.removeClass('show_log');
             }, time)
 
-        }
+        };
 
 
         function hash(input){
@@ -376,6 +376,11 @@
             console.log("get cookie : " + res);
             return res;
         }
+
+        /*var getf = function () {
+            $.ajax({url:"http://localhost:8080/" + orgUrl + "/contacts",
+                type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err});
+        }*/
 
 
 
