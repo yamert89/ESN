@@ -55,7 +55,7 @@ canvas{
 }
 .flowchart_wrapper{
     display: flex;
-     min-width: 300px;
+    min-width: 300px;
     /* height: calc(100% - 41px);
      line-height: calc(100% - 41px);
      max-height: calc(100% - 41px);*/
@@ -63,10 +63,12 @@ canvas{
     flex-direction: column;
 }
 .flowchart_frame{
-    width: 100%;
-    height: 100%;
+    /*width: 100%;
+    height: 100%;*/
     margin-bottom: 7px;
     flex: 1 1 auto;
+    overflow: auto;
+    border: 3px double rgba(0, 0, 0, 0.2);
 
 }
 
@@ -105,5 +107,8 @@ button{
 }
 .features{
     flex: 0 0 auto;
+}
+#myTreeContainer{
+    position: relative;
 }
 

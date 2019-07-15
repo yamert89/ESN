@@ -12,12 +12,14 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/staff/flowchart/block.css"/>">
     <script type="text/javascript" src="<c:url value="/resources/static/center/staff/staff.js"/>"></script>
-
+    <script type="text/javascript" src="<c:url value="/resources/static/center/staff/flowchart/frame.js"/>"></script>
 </head>
 <body>
 <div class="tree_wrapper">
     <div class="flowchart_wrapper">
-        <iframe src='<c:url value="/resources/static/center/staff/flowchart/flowchart.html"/>' class="flowchart_frame" id="iframe1"></iframe>
+        <div class="flowchart_frame" id="iframe1">
+            <div id="myTreeContainer"></div>
+        </div>
     </div>
     <div class="staff_container"></div>
 </div>

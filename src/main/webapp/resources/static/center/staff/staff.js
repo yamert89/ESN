@@ -11,7 +11,7 @@ $(document).ready(function(){
 
     $(".save_flowchart").click(function () {
 
-        var object = document.getElementById("iframe1").contentWindow.exportData;
+        var object = exportData;
         object.sort(comparator);
         var outObj = [];
 
@@ -150,6 +150,7 @@ function foreachDeselect(dep){
 }
 
 window.setStructData = function (data) {
+    if (data.length < 1) return;
     window.DATA = data;
     window.DATA_SUB = [];
     for (var i = 0; i < DATA.length; i++) {
