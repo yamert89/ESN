@@ -47,7 +47,7 @@ $(document).ready(function(){
         window.EDIT_DEP_NAME = prompt("Изменить название отдела?", window.SELECTED_DEP.name);
         if (EDIT_DEP_NAME == null) EDIT_DEP_NAME = SELECTED_DEP.name;
         $(".staff_container").empty();
-        fillStaff(DATA[0].employers);
+        fillStaff(window.ALL_EMPLOYERS);
         notify("Выберите людей");
         window.EDIT_MODE = true;
         $(".staff_add_btn").removeAttr("disabled");
@@ -126,11 +126,11 @@ function foreachEmpl(dep, nodeid){
     $(".staff_container").empty();
     if (el.new) $(".staff_choose_btn").attr("disabled", "true");
     else $(".staff_choose_btn").removeAttr("disabled");
-    if (el.selected) {
+    if (el.selected || el.id === undefined) {
         foreachDeselect(DATA_SUB);
         window.SELECTED_DEP = null;
         //el.selected = false;
-        fillStaff(DATA[0].employers);
+        fillStaff(window.ALL_EMPLOYERS);
         //return;
     } else {
         foreachDeselect(DATA_SUB);
@@ -150,24 +150,27 @@ function foreachDeselect(dep){
 }
 
 window.setStructData = function (data) {
-    if (data.length < 1) return;
-    window.DATA = data;
-    window.DATA_SUB = [];
-    for (var i = 0; i < DATA.length; i++) {
-        DATA_SUB[i] = DATA[i];
+    if (data.length > 0){
+        window.DATA = data;
+        window.DATA_SUB = [];
+        for (var i = 0; i < DATA.length; i++) {
+            DATA_SUB[i] = DATA[i];
+        }
     }
+
     //alert(data[0].employers);
-    fillStaff(data[0].employers);
+    fillStaff(window.ALL_EMPLOYERS);
 
 };
 
 function fillStaff(staff) {
+    if (staff.length < 1) return;
     var container = $(".staff_container");
     staff.forEach(function (el) {
         container.append('<table class="person_staff" data-id=' + el.id + '>\n' +
             '            <tr>\n' +
             '                <td width="100px">\n' +
-            '                    <img src="/resources/avatars/' + el.photo + '" class="person_photo_staff"></td>\n' +
+            '                    <img src="/resources/data' + el.photo + '" class="person_photo_staff"></td>\n' +
             '                <td valign="middle">\n' +
             '                    <div class="person_point">\n' +
             '                        <div class="person_name_staff">' + el.name + '</div>\n' +

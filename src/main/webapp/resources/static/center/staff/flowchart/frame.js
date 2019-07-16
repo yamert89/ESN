@@ -45,6 +45,8 @@ function createData(data) {
 
     if (data[0].name !== 'default') return;
 
+    window.ALL_EMPLOYERS = data[0].employers;
+
     setStructData(data[0].children);
     for (var i = 0; i < data[0].children.length; i++) {
         addChildFromData(data[0].children[i]);

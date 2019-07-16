@@ -45,7 +45,7 @@ public class User implements Cloneable{
     private String authority;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "DEPARTMENT_ID")
+    @JoinColumn(name = "department_id")
     @JsonIgnore
     private Department department;
 

@@ -369,13 +369,14 @@ public class AsyncController {
     public ResponseEntity<String> getStaff(HttpSession session){
         User user = (User) session.getAttribute("user");
         Organization org = (Organization) session.getAttribute("org");
+        org = orgDAO.getOrgByURLWithEmployers(org.getUrlName());
 
         String json = "";
         StringBuilder jsonS = null;
         try {
 
             Set<Department> deps = departmentDAO.getHeadDepartments(org);
-            Department head = new Department("default", 0L, -1L, deps);
+            Department head = new Department("default", 0L, -1L, deps, org.getAllEmployers());
             /*deps.add(0, departmentDAO.getDefaultDepartment(org));
 */
             Object[] res = new Object[]{head, user.getAuthority().equals("ROLE_ADMIN")};
