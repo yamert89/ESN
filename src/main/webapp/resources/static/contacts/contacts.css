@@ -21,7 +21,7 @@
     height: 32px;
 }
 summary{
-    display: inline-block;
+    display: inline-flex;
     width: 100%;
 }
 summary:hover{
@@ -43,4 +43,11 @@ details{
     float: none;
     margin-left: 5px;
     display: none;
+}
+.group_name {
+    width: 100%;
+    text-align: left;
+}
+.contacts-frame{
+    padding: 5px;
 }
