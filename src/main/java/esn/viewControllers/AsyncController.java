@@ -441,9 +441,10 @@ public class AsyncController {
                     empls) {
                 user = userDAO.getUserById(id);
                 user.setDepartment(department);
+                userDAO.updateUser(user);
                 employers.add(user);
             }
-            department.setEmployers(employers);
+            department.getEmployers().addAll(employers);
             departmentDAO.merge(department);
         } catch (IOException e) {
             e.printStackTrace();
