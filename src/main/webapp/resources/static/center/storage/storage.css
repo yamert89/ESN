@@ -111,5 +111,17 @@
 input[type=text]{
     background-color: transparent;
 }
+.diagram_text{
+    font-size: 0.7em;
+    transform: translateY(0.25em);
+    text-anchor: middle;
+}
+svg{
+    opacity: 0.15;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+}
 
 
