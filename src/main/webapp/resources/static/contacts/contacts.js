@@ -27,7 +27,7 @@ $(document).ready(function () {
 
     });
 
-    $.ajax({url:"http://localhost:8080/" + orgUrl + "/contacts",
+    $.ajax({url:"/" + orgUrl + "/contacts",
         type:"GET", contentType:"application/json; charset=UTF-8", success:contactsFill, error : err});
 
     //setTimeout('f()',2000)

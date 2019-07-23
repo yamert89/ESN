@@ -97,7 +97,7 @@ public class MainPageController {
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         User user = (User) session.getAttribute("user");
-        User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion);
+        User compan = orgDao.getOrgByURL(organization).getUserByLogin(companion); //FIXME lazy exception / in dao replace
         model.addAttribute("companion", compan);
         Set<PrivateChatMessage> privateMessages = privateDAO.getMessages(user, compan, orgId);
 
