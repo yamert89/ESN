@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<header style='background-image: url(${"/resources/data".concat(sessionScope.get("org").getHeaderPath())}); background-size: cover;'>
+<head>
     <link rel="stylesheet" href='<c:url value="/resources/static/index.css"/>'>
     <link rel="stylesheet" href='<c:url value="/resources/static/gen.css"/>'>
     <link rel="stylesheet" href='<c:url value="/resources/static/tools/tools.css"/>'>
@@ -16,7 +16,8 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript" src='<c:url value="/resources/static/index.js"/>'></script>
     <script type="text/javascript" src='<c:url value="/resources/static/contacts/contacts.js"/>'></script>
-
+</head>
+<header style='background-image: url(${"/resources/data".concat(sessionScope.get("org").getHeaderPath())}); background-size: cover;'>
     <c:set var="user" value='${sessionScope.get("user")}'/>
     <c:set var="orgUrl" value='${sessionScope.get("org").getUrlName()}'/>
     <div class="title" align="center" data-url='${orgUrl}' data-org-id='${sessionScope.get("org").getId()}'>${user.organization.name}</div>

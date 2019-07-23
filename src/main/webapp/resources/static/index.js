@@ -23,6 +23,14 @@ $(document).ready(function () {
     window.datesArray = [];
     window.inited = false;
 
+    $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+        alert("Запрос к серверу завершился с ошибкой");
+        console.log(event);
+        console.log(jqXHR);
+        console.log(ajaxSettings);
+        console.log(thrownError);
+    });
+
     $.get("/notes", null, datepickerInit, "json");
 
     $.ajax({url:"/notes", success: datepickerInit, error: err, dataType : "json"});

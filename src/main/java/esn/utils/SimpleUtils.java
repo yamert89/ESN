@@ -1,5 +1,9 @@
 package esn.utils;
 
+import esn.configs.GeneralSettings;
+
+import java.io.IOException;
+import java.nio.file.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,6 +33,27 @@ public class SimpleUtils {
             e.printStackTrace();
         }
         return new String(md.digest(input.getBytes()));
+    }
+
+    public static int getPublicStoragePercentageSize(String orgUrl){
+        return getPercentageSize(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/stored_files/"), GeneralSettings.PUBLIC_STORAGE_MAX_SIZE);
+    }
+
+    public static int getPrivateStoragePercentageSize(String orgUrl, String userLogin){
+        return getPercentageSize(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/stored_files/" + userLogin + "/"), GeneralSettings.PRIVATE_STORAGE_MAX_SIZE);
+    }
+
+    private static int getPercentageSize(Path path, int maxSize){
+        final long[] size = {0};
+        try {
+            Files.walk(path, FileVisitOption.FOLLOW_LINKS)
+                    .forEach(file -> {
+                        if (!Files.isDirectory(file, LinkOption.NOFOLLOW_LINKS)) size[0] = file.toFile().length();
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (int)((size[0]/1024d/1024d) / (double)maxSize * 100);
     }
 
 

@@ -2,6 +2,8 @@ gen_chat_messages_amount=30
 private_chat_messages_amount=50
 wall_messages_amount=12
 date_time_pattern=dd.MM.yyyy, HH:mm:ss
+public_storage_max_size=100
+private_storage_max_size=50
 
 #----  E:/JavaProject/ESN/target/ESN/resources/stored_files/ ----!
 #----   ----!

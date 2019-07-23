@@ -25,6 +25,17 @@ $(document).ready(function () {
          var form = $(".form_file");
          var filename = $(this).get(0).files[0].name;
      });*/
+
+    $.get("/storage_size", function (data) {
+        var publ = $("#publicDiagram");
+        publ.find(".donut-segment").attr("stroke-dasharray", data.public + ' ' + (100 - data.public));
+        publ.find("text").text(data.public + '%');
+
+        var priv = $("#privateDiagram");
+        priv.find(".donut-segment").attr("stroke-dasharray", data.private + ' ' + (100 - data.private));
+        priv.find("text").text(data.private + '%');
+    }, "json");
+
     $(".fileName").keyup(function(event){
         if(event.keyCode === 13){
             event.preventDefault();

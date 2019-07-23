@@ -13,6 +13,8 @@ public class GeneralSettings {
     public static int AMOUNT_GENCHAT_MESSAGES = 50;
     public static int AMOUNT_PRIVATECHAT_MESSAGES = 50;
     public static int AMOUNT_WALL_MESSAGES = 25;
+    public static int PUBLIC_STORAGE_MAX_SIZE = 1024; //MB
+    public static int PRIVATE_STORAGE_MAX_SIZE = 512; //MB
     public static String TIME_PATTERN = "HH:mm:ss / dd.MM";
 
     static {
@@ -35,6 +37,8 @@ public class GeneralSettings {
             AMOUNT_PRIVATECHAT_MESSAGES = Integer.valueOf(properties.getProperty("private_chat_messages_amount"));
             AMOUNT_WALL_MESSAGES = Integer.valueOf(properties.getProperty("wall_messages_amount"));
             TIME_PATTERN = properties.getProperty("date_time_pattern");
+            PUBLIC_STORAGE_MAX_SIZE = Integer.parseInt(properties.getProperty("public_storage_max_size"));
+            PRIVATE_STORAGE_MAX_SIZE = Integer.parseInt(properties.getProperty("private_storage_max_size"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("ERROR: Ошибка загрузки файла свойств");

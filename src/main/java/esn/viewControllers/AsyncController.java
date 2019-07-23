@@ -14,6 +14,7 @@ import esn.entities.User;
 import esn.entities.secondary.*;
 import esn.services.WebSocketService;
 import esn.utils.DateFormatUtil;
+import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -309,7 +310,7 @@ public class AsyncController {
         User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
         System.out.println("FILE " + name);
-        String path = GeneralSettings.STORAGE_PATH + "\\stored_files\\" + user.getLogin() + "\\" + name;
+        String path = GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" +  user.getLogin() + "\\" + name;
         System.out.println("PATH " + path);
         try {
             FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
@@ -342,12 +343,12 @@ public class AsyncController {
                     storedFile.setShared(false);
                     break;
                 case "delete":
-                    String path = GeneralSettings.STORAGE_PATH + "/stored_files/" + user.getLogin() + "/";
+                    String path = GeneralSettings.STORAGE_PATH + "/" + user.getOrganization().getUrlName() + "/stored_files/" + user.getLogin() + "/";
                     user.getStoredFiles().remove(storedFile);
                     FileUtils.forceDelete(new File(path + storedFile.getName() + "." + storedFile.getExtension()));
                     break;
                 case "rename":
-                    String path2 = GeneralSettings.STORAGE_PATH + "/stored_files/" + user.getLogin() + "/";
+                    String path2 = GeneralSettings.STORAGE_PATH + "/" + user.getOrganization().getUrlName() + "/stored_files/" + user.getLogin() + "/";
                     File oldFile = new File(path2 + storedFile.getName() + "." + storedFile.getExtension());
 
                     FileUtils.copyFile(oldFile, new File(path2 + newName + "." + storedFile.getExtension()));
@@ -515,6 +516,18 @@ public class AsyncController {
         Organization organization = orgDAO.getOrgById(orgId);
         organization.setDisabled(true);
         orgDAO.update(organization);
+    }
+
+    @GetMapping("/storage_size")
+    @ResponseBody
+    public ResponseEntity<String> getStorageSizes(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        int publicS = SimpleUtils.getPublicStoragePercentageSize(user.getOrganization().getUrlName());
+        int privateS = SimpleUtils.getPrivateStoragePercentageSize(user.getOrganization().getUrlName(), user.getLogin());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return ResponseEntity.ok().headers(responseHeaders).body("{\"public\":" + publicS + ", \"private\":" + privateS + "}");
+
     }
 
 
