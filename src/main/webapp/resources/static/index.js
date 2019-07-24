@@ -24,7 +24,7 @@ $(document).ready(function () {
     window.inited = false;
 
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
-        alert("Запрос к серверу завершился с ошибкой");
+        notify("Запрос к серверу завершился с ошибкой");
         console.log(event);
         console.log(jqXHR);
         console.log(ajaxSettings);
@@ -175,6 +175,7 @@ function connectWS() {
             //if (resp.initiatorId == userId) return;
             switch (resp._alert) {
                 case 'genmessage':
+                    if (resp.initiatorId == userId) return;
                     if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
                     else {
                         renderMessage(resp.mes , 'mailing');
@@ -206,7 +207,7 @@ function connectWS() {
                 case 'private':
                     var currentCompanion = $('.contacts-frame').contents().find('.selected');
 
-                    if (currentCompanion.length > 0 && currentCompanion.attr("data-id") === resp.senderId){
+                    if (currentCompanion.length > 0 && currentCompanion.attr("data-id") == resp.senderId){
                         $('.private_chat_container').prepend('<div class="private_chat comment_bubble_left"><div class="time-left">' +
                             getDate(new Date()) + ' </div>' + resp.text + ' </div>');
                         stompClient.send("/app/readprivate", {}, JSON.stringify({senderId : resp.senderId, hash : hash(resp.text)}));

@@ -7,8 +7,7 @@ import java.util.Properties;
 
 
 public class GeneralSettings {
-/*    public static String AVATAR_PATH = "resources/avatars/";
-    public static String STORED_FILES_PATH = "resources/stored_files/";*/
+
     public static String STORAGE_PATH;
     public static int AMOUNT_GENCHAT_MESSAGES = 50;
     public static int AMOUNT_PRIVATECHAT_MESSAGES = 50;
@@ -30,9 +29,6 @@ public class GeneralSettings {
 
             properties.load(inputStream);
 
-            //AVATAR_PATH = properties.getProperty("avatar_dir");
-            //STORED_FILES_PATH = properties.getProperty("files_dir");
-           /* STORAGE_PATH = properties.getProperty("storage_path");*/
             AMOUNT_GENCHAT_MESSAGES = Integer.valueOf(properties.getProperty("gen_chat_messages_amount"));
             AMOUNT_PRIVATECHAT_MESSAGES = Integer.valueOf(properties.getProperty("private_chat_messages_amount"));
             AMOUNT_WALL_MESSAGES = Integer.valueOf(properties.getProperty("wall_messages_amount"));
@@ -46,7 +42,20 @@ public class GeneralSettings {
 
         //TODO CSRF Protection security.xml
         //FIXME mes.imgUrl in wall.jsp url wrong orgUrl replace
-        //FIXME ws does not work
+        //TODO уменьшить приват чат
+        //FIXME offline priv mes dont show
+        //FIXME
+        //FIXME
+        //FIXME
+        //FIXME
+        //FIXME
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+        //TODO
+
 
 
     }

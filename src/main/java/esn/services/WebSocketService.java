@@ -30,7 +30,7 @@ public class WebSocketService {
         jsonObject.put("_alert", "genmessage")
                 .put("initiatorId", initiator.getId())
                 .put("mes", mes);
-        template.convertAndSend("/genchat" + initiator.getOrganization().getId(), jsonObject.toString());
+        template.convertAndSend("/allusers" + initiator.getOrganization().getId(), jsonObject.toString());
 
 
     }
@@ -47,7 +47,7 @@ public class WebSocketService {
                 .put("initiatorId", initiator.getId())
                 .put("mes", mes);
 
-        template.convertAndSend("/genchat" + initiator.getOrganization().getId(), jsonObject.toString());
+        template.convertAndSend("/allusers" + initiator.getOrganization().getId(), jsonObject.toString());
     }
 
     public void newPrivateMessageAlert(int receiverId, int senderId, String text){

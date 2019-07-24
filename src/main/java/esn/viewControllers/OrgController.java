@@ -28,11 +28,11 @@ import java.util.Set;
 @Controller
 public class OrgController {
 
-    private OrganizationDAO orgDao;
+    private OrganizationDAO orgDAO;
 
     @Autowired
     public void setOrgDao(OrganizationDAO dao){
-        orgDao = dao;
+        orgDAO = dao;
     }
 
 
@@ -60,7 +60,7 @@ public class OrgController {
         org.setAdminKey(adminKey);
         org.setHeaderPath("/header.jpg");
         try {
-            orgDao.persistOrg(org);
+            orgDAO.persistOrg(org);
         } catch (DataIntegrityViolationException e){
             result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
             return "neworg";
@@ -74,7 +74,7 @@ public class OrgController {
     @PreAuthorize("!@orgDao.hasAdmin(#organ) or hasRole('ROLE_ADMIN')")
     public ModelAndView orgProfile(@PathVariable @P("organ") String organ, Model model, HttpSession session, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("org_profile");
-        Organization organization = orgDao.getOrgByURL(organ);
+        Organization organization = orgDAO.getOrgByURL(organ);
         if (organization == null){
             RedirectView rw = new RedirectView("error");
             rw.setStatusCode(HttpStatus.NOT_FOUND);
@@ -103,9 +103,17 @@ public class OrgController {
         /*String headerPath*/
         if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
         orgFromSession.updateFromForm(org);
-        orgDao.update(orgFromSession);
+        orgDAO.update(orgFromSession);
         model.addAttribute("org", orgFromSession);
         model.addAttribute("saved", true);
         return "org_profile";
+    }
+
+    @GetMapping("/delete_org")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOrg(@RequestParam int orgId){
+        Organization organization = orgDAO.getOrgById(orgId);
+        organization.setDisabled(true);
+        orgDAO.update(organization);
     }
 }

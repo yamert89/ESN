@@ -163,16 +163,5 @@ public class Organization {
         if (source.getUrlName() != null) urlName = source.getUrlName();
     }
 
-    public User getUserByLogin(String nickname){
-        try {
-            for (User user:
-                    allEmployers) {
-                if (user.getLogin().equals(nickname)) return user;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
-        return null;
-    }
 }

@@ -7,6 +7,7 @@ import esn.entities.Session;
 import esn.entities.User;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
+import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -179,6 +180,8 @@ public class UserController {
         }
 
         userDAO.persistUser(user);
+
+        SimpleUtils.createUserFolders(org, user.getLogin());
 
         return "redirect:/auth";
     }

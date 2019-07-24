@@ -56,6 +56,15 @@ public class SimpleUtils {
         return (int)((size[0]/1024d/1024d) / (double)maxSize * 100);
     }
 
+    public static void createUserFolders(String orgUrl, String userLogin){
+        try {
+            Files.createDirectory(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/stored_files/" + userLogin + "/"));
+            Files.createDirectory(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/" + userLogin + "/"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
