@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Хранилище</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/storage/storage.css"/>">
     <script type="text/javascript" src='<c:url value="/resources/static/center/storage/storage.js"/>'></script>
 </head>
