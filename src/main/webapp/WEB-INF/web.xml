@@ -27,6 +27,9 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>esn.services.MyHttpListener</listener-class>
+  </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>WEB-INF/app_context.xml</param-value>
@@ -64,6 +67,7 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <session-config>
+    <session-timeout>1</session-timeout>
     <!-- Disables URL-based sessions (no more 'jsessionid' in the URL using Tomcat) -->
     <tracking-mode>COOKIE</tracking-mode>
   </session-config>

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Calendar;
 
 @Entity
@@ -18,20 +20,21 @@ public class Session {
     @ManyToOne
     private User user;
 
-    @CreationTimestamp
-    private Calendar startTime;
+    private Timestamp startTime;
 
-    private Calendar endTime;
+    private Timestamp endTime;
 
     private String ip;
 
     public Session() {
     }
 
-    public Session(String id, User user, String ip) {
+    public Session(String id, User user, String ip, long startTime, long endTime) {
         this.id = id;
         this.user = user;
         this.ip = ip;
+        this.startTime = Timestamp.from(Instant.ofEpochMilli(startTime));
+        this.endTime = Timestamp.from(Instant.ofEpochMilli(endTime));
     }
 
     public String getId() {
@@ -42,11 +45,11 @@ public class Session {
         return user;
     }
 
-    public Calendar getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public Calendar getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
@@ -54,7 +57,7 @@ public class Session {
         return ip;
     }
 
-    public void setEndTime(Calendar endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 }

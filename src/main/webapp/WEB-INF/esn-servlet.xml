@@ -12,7 +12,7 @@
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
 
-    <context:component-scan base-package="esn.viewControllers, esn.entities"/>
+    <context:component-scan base-package="esn.viewControllers, esn.entities, esn.services"/>
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/"/>

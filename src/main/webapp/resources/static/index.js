@@ -239,7 +239,9 @@ function connectWS() {
 
         });
 
-        if (getCookie("first") == null) {
+        stompClient.send("/app/messages", {us : userId}, orgId.toString());
+
+        /*if (getCookie("first") == null) {
             sendNewMReq();
             document.cookie = "first=true; path=/";
             console.log("write first cookie");
@@ -254,7 +256,7 @@ function connectWS() {
                     sendNewMReq();
                 }
             }
-        }
+        }*/ //TODO uncomment?
 
     } );
 

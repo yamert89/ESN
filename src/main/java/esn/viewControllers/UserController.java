@@ -115,7 +115,10 @@ public class UserController {
         model.addAttribute("org", organization);
         int orgId = orgDAO.getOrgByURL(org).getId();
         session.setAttribute("loginUrl", user.getLogin());
+        session.setAttribute("ip", request.getRemoteAddr());
         webSocketService.sendStatus(orgId, user.getId(), true);
+        System.out.println(session.getMaxInactiveInterval());
+        session.setMaxInactiveInterval(10);
         return "redirect:/" + org + "/wall/";
         //return "wall";
     }
@@ -125,9 +128,8 @@ public class UserController {
         int orgId = ((Organization) session.getAttribute("org")).getId();
         User user = (User) session.getAttribute("user");
         webSocketService.sendStatus(orgId, user.getId(), false);
-        Session sessionPersistent = userDAO.getSession(session.getId());
-        sessionPersistent.setEndTime(Calendar.getInstance());
-        userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr()));
+        userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr(),
+                session.getCreationTime(), System.currentTimeMillis()));
         session.invalidate(); //TODO
     }
 
