@@ -128,14 +128,12 @@
 
 
     <div class="prop_line">
-        <input class="commit" type="submit" value="Применить Настройки" id="settings_submit">
+        <input class="commit" type="submit" value="Применить Настройки" id="settings_submit"><span class="prop_log_view"></span>
     </div>
     </s:form>
     <div class="prop_line">
         <input class="commit" type="submit" value="Удалить аккаунт" id="delete_profile">
     </div>
-
-    <span class="prop_log_view"></span>
 </div>
 <button id="main-btn">На главную</button>
 </body>

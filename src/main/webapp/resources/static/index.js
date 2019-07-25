@@ -153,7 +153,7 @@ $(document).ready(function () {
         });
 
     }
-    //if (getCookie("first") == null) ////TODO connect only first load
+
     connectWS();
 
 
