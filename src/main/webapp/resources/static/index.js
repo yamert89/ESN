@@ -228,7 +228,7 @@ function connectWS() {
                 case 'new_messages':
                     console.log(resp.gen);
                     console.log(resp.private_ids);
-                    if (resp.gen) $("#chat_m").css("display", "block");
+                    if (resp.gen) $("#chat_m").css("display", "inline-block");
                     if (resp.private) resp.private_ids.forEach(function (el) {
                         privateMessageAlert(el);
                     })
@@ -239,7 +239,24 @@ function connectWS() {
 
         });
 
-        stompClient.send("/app/messages", {us : userId}, orgId.toString());
+        //stompClient.send("/app/messages", {us : userId}, orgId.toString());
+
+        if (!sessionStorage.getItem("reloaded")){
+            sendNewMReq();
+            sessionStorage.setItem("reloaded", "true");
+            console.log("write first cookie");
+            function sendNewMReq() {
+                try{
+                    setTimeout(function () {
+                        console.log("new");
+                        stompClient.send("/app/messages", {us : userId}, orgId.toString());
+                    }, 200)
+                }catch (e) {
+                    console.log("try reconnection...");
+                    sendNewMReq();
+                }
+            }
+        }
 
         /*if (getCookie("first") == null) {
             sendNewMReq();
@@ -256,7 +273,7 @@ function connectWS() {
                     sendNewMReq();
                 }
             }
-        }*/ //TODO uncomment?
+        } //TODO uncomment?*/
 
     } );
 

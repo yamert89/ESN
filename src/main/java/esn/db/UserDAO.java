@@ -120,7 +120,7 @@ public class UserDAO {
     @Transactional
     public Calendar getLastSession(User user)throws NoResultException {
         Query query = em.createQuery("select s.endTime from Session s where s.user = :user order by s.endTime DESC")
-                .setParameter("user", user);
+                .setParameter("user", user).setMaxResults(1);
         Calendar calendar = (Calendar) query.getSingleResult();
         return calendar;
     }

@@ -1,6 +1,8 @@
 var blocker = false;
 $(document).ready(function () {
-    $("#chat").addClass("selected");
+    var chat = $("#chat");
+    chat.addClass("selected");
+    chat.find("img").css("display", "none");
     var textField = $(".new_genchat_message");
     var messBtn = $(".new_genchat_message_btn");
     messBtn.click(function () {

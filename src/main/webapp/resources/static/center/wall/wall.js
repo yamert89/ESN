@@ -1,6 +1,9 @@
 var submit;
 var blocker = false;
-$("#wall").addClass("selected");
+var wall = $("#wall");
+wall.addClass("selected");
+wall.find("img").css("display", "none");
+
 
 $(document).ready(function () {
     var addButton = $('.post_add').first();

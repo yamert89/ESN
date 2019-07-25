@@ -24,12 +24,13 @@
                 var date = new Date();
                 console.log('func start ' + new Date().getSeconds() + ':' + date.getMilliseconds());
                 var companId = $('.person_container').attr('data-companion-id');
-                var currentCompanion = $('.contacts-frame').contents().find('[data-id=' + companId + ']');
+                var currentCompanion = $('.contacts-frame').find('[data-id=' + companId + ']');
                 if(currentCompanion.length < 1) {
                     setTimeout(selectCompan, 50);
                     return;
                 }
                 currentCompanion.addClass("selected");
+                currentCompanion.find("img").css("display", "none");
             }
 
 
@@ -44,7 +45,8 @@
                 var comp_id = $(".person_container").attr('data-companion-id');
                 var time = window.getDate(new Date());
                 if (text.length > sizeMes) notify('Максимальный размер сообщения ' + sizeMes +' символов. Оно будет разбито.');
-                $(".private_chat_container").prepend('<div class="private_chat comment_bubble_right unreaded"><div class="time-right">' + time + '</div>' + text + '</div>');
+                $(".private_chat_container").prepend('<div class="private_chat comment_bubble_right unreaded"><div class="time-right">'
+                    + time + '</div>' + text + '</div>');
                 $.ajax({type:"POST", url:"/save_private_message/" + comp_id, data:{"text":text}});
                 textField.val('');
             });
@@ -55,6 +57,8 @@
             $(".person_photo_chat").click(function () {
                 location.href = "/" + orgUrl + "/users/" + comp_login;
             })
+
+
 
         });
     </script>
