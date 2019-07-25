@@ -81,5 +81,5 @@ function renderGroup(group) {
 function renderItem(user) {
     var idStat = user.status ? 'net_status_on' : 'net_status_off';
     return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
-        "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/new_message.png' class='new_gen_mes'><div class='person_name'>" + user.name + "</div></div>"
+        "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/new_message.png' class='new_priv_mes'><div class='person_name'>" + user.name + "</div></div>"
 }

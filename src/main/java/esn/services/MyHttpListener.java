@@ -19,6 +19,7 @@ public class MyHttpListener extends HttpSessionEventPublisher {
 
     private WebSocketService webSocketService;
     private UserDAO userDAO;
+    private LiveStat liveStat;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -37,8 +38,10 @@ public class MyHttpListener extends HttpSessionEventPublisher {
             HttpSession session = event.getSession();
             if (webSocketService == null) webSocketService = (WebSocketService) getBean("webSocketService", session);
             if (userDAO == null) userDAO = (UserDAO) getBean("user_dao", session);
+            if (liveStat == null) liveStat = (LiveStat) getBean("live_stat;", session);
             int orgId = ((Organization) session.getAttribute("org")).getId();
             User user = (User) session.getAttribute("user");
+            liveStat.userLogout(user.getId());
             String ip = (String) session.getAttribute("ip");
             webSocketService.sendStatus(orgId, user.getId(), false);
             userDAO.saveSession(new Session(session.getId(), user, ip,

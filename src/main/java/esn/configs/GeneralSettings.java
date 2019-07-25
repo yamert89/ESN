@@ -43,7 +43,7 @@ public class GeneralSettings {
         //TODO CSRF Protection security.xml
         //FIXME mes.imgUrl in wall.jsp url wrong orgUrl replace
         //TODO уменьшить приват чат
-        //FIXME offline priv mes dont show
+        //FIXME
         //FIXME
         //FIXME
         //FIXME

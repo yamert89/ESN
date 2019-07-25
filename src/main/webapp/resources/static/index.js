@@ -7,6 +7,12 @@ function DayWithText(day){
 
 window.listOfDatesNoted = [];
 $(document).ready(function () {
+    if (sessionStorage.getItem("gen") == "on") $("#chat").find("img").css("display", "inline-block");
+    $(".person_item").each(function () {
+        if (sessionStorage.getItem("private" + $(this).attr("data-id")) == "on") $(this).children().first().next().css("display", "inline-block");
+
+    });
+
     var date = new Date();
     console.log('index ready ' + new Date().getSeconds() + ':' + date.getMilliseconds());
     var uName = $(".user_name");
@@ -191,7 +197,7 @@ function connectWS() {
                     break;
                 case 'netstatus':
                     var user = JSON.parse(data.body);
-                    var usDom = $(".contacts-frame").find("[data-id='" + user.userId + "']");
+                    var usDom = $(".contacts-frame").find("[data-id='" + user.initiatorId + "']");
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                     usDom.find(":first-child").attr("id", stat);
                     break;
@@ -228,10 +234,16 @@ function connectWS() {
                 case 'new_messages':
                     console.log(resp.gen);
                     console.log(resp.private_ids);
-                    if (resp.gen) $("#chat_m").css("display", "inline-block");
+                    if (resp.gen) {
+                        $("#chat_m").css("display", "inline-block");
+                        sessionStorage.setItem("gen", "on");
+                    }
                     if (resp.private) resp.private_ids.forEach(function (el) {
                         privateMessageAlert(el);
-                    })
+                        sessionStorage.setItem("private" + el, "on");
+                    });
+
+
 
 
             }
@@ -239,41 +251,24 @@ function connectWS() {
 
         });
 
-        //stompClient.send("/app/messages", {us : userId}, orgId.toString());
-
         if (!sessionStorage.getItem("reloaded")){
             sendNewMReq();
             sessionStorage.setItem("reloaded", "true");
-            console.log("write first cookie");
+            //console.log("write first cookie");
             function sendNewMReq() {
                 try{
                     setTimeout(function () {
-                        console.log("new");
+                        //console.log("new");
                         stompClient.send("/app/messages", {us : userId}, orgId.toString());
                     }, 200)
                 }catch (e) {
-                    console.log("try reconnection...");
+                    //console.log("try reconnection...");
                     sendNewMReq();
                 }
             }
         }
 
-        /*if (getCookie("first") == null) {
-            sendNewMReq();
-            document.cookie = "first=true; path=/";
-            console.log("write first cookie");
-            function sendNewMReq() {
-                try{
-                    setTimeout(function () {
-                        console.log("new");
-                        stompClient.send("/app/messages", {us : userId}, orgId.toString());
-                    }, 200)
-                }catch (e) {
-                    console.log("try reconnection...");
-                    sendNewMReq();
-                }
-            }
-        } //TODO uncomment?*/
+
 
     } );
 
@@ -281,7 +276,7 @@ function connectWS() {
 }
 
 function privateMessageAlert(senderId){
-    $(".contacts-frame").contents().find("[data-id=" + senderId + "]").each(function () {
+    $(".contacts-frame").find("[data-id=" + senderId + "]").each(function () {
         $(this).children().first().next().css("display", "inline-block") ;
     })
 }

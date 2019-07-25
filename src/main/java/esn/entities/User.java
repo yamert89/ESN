@@ -88,11 +88,6 @@ public class User implements Cloneable{
     @JsonIgnore
     private Map<Timestamp, String> notes = new LinkedHashMap<>();
 
-    @Transient
-    @JsonIgnore
-    private boolean netStatus;
-
-
     public User() {
     }
 
@@ -142,10 +137,6 @@ public class User implements Cloneable{
         return settings;
     }
 
-    public boolean netStatus() {
-        return netStatus;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -184,14 +175,6 @@ public class User implements Cloneable{
 
     public Set<ContactGroup> getGroups() {
         return groups;
-    }
-
-    public boolean isNetStatus() {
-        return netStatus;
-    }
-
-    public void setNetStatus(boolean netStatus) {
-        this.netStatus = netStatus;
     }
 
     public Map<Timestamp, String> getNotes() {

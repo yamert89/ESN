@@ -9,6 +9,7 @@ import esn.db.message.PrivateDAO;
 import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
+import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +33,12 @@ public class IndexController {
 
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
+    private LiveStat liveStat;
+
+    @Autowired
+    public void setLiveStat(LiveStat liveStat) {
+        this.liveStat = liveStat;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -63,7 +70,7 @@ public class IndexController {
             users.forEach(u -> {
                 JSONObject us = new JSONObject();
                 us.put("name", u.getName())
-                        .put("status", u.netStatus())
+                        .put("status", liveStat.userIsOnline(u.getId()))
                         .put("id", u.getId())
                         .put("login", u.getLogin());
                 usrs.put(us);
@@ -81,7 +88,7 @@ public class IndexController {
                 User u = userDAO.getUserById(id);
                 JSONObject us = new JSONObject();
                 us.put("name", u.getName())
-                        .put("status", u.netStatus())
+                        .put("status", liveStat.userIsOnline(u.getId()))
                         .put("id", u.getId())
                         .put("login", u.getLogin());
                 usrs.put(us);

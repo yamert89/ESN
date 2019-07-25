@@ -3,6 +3,7 @@ $(document).ready(function () {
     var chat = $("#chat");
     chat.addClass("selected");
     chat.find("img").css("display", "none");
+    sessionStorage.setItem("gen", "off");
     var textField = $(".new_genchat_message");
     var messBtn = $(".new_genchat_message_btn");
     messBtn.click(function () {

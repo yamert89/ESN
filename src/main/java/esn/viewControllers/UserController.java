@@ -5,6 +5,7 @@ import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
+import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import esn.utils.SimpleUtils;
@@ -35,6 +36,12 @@ public class UserController {
     private UserDAO userDAO;
     private OrganizationDAO orgDAO;
     private WebSocketService webSocketService;
+    private LiveStat liveStat;
+
+    @Autowired
+    public void setLiveStat(LiveStat liveStat) {
+        this.liveStat = liveStat;
+    }
 
     @Autowired
     public void setService(WebSocketService service) {
@@ -104,7 +111,7 @@ public class UserController {
             return "auth";
         }*/
 
-        user.setNetStatus(true);
+        liveStat.userLogged(user.getId());
         Organization organization = orgDAO.getOrgById(user.getOrganization().getId());
 
         String org = user.getOrganization().getUrlName();
@@ -123,14 +130,15 @@ public class UserController {
         //return "wall";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public void exit(HttpSession session, HttpServletRequest request){
         int orgId = ((Organization) session.getAttribute("org")).getId();
         User user = (User) session.getAttribute("user");
+        liveStat.userLogout(user.getId());
         webSocketService.sendStatus(orgId, user.getId(), false);
         userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr(),
                 session.getCreationTime(), System.currentTimeMillis()));
-        session.invalidate(); //TODO
+        session.invalidate();
     }
 
 

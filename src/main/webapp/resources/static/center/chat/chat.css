@@ -171,9 +171,11 @@ button:hover{
     /*max-height: 80%;
     min-height: 80%;*/
     /*background-color: white;*/
+    max-width: 1000px;
     border-top: 1px solid rgba(138, 138, 138, 0.33);
     padding: 10px 0;
-
+    border-left: 1px solid rgba(138, 138, 138, 0.33);
+    margin: 0 auto;
     line-height: 120%;
     top: calc(2.2em + 196px)!important;
 
