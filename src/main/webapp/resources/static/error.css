@@ -4,6 +4,7 @@ body{
     text-align: center;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 .http_error{
     font-size: larger;

@@ -78,7 +78,7 @@ input[type='text']{
     background-color: white;
 }
 h3{
-    transform: translateX(100%);
+    /*transform: translateX(100%);*/
 }
 
 .password_board{
@@ -111,7 +111,7 @@ img{
 }
 #main-btn{
     width: 150px;
-    margin: 0 auto;
+    margin: 20px auto;
     display: block;
 }
 .position_delete{
