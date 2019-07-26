@@ -32,7 +32,7 @@ public class GlobalDAO implements InitializingBean {
     @PersistenceContext
     private EntityManager em;
 
-    private Syntax syntax = new MySQLSyntax();
+    private Syntax syntax = new PostgresSyntax();
 
 
 

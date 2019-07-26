@@ -42,7 +42,7 @@ public class ErrorController {
                     break;
                 }
                 case 500: {
-                    // errorMsg = "Ошибка на сервере";
+                    // errorMsg = "Ошибка на сервере"; //TODO replace
 
                     errorMsg = (String) error[1];
                     if (errorMsg.contains("has already been invalidated")) {

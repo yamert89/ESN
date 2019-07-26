@@ -36,7 +36,7 @@ public abstract class MessagesDAO {
 
     private UserDAO userDAO;
 
-    protected Syntax syntax = new MySQLSyntax();
+    protected Syntax syntax = new PostgresSyntax();
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -55,7 +55,7 @@ public abstract class MessagesDAO {
         return new GenChatMessage(id, text, orgId, user);
     };
 
-    public List<AbstractMessage> getMessages(int orgId, int lastIdx){
+    public List<AbstractMessage> getMessages(int orgId, long lastIdx){
 
         int amount = abstractGetMessagesQueryAmountMessages();
         List<AbstractMessage> list = new ArrayList<>(amount);
@@ -108,8 +108,10 @@ public abstract class MessagesDAO {
 
     @Transactional
     public void deleteMessage(int userId, String text){
-        em.createNativeQuery("delete from " + abstractTableName() + " where userId = " + userId + " and message = '" + text + "' " +
-                "order by time desc limit 1").executeUpdate();
+        String tableName = abstractTableName();
+        em.createNativeQuery("delete from " + tableName + " where userId in (" +
+                "select userId from " + tableName + " where userId = " + userId + " and message = '" + text + "' " +
+                "order by time desc limit 1)").executeUpdate();
     }
     @Transactional
     public Calendar getLastTimeOfMessage(int orgId){

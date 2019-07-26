@@ -189,6 +189,7 @@ function connectWS() {
                     }
                     break;
                 case 'post':
+                    if (resp.initiatorId == userId) return;
                     if (!$("#wall").hasClass("selected")) $("#wall_m").css("display", "block");
                     else {
                         renderPost(resp.mes, 'mailing');
