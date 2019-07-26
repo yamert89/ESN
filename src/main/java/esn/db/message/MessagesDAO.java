@@ -95,7 +95,7 @@ public abstract class MessagesDAO {
     @Transactional
     public void saveMessage(int userId, String message, Timestamp time, int orgId){
         try {
-            Query query = em.createNativeQuery("insert into ".concat(abstractTableName()).concat("(message, userId, time, orgId) values (?, ?, ?, ?)"))
+            Query query = em.createNativeQuery("insert into " + abstractTableName() + "(message, userId, time, orgId) values (?, ?, ?, ?)")
                     .setParameter(1, message)
                     .setParameter(2, userId)
                     .setParameter(3, time)

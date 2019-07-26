@@ -4,9 +4,10 @@ body{
     background: linear-gradient(right, color-stop(0%, #fffbce), color-stop(50%, #d7f7c7));
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(210, 245, 255, 0.61)), color-stop(50%, rgba(215, 247, 199, 0.37)));
     text-shadow: 0 0 10px #f6f6f6, 0 0 2px white;
+    font-size: 4.5em;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
-h1{
-    font-size: 4em;
+h2{
     color: #fff8e1;
     text-shadow: 0 0 10px #000000, 0 0 2px black;
 
@@ -31,13 +32,22 @@ div{
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.51);
 }
-.features, .variants {
+.features {
     margin: 0 auto;
     display: flex;
     /* width: 80%; */
     align-items: center;
     flex-direction: column;
-    font-size: 2em;
+    position: relative;
+    /* text-align: center; */
+}
+
+.variants {
+    margin: 0 auto;
+    display: flex;
+    /* width: 80%; */
+    align-items: flex-start;
+    flex-direction: column;
     position: relative;
     /* text-align: center; */
 }
@@ -69,33 +79,26 @@ div{
 .wrapper{
     padding: 0;
     display: inline-block;
-    width: 30%;
+    /*width: 30%;*/
 }
 .wrapper:hover{
     cursor: default;
 }
 
-svg {
-    position: absolute;
-    top: 100px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+p{
+    margin: 300px auto;
 }
-line{
-    stroke-width: 1px;
-    stroke-dasharray: 50;
-    stroke: #fae300;
+
+img{
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px;
 }
-.line2{
-    stroke: black;
-    stroke-width: 3px;
+.example{
+    margin: 100px 0;
 }
-.line3{
-    stroke: red;
-    stroke-width: 1px;
+.name{
+    color: red;
+    font-size: 1.2em;
 }
+
+
