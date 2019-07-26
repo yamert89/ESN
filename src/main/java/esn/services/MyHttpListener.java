@@ -36,9 +36,9 @@ public class MyHttpListener extends HttpSessionEventPublisher {
         System.out.println("SESSION DESTROYED");
         try {
             HttpSession session = event.getSession();
-            if (webSocketService == null) webSocketService = (WebSocketService) getBean("webSocketService", session);
-            if (userDAO == null) userDAO = (UserDAO) getBean("user_dao", session);
-            if (liveStat == null) liveStat = (LiveStat) getBean("live_stat;", session);
+            if (webSocketService == null) webSocketService = (WebSocketService) getBean(WebSocketService.class, session);
+            if (userDAO == null) userDAO = (UserDAO) getBean(UserDAO.class, session);
+            if (liveStat == null) liveStat = (LiveStat) getBean(LiveStat.class, session);
             int orgId = ((Organization) session.getAttribute("org")).getId();
             User user = (User) session.getAttribute("user");
             liveStat.userLogout(user.getId());
@@ -52,8 +52,8 @@ public class MyHttpListener extends HttpSessionEventPublisher {
         super.sessionDestroyed(event);
     }
 
-    private Object getBean(String name, HttpSession session){
+    private Object getBean(Class clas, HttpSession session){
         ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
-        return ctx.getBean(name);
+        return ctx.getBean(clas);
     }
 }

@@ -39,7 +39,7 @@
         <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'">Файлообменник</div>
         <div class="tool" id="notes" onclick="location.href = '/${orgUrl}/notes'">Заметки</div>
         <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'">Календарь</div>
-        <div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>
+        <%--<div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>--%>
         <div class="datepicker-here"></div>
         <div class="log log_message">Это просто такой текст лога</div>
     </div>

@@ -17,12 +17,12 @@
     width: 10px;
     height: 10px;
     border-radius: 5px;
-    background-color: blue;
+    background-color: #83c5ff;
     display: inline-block;
     margin: 0 5px;
 }
 #net_status_off{
-    background-color: #ded9dd;
+    background-color: #b7b4b7;
 }
 
 

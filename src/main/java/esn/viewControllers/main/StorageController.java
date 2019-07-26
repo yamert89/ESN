@@ -46,8 +46,8 @@ public class StorageController {
         this.globalDAO = globalDAO;
     }
 
-    @GetMapping(value = "{/organization}/storage")
-    public String storage(/*@SessionAttribute User user*/ Model model, SessionStatus status, HttpSession session){
+    @GetMapping(value = "/{organization}/storage")
+    public String storage(/*@SessionAttribute User user*/ Model model, SessionStatus status, HttpSession session, @PathVariable String organization){
         User user = (User) session.getAttribute("user");
         status.setComplete();
         try{

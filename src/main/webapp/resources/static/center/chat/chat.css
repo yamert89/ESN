@@ -48,6 +48,8 @@ input{
 .new_message_container{
     display: flex;
     align-items: center;
+    max-width: 100px;
+    margin: 0 auto;
 }
 
 .new_genchat_message{
@@ -99,7 +101,7 @@ button:hover{
     /*top: 38px;*/
     position: absolute;
     border-top: 6px solid transparent;
-    border-right: 26px solid rgba(104, 201, 0, 0.2);
+    border-right: 26px solid rgba(104, 201, 0, 0.13);
     border-bottom: 13px solid transparent;
 
 }

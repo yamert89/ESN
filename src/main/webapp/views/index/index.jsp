@@ -19,7 +19,10 @@
 
             $(".lets_go").click(function () {
                 location.href = $(this).attr("id") === "cloud" ? "/notice_cloud" : "/notice_local";
-            })
+            });
+            var example = $(".example");
+
+            example.attr("src", example.attr("data-src"));
 
 
 
@@ -30,16 +33,27 @@
 <!--<div id="header"><h1>Корпоративный чат - програмное решение для связи сотрудников в пределах предприятия</h1></div>-->
 <img src="../../resources/data/office.jpg" id="header"/>
 <div class="header_text_wrapper">
-    <h1>Корпоративный чат - программное решение для связи сотрудников в пределах предприятия</h1>
+    <h1>enChat - программное решение для связи сотрудников в пределах предприятия</h1>
 </div>
+
 <div class="features">
+    <svg>
+        <line class="line2" x1="50%" y1="0" x2="50%" y2="100%"/>
+        <line x1="50%" y1="0" x2="50%" y2="100%"/>
+        <line class="line3" x1="50%" y1="0" x2="50%" y2="100%"/>
+
+    </svg>
+
     <p>Чат выполнен как браузерное приложение и прост в использовании.</p>
     <p>Текущая версия - beta</p>
     Основные возможности :
-    <li>общий и приватный чат</li>
-    <li>стена</li>
-    <li>загрузка/скачивание файлов</li>
-    <li></li>
+    <div class="features_li">
+        <li>общий и приватный чат</li>
+        <li>стена</li>
+        <li>загрузка / скачивание файлов</li>
+        <li>производственный календарь</li>
+    </div>
+    <img class="example" src="" data-src="/resources/data/example.JPG">
 </div>
 <div class="variants">
     Варианты развертывания:<br/>

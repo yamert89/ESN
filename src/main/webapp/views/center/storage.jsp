@@ -64,7 +64,7 @@
                         <img src='<c:url value="/resources/share.png"/>' data-shared='0' class="file_share" title="Опубликовать в общие">
                     </c:if>
                     <c:if test="${file.shared == true}">
-                        <img src='<c:url value="/resources/unshare.png"/>' data-shared='1' class="file_share" title="Опубликовать в общие">
+                        <img src='<c:url value="/resources/unshare.png"/>' data-shared='1' class="file_share" title="Убрать из общих">
                     </c:if>
                     <div class="file_time">${file.time}</div>
                 </div>

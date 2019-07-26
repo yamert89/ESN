@@ -83,8 +83,8 @@ public class GenChatController {
     @ResponseBody
     public ResponseEntity<String> getChatPiece(HttpSession session){
         int orgId = ((Organization) session.getAttribute("org")).getId();
-        int oldIndex = (int) session.getAttribute("lastIdx_genchat");
-        if (oldIndex == -1) return null;
+        long oldIndex = (long) session.getAttribute("lastIdx_genchat");
+        if (oldIndex == -1) return ResponseEntity.noContent().build();
         List<AbstractMessage> messages = genDAO.getMessages(orgId, oldIndex);
         long newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         session.setAttribute("lastIdx_genchat", newIdx);
