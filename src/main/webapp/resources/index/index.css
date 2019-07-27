@@ -4,17 +4,18 @@ body{
     background: linear-gradient(right, color-stop(0%, #fffbce), color-stop(50%, #d7f7c7));
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(210, 245, 255, 0.61)), color-stop(50%, rgba(215, 247, 199, 0.37)));
     text-shadow: 0 0 10px #f6f6f6, 0 0 2px white;
-    font-size: 4.5em;
+    font-size: 5vh;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 h2{
     color: #fff8e1;
     text-shadow: 0 0 10px #000000, 0 0 2px black;
+    font-size: 8vh;
 
 }
-div{
-    padding: 100px;
-}
+
 .header_text_wrapper{
     position: absolute;
     top: 0;
@@ -29,7 +30,7 @@ div{
     /*background: url("../data/office.jpg")  no-repeat center center fixed;
     background-size: cover;*/
     /*-webkit-background-size: 100%;*/
-    width: 100%;
+    height: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.51);
 }
 .features {
@@ -39,16 +40,17 @@ div{
     align-items: center;
     flex-direction: column;
     position: relative;
+    padding: 50px;
     /* text-align: center; */
 }
 
 .variants {
     margin: 0 auto;
-    display: flex;
     /* width: 80%; */
     align-items: flex-start;
     flex-direction: column;
     position: relative;
+    padding: 50px;
     /* text-align: center; */
 }
 .features_li{
@@ -59,16 +61,18 @@ div{
    transform: translateX(1000px);
     position: absolute;
     opacity: 0;
+    font-size: 4vh;
 
 
 }
 .lets_go_showed{
     position: absolute;
-    transform: none;
+    transform: translate(20px);
     opacity: 100%;
     transition: transform 0.5s, opacity 0.5s;
-    color: #00e8ff;
+    color: #0e9aff;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.45);
+    font-size: 4vh;
     /*transition: transform 0.4s ease;*/
 }
 .lets_go_showed:hover, .lets_go:hover{
@@ -86,7 +90,7 @@ div{
 }
 
 p{
-    margin: 300px auto;
+    margin: 80px auto;
 }
 
 img{
@@ -98,7 +102,24 @@ img{
 }
 .name{
     color: red;
-    font-size: 1.2em;
+    font-size: 10vh;
+}
+.main_wrapper{
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.11);
+}
+.arrow{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    box-shadow: none;
+    border: none;
+}
+br{
+    height: 20px;
 }
 
 

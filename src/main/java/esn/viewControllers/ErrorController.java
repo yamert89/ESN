@@ -44,7 +44,7 @@ public class ErrorController {
                 case 500: {
                     // errorMsg = "Ошибка на сервере"; //TODO replace
 
-                    errorMsg = (String) error[1];
+                    if (error.length > 1) errorMsg = (String) error[1];
                     if (errorMsg.contains("has already been invalidated")) {
                         errorPage.setViewName("auth");
                         return errorPage;
@@ -67,6 +67,6 @@ public class ErrorController {
     private Object[] getErrorCode(HttpServletRequest httpRequest) {
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
         NestedServletException ex = (NestedServletException) httpRequest.getAttribute("javax.servlet.error.exception");
-        return new Object[]{code, ex.getCause().getMessage()};
+        return ex == null ? new Object[]{code} : new Object[]{code, ex.getCause().getMessage()};
     }
 }
