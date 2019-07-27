@@ -31,10 +31,12 @@ $(document).ready(function () {
 
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
         notify("Запрос к серверу завершился с ошибкой");
+
         console.log(event);
         console.log(jqXHR);
         console.log(ajaxSettings);
         console.log(thrownError);
+        $.post('/clienterror', {event : event, jqXHR : jqXHR, ajaxSettings : ajaxSettings, thrownError : thrownError}, "json");
     });
 
     $.get("/notes", null, datepickerInit, "json");
