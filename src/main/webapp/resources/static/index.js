@@ -223,14 +223,19 @@ function connectWS() {
                         privateMessageAlert(resp.senderId);
                     }
                     break;
-                case 'private_alert_read':
+                case 'private_alert_read_one':
                     $(".private_chat_container").find(".unreaded").each(function () {
-                        var elHash = hash($(this).children().get(1)); //TODO test
+                        var text = $(this).get(0).innerText;
+                        var startIdx = text.indexOf('\n');
+                        var elHash = hash(text.substr(++startIdx)); //TODO test
                         if (resp.hash == elHash) {
-                            $(this).removeClass("unread");
+                            $(this).removeClass("unreaded");
 
                         }
                     });
+                    break;
+                case 'private_alert_read_all':
+                    $(".private_chat_container").find(".unreaded").removeClass("unreaded");
                     break;
                 case 'new_messages':
                     console.log(resp.gen);

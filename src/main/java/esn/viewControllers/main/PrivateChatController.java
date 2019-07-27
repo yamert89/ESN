@@ -12,6 +12,7 @@ import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.PrivateChatMessage;
 import esn.services.WebSocketService;
+import esn.viewControllers.WebSocketAlertController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,12 @@ public class PrivateChatController {
     private UserDAO userDAO;
     private PrivateDAO privateDAO;
     private WebSocketService webSocketService;
+    private WebSocketAlertController webSocketAlertController;
+
+    @Autowired
+    public void setWebSocketAlertController(WebSocketAlertController webSocketAlertController) {
+        this.webSocketAlertController = webSocketAlertController;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -74,7 +81,7 @@ public class PrivateChatController {
 
         }
         privateDAO.updateReadedMessages(ids);
-
+        webSocketAlertController.readPrivateMessageAlertAll(compan.getId());
         model.addAttribute("messages", messages);
         return "private_chat";
     }
