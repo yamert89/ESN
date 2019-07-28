@@ -43,7 +43,7 @@ public class GeneralSettings {
         //TODO CSRF Protection security.xml
         //FIXME mes.imgUrl in wall.jsp url wrong orgUrl replace
         //FIXME readed private mes alert not working
-        //FIXME wom small 32x32 and other
+        //FIXME должности при регистрации орг не сохраняются
         //FIXME
         //FIXME
         //FIXME

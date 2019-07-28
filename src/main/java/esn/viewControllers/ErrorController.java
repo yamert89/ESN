@@ -7,13 +7,14 @@ import org.springframework.web.util.NestedServletException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class ErrorController {
 
     @GetMapping("/error")
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
-        System.out.println("Error");
+
         try {
 
             ModelAndView errorPage = new ModelAndView("error");
@@ -56,7 +57,7 @@ public class ErrorController {
                 }
             }
             errorPage.addObject("errorMsg", errorMsg);
-            System.out.println(errorMsg);
+            System.out.println("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
             e.printStackTrace();
@@ -66,7 +67,9 @@ public class ErrorController {
 
     private Object[] getErrorCode(HttpServletRequest httpRequest) {
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
-        NestedServletException ex = (NestedServletException) httpRequest.getAttribute("javax.servlet.error.exception");
-        return ex == null ? new Object[]{code} : new Object[]{code, ex.getCause().getMessage()};
+        Optional<NestedServletException> ex = Optional.ofNullable((NestedServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
+        String message = ex.isPresent() ? ex.get().getCause().getMessage() : "";
+        String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
+        return new Object[]{code, message, errorUrl};
     }
 }
