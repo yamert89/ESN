@@ -39,7 +39,9 @@ public class MyHttpListener extends HttpSessionEventPublisher {
             if (webSocketService == null) webSocketService = (WebSocketService) getBean(WebSocketService.class, session);
             if (userDAO == null) userDAO = (UserDAO) getBean(UserDAO.class, session);
             if (liveStat == null) liveStat = (LiveStat) getBean(LiveStat.class, session);
-            int orgId = ((Organization) session.getAttribute("org")).getId();
+            Organization org = (Organization) session.getAttribute("org");
+            if (org == null) return;
+            int orgId = org.getId();
             User user = (User) session.getAttribute("user");
             liveStat.userLogout(user.getId());
             String ip = (String) session.getAttribute("ip");

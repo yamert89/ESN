@@ -1,8 +1,8 @@
 .checkbox{
-    opacity: 0;
+    border: none;
 }
-.checkbox_on{
-    opacity: 1;
+.off{
+    opacity: 0;
 }
 .user_profile{
     display: none;
@@ -38,6 +38,11 @@ form{
 }
 .shadow{
     display: none;
+}
+.star{
+    flex: 0 0 auto;
+    margin: 0 3px;
+    color: red;
 }
 
 .person_staff {

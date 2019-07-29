@@ -13,20 +13,28 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var pass1 = $("#pass1");
-            $(".reg_field").keyup(function () {
-                var th = $(this);
-                if (th.val().length > 6 && th === pass1) th.next().removeClass("checkbox");
-                else th.next().addClass("checkbox");
-                if (th.val().length > 3 && th !== pass1) th.next().removeClass("checkbox");
-                else th.next().addClass("checkbox");
 
-                if (pass1.val() == $("#pass2").val()) $("#error_pass").text("");
+            $(".reg_field").keyup(function () {
+                var pass1 = $("#pass1");
+                var pass2 = $("#pass2");
+                var regfield = $(this);
+                var constraint = regfield[0] == $("#small_input")[0] ? 59 :
+                    regfield[0] == pass1[0] ? 6 : 3;
+
+                checkboxSateChange(regfield, constraint);
+
+                if (pass1.val() === pass2.val()) $("#error_pass").text("");
                 else {
                     $("#error_pass").text("Пароли не совпадают");
                 }
+
             });
         });
+
+        function checkboxSateChange(regfield, constrains) {
+            if (regfield.val().length > constrains) regfield.next().next().removeClass("off");
+            else regfield.next().next().addClass("off");
+        }
     </script>
 </head>
 <body>
@@ -37,21 +45,24 @@
             <div class="inline">
                 <label class="prop_label fixed_max">Введите корпоративный ключ:</label>
                 <input name="orgKey" size="60" maxlength="60" class="reg_field fixed_min" id="small_input"/>
-                <img src="/resources/checkbox.jpg" class="checkbox">
+                <span class="star">*</span>
+                <img src="/resources/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
                 <label class="prop_label">Введите Ваше имя:</label>
                 <sf:input path="name" size="50" maxlength="50" cssClass="reg_field"/>
-                <img src="/resources/checkbox.jpg" class="checkbox">
+                <span class="star">*</span>
+                <img src="/resources/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
                 <label class="prop_label">Введите логин:</label>
                 <sf:input path="login" size="20" maxlength="20" cssClass="reg_field"/>
-                <img src="/resources/checkbox.jpg" class="checkbox">
+                <span class="star">*</span>
+                <img src="/resources/checkbox.jpg" class="checkbox off">
 
             </div>
         </div>
@@ -59,7 +70,8 @@
             <div class="inline">
                 <label class="prop_label">Введите пароль:</label>
                 <sf:password path="password" size="20" cssClass="reg_field" id="pass1"/>
-                <img src="/resources/checkbox.jpg" class="checkbox">
+                <span class="star">*</span>
+                <img src="/resources/checkbox.jpg" class="checkbox off">
 
             </div>
         </div>
@@ -67,7 +79,8 @@
             <div class="inline">
                 <label class="prop_label">Повторите пароль:</label>
                 <input type="password" class="reg_field" id="pass2">
-                <img src="/resources/checkbox.jpg" class="checkbox">
+                <span class="star">*</span>
+                <img src="/resources/checkbox.jpg" class="checkbox off">
             </div>
             <span class="jspError" id="error_pass"></span>
         </div>
@@ -78,7 +91,8 @@
                 <sf:radiobutton path="male" value="true" id="small_input"/>
                 <label class="prop_label fixed_min">Женский:</label>
                 <sf:radiobutton path="male" value="false" id="small_input"/>
-                <img src="/resources/checkbox.jpg" class="checkbox">
+                <span class="star">*</span>
+                <img src="/resources/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <sf:errors path="name" cssClass="jspError"/>

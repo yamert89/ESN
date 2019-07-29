@@ -125,7 +125,7 @@ public class UserController {
         session.setAttribute("ip", request.getRemoteAddr());
         webSocketService.sendStatus(orgId, user.getId(), true);
         System.out.println(session.getMaxInactiveInterval());
-        //session.setMaxInactiveInterval(10);
+        session.setMaxInactiveInterval(10);
         return "redirect:/" + org + "/wall/";
         //return "wall";
     }
