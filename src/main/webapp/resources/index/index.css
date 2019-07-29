@@ -99,6 +99,16 @@ img{
 }
 .example{
     margin: 100px 0;
+    width: 100%;
+    max-width: fit-content;
+    transition: width 1s ease, margin 1s ease;
+
+}
+
+.example:hover{
+    width: 150%;
+    margin: 0;
+    transition: width 1s ease, margin 1s ease;
 }
 .name{
     color: red;
@@ -117,6 +127,9 @@ img{
     right: 50%;
     box-shadow: none;
     border: none;
+}
+.arrow:hover{
+    height: 120px;
 }
 br{
     height: 20px;

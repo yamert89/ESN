@@ -24,10 +24,12 @@
             var example = $(".example");
             example.attr("src", example.attr("data-src"));
             arrow = $(".arrow");
-            setTimeout(function () {
+
+             setTimeout(function () {
+                $("body").css("overflow-y", "auto");
+                if (window.pageYOffset > 0) return;
                 arrow.attr("src", arrow.attr("data-src"));
                 arrow.css("display", "block");
-                $("body").css("overflow-y", "auto");
             }, 2000);
             arrow.click(scroll);
             $(window).scroll(scroll);

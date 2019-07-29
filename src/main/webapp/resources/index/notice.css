@@ -39,12 +39,11 @@ html, body, .container{
 }
 
 .link{
-    color: #00d0e7;
     transition: font-size 0.2s;
 }
 
 .link:hover{
-    color: red;
+
     cursor: default;
     font-size: 1.4em;
     transition: font-size 0.2s;
@@ -60,8 +59,9 @@ span{
 
 }
 a{
-    color: #f6f6f6;
+    color: #00d0e7;
+    text-decoration: none;
 }
 a:hover{
-    color: #f4f6ab;
+    color: red;
 }
