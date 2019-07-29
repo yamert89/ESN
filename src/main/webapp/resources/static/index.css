@@ -16,6 +16,7 @@ header{
     border: 1px solid rgba(0, 0, 0, 0.2);
     /*flex: 0 0 auto;*/
     display: flex;
+    flex: 0 0 100px;
 }
 body{
     /*height: 100%;*/
@@ -52,6 +53,8 @@ iframe{
     flex: 15 0 auto;
     text-align: left;
     padding-left: 20%;
+    text-shadow: 0 0 3px white;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 
 }
 .user_name, .user_photo, .title{
@@ -118,7 +121,7 @@ iframe{
 
 }
 
-/*.posts,*/ .notes, .message_container, .private_chat_container{
+.posts, .notes, .message_container, .private_chat_container{
                 overflow-y: auto;
                 /*max-height: calc(100% - 41px);*/
                 /*max-height: 92%;*/

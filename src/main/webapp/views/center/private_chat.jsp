@@ -68,11 +68,11 @@
 <div class="private_chat_profile">
     <div class="person_container" data-companion-id="${companion.id}" data-companion-login="${companion.login}">
         <img src='<c:url value="/resources/data${companion.photo}"/>' class="person_photo_chat"><br>
-        <c:if test="${false}">
+        <c:if test="${!online}">
             <div class="net_status_circle" id="net_status_off"></div>
             <span class="net_status">не в сети</span>
         </c:if>
-        <c:if test="${true}">
+        <c:if test="${online}">
             <div class="net_status_circle"></div>
             <span class="net_status">в сети</span>
         </c:if>

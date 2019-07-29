@@ -12,6 +12,10 @@
     display: none;
 }
 
+.posts{
+    overflow-x: hidden;
+}
+
 
 
 .post_submit{
@@ -77,5 +81,5 @@ p{
     margin: 5px;
 }
 .wall_container{
-    max-width: 1200px;
+    max-width: 1400px;
 }

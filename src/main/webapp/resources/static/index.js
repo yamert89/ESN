@@ -203,6 +203,11 @@ function connectWS() {
                     var usDom = $(".contacts-frame").find("[data-id='" + user.initiatorId + "']");
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                     usDom.find(":first-child").attr("id", stat);
+
+                    var netStatus = $(".person_photo_chat").next(); //TODo test
+                    netStatus.attr("id", stat);
+                    netStatus.next().text(user.statusOn ? "в сети" : "не в сети");
+
                     break;
 
             }
@@ -229,7 +234,7 @@ function connectWS() {
                     $(".private_chat_container").find(".unreaded").each(function () {
                         var text = $(this).get(0).innerText;
                         var startIdx = text.indexOf('\n');
-                        var elHash = hash(text.substr(++startIdx)); //TODO test
+                        var elHash = hash(text.substr(++startIdx));
                         if (resp.hash == elHash) {
                             $(this).removeClass("unreaded");
 

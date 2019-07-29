@@ -21,16 +21,6 @@ public class MyHttpListener extends HttpSessionEventPublisher {
     private UserDAO userDAO;
     private LiveStat liveStat;
 
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-    @Autowired
-    public void setService(WebSocketService service) {
-        this.webSocketService = service;
-    }
-
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
         System.out.println("SESSION DESTROYED");

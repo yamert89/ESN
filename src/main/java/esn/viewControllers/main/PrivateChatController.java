@@ -11,6 +11,7 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.PrivateChatMessage;
+import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.viewControllers.WebSocketAlertController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class PrivateChatController {
     private PrivateDAO privateDAO;
     private WebSocketService webSocketService;
     private WebSocketAlertController webSocketAlertController;
+    private LiveStat liveStat;
+
+    @Autowired
+    public void setLiveStat(LiveStat liveStat) {
+        this.liveStat = liveStat;
+    }
 
     @Autowired
     public void setWebSocketAlertController(WebSocketAlertController webSocketAlertController) {
@@ -83,6 +90,7 @@ public class PrivateChatController {
         privateDAO.updateReadedMessages(ids);
         webSocketAlertController.readPrivateMessageAlertAll(compan.getId());
         model.addAttribute("messages", messages);
+        model.addAttribute("online", liveStat.userIsOnline(user.getId()));
         return "private_chat";
     }
 

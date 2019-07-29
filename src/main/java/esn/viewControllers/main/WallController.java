@@ -78,11 +78,17 @@ public class WallController {
     @GetMapping("/wallpiece")
     @ResponseBody
     public ResponseEntity<String> getWallPiece(HttpSession session){
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        int oldIndex = (int) session.getAttribute("lastIdx_wall");
-        if (oldIndex == -1) return null;
-        List<AbstractMessage> messages = wallDAO.getMessages(orgId, oldIndex);
-        long newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        long newIdx = 0L;
+        List<AbstractMessage> messages = null;
+        try {
+            int orgId = ((Organization) session.getAttribute("org")).getId();
+            long oldIndex = (long) session.getAttribute("lastIdx_wall");
+            if (oldIndex == -1) return null;
+            messages = wallDAO.getMessages(orgId, oldIndex);
+            newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         session.setAttribute("lastIdx_wall", newIdx);
         ObjectMapper om = new ObjectMapper();
         String json = "";
