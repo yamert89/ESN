@@ -41,7 +41,7 @@ public class GeneralSettings {
         }
 
         //TODO CSRF Protection security.xml
-        //FIXME
+        //FIXME session logout errors
         //FIXME
         //FIXME
         //FIXME

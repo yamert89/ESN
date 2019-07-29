@@ -25,6 +25,7 @@
     <div class="user">
         <span class="user_name" data-login="${user.login}" data-user_id="${user.id}">${user.name}</span>
         <img src='<c:url value="/resources/data${user.photo}"/>' class="user_photo">
+        <a href="/logout" class="logout">выход</a>
     </div>
 </header>
 <body>

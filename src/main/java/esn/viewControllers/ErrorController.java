@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.NestedServletException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Optional;
@@ -67,7 +68,7 @@ public class ErrorController {
 
     private Object[] getErrorCode(HttpServletRequest httpRequest) {
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
-        Optional<NestedServletException> ex = Optional.ofNullable((NestedServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
+        Optional<ServletException> ex = Optional.ofNullable((ServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
         String message = ex.isPresent() ? ex.get().getCause().getMessage() : "";
         String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
         return new Object[]{code, message, errorUrl};

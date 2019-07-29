@@ -216,6 +216,10 @@ a{
     display: none;
 }
 
+.logout:hover{
+    color: red;
+}
+
 
 
 

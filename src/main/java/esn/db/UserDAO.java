@@ -11,6 +11,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Calendar;
+import java.util.Optional;
 
 @Repository("user_dao")
 @Transactional
@@ -108,8 +109,8 @@ public class UserDAO {
     }
 
     @Transactional
-    public Session getSession(String id){
-        return em.find(Session.class, id);
+    public Optional<Session> getSession(String id){
+        return Optional.ofNullable(em.find(Session.class, id));
     }
 
     @Transactional
