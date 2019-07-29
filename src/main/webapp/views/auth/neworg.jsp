@@ -32,7 +32,7 @@
             var res = '';
             try{
                 $("datalist").children().each(function (idx, el) {
-                    res = res + '@@@' + el.getAttribute('value');
+                    res = res + ', ' + el.getAttribute('value');
                 });
                 $("#input").val(res.substr(3));
             }catch (e) {

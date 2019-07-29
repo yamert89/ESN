@@ -28,7 +28,7 @@ $(document).ready(function () {
         var str = '';
         $('.position').each(function (idx, el) {
             el = el.getElementsByClassName('position_name')[0];
-            str += "@@@" + el.innerHTML;
+            str += ", " + el.innerHTML;
         });
         console.log(str);
         $('.position_add_input').val(str.substr(3));

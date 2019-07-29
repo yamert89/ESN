@@ -13,7 +13,8 @@
     <title>Title</title>
     <script type="text/javascript" src='<c:url value="/resources/static/props/org_props.js"/>'></script>
 </head>
-<body><c:set value='${sessionScope.get("org")}' var="org<div class="properties_board" data-id='${org.id}' data-url="${org.urlName}" data-saved="${saved}"id="org_props">
+<body><c:set value='${sessionScope.get("org")}' var="org" />
+<div class="properties_board" data-id='${org.id}' data-url="${org.urlName}" data-saved="${saved}" id="org_props">
     <div class="prop_line title_pref"><h2>Настройки</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="org" method="post">
         <div class="prop_line">

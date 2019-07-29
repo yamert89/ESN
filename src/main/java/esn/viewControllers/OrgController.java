@@ -52,10 +52,10 @@ public class OrgController {
         String corpKey = encoder.encode(org.getName() + "3ff42fsf2423fsdf");
         String adminKey = encoder.encode(org.getName() + "3ff42fsf24hjgfdsesdf23fsdf");
 
-        String[] poss = pos.split("@@@");
-        Collections.addAll(org.getPositions(), poss );
+        String[] poss = pos.split(", ");
         if (org.getPositions() == null) org.setPositions(new HashSet<>());
         org.getPositions().clear();
+        Collections.addAll(org.getPositions(), poss );
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
         org.setHeaderPath("/header.jpg");
@@ -95,7 +95,7 @@ public class OrgController {
                                 @RequestParam MultipartFile header, @PathVariable String organ, BindingResult bindingResult, Model model, HttpSession session){
         Organization orgFromSession = (Organization) session.getAttribute("org");
         if (bindingResult.hasErrors()) return "org_profile";
-        String[] poss = pos.split("@@@");
+        String[] poss = pos.split(", ");
         Set<String> positions = orgFromSession.getPositions();
         if (positions == null) orgFromSession.setPositions(new HashSet<>());
         orgFromSession.getPositions().clear();
