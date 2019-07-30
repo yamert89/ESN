@@ -66,10 +66,10 @@ public class ErrorController {
         return null;
     }
 
-    private Object[] getErrorCode(HttpServletRequest httpRequest) {
+    private Object[] getErrorCode(HttpServletRequest httpRequest) throws Exception{
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
         Optional<ServletException> ex = Optional.ofNullable((ServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
-        String message = ex.isPresent() ? ex.get().getCause().getMessage() : "";
+        String message = ex.isPresent() ? ex.get().getMessage() : "";
         String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
         return new Object[]{code, message, errorUrl};
     }

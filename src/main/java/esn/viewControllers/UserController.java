@@ -131,7 +131,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public void exit(HttpSession session, HttpServletRequest request){
+    public String exit(HttpSession session, HttpServletRequest request){
         int orgId = ((Organization) session.getAttribute("org")).getId();
         User user = (User) session.getAttribute("user");
         liveStat.userLogout(user.getId());
@@ -139,6 +139,7 @@ public class UserController {
         userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr(),
                 session.getCreationTime(), System.currentTimeMillis()));
         session.invalidate();
+        return "redirect:/auth";
     }
 
 
