@@ -66,7 +66,7 @@ public class PrivateChatController {
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         User user = (User) session.getAttribute("user");
-        User compan = userDAO.getUserByLogin(companion);
+        User compan = userDAO.getUserByLogin(companion); //TODO replace in org ?
         model.addAttribute("companion", compan);
         Set<PrivateChatMessage> privateMessages = privateDAO.getMessages(user, compan, orgId);
 
@@ -101,7 +101,7 @@ public class PrivateChatController {
         User user = (User) session.getAttribute("user");
         int orgId = ((Organization) session.getAttribute("org")).getId();
         int cId = Integer.valueOf(companionId);
-        User compan = userDAO.getUserById(cId);
+        User compan = userDAO.getUserById(cId); 
         if (text.length() > 800) {
             String[] messages = text.split(".{800}"); //TODO test
             for (String m :

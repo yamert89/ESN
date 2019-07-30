@@ -9,6 +9,7 @@ import esn.db.UserDAO;
 import esn.db.message.GenDAO;
 import esn.db.message.PrivateDAO;
 import esn.db.message.WallDAO;
+import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.PseudoContactGroup;
@@ -45,7 +46,9 @@ public class GroupsController {
     @GetMapping("/{organization}/groups")
     public String groups(@PathVariable String organization, Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
-        Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
+        Organization org = (Organization) session.getAttribute("org");
+        //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
+        Set<User> employers = org.getAllEmployers();
         employers.remove(user);
         model.addAttribute("employers", employers);
         Set<ContactGroup> groups = user.getGroups();

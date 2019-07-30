@@ -17,6 +17,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 
 @Controller
@@ -56,11 +57,12 @@ public class WebSocketAlertController {
     }
 
     @MessageMapping("/messages")
-    public void askingForNewMessages(@Header String us, @Payload String orgId){
+    public void askingForNewMessages(@Header String us, @Payload String orgId/*, HttpSession session*/){
         try {
             System.out.println("_______ ASKING NEW MES__________");
             int userId = Integer.parseInt(us);
             User user = userDAO.getUserById(userId);
+            //User user = (User) session.getAttribute("user");
             Calendar lastVisitTime = null;
             try {
                 lastVisitTime = userDAO.getLastSession(user);

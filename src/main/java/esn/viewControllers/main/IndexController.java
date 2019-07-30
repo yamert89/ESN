@@ -59,9 +59,10 @@ public class IndexController {
         responseHeaders.set("Content-Type",
                 "application/json; charset=UTF-8");
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
-
+        Organization org = (Organization) session.getAttribute("org");
         if (user.getGroups().size() == 0){
-            Organization org = orgDAO.getOrgByURLWithEmployers(organization);
+           /* Organization org = orgDAO.getOrgByURLWithEmployers(organization);*/
+            org = (Organization) session.getAttribute("org");
             Set<User> users = new HashSet<>(org.getAllEmployers());
             users.remove(user);
 
@@ -81,11 +82,13 @@ public class IndexController {
         long start = System.currentTimeMillis();
         JSONArray js = new JSONArray();
 
+        Organization finalOrg = org;
         user.getGroups().forEach(g -> {
             JSONObject group = new JSONObject();
             JSONArray usrs = new JSONArray();
             Arrays.stream(g.getPersonIds()).forEach(id -> {
-                User u = userDAO.getUserById(id);
+                /*User u = userDAO.getUserById(id);*/
+                User u = finalOrg.getEmployerById(id);
                 JSONObject us = new JSONObject();
                 us.put("name", u.getName())
                         .put("status", liveStat.userIsOnline(u.getId()))

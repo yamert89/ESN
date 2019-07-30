@@ -40,8 +40,8 @@ public class NotesController {
     @GetMapping(value = "/{organization}/notes")
     public String notes(HttpSession session){
         User user = (User) session.getAttribute("user");
-        System.out.println(" /notes Main   " + user);
-        session.setAttribute("user", userDAO.getUserById(user.getId()));
+        /*System.out.println(" /notes Main   " + user);
+        session.setAttribute("user", userDAO.getUserById(user.getId()));*/
         return "notes";
     }
 
@@ -56,8 +56,8 @@ public class NotesController {
             /*Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));*/
             //Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time));
             user.getNotes().put(timestamp, text);
-            userDAO.updateUser(user);
-            user = userDAO.getUserById(user.getId());
+            user = userDAO.updateUser(user);
+            //user = userDAO.getUserById(user.getId());
             session.setAttribute("user", user);
         }catch (Exception e){
             e.printStackTrace();

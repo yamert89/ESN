@@ -58,7 +58,7 @@ public class StaffController {
     public ResponseEntity<String> getStaff(HttpSession session){
         User user = (User) session.getAttribute("user");
         Organization org = (Organization) session.getAttribute("org");
-        org = orgDAO.getOrgByURLWithEmployers(org.getUrlName());
+        //org = orgDAO.getOrgByURLWithEmployers(org.getUrlName());
 
         String json = "";
         StringBuilder jsonS = null;

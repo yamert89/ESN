@@ -85,8 +85,8 @@ public class UserDAO {
     }
 
     @Transactional
-    public User getUserWithInfo(Integer id){
-        User user = em.find(User.class, id);
+    public User getUserWithInfo(String login){
+        User user = (User) em.createQuery("select u from User u where u.login = :l").setParameter("l", login).getSingleResult();
         Hibernate.initialize(user.getUserInformation());
         return user;
     }

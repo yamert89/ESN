@@ -59,15 +59,6 @@ public class UserController {
         this.orgDAO = orgDAO;
     }
 
-    /*@GetMapping(value = "/")
-    public String start(@PathVariable String org){
-
-
-        //TODO get cookies
-        return "redirect:/" + org + "/auth2";
-    }*/
-
-
     @GetMapping(value = "/auth", headers = "Accept=text/html")
     public String showAuthPage(@RequestParam(required = false) String error, Model model){
         model.addAttribute("error", error != null);
@@ -112,21 +103,18 @@ public class UserController {
         }*/
 
         liveStat.userLogged(user.getId());
-        Organization organization = orgDAO.getOrgById(user.getOrganization().getId());
-
-        String org = user.getOrganization().getUrlName();
+        Organization organization = user.getOrganization();
 
         session.setMaxInactiveInterval(1800);
         session.setAttribute("user", user);
         session.setAttribute("org", organization);
         model.addAttribute("org", organization);
-        int orgId = orgDAO.getOrgByURL(org).getId();
         session.setAttribute("loginUrl", user.getLogin());
         session.setAttribute("ip", request.getRemoteAddr());
-        webSocketService.sendStatus(orgId, user.getId(), true);
-        System.out.println(session.getMaxInactiveInterval());
+        webSocketService.sendStatus(organization.getId(), user.getId(), true);
         //session.setMaxInactiveInterval(10);
-        return "redirect:/" + org + "/wall/";
+        System.out.println(session.getMaxInactiveInterval());
+        return "redirect:/" + organization.getUrlName() + "/wall/";
         //return "wall";
     }
 
@@ -186,7 +174,7 @@ public class UserController {
             String defAvatarName = user.isMale() ? "/man.jpg" : "/wom.jpg";
             String defAvatarName_small = user.isMale() ? "/man_small.jpg" : "/wom_small.jpg";
             user.setPhoto(defAvatarName);
-            user.setPhoto_small(defAvatarName_small); //TODO TEST
+            user.setPhoto_small(defAvatarName_small);
 
         }
 
@@ -197,37 +185,22 @@ public class UserController {
         return "redirect:/auth";
     }
 
-   /* @GetMapping("/{org}/user/{login}")
-    public String userProfile(@PathVariable String org, @PathVariable String login, Model model){
-        User user = null;
-        try {
-            user = userDAO.getUserByLogin(login);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        model.addAttribute(user);
-        return "redirect:/" + org + "/auth"; //TODO
-
-    }*/
-
-
     @GetMapping("{org}/users/{login}")
     public String showUserProfile(@PathVariable String login, @PathVariable String org,
                                   Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
+        user = userDAO.getUserWithInfo(user.getLogin());
         try {
             if (user.getLogin().equals(login)) {
-                user = userDAO.getUserWithInfo(user.getId());
                 session.setAttribute("user", user);
-                Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();
+                /*Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();*/
+                Set<User> allUsers = ((Organization)session.getAttribute("org")).getAllEmployers();
                 allUsers.remove(user);
                 model.addAttribute("bosses", allUsers);
                 model.addAttribute(user);
                 model.addAttribute("saved", 0);
                 return "userSettings";
             }
-            user = userDAO.getUserByLogin(login);
-            user = userDAO.getUserWithInfo(user.getId());
             session.setAttribute("profile", user);
 
         }catch (Exception e){
@@ -238,14 +211,6 @@ public class UserController {
 
     }
 
-    /*@ModelAttribute("user")
-    public void getUser(@RequestParam(required = false) Integer id, Model model){
-        if (id == null || model == null){
-            return;
-        }
-        model.addAttribute(userDAO.getUserById(id));
-    }*/
-
 
     @PostMapping("{org}/users/{login}")
     public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
@@ -254,7 +219,7 @@ public class UserController {
 
 
         Calendar birth = null;
-        Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();
+        Set<User> allUsers = ((Organization)session.getAttribute("org")).getAllEmployers();
         if (bindingResult.hasErrors()) {
             /*birth = userDAO.getBirthDate(user.getId());*/
             birth = userFromSession.getUserInformation().getBirthDate(); //TODO заменить обращения к базе на обращение к сессии. держать в сессии последнего юзера

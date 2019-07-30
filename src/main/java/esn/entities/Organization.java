@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -41,7 +42,7 @@ public class Organization {
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>(0);
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "organization", fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "organization", fetch = FetchType.EAGER)
     private Set<User> allEmployers = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -86,6 +87,15 @@ public class Organization {
 
     public String getName() {
         return name;
+    }
+
+    public User getEmployerById(int id){
+        Iterator<User> iterator = allEmployers.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (user.getId() == id) return user;
+        }
+        return null;
     }
 
     public String getDescription() {

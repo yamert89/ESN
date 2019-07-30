@@ -54,12 +54,12 @@ public class OrganizationDAO {
         return organization;
     }
 
-    @Transactional
+   /* @Transactional
     public Organization getOrgByURLWithEmployers(String url){
         Organization organization = getOrgByUrlTrans(url);
         Hibernate.initialize(organization.getAllEmployers());
         return organization;
-    }
+    }*/
 
     @Transactional
     public Organization getOrgByURLWithDepartments(String url){
