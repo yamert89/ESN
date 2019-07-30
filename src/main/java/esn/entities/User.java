@@ -44,7 +44,7 @@ public class User implements Cloneable{
     @Column(columnDefinition = "varchar(15) default 'ROLE_USER'")
     private String authority;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "department_id")
     @JsonIgnore
     private Department department;
@@ -65,7 +65,7 @@ public class User implements Cloneable{
     @Column(nullable = false)
     private String photo_small; //filename
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, mappedBy = "owner", orphanRemoval=true) //TODO не удалять файлы удаленного пользователя
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "owner")
     @JsonIgnore
     private Set<StoredFile> storedFiles;
 

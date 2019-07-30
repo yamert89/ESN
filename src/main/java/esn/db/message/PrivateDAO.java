@@ -50,7 +50,6 @@ public class PrivateDAO extends MessagesDAO {
                     ids) {
                 if (id == null) return;
                 query.setParameter("id", id).executeUpdate();
-                /*em.createQuery("update PrivateChatMessage m set m.readed = true where m.id = :id").setParameter("id", id).executeUpdate();*/ //TODO one query
 
             }
         }catch (Exception e){

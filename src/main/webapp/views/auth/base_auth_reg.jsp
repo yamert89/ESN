@@ -10,7 +10,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
     <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
     <link rel="stylesheet" href="<core:url value="/resources/static/props/props.css"/>">
     <script src="<core:url value="/resources/libs/jquery-3.4.1.min.js"/>"></script>

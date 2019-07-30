@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Настройки профиля</title>
     <script type="text/javascript" src='<c:url value="/resources/static/props/org_props.js"/>'></script>
 </head>
 <body><c:set value='${sessionScope.get("org")}' var="org" />

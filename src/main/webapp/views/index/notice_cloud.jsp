@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notice</title>
+    <title>Регистрация enChat</title>
     <link rel="stylesheet" href="/resources/index/notice.css">
 </head>
 <body>

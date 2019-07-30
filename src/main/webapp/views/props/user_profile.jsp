@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Profile</title>
+    <title>Профиль пользователя</title>
     <script type="text/javascript">
         $(document).ready(function () {
             var board = $(".properties_board");

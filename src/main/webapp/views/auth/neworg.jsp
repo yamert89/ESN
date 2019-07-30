@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Новый профиль</title>
     <script src="<core:url value='/resources/libs/jquery_3.1.0.js'/>"></script>
     <script type="text/javascript">
         $(document).ready(function () {

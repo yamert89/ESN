@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Настройки пользователя</title>
     <script type="text/javascript" src='<c:url value="/resources/static/props/user_props.js"/>'></script>
 </head>
 <body>

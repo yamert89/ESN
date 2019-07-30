@@ -143,17 +143,17 @@ public class StaffController {
 
     @DeleteMapping("/departments")
     @ResponseBody
-    @ResponseStatus(code = HttpStatus.GONE)
+    @ResponseStatus(code = HttpStatus.OK)
     public void clearDeps(HttpSession session){
         Organization org = (Organization) session.getAttribute("org");
         try {
             org.getDepartments().clear();
         }catch (Exception e){
             org = orgDAO.getOrgByURLWithDepartments(org.getUrlName());
+            orgDAO.deleteAllDepartmentsInUsers();
             org.getDepartments().clear();
         }
         session.setAttribute("org", orgDAO.update(org));
-        //TODO протестировать
     }
 
 

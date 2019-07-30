@@ -16,7 +16,7 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript" src='<c:url value="/resources/static/index.js"/>'></script>
     <script type="text/javascript" src='<c:url value="/resources/static/contacts/contacts.js"/>'></script>
-    <title>CHAT</title>
+    <title>enChat</title>
 </head>
 <header style='background-image: url(${"/resources/data".concat(sessionScope.get("org").getHeaderPath())}); background-size: 100% 100%;'>
     <c:set var="user" value='${sessionScope.get("user")}'/>

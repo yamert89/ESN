@@ -41,7 +41,7 @@ public class Organization {
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "organization", fetch = FetchType.LAZY)
     private Set<User> allEmployers = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)

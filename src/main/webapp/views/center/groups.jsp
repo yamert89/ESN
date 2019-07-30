@@ -9,7 +9,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/resources/static/center/groups/groups.css"/>">
     <link rel="stylesheet" href="<c:url value="/resources/static/center/staff/flowchart/block.css"/>">
     <script src="<c:url value="/resources/static/center/groups/groups.js"/>"></script>

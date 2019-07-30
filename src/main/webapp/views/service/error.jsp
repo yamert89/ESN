@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>ERROR</title>
     <link rel="stylesheet" href='<c:url value="/resources/static/error.css"/>'>
 </head>
 <body>

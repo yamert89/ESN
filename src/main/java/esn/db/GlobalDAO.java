@@ -53,7 +53,7 @@ public class GlobalDAO implements InitializingBean {
 
         TransactionStatus ts = txManager.getTransaction(new DefaultTransactionDefinition());
         try {
-            em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate(); //TODO Учесть ограничения базы (везде) !!!
+            em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate();
             em.createNativeQuery("insert into wall (id, message, userid, time, orgid) values (0, '<p>Приветствуем Вас в нашем чате!</p>', 0, " + syntax.currentDate() + ", 0)").executeUpdate();
             em.createNativeQuery("insert into organizations(id, adminkey, corpkey, description, disabled, hasadmin, headerpath, name, urlname) values " +
                     "(0, '777', '777', '', false, true, '', 'root', '')").executeUpdate();

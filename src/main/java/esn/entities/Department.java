@@ -29,7 +29,7 @@ public class Department {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "department", orphanRemoval = true)
+    @OneToMany(mappedBy = "department")
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<User> employers = new HashSet<>();
 

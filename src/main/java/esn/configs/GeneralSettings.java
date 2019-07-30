@@ -64,7 +64,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //TODO
+    //TODO Учесть ограничения базы (везде) !!!
     //TODO
     //TODO
     //TODO

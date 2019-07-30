@@ -113,6 +113,11 @@ public class OrganizationDAO {
         return res;
     }
 
+    @Transactional
+    public void deleteAllDepartmentsInUsers(){
+        em.createQuery("update User u set u.department = null").executeUpdate();
+    }
+
 
 
 
