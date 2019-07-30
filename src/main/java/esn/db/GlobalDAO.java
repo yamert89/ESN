@@ -1,5 +1,6 @@
 package esn.db;
 
+import esn.configs.GeneralSettings;
 import esn.db.syntax.MySQLSyntax;
 import esn.db.syntax.PostgresSyntax;
 import esn.db.syntax.Syntax;
@@ -32,7 +33,7 @@ public class GlobalDAO implements InitializingBean {
     @PersistenceContext
     private EntityManager em;
 
-    private Syntax syntax = new PostgresSyntax();
+    private Syntax syntax = GeneralSettings.DB_SYNTAX;
 
 
 

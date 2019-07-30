@@ -40,14 +40,33 @@ iframe{
     position: relative;
     /*float: right;*/
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
 
-
+.user_name, .user_photo{
+    margin: 10px;
+}
+.user_name:hover{
+    cursor: pointer;
+}
+.logout{
+    margin: 0 10px 10px 10px;
+}
+.logout:hover{
+    color: red;
+}
+.wr{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .title{
     display: inline-block;
     /*float: left;*/
     position: relative;
     vertical-align: middle;
+    margin: 10px;
     /*width: 50%;*/
     font-size: 3em;
     flex: 15 0 auto;
@@ -57,11 +76,7 @@ iframe{
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 
 }
-.user_name, .user_photo, .title{
-    margin: 10px;
-    display: inline-block;
-    vertical-align: middle;
-}
+
 .user_photo{
     background-color: #bdfa8a;
     width: 60px;
@@ -216,9 +231,7 @@ a{
     display: none;
 }
 
-.logout:hover{
-    color: red;
-}
+
 
 
 

@@ -1,12 +1,26 @@
-gen_chat_messages_amount=30
-private_chat_messages_amount=50
-wall_messages_amount=12
+#---- База дынных: mysql / postgresql----!
+db_type=postgresql
+
+#----  Формат вывода времени ----!
 date_time_pattern=dd.MM.yyyy, HH:mm:ss
+
+#---- Количество подгружаемых сообщений на сранице чата за один раз ----!
+gen_chat_messages_amount=30
+
+#---- Количество подгружаемых сообщений на сранице личных сообщений за один раз ----!
+private_chat_messages_amount=50
+
+#---- Количество подгружаемых постов за один раз ----!
+wall_messages_amount=12
+
+#---- Максимальный размер файлового хранилища (MB): ----!
+#---- - общее ----!
 public_storage_max_size=100
+#---- - личных файлов ----!
 private_storage_max_size=50
 
-#----  E:/JavaProject/ESN/target/ESN/resources/stored_files/ ----!
-#----   ----!
-#----   ----!
-#----   ----!
+#----  ----!
+
+
+
 #----   ----!
