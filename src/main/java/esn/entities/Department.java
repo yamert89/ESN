@@ -48,10 +48,6 @@ public class Department {
     @ManyToOne(fetch = FetchType.LAZY)
     private Organization organization;
 
-    @JsonIgnore
-    @Transient
-    private DepartmentDAO departmentDAO;
-
 
     public Department() {
     }
@@ -146,10 +142,6 @@ public class Department {
         return departmentDAO.getChildren(this);*/
     }
 
-    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
-        this.departmentDAO = departmentDAO;
-    }
-
     public void addEmployer(User employer){
         employers.add(employer);
     }
@@ -168,17 +160,6 @@ public class Department {
             d.setOrganization(organization);
             d.initOrgForChildren();
         }
-    }
-
-    public void initDepartmentDaoTree(DepartmentDAO dAO){
-        departmentDAO = dAO;
-        for (Department d : children) {
-            d.initDepartmentDaoTree(dAO);
-        }
-    }
-
-    public void initParentById(){
-        if (parentId != null && parentId != 0) parent = departmentDAO.getDepartmentById(parentId);
     }
 
     @Override

@@ -93,9 +93,8 @@ public class StaffController {
             Organization organization = orgDAO.getOrgByURLWithDepartments(org);
             for (Department d :
                     deps) {
-                d.initDepartmentDaoTree(departmentDAO);
                 if (d.getParentId() == 0) d.setParent(null);
-                else d.initParentById(); //TODO replace Dao from department
+                else if (d.getParentId() != null && d.getParentId() != 0) d.setParent(departmentDAO.getDepartmentById(d.getParentId()));
 
                 d.setOrganization(organization);
                 d.initParentForTree();
