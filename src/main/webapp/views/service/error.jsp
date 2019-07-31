@@ -13,7 +13,7 @@
     <link rel="stylesheet" href='<c:url value="/resources/static/error.css"/>'>
 </head>
 <body>
-<div class="http_error">${errorMsg}</div>
+<div class="http_error"><p>${errorMsg}<p></p></div>
 
 </body>
 </html>

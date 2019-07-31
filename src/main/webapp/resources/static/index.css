@@ -136,7 +136,7 @@ iframe{
 
 }
 
-.posts, .notes, .message_container, .private_chat_container{
+.notes, .message_container, .private_chat_container{
                 overflow-y: auto;
                 /*max-height: calc(100% - 41px);*/
                 /*max-height: 92%;*/
@@ -151,6 +151,7 @@ iframe{
                 position: absolute;
                 margin-bottom: 10px;
             }
+
 
 #post_modal{
     alignment: center;

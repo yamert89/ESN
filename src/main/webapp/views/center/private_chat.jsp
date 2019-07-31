@@ -35,15 +35,18 @@
 
 
 
-            var sizeMes = 800;
+            var sizeMes = 500;
             var textField = $(".new_genchat_message");
             var messBtn = $(".new_genchat_message_btn");
             messBtn.click(function () {
                 var text = textField.val();
                 if (text == "") return;
+                if (text.length > sizeMes) {
+                    notify('Максимальный размер сообщения ' + sizeMes +' символов.');
+                    return;
+                }
                 var comp_id = $(".person_container").attr('data-companion-id');
                 var time = window.getDate(new Date());
-                if (text.length > sizeMes) notify('Максимальный размер сообщения ' + sizeMes +' символов. Оно будет разбито.');
                 $(".private_chat_container").prepend('<div class="private_chat comment_bubble_right unreaded"><div class="time-right">'
                     + time + '</div>' + text + '</div>');
                 $.ajax({type:"POST", url:"/save_private_message/" + comp_id, data:{"text":text}});

@@ -12,4 +12,10 @@ body{
     flex: 1 0 auto;
     justify-content: center;
     align-content: center;
+    display: flex;
+    flex-direction: column;
+}
+p{
+    text-shadow: 0 0 10px red;
+    font-size: 2vh;
 }

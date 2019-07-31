@@ -10,6 +10,11 @@ $(document).ready(function () {
         var mes = {};
         mes.text = textField.val();
         if (mes.text == "") return;
+        var sizeMes = 500;
+        if (mes.text.length > sizeMes) {
+            notify('Максимальный размер сообщения ' + sizeMes +' символов.');
+            return;
+        }
         mes.userName = window.userName;
         mes.imgUrl = $(".new_genchat_message").attr("data-img");
         mes.time = window.getDate(new Date());

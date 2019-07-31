@@ -39,6 +39,11 @@ public class ErrorController {
                     errorMsg = "Http Error Code: 401. Unauthorized";
                     break;
                 }
+                case 403:{
+                    if (error[2].equals("/auth")) errorMsg = "Вы уже авторизованы";
+                    else errorMsg = "Http Error Code: 403. Ошибка доступа.";
+                    break;
+                }
                 case 404: {
                     errorMsg = "Http Error Code: 404. Запрашиваемая страница не найдена";
                     break;

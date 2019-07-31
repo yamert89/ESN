@@ -82,4 +82,11 @@ p{
 }
 .wall_container{
     max-width: 1400px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+.cke_editor{
+    width: 100%;
 }

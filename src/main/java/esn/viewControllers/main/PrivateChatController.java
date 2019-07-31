@@ -103,13 +103,13 @@ public class PrivateChatController {
         int orgId = ((Organization) session.getAttribute("org")).getId();
         int cId = Integer.valueOf(companionId);
         User compan = userDAO.getUserById(cId); 
-        if (text.length() > 800) {
+       /* if (text.length() > 800) {
             String[] messages = text.split(".{800}"); //TODO test
             for (String m :
                     messages) {
                 privateDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
             }
-        }
+        }*/
         privateDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
         webSocketService.newPrivateMessageAlert(cId, user.getId(), text);
     }
