@@ -66,7 +66,7 @@ public class GeneralSettings {
     //FIXME
     //TODO Удаление юзера протестировать
     //TODO message more than 800 symb test
-    //TODO
+    //TODO запретить повторную авторизацию
     //TODO
     //TODO
     //TODO

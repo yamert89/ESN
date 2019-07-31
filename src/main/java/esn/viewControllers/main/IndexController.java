@@ -109,7 +109,7 @@ public class IndexController {
         return bb.body(js.toString());
     }
 
-    @GetMapping("/calendar")
+    @GetMapping("/{organization}/calendar")
     public String calendar(){
         return "calendar";
     }

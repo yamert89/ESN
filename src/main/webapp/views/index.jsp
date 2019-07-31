@@ -16,6 +16,7 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript" src='<c:url value="/resources/static/index.js"/>'></script>
     <script type="text/javascript" src='<c:url value="/resources/static/contacts/contacts.js"/>'></script>
+    <script src="<c:url value="/resources/static/progress.js"/>"></script>
     <title>enChat</title>
 </head>
 <header style='background-image: url(${"/resources/data".concat(sessionScope.get("org").getHeaderPath())}); background-size: 100% 100%;'>
@@ -35,15 +36,15 @@
 <body>
 <div class="container">
     <div class="tools">
-        <div class="tool" id="wall" onclick="location.href = '/${orgUrl}/wall'">Лента
+        <div class="tool" id="wall">Лента
             <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
-        <div class="tool" id="chat" onclick="location.href = '/${orgUrl}/chat'">Чат
+        <div class="tool" id="chat">Чат
             <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="chat_m"></div>
-        <div class="tool" id="staff" onclick="location.href = '/${orgUrl}/staff'">Структура</div>
-        <div class="tool" id="groups" onclick="location.href = '/${orgUrl}/groups'">Группы</div>
-        <div class="tool" id="storage" onclick="location.href = '/${orgUrl}/storage'">Файлообменник</div>
-        <div class="tool" id="notes" onclick="location.href = '/${orgUrl}/notes'">Заметки</div>
-        <div class="tool" id="calendar" onclick="location.href = '/${orgUrl}/calendar'">Календарь</div>
+        <div class="tool" id="staff">Структура</div>
+        <div class="tool" id="groups">Группы</div>
+        <div class="tool" id="storage">Файлообменник</div>
+        <div class="tool" id="notes">Заметки</div>
+        <div class="tool" id="calendar">Календарь</div>
         <%--<div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>--%>
         <div class="datepicker-here"></div>
         <div class="log log_message">Это просто такой текст лога</div>

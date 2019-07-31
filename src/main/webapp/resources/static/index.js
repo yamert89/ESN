@@ -13,6 +13,8 @@ $(document).ready(function () {
 
     });
 
+
+
     var date = new Date();
     console.log('index ready ' + new Date().getSeconds() + ':' + date.getMilliseconds());
     var uName = $(".user_name");
@@ -29,6 +31,11 @@ $(document).ready(function () {
     window.datesArray = [];
     window.inited = false;
 
+    $(".tool").click(function () {
+       startProgress();
+       location.href = '/' + orgUrl + '/' + $(this).attr('id');
+    });
+
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
         notify("Запрос к серверу завершился с ошибкой");
 
@@ -39,7 +46,7 @@ $(document).ready(function () {
         $.post('/clienterror', {event : event, jqXHR : jqXHR, ajaxSettings : ajaxSettings, thrownError : thrownError}, null, "json");
     });
 
-    $.get("/notes", null, datepickerInit, "json");
+    //$.get("/notes", null, datepickerInit, "json");
 
     $.ajax({url:"/notes", success: datepickerInit, error: err, dataType : "json"});
 

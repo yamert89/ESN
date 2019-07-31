@@ -13,8 +13,12 @@
     <link rel="stylesheet" href="<core:url value="/resources/static/gen.css"/>">
     <link rel="stylesheet" href="<core:url value="/resources/static/props/props.css"/>">
     <script src="<core:url value="/resources/libs/jquery-3.4.1.min.js"/>"></script>
+    <script src="<core:url value="/resources/static/progress.js"/>"></script>
 </head>
 <body>
 <t:insertAttribute name="auth_reg"/>
+<div class="progress_wr">
+    <img src="/resources/data/progress.gif" class="progress">
+</div>
 </body>
 </html>

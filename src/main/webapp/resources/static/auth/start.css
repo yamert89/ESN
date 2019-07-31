@@ -110,7 +110,9 @@ input[type='radio']{
 input[type='text']{
     background-color: white;
 }
-
+.properties_board{
+    overflow: hidden;
+}
 
 /*MODAL*/
 

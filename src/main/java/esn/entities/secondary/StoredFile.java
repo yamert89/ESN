@@ -99,7 +99,6 @@ public class StoredFile {
         System.out.println("SHARED " +  isShared());
         System.out.println("OwnerID " +  getOwner().getId());*/
         int hash = Objects.hash(getName());
-        System.out.println("HASH " + hash);
         return hash;
     }
 }

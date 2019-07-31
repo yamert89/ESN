@@ -70,7 +70,6 @@ public class NotesController {
     public ResponseEntity<String> getNotes(HttpSession session){
         User user = (User) session.getAttribute("user");
         try {
-            System.out.println(" /notes   " + user);
             Map<Timestamp, String> notes = user.getNotes();
             Calendar today = Calendar.getInstance();
             //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}]; // new structure
