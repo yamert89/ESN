@@ -66,7 +66,8 @@ public class PrivateChatController {
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         User user = (User) session.getAttribute("user");
-        User compan = userDAO.getUserByLogin(companion); //TODO replace in org ?
+       // User compan = userDAO.getUserByLogin(companion);
+        User compan = org.getEmployerByLogin(companion);
         model.addAttribute("companion", compan);
         Set<PrivateChatMessage> privateMessages = privateDAO.getMessages(user, compan, orgId);
 

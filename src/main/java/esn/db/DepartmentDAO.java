@@ -78,28 +78,6 @@ public class DepartmentDAO {
     }
 
 
-    /*@Transactional
-    public Set<Department> getChildren(Department parent){
-        List result = em.createQuery("select c.children from CHILDREN_DEPARTMENTS c where c.dep_id = :parent").setParameter("parent", parent).getResultList(); //TODO
-        HashSet<Department> set = new HashSet<>();
-        for (Object i: result) {
-            set.add(getDepartmentById((Long)i));
-
-        }
-        return set;
-    }*/
-
-    /*@Transactional
-    public void saveChildren(Department department, Set<Department> children){
-        em.createNativeQuery("create table if not exists CHILDREN_DEPARTMENTS (dep_id int not null, children int unique)").executeUpdate();
-        Set<Department> savedDepartments = getChildren(department);
-        for (Department child:
-              children) {
-            if (savedDepartments.contains(child)) continue;
-            em.createNativeQuery("insert into CHILDREN_DEPARTMENTS values (?, ?)").setParameter(1, department).setParameter(2, child).executeUpdate();
-        }
-    }*/
-
 
     private List<Long> getHeadDepartmentsId(Organization org){
         return (List<Long>) em.createQuery("select d.id from Department d where d.organization = :org and d.parent is null")

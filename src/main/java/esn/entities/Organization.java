@@ -90,10 +90,15 @@ public class Organization {
     }
 
     public User getEmployerById(int id){
-        Iterator<User> iterator = allEmployers.iterator();
-        while (iterator.hasNext()) {
-            User user = iterator.next();
+        for (User user : allEmployers) {
             if (user.getId() == id) return user;
+        }
+        return null;
+    }
+
+    public User getEmployerByLogin(String login){
+        for (User user : allEmployers) {
+            if (user.getLogin().equals(login)) return user;
         }
         return null;
     }

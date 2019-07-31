@@ -64,8 +64,8 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //TODO Учесть ограничения базы (везде) !!!
-    //TODO
+    //TODO Удаление юзера протестировать
+    //TODO message more than 800 symb test
     //TODO
     //TODO
     //TODO

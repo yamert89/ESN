@@ -73,7 +73,7 @@ public class NotesController {
             System.out.println(" /notes   " + user);
             Map<Timestamp, String> notes = user.getNotes();
             Calendar today = Calendar.getInstance();
-            //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}]; //TODO new structure
+            //window.dates = [{m:1, d:13, t:"text1"}, {m:2, d:1, t:"text2"}, {m:2, d:12, t:"text3"}]; // new structure
             Timestamp thisYear = new Timestamp(today.getTimeInMillis());
             thisYear.setMonth(0);
             thisYear.setDate(1);

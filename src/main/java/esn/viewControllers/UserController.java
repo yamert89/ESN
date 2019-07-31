@@ -222,7 +222,7 @@ public class UserController {
         Set<User> allUsers = ((Organization)session.getAttribute("org")).getAllEmployers();
         if (bindingResult.hasErrors()) {
             /*birth = userDAO.getBirthDate(user.getId());*/
-            birth = userFromSession.getUserInformation().getBirthDate(); //TODO заменить обращения к базе на обращение к сессии. держать в сессии последнего юзера
+            birth = userFromSession.getUserInformation().getBirthDate();
             user.getUserInformation().setBirthDate(birth);
             model.addAttribute("bosses", allUsers);
             model.addAttribute("saved", false);
