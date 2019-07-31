@@ -24,7 +24,7 @@ $(document).ready(function () {
     $(".message_container").scroll(function () {
         if (blocker || $(this)[0].scrollHeight - ($(this)[0].scrollTop + $(this).height()) > 300) return;
         $.get("/chatpiece", {}, function (data) {
-            if (data == null) return;
+            if (Object.keys(data).length === 0) return;
             data.forEach(function (el) {
                 renderMessage(el, 'piece');
             });

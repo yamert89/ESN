@@ -83,7 +83,7 @@ public class WallController {
         try {
             int orgId = ((Organization) session.getAttribute("org")).getId();
             long oldIndex = (long) session.getAttribute("lastIdx_wall");
-            if (oldIndex == -1) return null;
+            if (oldIndex == -1) return ResponseEntity.ok("{}");
             messages = wallDAO.getMessages(orgId, oldIndex);
             newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         }catch (Exception e){

@@ -49,8 +49,9 @@ $(document).ready(function () {
 
     $(".posts").scroll(function () {
         if (blocker || $(this)[0].scrollHeight - ($(this)[0].scrollTop + $(this).height()) > 300) return;
-        $.get("/wallpiece", {}, function (data) {
-            if (data == null) return;
+
+        $.get("/wallpiece", function (data) {
+            if (Object.keys(data).length === 0) return;
             data.forEach(function (el) {
                 renderPost(el, 'piece');
             });

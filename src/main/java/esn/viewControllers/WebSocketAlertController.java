@@ -85,8 +85,9 @@ public class WebSocketAlertController {
                     e.printStackTrace();
                 }
             }
+            if (privIds == null) privIds = "{}";
             template.convertAndSendToUser(String.valueOf(userId), "/message",
-                    "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_ + ", \"private_ids\" : " + privIds + "}");
+                    "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_ + ", \"private_ids\" : " + privIds  + "}");
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -63,7 +63,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //FIXME
+    //FIXME test index js net status
     //TODO Удаление юзера протестировать
     //TODO message more than 800 symb test
     //TODO запретить повторную авторизацию

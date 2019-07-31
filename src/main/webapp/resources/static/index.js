@@ -43,7 +43,7 @@ $(document).ready(function () {
         console.log(jqXHR);
         console.log(ajaxSettings);
         console.log(thrownError);
-        $.post('/clienterror', {event : event, jqXHR : jqXHR, ajaxSettings : ajaxSettings, thrownError : thrownError}, null, "json");
+        $.post('/clienterror', {event : event, jqXHR : jqXHR, ajaxSettings : ajaxSettings, thrownError : thrownError});
     });
 
     //$.get("/notes", null, datepickerInit, "json");
