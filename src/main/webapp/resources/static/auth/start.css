@@ -3,7 +3,6 @@ body{
     /*vertical-align: middle;*/
     display: flex;
     height: 800px;
-    background: url("../../back1.jpg") no-repeat;
     background-size: 100%;
 }
 div{
