@@ -1,9 +1,6 @@
 package esn.services;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -13,27 +10,52 @@ public class EmailService {
     String from = "softoad2@gmail.com";       // receiver email
     String host = "smtp.gmail.com";            // mail server host
 
-    public void sendEmail(String text){
-        Properties properties = System.getProperties();
-        properties.setProperty("mail.smtp.host", host);
+    private String username;
+    private String password;
+    private Properties props;
 
-        Session session = Session.getDefaultInstance(properties); // default session
+    public EmailService(String username, String password) {
+        //this.username = username;
+       // this.password = password;
+
+        this.username = to;
+        this.password = "cjdsytnjxtvjybrf;encz";
+
+        props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        //props.put(“mail.smtp.ssl.trust”, “smtp.gmail.com”)
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+    }
+
+    public void send(String subject, String text, String fromEmail, String toEmail){
+        Session session = Session.getInstance(props, new Authenticator() {
+
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication(username, password);
+            }
+        });
 
         try {
-            MimeMessage message = new MimeMessage(session); // email message
-
-            message.setFrom(new InternetAddress(from)); // setting header fields
-
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            message.setSubject("Esn Support"); // subject line
-
-            // actual mail body
+            Message message = new MimeMessage(session);
+            //от кого
+            message.setFrom(new InternetAddress(username));
+            //кому
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            //Заголовок письма
+            message.setSubject(subject);
+            //Содержимое
             message.setText(text);
 
-            // Send message
-            Transport.send(message); System.out.println("Email Sent successfully....");
-        } catch (MessagingException mex){ mex.printStackTrace(); }
+            //Отправляем сообщение
+            Transport.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
