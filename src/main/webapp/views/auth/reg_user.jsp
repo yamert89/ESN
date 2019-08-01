@@ -46,7 +46,7 @@
                 <label class="prop_label fixed_max">Введите корпоративный ключ:</label>
                 <input name="orgKey" size="60" maxlength="60" class="reg_field fixed_min" id="small_input"/>
                 <span class="star">*</span>
-                <img src="/resources/checkbox.jpg" class="checkbox off">
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
@@ -54,7 +54,7 @@
                 <label class="prop_label">Введите Ваше имя:</label>
                 <sf:input path="name" size="50" maxlength="50" cssClass="reg_field"/>
                 <span class="star">*</span>
-                <img src="/resources/checkbox.jpg" class="checkbox off">
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
@@ -62,7 +62,7 @@
                 <label class="prop_label">Введите логин:</label>
                 <sf:input path="login" size="20" maxlength="20" cssClass="reg_field"/>
                 <span class="star">*</span>
-                <img src="/resources/checkbox.jpg" class="checkbox off">
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
 
             </div>
         </div>
@@ -71,7 +71,7 @@
                 <label class="prop_label">Введите пароль:</label>
                 <sf:password path="password" size="20" cssClass="reg_field" id="pass1"/>
                 <span class="star">*</span>
-                <img src="/resources/checkbox.jpg" class="checkbox off">
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
 
             </div>
         </div>
@@ -80,7 +80,7 @@
                 <label class="prop_label">Повторите пароль:</label>
                 <input type="password" class="reg_field" id="pass2">
                 <span class="star">*</span>
-                <img src="/resources/checkbox.jpg" class="checkbox off">
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
             <span class="jspError" id="error_pass"></span>
         </div>
@@ -92,7 +92,7 @@
                 <label class="prop_label fixed_min">Женский:</label>
                 <sf:radiobutton path="male" value="false" id="small_input"/>
                 <span class="star">*</span>
-                <img src="/resources/checkbox.jpg" class="checkbox off">
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <sf:errors path="name" cssClass="jspError"/>

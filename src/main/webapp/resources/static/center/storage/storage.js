@@ -114,8 +114,8 @@ $(document).ready(function () {
         fileContainer.append('<div class="file">\n' +
             '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
             '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '">\n' +
-            '                    <img src="/resources/cross.png" class="file_delete" title="Удалить">\n' +
-            '                    <img src="/resources/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
+            '                    <img src="/resources/data/app/cross.png" class="file_delete" title="Удалить">\n' +
+            '                    <img src="/resources/data/app/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
             '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
             '                </div>');
 

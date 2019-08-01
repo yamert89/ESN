@@ -59,12 +59,12 @@
                 <div class="file">
                     <img src="" class="file_ico" data-ext="${file.extension}"  title="Скачать">
                     <input class="fileName" type="text" title="${file.name}" value="${file.name}" onchange="rename(this)">
-                    <img src='<c:url value="/resources/cross.png"/>' class="file_delete" title="Удалить">
+                    <img src='<c:url value="/resources/data/app/cross.png"/>' class="file_delete" title="Удалить">
                     <c:if test="${file.shared == false}">
-                        <img src='<c:url value="/resources/share.png"/>' data-shared='0' class="file_share" title="Опубликовать в общие">
+                        <img src='<c:url value="/resources/data/app/share.png"/>' data-shared='0' class="file_share" title="Опубликовать в общие">
                     </c:if>
                     <c:if test="${file.shared == true}">
-                        <img src='<c:url value="/resources/unshare.png"/>' data-shared='1' class="file_share" title="Убрать из общих">
+                        <img src='<c:url value="/resources/data/app/unshare.png"/>' data-shared='1' class="file_share" title="Убрать из общих">
                     </c:if>
                     <div class="file_time">${file.time}</div>
                 </div>

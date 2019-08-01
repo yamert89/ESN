@@ -60,7 +60,7 @@ function renderMessage(mes, type) {
         '                <img src="/resources/data' + mes.imgUrl + '" class="person_photo_small">\n' +
         '                <div class="person_name">' + mes.userName + '</div>\n' +
         '                <div class="message_time">' + mes.time + '</div>\n' +
-        '                <img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
+        '                <img class="delete_message" src=' + visibleCross + '"/resources/data/app/cross.png">' +
         '        </div>';
     if(type === "piece") $(".message_container").append(data);
     else $(".message_container").prepend(data);

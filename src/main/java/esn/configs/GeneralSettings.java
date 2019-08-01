@@ -57,7 +57,7 @@ public class GeneralSettings {
     }
 
     //TODO CSRF Protection security.xml
-    //FIXME
+    //FIXME client error dont work
     //FIXME
     //FIXME
     //FIXME
@@ -65,10 +65,10 @@ public class GeneralSettings {
     //FIXME
     //FIXME test index js net status
     //TODO Удаление юзера протестировать
-    //TODO message more than 800 symb test
-    //TODO запретить повторную авторизацию
     //TODO
     //TODO
+    //TODO связь с автором
+    //TODO восстановление пароля
     //TODO
 
 

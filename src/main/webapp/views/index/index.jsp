@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Enterprise software</title>
+    <title>enChat</title>
     <link rel="stylesheet" href="/resources/index/index.css">
     <script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
@@ -48,8 +48,8 @@
 </head>
 <body>
 <!--<div id="header"><h1>Корпоративный чат - програмное решение для связи сотрудников в пределах предприятия</h1></div>-->
-<img src="../../resources/data/office.jpg" id="header"/>
-<img src="" data-src="/resources/data/arrow.gif" class="arrow"/>
+<img src="../../resources/data/app/office.jpg" id="header"/>
+<img src="" data-src="/resources/data/app/arrow.gif" class="arrow"/>
 <div class="main_wrapper">
     <div class="header_text_wrapper">
         <h2><span class="name">enChat</span> - программное решение для связи сотрудников в пределах предприятия</h2>
@@ -68,7 +68,7 @@
             <li>производственный календарь</li>
         </div>
 
-        <img class="example" src="" data-src="/resources/data/example.JPG">
+        <img class="example" src="" data-src="/resources/data/app/example.JPG">
     </div>
     <div class="variants">
         <p>Варианты развертывания:</p>
@@ -83,6 +83,8 @@
         </div>
 
     </div>
+
+    <p>Задать вопрос</p>
 
 </div>
 

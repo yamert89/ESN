@@ -69,7 +69,7 @@ function renderGroup(group) {
     var body = $(".contacts-frame");
     var expand = group.expanded ? " open=\"open\"" : "";
     var details = '<details' + expand + '><summary data-><span class="group_name">' + group.name +
-        '</span><img src="/resources/multicast_message.png" class="multicast_icon" title="Многоадресное сообщение"></summary>';
+        '</span><img src="/resources/data/app/multicast_message.png" class="multicast_icon" title="Многоадресное сообщение"></summary>';
     for (var i = 0; i < group.users.length; i++){
         details += renderItem(group.users[i]);
     }
@@ -81,5 +81,5 @@ function renderGroup(group) {
 function renderItem(user) {
     var idStat = user.status ? 'net_status_on' : 'net_status_off';
     return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
-        "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/new_message.png' class='new_priv_mes'><div class='person_name'>" + user.name + "</div></div>"
+        "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/data/app/new_message.png' class='new_priv_mes'><div class='person_name'>" + user.name + "</div></div>"
 }

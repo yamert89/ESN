@@ -48,7 +48,7 @@
                         <c:forEach var="pos" items="${org.positions}">
                             <div class="position">
                                 <div class="position_name">${pos}</div>
-                                <img class="position_delete" src="<c:url value="/resources/cross.png"/>" title="Удалить должность"/>
+                                <img class="position_delete" src="<c:url value="/resources/data/app/cross.png"/>" title="Удалить должность"/>
                             </div>
                         </c:forEach>
                     </c:if>

@@ -33,8 +33,8 @@
     </div>
 
 <div class="central_wrapper">
-    <img src='<c:url value="/resources/next.png"/>' class="arrow" id="right_arrow">
-    <img src='<c:url value="/resources/next.png"/>' class="arrow" id="left_arrow">
+    <img src='<c:url value="/resources/data/app/next.png"/>' class="arrow" id="right_arrow">
+    <img src='<c:url value="/resources/data/app/next.png"/>' class="arrow" id="left_arrow">
 
     <div class="groups">
         <c:forEach var="group" items="${groupsNames}">

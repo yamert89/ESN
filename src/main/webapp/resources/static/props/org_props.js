@@ -77,7 +77,7 @@ function addPosition() {
     if (name == '') return;
     $('.positions').append('<div class="position">\n' +
         '                            <div class="position_name">' + name + '</div>\n' +
-        '                            <img class="position_delete" src="/resources/cross.png" title="Удалить должность"/>\n' +
+        '                            <img class="position_delete" src="/resources/data/app/cross.png" title="Удалить должность"/>\n' +
         '                    </div>')
     positionChange = true;
 }

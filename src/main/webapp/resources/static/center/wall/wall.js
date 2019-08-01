@@ -88,7 +88,7 @@ function renderPost(mes, type) {
         '                    <img src="/resources/data' + mes.imgUrl + '" class="person_photo_small">\n' +
         '                    <div class="person_name_w">' + mes.userName + '</div>\n' +
         '                    <div class="message_time_w">' + mes.time + '</div>\n' +
-        '                </div><img class="delete_message" src="/resources/cross.png"' + visibleCross + '>' +
+        '                </div><img class="delete_message" src=' + visibleCross + '"/resources/data/app/cross.png">' +
         '            </div>\n' + mes.text + '</div>';
     if(type === "piece") $(".posts").append(data);
     else $(".posts").prepend(data);

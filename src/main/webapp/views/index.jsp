@@ -37,9 +37,9 @@
 <div class="container">
     <div class="tools">
         <div class="tool" id="wall">Лента
-            <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
+            <img src='<c:url value="/resources/data/app/new_message.png"/>' class="new_gen_mes" id="wall_m"></div>
         <div class="tool" id="chat">Чат
-            <img src='<c:url value="/resources/new_message.png"/>' class="new_gen_mes" id="chat_m"></div>
+            <img src='<c:url value="/resources/data/app/new_message.png"/>' class="new_gen_mes" id="chat_m"></div>
         <div class="tool" id="staff">Структура</div>
         <div class="tool" id="groups">Группы</div>
         <div class="tool" id="storage">Файлообменник</div>
