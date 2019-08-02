@@ -34,6 +34,18 @@
             arrow.click(scroll);
             $(window).scroll(scroll);
 
+            $(".q").click(function () {
+                var question = $(this).next();
+                if (question.css("heigth") == 0) question.animate({
+                    height: "auto",
+                    opacity: 1
+                }, 500);
+                else question.animate({
+                    height: 0,
+                    opacity: 0
+                }, 500);
+            });
+
 
 
         });
@@ -84,7 +96,12 @@
 
     </div>
 
-    <p>Задать вопрос</p>
+    <p class="q">Задать вопрос</p>
+    <div class="question">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <div class="email_wr"><span class="email_label">Ваша почта для обратной связи:</span><input type="text" class="email"></div>
+        <button>Отправить</button>
+    </div>
 
 </div>
 

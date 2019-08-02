@@ -5,22 +5,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class EmailService {
-    String to = "softoad2@gmail.com";         // sender email
-    String from = "softoad2@gmail.com";       // receiver email
-    String host = "smtp.gmail.com";            // mail server host
+public class EmailService { //TODO create bean
 
     private String username;
     private String password;
     private Properties props;
 
-    public EmailService(String username, String password) {
-        //this.username = username;
-       // this.password = password;
-
-        this.username = to;
-        this.password = "cjdsytnjxtvjybrf;encz";
-
+    {
         props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -28,6 +19,16 @@ public class EmailService {
         //props.put(“mail.smtp.ssl.trust”, “smtp.gmail.com”)
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+    }
+
+    public EmailService(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public EmailService() {
+        this.username = "softoad2@gmail.com";
+        this.password = "cjdsytnjxtvjybrf;encz";
     }
 
     public void send(String subject, String text, String fromEmail, String toEmail){

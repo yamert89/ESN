@@ -134,5 +134,45 @@ img{
 br{
     height: 20px;
 }
+input[type=text], .email_label{
+    /* height: 4vh; */
+    font-size: 1.6vh;
+    /* width: 15vh; */
+    margin: 20px;
+}
+.question{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 0;
+    opacity: 0;
+}
+.email_wr{
+    display: flex;
+    font-size: 1.6vh;
+}
+textarea{
+    width: 50%;
+    font-size: 0.4em;
+}
+.q{
+    text-align: center;
+    cursor: pointer;
+    margin: 20vh
+}
+.q:hover{
+    color: red;
+}
+
+button, input[type=submit], input[type=button]{
+    border-radius: 10px;
+    background-color: #F0F4C3;
+    font-size: 1.6vh;
+    margin: 20px;
+}
+button:hover{
+    background-color: #e7ebb9;
+}
+
 
 
