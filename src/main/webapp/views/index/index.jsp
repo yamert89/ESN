@@ -36,19 +36,33 @@
 
             $(".q").click(function () {
                 var question = $(this).next();
-                if (question.css("heigth") == 0) question.animate({
-                    height: "auto",
-                    opacity: 1
-                }, 500);
-                else question.animate({
-                    height: 0,
-                    opacity: 0
-                }, 500);
+                if (question.hasClass("hidden")) showTree(question);
+                else hideTree(question);
             });
+
+            $(".send").click(function () {
+                var email = $(".email").val();
+                var text = $("textarea").val();
+                $.post("/question", {message : text, email : email});
+                hideTree($(".question"));
+            })
 
 
 
         });
+
+        function showTree(element) {
+            element.removeClass("hidden");
+            var children = element.children();
+            if (children.length > 0) showTree(children);
+
+        }
+
+        function hideTree(element) {
+            element.addClass("hidden");
+            var children = element.children();
+            if (children.length > 0) hideTree(children);
+        }
 
         function scroll() {
             $(window).unbind("scroll", scroll);
@@ -97,10 +111,10 @@
     </div>
 
     <p class="q">Задать вопрос</p>
-    <div class="question">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <div class="email_wr"><span class="email_label">Ваша почта для обратной связи:</span><input type="text" class="email"></div>
-        <button>Отправить</button>
+    <div class="question hidden">
+        <textarea name="" id="" cols="30" rows="10" class="hidden"></textarea>
+        <div class="email_wr hidden"><span class="email_label hidden">Ваша почта для обратной связи:</span><input type="text" class="email hidden"></div>
+        <button class="send hidden">Отправить</button>
     </div>
 
 </div>

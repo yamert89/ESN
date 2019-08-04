@@ -29,6 +29,7 @@
       <intercept-url pattern="/auth" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth1" access="hasRole('ANONYMOUSLY')"/>-->
        <intercept-url pattern="/favicon.ico" access="permitAll" />
+       <intercept-url pattern="/question" access="permitAll" />
        <intercept-url pattern="/error" access="permitAll" />
        <intercept-url pattern="/**/profile" access="permitAll" />
        <intercept-url pattern="/neworg" access="permitAll" />
@@ -58,7 +59,7 @@
    </http>
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service id="userService" data-source-ref="dataSourcePostgres"
+            <jdbc-user-service id="userService" data-source-ref="dataSourceMySQL"
             users-by-username-query="select login, password, true from users where login = ?"
             authorities-by-username-query="select login, authority from users where login = ?"/>
             <password-encoder ref="passwordEncoder"/>

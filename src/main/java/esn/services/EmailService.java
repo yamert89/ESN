@@ -32,6 +32,7 @@ public class EmailService { //TODO create bean
     }
 
     public void send(String subject, String text, String fromEmail, String toEmail){
+        System.out.println("Sending email...");
         Session session = Session.getInstance(props, new Authenticator() {
 
 
@@ -50,7 +51,7 @@ public class EmailService { //TODO create bean
             //Заголовок письма
             message.setSubject(subject);
             //Содержимое
-            message.setText(text);
+            message.setText(text + "\n" + fromEmail);
 
             //Отправляем сообщение
             Transport.send(message);

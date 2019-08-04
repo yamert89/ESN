@@ -144,8 +144,18 @@ input[type=text], .email_label{
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: opacity 1s ease, height 1s ease, border 1s ease, padding 1s ease;
+}
+.hidden{
     height: 0;
     opacity: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    transition: opacity 1.5s ease, height 1.5s ease, border 1.5s ease, padding 1.5s ease;
+}
+.email_wr, textarea, button{
+
 }
 .email_wr{
     display: flex;
@@ -158,7 +168,7 @@ textarea{
 .q{
     text-align: center;
     cursor: pointer;
-    margin: 20vh
+    margin: 10vh
 }
 .q:hover{
     color: red;
@@ -172,6 +182,9 @@ button, input[type=submit], input[type=button]{
 }
 button:hover{
     background-color: #e7ebb9;
+}
+input[type=text]{
+
 }
 
 
