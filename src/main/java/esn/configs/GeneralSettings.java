@@ -68,7 +68,7 @@ public class GeneralSettings {
     //TODO Удаление юзера протестировать
     //TODO
     //TODO
-    //TODO связь с автором
+    //TODO
     //TODO восстановление пароля
     //TODO
 
