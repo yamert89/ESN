@@ -58,7 +58,7 @@ public class OrgController {
         Collections.addAll(org.getPositions(), poss );
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
-        org.setHeaderPath("/header.jpg");
+        org.setHeaderPath("/app/header.jpg");
         try {
             orgDAO.persistOrg(org);
         } catch (DataIntegrityViolationException e){

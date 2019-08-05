@@ -9,18 +9,17 @@ import esn.db.message.PrivateDAO;
 import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
+import esn.services.EmailService;
 import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -117,6 +116,15 @@ public class IndexController {
     @RequestMapping("/favicon.ico")
     public String getFavicon(){
         return "forward:/resources/favicon.ico";
+    }
+
+    @PostMapping("/problem")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void problem(@RequestParam String message, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        Organization org = (Organization) session.getAttribute("org");
+        new EmailService().send("Problem", message, "User: " + user + "\n org: " + org.getUrlName(), null);
     }
 
 }

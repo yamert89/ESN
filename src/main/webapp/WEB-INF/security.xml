@@ -45,6 +45,7 @@
       <intercept-url pattern="/**"  access="hasRole('USER') or hasRole('ADMIN')"/>
 
 
+
       <form-login default-target-url="/postauth"
                   always-use-default-target="true"
                   login-processing-url="/login"
@@ -59,7 +60,7 @@
    </http>
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service id="userService" data-source-ref="dataSourceMySQL"
+            <jdbc-user-service id="userService" data-source-ref="dataSourcePostgres"
             users-by-username-query="select login, password, true from users where login = ?"
             authorities-by-username-query="select login, authority from users where login = ?"/>
             <password-encoder ref="passwordEncoder"/>

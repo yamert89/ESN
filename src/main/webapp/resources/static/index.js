@@ -13,6 +13,15 @@ $(document).ready(function () {
 
     });
 
+    $(".problem").click(function () {
+       var mes = prompt("Введите текст сообщения", "");
+       if (!mes == "") {
+           $.post("/problem", {message : mes});
+           notify("Сообщение отправлено");
+       }
+
+    });
+
 
 
     var date = new Date();

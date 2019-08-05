@@ -13,10 +13,10 @@
     <script src='<c:url value="/resources/libs/air-datepicker-master/dist/js/datepicker.js"/>'></script>
     <script src='<c:url value="/resources/libs/sock.js"/>'></script>
     <script src='<c:url value="/resources/libs/stomp.js"/>'></script>
-    <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
+    <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>" async></script>
     <script type="text/javascript" src='<c:url value="/resources/static/index.js"/>'></script>
     <script type="text/javascript" src='<c:url value="/resources/static/contacts/contacts.js"/>'></script>
-    <script src="<c:url value="/resources/static/progress.js"/>"></script>
+    <script src="<c:url value="/resources/static/progress.js"/>" async></script>
     <title>enChat</title>
 </head>
 <header style='background-image: url(${"/resources/data".concat(sessionScope.get("org").getHeaderPath())}); background-size: 100% 100%;'>
@@ -47,7 +47,8 @@
         <div class="tool" id="calendar">Календарь</div>
         <%--<div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>--%>
         <div class="datepicker-here"></div>
-        <div class="log log_message">Это просто такой текст лога</div>
+        <a class="problem">Сообщить о проблеме</a>
+        <div class="log log_message"></div>
     </div>
     <div class="center">
         <t:insertAttribute name="center"/>

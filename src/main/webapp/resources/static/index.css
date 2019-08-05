@@ -179,13 +179,14 @@ iframe{
 
 
 .datepicker-here{
-    margin-top: 20px;
-    /*position: absolute!important;
-    left: 50%!important;
-    margin-left: -175px!important;*/
+    margin: 20px 0;
+
 }
 a{
     text-decoration: none;
+}
+a:hover{
+    color: #1fb214;
 }
 .post_add{
     font-size: large;
@@ -231,6 +232,11 @@ a{
     height: 0.7em;
     display: none;
 }
+.problem{
+    color: red;
+    cursor: pointer;
+}
+
 
 
 

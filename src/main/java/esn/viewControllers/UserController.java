@@ -171,8 +171,8 @@ public class UserController {
         if (!image.isEmpty()) {
             ImageUtil.writeAvatar(user, image);
         } else {
-            String defAvatarName = user.isMale() ? "/man.jpg" : "/wom.jpg";
-            String defAvatarName_small = user.isMale() ? "/man_small.jpg" : "/wom_small.jpg";
+            String defAvatarName = user.isMale() ? "/app/man.jpg" : "/app/wom.jpg";
+            String defAvatarName_small = user.isMale() ? "/app/man_small.jpg" : "/app/wom_small.jpg";
             user.setPhoto(defAvatarName);
             user.setPhoto_small(defAvatarName_small);
 

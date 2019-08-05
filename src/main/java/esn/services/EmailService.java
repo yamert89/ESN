@@ -31,8 +31,9 @@ public class EmailService { //TODO create bean
         this.password = "cjdsytnjxtvjybrf;encz";
     }
 
-    public void send(String subject, String text, String fromEmail, String toEmail){
+    public void send(String subject, String text, String addsInfo, String toEmail){
         System.out.println("Sending email...");
+        if (toEmail == null) toEmail = username;
         Session session = Session.getInstance(props, new Authenticator() {
 
 
@@ -51,7 +52,7 @@ public class EmailService { //TODO create bean
             //Заголовок письма
             message.setSubject(subject);
             //Содержимое
-            message.setText(text + "\n" + fromEmail);
+            message.setText(text + "\n" + addsInfo);
 
             //Отправляем сообщение
             Transport.send(message);
@@ -59,6 +60,8 @@ public class EmailService { //TODO create bean
             throw new RuntimeException(e);
         }
     }
+
+
 
 
 }
