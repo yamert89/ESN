@@ -1,7 +1,8 @@
 package esn.viewControllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.NestedServletException;
 
@@ -77,5 +78,13 @@ public class ErrorController {
         String message = ex.isPresent() ? ex.get().getMessage() : "";
         String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
         return new Object[]{code, message, errorUrl};
+    }
+
+    @PostMapping("/clienterror")
+    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseBody
+    public void err(/*@RequestParam String event, @RequestParam String jqXHR,
+                    @RequestParam String ajaxSettings, @RequestParam String thrownError*/ @RequestParam String error){
+        System.out.println("CLIENT ERROR :  " + error);
     }
 }
