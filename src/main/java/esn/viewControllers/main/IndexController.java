@@ -58,7 +58,6 @@ public class IndexController {
         responseHeaders.set("Content-Type",
                 "application/json; charset=UTF-8");
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
-        if (organization.equals("rosles")) return bb.body("fsfs"); //TODO delete
         Organization org = (Organization) session.getAttribute("org");
         if (user.getGroups().size() == 0){
            /* Organization org = orgDAO.getOrgByURLWithEmployers(organization);*/

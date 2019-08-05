@@ -53,8 +53,8 @@ $(document).ready(function () {
         console.log(ajaxSettings);
         console.log(thrownError);
         //$.post('/clienterror', {event : event, jqXHR : jqXHR, ajaxSettings : ajaxSettings, thrownError : thrownError});
-        $.ajax({url : "/clienterror", data : {error : JSON.stringify({url : ajaxSettings.url})}, //TODO
-        contentType : "application/json"})
+        $.ajax({url : "/clienterror", type : "post", data : {error : JSON.stringify({url : ajaxSettings.url, status : jqXHR.status,
+                    readyState : jqXHR.readyState, text : thrownError})}})
     });
 
     //$.get("/notes", null, datepickerInit, "json");

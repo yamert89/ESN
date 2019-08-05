@@ -1,5 +1,8 @@
 package esn.viewControllers;
 
+import esn.entities.Organization;
+import esn.entities.User;
+import esn.services.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,7 @@ import org.springframework.web.util.NestedServletException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Optional;
 
@@ -83,8 +87,12 @@ public class ErrorController {
     @PostMapping("/clienterror")
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public void err(/*@RequestParam String event, @RequestParam String jqXHR,
-                    @RequestParam String ajaxSettings, @RequestParam String thrownError*/ @RequestParam String error){
+    public void err(@RequestParam String error, HttpSession session){
         System.out.println("CLIENT ERROR :  " + error);
+        User user = (User) session.getAttribute("user");
+        Organization org = (Organization) session.getAttribute("org");
+        new EmailService().send("CLIENT ERROR", error,
+                "User: " + user + "\n org: " + org.getUrlName(), null);
+
     }
 }
