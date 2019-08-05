@@ -4,6 +4,14 @@
 #---- База дынных: mysql / postgresql----!
 db_type=mysql
 
+#---- Подключение к базе данных ----!
+jdbc.mysql.url=jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8
+jdbc.mysql.username=user
+jdbc.mysql.password=yamert
+jdbc.postgres.url=jdbc:postgresql://localhost:3306/esn
+jdbc.postgres.username=yamert89
+jdbc.postgres.password=yamert0511
+
 #----  Формат вывода времени ----!
 date_time_pattern=dd.MM.yyyy, HH:mm:ss
 
@@ -21,3 +29,4 @@ wall_messages_amount=12
 public_storage_max_size=100
 #---- - личных файлов ----!
 private_storage_max_size=50
+

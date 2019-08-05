@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="classpath:/properties"/>
     <bean id="dataSourceMySQL"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8"/>
-        <property name="username" value="user"/>
-        <property name="password" value="yamert"/>
+        <property name="url" value="${jdbc.mysql.url}"/>
+        <property name="username" value="${jdbc.mysql.username}"/>
+        <property name="password" value="${jdbc.mysql.password}"/>
     </bean>
 
     <bean id="dataSourcePostgres"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:3306/esn"/>
-        <property name="username" value="yamert89"/>
-        <property name="password" value="yamert0511"/>
+        <property name="url" value="${jdbc.postgres.url}"/>
+        <property name="username" value="${jdbc.postgres.username}"/>
+        <property name="password" value="${jdbc.postgres.username}"/>
     </bean>
     <bean id="dataSourcePostgres11"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -40,8 +42,8 @@
     </bean>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSourcePostgres"/>
-        <property name="jpaVendorAdapter" ref="jpaVendorAdapterPostgres"/>
+        <property name="dataSource" ref="dataSourceMySQL"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapterMySQL"/>
         <property name="packagesToScan" value="esn.entities"/>
         <property name="jpaProperties">
             <props>
