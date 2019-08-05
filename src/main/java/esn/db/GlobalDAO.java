@@ -58,7 +58,7 @@ public class GlobalDAO implements InitializingBean {
             em.createNativeQuery("insert into organizations(id, adminkey, corpkey, description, disabled, hasadmin, headerpath, name, urlname) values " +
                     "(0, '777', '777', '', false, true, '', 'root', '')").executeUpdate();
             em.createNativeQuery("insert into users(id, authority, login, male, name, password, photo, photo_small, org_id, boss_id) " +
-                    "values(0, 'ROLE_ADMIN', 'admin', true, 'Разработчик', '$2a$10$YiGmQU.QDMGYvu0xK7HbueLGQ/rFDNfntMKUT6RKEw8391Hgt.wWS', '/man.jpg', '/man_small.jpg', 0, null);").executeUpdate();
+                    "values(0, 'ROLE_ADMIN', 'admin', true, 'Разработчик', '$2a$10$YiGmQU.QDMGYvu0xK7HbueLGQ/rFDNfntMKUT6RKEw8391Hgt.wWS', '/app/man.jpg', '/app/man_small.jpg', 0, null);").executeUpdate();
             txManager.commit(ts);
         }catch (Exception e){
             txManager.rollback(ts);

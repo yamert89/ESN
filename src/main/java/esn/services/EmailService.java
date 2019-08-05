@@ -1,11 +1,15 @@
 package esn.services;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class EmailService { //TODO create bean
+@Component
+public class EmailService {
 
     private String username;
     private String password;
@@ -21,15 +25,18 @@ public class EmailService { //TODO create bean
         props.put("mail.smtp.port", "587");
     }
 
+    @Bean("adminEmailService")
+    public EmailService emailService(){
+        return new EmailService("softoad2@gmail.com", "cjdsytnjxtvjybrf;encz");
+    }
+
+
     public EmailService(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public EmailService() {
-        this.username = "softoad2@gmail.com";
-        this.password = "cjdsytnjxtvjybrf;encz";
-    }
+    public EmailService() {}
 
     public void send(String subject, String text, String addsInfo, String toEmail){
         System.out.println("Sending email...");
@@ -61,7 +68,7 @@ public class EmailService { //TODO create bean
         }
     }
 
-
-
-
+    public String getUsername() {
+        return username;
+    }
 }

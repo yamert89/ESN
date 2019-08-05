@@ -104,7 +104,7 @@ public class PrivateChatController {
         int cId = Integer.valueOf(companionId);
         User compan = userDAO.getUserById(cId); 
        /* if (text.length() > 800) {
-            String[] messages = text.split(".{800}"); //TODO test
+            String[] messages = text.split(".{800}");
             for (String m :
                     messages) {
                 privateDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));

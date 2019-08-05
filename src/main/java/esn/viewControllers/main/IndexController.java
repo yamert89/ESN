@@ -15,6 +15,7 @@ import esn.services.WebSocketService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,13 @@ public class IndexController {
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
     private LiveStat liveStat;
+    private EmailService emailService;
+
+    @Autowired
+    @Qualifier("adminEmailService")
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @Autowired
     public void setLiveStat(LiveStat liveStat) {
@@ -124,7 +132,7 @@ public class IndexController {
     public void problem(@RequestParam String message, HttpSession session){
         User user = (User) session.getAttribute("user");
         Organization org = (Organization) session.getAttribute("org");
-        new EmailService().send("Problem", message, "User: " + user + "\n org: " + org.getUrlName(), null);
+        emailService.send("Problem", message, "User: " + user + "\n org: " + org.getUrlName(), null);
     }
 
 }

@@ -58,14 +58,14 @@
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <filter>
+  <!--<filter>
     <filter-name>cors</filter-name>
     <filter-class>esn.configs.CrossOriginFilter</filter-class>
-  </filter>
-  <filter-mapping>
+  </filter>-->
+ <!-- <filter-mapping>
     <filter-name>cors</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping>-->
   <session-config>
     <session-timeout>30</session-timeout>
     <!-- Disables URL-based sessions (no more 'jsessionid' in the URL using Tomcat) -->

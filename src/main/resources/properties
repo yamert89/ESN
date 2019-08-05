@@ -2,7 +2,7 @@
 #---- каждая настройка имеет вид [имя переменной]=[значение переменной][первод строки] ----!
 
 #---- База дынных: mysql / postgresql----!
-db_type=postgresql
+db_type=mysql
 
 #----  Формат вывода времени ----!
 date_time_pattern=dd.MM.yyyy, HH:mm:ss

@@ -5,11 +5,13 @@ import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
+import esn.services.EmailService;
 import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import esn.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -37,6 +39,13 @@ public class UserController {
     private OrganizationDAO orgDAO;
     private WebSocketService webSocketService;
     private LiveStat liveStat;
+    private EmailService emailService;
+
+    @Autowired
+    @Qualifier("adminEmailService")
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @Autowired
     public void setLiveStat(LiveStat liveStat) {

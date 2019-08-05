@@ -101,7 +101,7 @@ function showEditor() {
         /*editor.config.autoParagraph = false;*/
         CKEDITOR.instances.editor.setData('<p></p>');
     } catch (e) {
-        alert("Ошибка выполнения скрипта");
+        console.log("Ошибка выполнения скрипта");
     }
 
     $(".post_add").css("display", "none");

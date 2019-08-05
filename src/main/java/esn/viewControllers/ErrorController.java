@@ -3,6 +3,8 @@ package esn.viewControllers;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,14 @@ import java.util.Optional;
 
 @Controller
 public class ErrorController {
+
+    private EmailService emailService;
+
+    @Autowired
+    @Qualifier("adminEmailService")
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @GetMapping("/error")
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
@@ -91,7 +101,7 @@ public class ErrorController {
         System.out.println("CLIENT ERROR :  " + error);
         User user = (User) session.getAttribute("user");
         Organization org = (Organization) session.getAttribute("org");
-        new EmailService().send("CLIENT ERROR", error,
+        emailService.send("CLIENT ERROR", error,
                 "User: " + user + "\n org: " + org.getUrlName(), null);
 
     }
