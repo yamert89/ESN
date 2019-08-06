@@ -46,9 +46,8 @@ $(document).ready(function () {
 
     $("#delete_profile").click(function () {
         if(confirm("Вы действително хотите удалить аккаунт? Все связанные данные будут удалены без возможности восстановления")){
-            alert("DELETING");
-
             $.ajax({url:"/" + orgUrl + "/users/" + login, type: "delete"});
+            location.href = "/auth";
         }
     });
 

@@ -272,10 +272,11 @@ public class UserController {
     }
 
     @DeleteMapping("{org}/users/{login}")
-    public String deleteProfile(@PathVariable String login,  @PathVariable String org, HttpSession session){
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void deleteProfile(@PathVariable String login,  @PathVariable String org, HttpSession session){
         User user = (User) session.getAttribute("user");
         userDAO.deleteUser(user); //TODO test
-        return "reg";
     }
     @PostMapping("{org}/users/{login}/p")
     @ResponseBody
