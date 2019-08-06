@@ -42,7 +42,7 @@ public class GeneralSettings {
             AMOUNT_WALL_MESSAGES = getOptProperty("wall_messages_amount").map(Integer::parseInt).orElse(25);
             PUBLIC_STORAGE_MAX_SIZE = getOptProperty("public_storage_max_size").map(Integer::parseInt).orElse(1024);
             PRIVATE_STORAGE_MAX_SIZE = getOptProperty("private_storage_max_size").map(Integer::parseInt).orElse(512);
-            String res = getOptProperty("db_type").orElse("postgresql");
+            String res = getOptProperty("jdbc.db_type").orElse("postgresql");
             DB_SYNTAX = res.equals("postgresql") ? new PostgresSyntax() : new MySQLSyntax();
             TIME_PATTERN = getOptProperty("date_time_pattern").orElse("HH:mm:ss / dd.MM");
 

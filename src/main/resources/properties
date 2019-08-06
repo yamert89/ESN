@@ -1,8 +1,9 @@
 #---- Файл конфигурации ----!
-#---- каждая настройка имеет вид [имя переменной]=[значение переменной][первод строки] ----!
+#---- Каждая настройка имеет вид [имя переменной]=[значение переменной][первод строки] ----!
+#---- НЕККОРЕКТНОЕ ЗНАЧЕНИЕ В ФАЙЛЕ КОНФИГУРАЦИИ МОЖЕТ ПРИВЕСТИ К НЕРАБОТОСПОСОБНОСТИ ПРИЛОЖЕНИЯ!!! ----!
 
 #---- База дынных: mysql / postgresql----!
-db_type=mysql
+jdbc.db_type=postgresql
 
 #---- Подключение к базе данных ----!
 jdbc.mysql.url=jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8
