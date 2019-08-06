@@ -70,7 +70,7 @@ public class GeneralSettings {
     //TODO
     //TODO
     //TODO восстановление пароля
-    //TODO
+    //TODO https://stackoverflow.com/questions/54005723/how-to-fix-org-springframework-web-httprequestmethodnotsupportedexception-req
 
 
 }

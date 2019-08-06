@@ -7,6 +7,7 @@
     <bean id="dataSourceMySQL"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="connectionProperties" value="serverTimezone=UTC"/>
         <property name="url" value="${jdbc.mysql.url}"/>
         <property name="username" value="${jdbc.mysql.username}"/>
         <property name="password" value="${jdbc.mysql.password}"/>
