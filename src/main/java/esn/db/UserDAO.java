@@ -46,7 +46,7 @@ public class UserDAO {
     }
 
     @Transactional
-    public void deleteUser(User user) {
+    public void deleteUser(User user)throws Exception {
         em.remove(user);
     }
 
@@ -124,6 +124,11 @@ public class UserDAO {
                 .setParameter("user", user).setMaxResults(1);
         Calendar calendar = (Calendar) query.getSingleResult();
         return calendar;
+    }
+
+    @Transactional
+    public boolean contains(User user){
+        return em.contains(user);
     }
 
 

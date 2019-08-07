@@ -276,8 +276,11 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.OK)
     public void deleteProfile(HttpSession session, @PathVariable String login){
         try {
-            User user = userDAO.getUserById(((User) session.getAttribute("user")).getId());
-            userDAO.deleteUser(user); //TODO test
+            User user = (User) session.getAttribute("user");
+            Organization org = user.getOrganization();
+            org.getAllEmployers().remove(user);
+            orgDAO.update(org);
+            userDAO.deleteUser(userDAO.contains(user) ? user : userDAO.updateUser(user)); //TODO test
         }catch (Exception e){
             e.printStackTrace();
         }
