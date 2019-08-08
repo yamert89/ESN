@@ -280,7 +280,7 @@ public class UserController {
             Organization org = user.getOrganization();
             org.getAllEmployers().remove(user);
             orgDAO.update(org);
-            userDAO.deleteUser(userDAO.contains(user) ? user : userDAO.updateUser(user)); //TODO test
+            userDAO.deleteUser(user); //TODO test
         }catch (Exception e){
             e.printStackTrace();
         }

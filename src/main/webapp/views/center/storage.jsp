@@ -31,7 +31,12 @@
                 <div class="file">
                     <img src="" class="file_ico" data-ext="${file.extension}" title="Скачать">
                     <input class="fileName" readonly title="${file.name}" value="${file.name}">
-                    <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.name}</a></div>
+                    <c:if test="${file.owner == null}">
+                        <div class="file_author">пользователь удалён</div>
+                    </c:if>
+                    <c:if test="${file.owner != null}">
+                        <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.name}</a></div>
+                    </c:if>
                     <div class="file_time">${file.time}</div>
                 </div>
             </c:forEach>
