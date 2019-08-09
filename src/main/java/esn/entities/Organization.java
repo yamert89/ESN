@@ -39,10 +39,10 @@ public class Organization {
     @Column(columnDefinition = "varchar(255) default '/header.jpg'", nullable = false)
     private String headerPath;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Department> departments = new HashSet<>(0);
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "organization", fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, mappedBy = "organization", fetch = FetchType.EAGER)
     private Set<User> allEmployers = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)

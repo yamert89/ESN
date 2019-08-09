@@ -48,7 +48,6 @@ public class UserDAO {
     @Transactional
     public void deleteUser(User user)throws Exception {
         user = contains(user) ? user : getUserById(user.getId());
-        em.createQuery("delete from Session s where s.user = :u").setParameter("u", user).executeUpdate();
         em.createQuery("delete from StoredFile f where f.owner = :u and f.shared = false").setParameter("u", user).executeUpdate();
         em.createQuery("update StoredFile s set owner = null").executeUpdate();
         em.remove(user);
@@ -108,7 +107,7 @@ public class UserDAO {
     }
 
     @Transactional
-    public void saveSession(Session session){
+    public void saveSession(Session session){ //TODO replace in user
         em.persist(session);
     }
 

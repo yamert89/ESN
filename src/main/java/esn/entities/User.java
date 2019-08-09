@@ -72,11 +72,11 @@ public class User implements Cloneable{
     @JsonIgnore
     private UserSettings settings;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "user")
     @JsonIgnore
     private Set<ContactGroup> groups;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Session> sessions;
 

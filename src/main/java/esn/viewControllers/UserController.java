@@ -10,6 +10,8 @@ import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import esn.utils.SimpleUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,7 @@ public class UserController {
     private WebSocketService webSocketService;
     private LiveStat liveStat;
     private EmailService emailService;
+    private final static Logger logger = LogManager.getLogger();
 
     @Autowired
     @Qualifier("adminEmailService")
@@ -71,6 +74,7 @@ public class UserController {
     @GetMapping(value = "/auth", headers = "Accept=text/html")
     public String showAuthPage(@RequestParam(required = false) String error, Model model){
         model.addAttribute("error", error != null);
+        logger.debug("AUTHENTICATION......");
         return "auth";
     }
 
@@ -80,7 +84,7 @@ public class UserController {
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("AUTHENTICATION......");
+
 
         User user = userDAO.getUserByLogin(login);
 
@@ -123,6 +127,7 @@ public class UserController {
         webSocketService.sendStatus(organization.getId(), user.getId(), true);
         //session.setMaxInactiveInterval(10);
         System.out.println(session.getMaxInactiveInterval());
+
         return "redirect:/" + organization.getUrlName() + "/wall/";
         //return "wall";
     }
