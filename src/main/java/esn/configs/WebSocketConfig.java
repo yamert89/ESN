@@ -1,6 +1,8 @@
 package esn.configs;
 
 import esn.db.OrganizationDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -10,6 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+    private final static Logger logger = LogManager.getLogger(WebSocketConfig.class);
     private OrganizationDAO orgDAO;
     private String[] urls;
 
@@ -21,7 +24,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
         urls = orgDAO.getAllOrgs().stream().map(el ->  "/allusers" + el.getId())
-                .peek(System.out::println).toArray(String[]::new);
+                .peek(logger::debug).toArray(String[]::new);
         String[] urls2 = new String[urls.length + 2];
         for (int i = 0; i < urls.length; i++){
             urls2[i] = urls[i];
@@ -32,7 +35,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app");
         //registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
 
-        System.out.println(" configureMessageBroker");
+        logger.debug(" configureMessageBroker");
 
     }
 
@@ -44,7 +47,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .peek(System.out::println).toArray(String[]::new);
         registry.addEndpoint(urls);*/
 
-        System.out.println("registerStompEndpoints");
+        logger.debug("registerStompEndpoints");
 
     }
 

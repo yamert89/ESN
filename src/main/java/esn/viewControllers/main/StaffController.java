@@ -2,6 +2,7 @@ package esn.viewControllers.main;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import esn.configs.GeneralSettings;
 import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
@@ -13,6 +14,8 @@ import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.WebSocketService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.Set;
 
 @Controller
 public class StaffController {
+    private final static Logger logger = LogManager.getLogger(StaffController.class);
 
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
@@ -72,8 +76,7 @@ public class StaffController {
 
             ObjectMapper om = new ObjectMapper();
             json = om.writeValueAsString(res); // TODO exception
-            System.out.println(json);
-            System.out.println();
+            logger.debug(json);
         }catch (Exception e){
             e.printStackTrace();
             return null;

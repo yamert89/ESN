@@ -4,6 +4,8 @@ package esn.configs;
 import esn.db.syntax.MySQLSyntax;
 import esn.db.syntax.PostgresSyntax;
 import esn.db.syntax.Syntax;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +17,7 @@ import java.util.Properties;
 public class GeneralSettings {
 
     private static Properties properties = new Properties();
+    private final static Logger logger = LogManager.getLogger(GeneralSettings.class);
 
     public static String STORAGE_PATH;
     public static int AMOUNT_GENCHAT_MESSAGES;
@@ -48,7 +51,7 @@ public class GeneralSettings {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("ERROR: Ошибка загрузки файла свойств");
+            logger.debug("ERROR: Ошибка загрузки файла свойств");
         }
 
     }
@@ -65,12 +68,12 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME test index js net status
-    //TODO Удаление юзера протестировать
+    //TODO
     //TODO
     //TODO
     //TODO
     //TODO восстановление пароля
-    //TODO https://stackoverflow.com/questions/54005723/how-to-fix-org-springframework-web-httprequestmethodnotsupportedexception-req
+    //TODO
 
 
 }

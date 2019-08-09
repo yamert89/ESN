@@ -1,8 +1,11 @@
 package esn.viewControllers;
 
+import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
 import esn.entities.Organization;
 import esn.utils.ImageUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -27,6 +30,7 @@ import java.util.Set;
 
 @Controller
 public class OrgController {
+    private final static Logger logger = LogManager.getLogger(OrgController.class);
 
     private OrganizationDAO orgDAO;
 
@@ -45,9 +49,9 @@ public class OrgController {
     @PostMapping("/neworg")
     @ResponseStatus(code = HttpStatus.SEE_OTHER)
     public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam(required = false) String pos, HttpSession session){
-        System.out.println("positions : " + pos);
+        logger.debug("positions : " + pos);
         if (result.hasErrors()) return "neworg";
-        System.out.println(result.getFieldErrors().size());
+        logger.debug(result.getFieldErrors().size());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String corpKey = encoder.encode(org.getName() + "3ff42fsf2423fsdf");
         String adminKey = encoder.encode(org.getName() + "3ff42fsf24hjgfdsesdf23fsdf");

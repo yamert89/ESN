@@ -2,6 +2,7 @@ package esn.viewControllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.db.message.GenDAO;
 import esn.db.message.PrivateDAO;
@@ -9,6 +10,8 @@ import esn.entities.User;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.secondary.PrivateMesReadAlert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -22,6 +25,7 @@ import java.util.Calendar;
 
 @Controller
 public class WebSocketAlertController {
+    private final static Logger logger = LogManager.getLogger(WebSocketAlertController.class);
     private SimpMessagingTemplate template;
     private UserDAO userDAO;
     private GenDAO genDAO;
@@ -59,7 +63,7 @@ public class WebSocketAlertController {
     @MessageMapping("/messages")
     public void askingForNewMessages(@Header String us, @Payload String orgId/*, HttpSession session*/){
         try {
-            System.out.println("_______ ASKING NEW MES__________");
+            logger.debug("_______ ASKING NEW MES__________");
             int userId = Integer.parseInt(us);
             User user = userDAO.getUserById(userId);
             //User user = (User) session.getAttribute("user");
@@ -67,7 +71,7 @@ public class WebSocketAlertController {
             try {
                 lastVisitTime = userDAO.getLastSession(user);
             }catch (NoResultException e){
-                System.out.println("NoResultException, first session ");
+                logger.debug("NoResultException, first session ");
                 return;
             }
             int orgID = Integer.parseInt(orgId);

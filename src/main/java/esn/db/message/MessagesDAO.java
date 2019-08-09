@@ -11,6 +11,8 @@ import esn.entities.secondary.AbstractMessage;
 import esn.entities.secondary.GenChatMessage;
 import esn.entities.secondary.Post;
 import esn.entities.secondary.PrivateChatMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,7 @@ import java.util.Set;
 @Repository
 @Transactional
 public abstract class MessagesDAO {
+    private final static Logger logger = LogManager.getLogger(MessagesDAO.class);
 
     @PersistenceContext
     protected EntityManager em;
@@ -121,7 +124,7 @@ public abstract class MessagesDAO {
             calendar.setTimeInMillis(timestamp.getTime());
             return calendar;
         }catch (NoResultException e){
-            System.out.println("No result, first session");
+            logger.debug("No result, first session");
             return null;
         }catch (ClassCastException e){
             e.printStackTrace();

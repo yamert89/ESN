@@ -1,5 +1,6 @@
 package esn.viewControllers.main;
 
+import esn.configs.GeneralSettings;
 import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
@@ -12,6 +13,8 @@ import esn.entities.User;
 import esn.services.EmailService;
 import esn.services.LiveStat;
 import esn.services.WebSocketService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,7 @@ import java.util.Set;
 
 @Controller
 public class IndexController {
+    private final static Logger logger = LogManager.getLogger(IndexController.class);
 
 
     private OrganizationDAO orgDAO;
@@ -110,8 +114,8 @@ public class IndexController {
             js.put(group);
         });
 
-        System.out.println("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
-        System.out.println(user);
+        logger.debug("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
+        logger.debug(user);
 
         return bb.body(js.toString());
     }

@@ -13,6 +13,8 @@ import esn.entities.secondary.StoredFile;
 import esn.services.WebSocketService;
 import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +34,7 @@ import java.util.Iterator;
 
 @Controller
 public class StorageController {
+    private final static Logger logger = LogManager.getLogger(StorageController.class);
 
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
@@ -70,9 +73,9 @@ public class StorageController {
             /* */HttpSession session){
         User user = (User) session.getAttribute("user");
         String name = file.getOriginalFilename();
-        System.out.println("FILE " + name);
+        logger.debug("FILE " + name);
         String path = GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" +  user.getLogin() + "\\" + name;
-        System.out.println("PATH " + path);
+        logger.debug("PATH " + path);
         try {
             FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
         } catch (IOException e) {
@@ -123,7 +126,6 @@ public class StorageController {
         //user = userDAO.getUserWithFiles(user.getId());
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
-        System.out.println();
     }
 
     @GetMapping("/storage_size")

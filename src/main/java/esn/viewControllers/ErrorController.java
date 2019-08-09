@@ -1,8 +1,11 @@
 package esn.viewControllers;
 
+import esn.configs.GeneralSettings;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.EmailService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import java.util.Optional;
 
 @Controller
 public class ErrorController {
+    private final static Logger logger = LogManager.getLogger(ErrorController.class);
 
     private EmailService emailService;
 
@@ -78,7 +82,7 @@ public class ErrorController {
                 }
             }
             errorPage.addObject("errorMsg", errorMsg);
-            System.out.println("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
+            logger.debug("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
             e.printStackTrace();
@@ -98,7 +102,7 @@ public class ErrorController {
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
     public void err(@RequestParam String error, HttpSession session){
-        System.out.println("CLIENT ERROR :  " + error);
+        logger.debug("CLIENT ERROR :  " + error);
         User user = (User) session.getAttribute("user");
         Organization org = (Organization) session.getAttribute("org");
         emailService.send("CLIENT ERROR", error,

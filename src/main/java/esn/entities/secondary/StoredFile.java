@@ -93,11 +93,11 @@ public class StoredFile {
 
     @Override
     public int hashCode() {
-        /*System.out.println("NAME " +  getName());
-        System.out.println("Time " + getTime());
-        System.out.println("Owner " + getOwner());
-        System.out.println("SHARED " +  isShared());
-        System.out.println("OwnerID " +  getOwner().getId());*/
+        /*logger.debug("NAME " +  getName());
+        logger.debug("Time " + getTime());
+        logger.debug("Owner " + getOwner());
+        logger.debug("SHARED " +  isShared());
+        logger.debug("OwnerID " +  getOwner().getId());*/
         int hash = Objects.hash(getName());
         return hash;
     }

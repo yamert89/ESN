@@ -2,6 +2,7 @@ package esn.viewControllers.main;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import esn.configs.GeneralSettings;
 import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
@@ -14,6 +15,8 @@ import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.PseudoContactGroup;
 import esn.services.WebSocketService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,7 @@ import java.util.stream.Stream;
 
 @Controller
 public class GroupsController {
+    private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
 
     private OrganizationDAO orgDAO;
@@ -75,7 +79,7 @@ public class GroupsController {
 
         }
         model.addAttribute("groups", resMap);
-        System.out.println(user);
+        logger.debug(user);
 
         return "groups";
     }

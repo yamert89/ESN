@@ -1,5 +1,8 @@
 package esn.services;
 
+import esn.configs.GeneralSettings;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +13,7 @@ import java.util.Properties;
 
 @Component
 public class EmailService {
+    private final static Logger logger = LogManager.getLogger(EmailService.class);
 
     private String username;
     private String password;
@@ -39,7 +43,7 @@ public class EmailService {
     public EmailService() {}
 
     public void send(String subject, String text, String addsInfo, String toEmail){
-        System.out.println("Sending email...");
+        logger.debug("Sending email...");
         if (toEmail == null) toEmail = username;
         Session session = Session.getInstance(props, new Authenticator() {
 

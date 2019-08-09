@@ -1,6 +1,9 @@
 package esn.db;
 
+import esn.configs.GeneralSettings;
 import esn.entities.Organization;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
@@ -15,6 +18,7 @@ import java.util.List;
 @Repository("orgDao")
 @Transactional
 public class OrganizationDAO {
+    private final static Logger logger = LogManager.getLogger(OrganizationDAO.class);
 
     @PersistenceContext
     EntityManager em;
@@ -48,7 +52,7 @@ public class OrganizationDAO {
             organization = (Organization) em.createQuery("select org from Organization org where org.urlName = :url")
                     .setParameter("url", url).getSingleResult();
         }catch (NoResultException e){
-            System.out.println("URL " + url);
+            logger.debug("URL " + url);
             return null;
         }
         return organization;
@@ -90,7 +94,7 @@ public class OrganizationDAO {
     @Transactional
     public List<String> getLogins(Organization org){
         List<String> list = em.createQuery("select u.login from User u where u.organization = :org").setParameter("org", org).getResultList();
-        System.out.println(list.size());
+        logger.debug(list.size());
         list.forEach(item -> item = item.intern());
         return list;
     }

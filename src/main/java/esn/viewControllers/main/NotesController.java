@@ -1,5 +1,6 @@
 package esn.viewControllers.main;
 
+import esn.configs.GeneralSettings;
 import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
@@ -10,6 +11,8 @@ import esn.db.message.WallDAO;
 import esn.entities.User;
 import esn.services.WebSocketService;
 import esn.utils.DateFormatUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class NotesController {
+    private final static Logger logger = LogManager.getLogger(NotesController.class);
 
     private UserDAO userDAO;
 
@@ -40,7 +44,7 @@ public class NotesController {
     @GetMapping(value = "/{organization}/notes")
     public String notes(HttpSession session){
         User user = (User) session.getAttribute("user");
-        /*System.out.println(" /notes Main   " + user);
+        /*logger.debug(" /notes Main   " + user);
         session.setAttribute("user", userDAO.getUserById(user.getId()));*/
         return "notes";
     }
@@ -50,7 +54,7 @@ public class NotesController {
     public boolean saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
         User user = (User) session.getAttribute("user");
         try {
-            System.out.println(" /note   before   " + user);
+            logger.debug(" /note   before   " + user);
             //time = "15.03.2019, 00:00:00";
             Timestamp timestamp = DateFormatUtil.parseDate(time);
             /*Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));*/
@@ -62,7 +66,7 @@ public class NotesController {
         }catch (Exception e){
             e.printStackTrace();
         }
-        System.out.println(" /note   after  " + user);
+        logger.debug(" /note   after  " + user);
         return true;
     }
 

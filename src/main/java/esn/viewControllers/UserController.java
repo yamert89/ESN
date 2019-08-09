@@ -42,7 +42,7 @@ public class UserController {
     private WebSocketService webSocketService;
     private LiveStat liveStat;
     private EmailService emailService;
-    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
     @Qualifier("adminEmailService")
@@ -93,8 +93,8 @@ public class UserController {
 
 
 
-            System.out.println(user.getPassword());
-            System.out.println(SimpleUtils.getEncodedPassword(password));
+            logger.debug(user.getPassword());
+            logger.debug(SimpleUtils.getEncodedPassword(password));
             user.setPassword(SimpleUtils.getEncodedPassword(password));
             userDAO.updateUser(user);
 
@@ -106,7 +106,7 @@ public class UserController {
             }
 
         }catch (NoResultException e){
-            System.out.println("NO RESULT");
+            logger.debug("NO RESULT");
             model.addAttribute("error", "Логин введен неверно");
             return "auth";
         }catch (Exception e){
@@ -126,7 +126,7 @@ public class UserController {
         session.setAttribute("ip", request.getRemoteAddr());
         webSocketService.sendStatus(organization.getId(), user.getId(), true);
         //session.setMaxInactiveInterval(10);
-        System.out.println(session.getMaxInactiveInterval());
+        logger.debug(session.getMaxInactiveInterval());
 
         return "redirect:/" + organization.getUrlName() + "/wall/";
         //return "wall";
@@ -155,7 +155,7 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.SEE_OTHER)
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
-        System.out.println("orgKey = " + orgKey);
+        logger.debug("orgKey = " + orgKey);
         Organization organization = orgDAO.getOrgByKey(orgKey);
         if (organization == null){
             bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
@@ -171,8 +171,8 @@ public class UserController {
 
 
 
-        System.out.println(user);
-        System.out.println(user.getPassword());
+        logger.debug(user);
+        logger.debug(user.getPassword());
 
 
 

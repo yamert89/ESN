@@ -1,9 +1,12 @@
 package esn.services;
 
+import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSessionEvent;
 
 @Component
 public class MyHttpListener extends HttpSessionEventPublisher {
+    private final static Logger logger = LogManager.getLogger(MyHttpListener.class);
 
     private WebSocketService webSocketService;
     private UserDAO userDAO;
@@ -23,7 +27,7 @@ public class MyHttpListener extends HttpSessionEventPublisher {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
-        System.out.println("SESSION DESTROYED");
+        logger.debug("SESSION DESTROYED");
         try {
             HttpSession session = event.getSession();
             if (webSocketService == null) webSocketService = (WebSocketService) getBean(WebSocketService.class, session);

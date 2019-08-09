@@ -4,6 +4,8 @@ import esn.configs.GeneralSettings;
 import esn.entities.Organization;
 import esn.entities.User;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class ImageUtil {
+    private final static Logger logger = LogManager.getLogger(ImageUtil.class);
 
     private static byte[] resizeBig(byte[] input, String format){
         return resize(input,128, format);
@@ -82,7 +85,7 @@ public class ImageUtil {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Ошибка записи аватара");
+            logger.debug("Ошибка записи аватара");
         }
     }
 
@@ -96,7 +99,7 @@ public class ImageUtil {
             org.setHeaderPath(headerPath);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Ошибка записи хэдера");
+            logger.debug("Ошибка записи хэдера");
         }
     }
 
@@ -107,7 +110,7 @@ public class ImageUtil {
             FileUtils.writeByteArrayToFile(file, imageBytes);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Ошибка записи картинки");
+            logger.debug("Ошибка записи картинки");
         }
     }
 
