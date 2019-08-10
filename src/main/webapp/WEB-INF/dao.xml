@@ -7,7 +7,15 @@
     <bean id="dataSourceMySQL"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="connectionProperties" value="serverTimezone=UTC"/>
+        <property name="connectionProperties">
+            <props>
+                <prop key="serverTimezone">UTC</prop>
+                <prop key="useLegacyDatetimeCode">false</prop>
+                <prop key="useUnicode">true</prop>
+                <prop key="characterEncoding">utf8</prop>
+                <prop key="serverTimezone">UTC</prop>
+            </props>
+        </property>
         <property name="url" value="${jdbc.mysql.url}"/>
         <property name="username" value="${jdbc.mysql.username}"/>
         <property name="password" value="${jdbc.mysql.password}"/>

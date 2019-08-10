@@ -127,7 +127,7 @@ public class IndexController {
 
     @RequestMapping("/favicon.ico")
     public String getFavicon(){
-        return "forward:/resources/favicon.ico";
+        return "forward:/resources/data/app/favicon.ico";
     }
 
     @PostMapping("/problem")

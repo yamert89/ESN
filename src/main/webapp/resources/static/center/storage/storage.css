@@ -20,7 +20,7 @@
 .storage_public, .storage_private{
     /* display: table-cell;
      width: 45%;*/
-    flex: 1 0 auto;
+    flex: 1 1 auto;
 
     border: 1px solid rgba(0, 0, 0, 0.09);
     overflow-y: visible;
