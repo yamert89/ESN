@@ -24,7 +24,7 @@ public class MySQLSyntax implements Syntax{
 
     @Override
     public final String selectWallMessages() {
-        return "select * from wall where orgId = ?  or orgId = 0 order by time desc limit ?";
+        return "select * from wall where orgId = ? or orgId = 0 order by time desc limit ?";
     }
 
     @Override

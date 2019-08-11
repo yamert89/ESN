@@ -61,11 +61,11 @@ public class GeneralSettings {
     }
 
     //TODO CSRF Protection security.xml
-    //FIXME пустая должность на профиле организации
-    //FIXME java.nio.file.NoSuchFileException: E:\JavaProject\ESN\target\ESN\resources\data\rosles\stored_files\yamert Simple utils 61
+    //FIXME
+    //FIXME
     //FIXME блок posts - ширина по контенту сделать шире. border max на маленьком экране
     //FIXME post - добавить padding
-    //FIXME admin reg not working ROLE_USER instead
+    //FIXME
     //FIXME запись админа оказалась сверху
     //FIXME test index js net status
     //FIXME файл не переименовывается, ошибки пути

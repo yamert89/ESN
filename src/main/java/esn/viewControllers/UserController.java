@@ -79,8 +79,7 @@ public class UserController {
     }
 
     @GetMapping("/postauth")
-    public String confirmAuth(/*@RequestParam String login, @RequestParam String password,*/
-                              Model model, HttpSession session, HttpServletRequest request, Principal principal){
+    public String confirmAuth(Model model, HttpSession session, HttpServletRequest request, Principal principal){
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
 
@@ -127,46 +126,47 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.SEE_OTHER)
     public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                   @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
-        logger.debug("orgKey = " + orgKey);
-        Organization organization = orgDAO.getOrgByKey(orgKey);
-        if (organization == null){
-            bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
-            return "reg";
+        try {
+            logger.debug("orgKey = " + orgKey);
+            Organization organization = orgDAO.getOrgByKey(orgKey);
+            if (organization == null) {
+                bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
+                return "reg";
+            }
+            String org = organization.getUrlName();
+
+            if (bindingResult.hasErrors()) return "reg";
+            if (user.getLogin().equals("admin") || orgDAO.getLogins(organization).contains(user.getLogin())) {
+                bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
+                return "reg";
+            }
+
+
+            logger.debug(user);
+            logger.debug(user.getPassword());
+
+
+            user.setOrganization(orgDAO.getOrgByURL(org));
+            /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            user.setAuthority(orgDAO.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
+
+            if (!image.isEmpty()) {
+                ImageUtil.writeAvatar(user, image);
+            } else {
+                String defAvatarName = user.isMale() ? "/app/man.jpg" : "/app/wom.jpg";
+                String defAvatarName_small = user.isMale() ? "/app/man_small.jpg" : "/app/wom_small.jpg";
+                user.setPhoto(defAvatarName);
+                user.setPhoto_small(defAvatarName_small);
+
+            }
+
+            userDAO.persistUser(user);
+
+            SimpleUtils.createUserFolders(org, user.getLogin());
+        }catch (Exception e){
+            logger.error("REG_USER ERROR", e);
         }
-        String org = organization.getUrlName();
-
-        if (bindingResult.hasErrors()) return "reg";
-        if (user.getLogin().equals("admin") || orgDAO.getLogins(organization).contains(user.getLogin())) {
-            bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
-            return "reg";
-        }
-
-
-
-        logger.debug(user);
-        logger.debug(user.getPassword());
-
-
-
-
-        user.setOrganization(orgDAO.getOrgByURL(org));
- /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setAuthority("ROLE_USER");
-
-        if (!image.isEmpty()) {
-            ImageUtil.writeAvatar(user, image);
-        } else {
-            String defAvatarName = user.isMale() ? "/app/man.jpg" : "/app/wom.jpg";
-            String defAvatarName_small = user.isMale() ? "/app/man_small.jpg" : "/app/wom_small.jpg";
-            user.setPhoto(defAvatarName);
-            user.setPhoto_small(defAvatarName_small);
-
-        }
-
-        userDAO.persistUser(user);
-
-        SimpleUtils.createUserFolders(org, user.getLogin());
 
         return "redirect:/auth";
     }

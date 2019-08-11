@@ -56,10 +56,13 @@ public class OrgController {
         String corpKey = encoder.encode(org.getName() + "3ff42fsf2423fsdf");
         String adminKey = encoder.encode(org.getName() + "3ff42fsf24hjgfdsesdf23fsdf");
 
-        String[] poss = pos.split(", ");
-        if (org.getPositions() == null) org.setPositions(new HashSet<>());
-        org.getPositions().clear();
-        Collections.addAll(org.getPositions(), poss );
+        if (!pos.equals("")){
+            String[] poss = pos.split(", ");
+            if (org.getPositions() == null) org.setPositions(new HashSet<>());
+            org.getPositions().clear();
+            Collections.addAll(org.getPositions(), poss );
+        }
+
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
         org.setHeaderPath("/app/header.jpg");

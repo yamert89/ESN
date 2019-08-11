@@ -122,6 +122,15 @@ public class OrganizationDAO {
         em.createQuery("update User u set u.department = null").executeUpdate();
     }
 
+    @Transactional
+    public boolean isAdminKey(String key, int orgId){
+        return (Boolean) em.createQuery("select (org.adminKey = :key) as p from Organization org where org.id = :org_id")
+                .setParameter("key", key)
+                .setParameter("org_id", orgId)
+                .getSingleResult();
+
+    }
+
 
 
 
