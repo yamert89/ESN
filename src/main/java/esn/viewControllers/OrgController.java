@@ -64,6 +64,7 @@ public class OrgController {
         org.setAdminKey(adminKey);
         org.setHeaderPath("/app/header.jpg");
         try {
+            if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
             orgDAO.persistOrg(org);
         } catch (DataIntegrityViolationException e){
             result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));

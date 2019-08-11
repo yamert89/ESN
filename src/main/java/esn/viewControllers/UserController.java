@@ -83,37 +83,9 @@ public class UserController {
                               Model model, HttpSession session, HttpServletRequest request, Principal principal){
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 
         User user = userDAO.getUserByLogin(login);
-
-
-        /*try {
-
-
-
-            logger.debug(user.getPassword());
-            logger.debug(SimpleUtils.getEncodedPassword(password));
-            user.setPassword(SimpleUtils.getEncodedPassword(password));
-            userDAO.updateUser(user);
-
-
-            if (!SimpleUtils.getEncodedPassword(password).equals(user.getPassword()))  {
-
-                model.addAttribute("error", "Пароль введен неверно");
-                return "auth";
-            }
-
-        }catch (NoResultException e){
-            logger.debug("NO RESULT");
-            model.addAttribute("error", "Логин введен неверно");
-            return "auth";
-        }catch (Exception e){
-            e.printStackTrace();
-            model.addAttribute("error", "Ошибка на сервере");
-            return "auth";
-        }*/
 
         liveStat.userLogged(user.getId());
         Organization organization = user.getOrganization();
