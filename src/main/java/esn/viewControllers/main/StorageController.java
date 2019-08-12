@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 
@@ -79,10 +81,10 @@ public class StorageController {
         try {
             FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
-        user.getStoredFiles().add(new StoredFile(name, LocalDateTime.now(), user, shared.equals("1")));
+        user.getStoredFiles().add(new StoredFile(name, Timestamp.from(Instant.now()), user, shared.equals("1")));
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
     }
@@ -121,7 +123,7 @@ public class StorageController {
                     break;
             }
         }catch (IOException e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         //user = userDAO.getUserWithFiles(user.getId());
         user = userDAO.updateUser(user);

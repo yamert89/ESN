@@ -64,7 +64,7 @@ public class NotesController {
             //user = userDAO.getUserById(user.getId());
             session.setAttribute("user", user);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         logger.debug(" /note   after  " + user);
         return true;
@@ -107,7 +107,7 @@ public class NotesController {
             return ResponseEntity.ok().headers(responseHeaders).body(sb.toString());
 
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
 

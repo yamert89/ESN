@@ -44,7 +44,7 @@ public class MyHttpListener extends HttpSessionEventPublisher {
             userDAO.saveSession(new Session(session.getId(), user, ip,
                     session.getCreationTime(), System.currentTimeMillis()));
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         super.sessionDestroyed(event);
     }

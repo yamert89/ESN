@@ -82,14 +82,14 @@ public abstract class MessagesDAO {
                 try{
                     id = ((BigInteger)row[0]).longValue();
                 } catch (ClassCastException e){
+                    logger.debug("Postgres cast exception. Processing...");
                     id = Long.parseLong(String.valueOf(row[0]));
                 }
-                list.add(createMessage(id , (String) row[1], (int) row[4], userDAO.getUserById((int) row[2]))); //TODO
+                list.add(createMessage(id , (String) row[1], (int) row[4], userDAO.getUserById((int) row[2])));
             }
 
         }catch (Exception e){
-            e.printStackTrace();
-            //list = getMessages(orgId, lastIdx);
+            logger.error("getMessages", e);
         }
         return list;
 
@@ -105,7 +105,7 @@ public abstract class MessagesDAO {
                     .setParameter(4, orgId);
             query.executeUpdate();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -127,9 +127,9 @@ public abstract class MessagesDAO {
             logger.debug("No result, first session");
             return null;
         }catch (ClassCastException e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

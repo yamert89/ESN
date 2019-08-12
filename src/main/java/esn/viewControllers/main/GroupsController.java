@@ -101,7 +101,7 @@ public class GroupsController {
             model.addAttribute(user);
 
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
 
         }
     }
@@ -121,7 +121,7 @@ public class GroupsController {
                 session.setAttribute("user", userDAO.updateUser(user));
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -135,7 +135,7 @@ public class GroupsController {
         try {
             grps = om.readValue(groups, new TypeReference<List<PseudoContactGroup>>(){});
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         for (ContactGroup group: user.getGroups()) {

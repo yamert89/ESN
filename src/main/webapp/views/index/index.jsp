@@ -36,7 +36,10 @@
 
             $(".q").click(function () {
                 var question = $(this).next();
-                if (question.hasClass("hidden")) showTree(question);
+                if (question.hasClass("hidden")) {
+                    showTree(question);
+                    $(document).scrollTop(9999);
+                }
                 else hideTree(question);
             });
 

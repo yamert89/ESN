@@ -105,7 +105,7 @@ $(document).ready(function () {
             fileContainer = $("#shared_files");
             fileContainer.append('<div class="file">\n' +
                 '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
-                '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'">\n' +
+                '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'" onchange="rename(this)">\n' +
                 '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +
                 '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                 '            </div>');
@@ -113,7 +113,7 @@ $(document).ready(function () {
         fileContainer = $("#private_files");
         fileContainer.append('<div class="file">\n' +
             '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
-            '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '">\n' +
+            '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '" onchange="rename(this)">\n' +
             '                    <img src="/resources/data/app/cross.png" class="file_delete" title="Удалить">\n' +
             '                    <img src="/resources/data/app/share.png" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
             '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +

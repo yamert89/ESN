@@ -3,6 +3,9 @@ package esn.db.message;
 import esn.configs.GeneralSettings;
 import esn.entities.User;
 import esn.entities.secondary.PrivateChatMessage;
+import esn.viewControllers.main.GroupsController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,8 @@ import java.util.stream.Stream;
 
 @Repository("privateDao")
 public class PrivateDAO extends MessagesDAO {
+
+    private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
     @Override
     final String abstractLastTimeOfMessageQuery() {
@@ -37,7 +42,7 @@ public class PrivateDAO extends MessagesDAO {
                     .limit(GeneralSettings.AMOUNT_PRIVATECHAT_MESSAGES)
                     .collect(Collectors.toCollection(TreeSet::new));
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return null;
         }
     }
@@ -53,7 +58,7 @@ public class PrivateDAO extends MessagesDAO {
 
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 

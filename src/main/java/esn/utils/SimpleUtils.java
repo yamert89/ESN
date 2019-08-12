@@ -1,6 +1,9 @@
 package esn.utils;
 
 import esn.configs.GeneralSettings;
+import esn.viewControllers.main.GroupsController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -8,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SimpleUtils {
+    private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
     public static String getNickName(String input) {
         String name = input.toLowerCase();
@@ -30,7 +34,7 @@ public class SimpleUtils {
         try {
             md = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return new String(md.digest(input.getBytes()));
     }
@@ -51,7 +55,7 @@ public class SimpleUtils {
                         if (!Files.isDirectory(file, LinkOption.NOFOLLOW_LINKS)) size[0] = file.toFile().length();
                     });
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return (int)((size[0]/1024d/1024d) / (double)maxSize * 100);
     }
@@ -61,7 +65,7 @@ public class SimpleUtils {
             Files.createDirectories(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/stored_files/" + userLogin + "/"));
             Files.createDirectories(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/" + userLogin + "/"));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 

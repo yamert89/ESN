@@ -41,6 +41,7 @@
     /*vertical-align: middle;*/
     text-align: left;
     border-radius: 12px;
+    display: flex;
 
 }
 .file:hover{
@@ -49,8 +50,8 @@
 
 .fileName{
     height: 64px;
-    line-height: 64px;
-    transform: translateY(-27px);
+
+
     display: inline-block;
     border: 0;
     background-color: transparent;
@@ -62,14 +63,14 @@
     display: inline-block;
     font-size: 0.6em;
     height: 64px;
-    line-height: 64px;
+
     float: right;
 }
 .file_ico{
     width: 64px;
     height: 64px;
     display: inline-block;
-    line-height: 64px;
+
 }
 
 
@@ -83,9 +84,8 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    line-height: 64px;
-    float: right;
-    margin: 20px 20px 0 0;
+
+    margin: 20px 10px;
     border-radius: 12px;
 }
 
@@ -94,9 +94,9 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    line-height: 64px;
-    float: right;
-    margin: 20px 20px 0 0;
+
+
+    margin: 20px 10px;
     border-radius: 4px;
 }
 
@@ -104,8 +104,8 @@
     font-size: 0.8em;
     display: inline-block;
     height: 64px;
-    line-height: 64px;
-    float: right;
+
+
     margin-right: 15px;
 }
 input[type=text]{

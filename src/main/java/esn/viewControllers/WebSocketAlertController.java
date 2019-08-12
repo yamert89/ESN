@@ -86,14 +86,14 @@ public class WebSocketAlertController {
                 try {
                     privIds = om.writeValueAsString(privateDAO.getOfflinePrivateMSenderIds(lastVisitTime, user, orgID));
                 } catch (JsonProcessingException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 }
             }
             if (privIds == null) privIds = "{}";
             template.convertAndSendToUser(String.valueOf(userId), "/message",
                     "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_ + ", \"private_ids\" : " + privIds  + "}");
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
 

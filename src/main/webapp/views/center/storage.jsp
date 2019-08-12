@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -37,7 +38,7 @@
                     <c:if test="${file.owner != null}">
                         <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.name}</a></div>
                     </c:if>
-                    <div class="file_time">${file.time}</div>
+                    <div class="file_time"><fmt:formatDate value="${file.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>
             </c:forEach>
 
@@ -71,7 +72,7 @@
                     <c:if test="${file.shared == true}">
                         <img src='<c:url value="/resources/data/app/unshare.png"/>' data-shared='1' class="file_share" title="Убрать из общих">
                     </c:if>
-                    <div class="file_time">${file.time}</div>
+                    <div class="file_time"><fmt:formatDate value="${file.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>
             </c:forEach>
 

@@ -17,8 +17,8 @@
 </head>
 <body>
 <t:insertAttribute name="auth_reg"/>
-<div class="progress_wr">
-    <img src="/resources/data/app/progress.gif" class="progress">
+<div class="progress_wr_hidden">
+    <img src="/resources/data/app/progress.gif" class="progress_hidden">
 </div>
 </body>
 </html>

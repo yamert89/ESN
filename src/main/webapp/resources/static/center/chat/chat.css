@@ -34,7 +34,6 @@ input{
     width: calc(355px + 1.2em);
     display: inline-table;
     margin: 0 10px 0 10px;
-
 }
 .message_time{
     display: table-cell;

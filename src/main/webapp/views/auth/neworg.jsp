@@ -79,8 +79,8 @@
     </div>
     <div class="prop_line">
         <div class="inline">
-            <label class="prop_label">Добавьте перечень должностей:</label>
-            <input list="ps" class="department_adder" name="pos" id="input" form="org"/>
+            <label class="prop_label" title="Можно добавить позже">Добавьте перечень должностей:</label>
+            <input list="ps" class="department_adder" name="pos" id="input" form="org"  title="Можно добавить позже"/>
             <datalist id="ps">
             </datalist>
             <button type="button" class="reg_el">добавить</button>

@@ -2,6 +2,9 @@ package esn.db;
 
 import esn.entities.Department;
 import esn.entities.Organization;
+import esn.viewControllers.main.GroupsController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +17,8 @@ import java.util.*;
 @Repository("department_dao")
 @Transactional
 public class DepartmentDAO {
+
+    private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
 
     @PersistenceContext
@@ -43,7 +48,7 @@ public class DepartmentDAO {
                     .setParameter("org", org)
                     .setParameter("name", name).getSingleResult();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

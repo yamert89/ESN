@@ -190,7 +190,7 @@ public class UserController {
             session.setAttribute("profile", user);
 
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         return "profile";
@@ -259,7 +259,7 @@ public class UserController {
             orgDAO.update(org);
             userDAO.deleteUser(user); //TODO test
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
     @PostMapping("{org}/users/{login}/p")

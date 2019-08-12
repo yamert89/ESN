@@ -4,7 +4,11 @@ $(document).ready(function () {
    $(document).on("click", ".tool", startProgress);
 });
 function startProgress() {
-    $(".progress").css("display", "block");
-    $(".progress_wr").css("display", "block");
+    var pr = $(".progress_hidden");
+    var wr = $(".progress_wr_hidden");
+    pr.removeClass("progress_hidden");
+    pr.addClass("progress");
+    wr.removeClass("progress_wr_hidden");
+    wr.addClass("progress_wr");
 
 }

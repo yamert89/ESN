@@ -46,7 +46,7 @@ public class ImageUtil {
             baos.close();
             return imageInByte;
         }catch (IOException e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
@@ -84,7 +84,7 @@ public class ImageUtil {
             user.setPhoto_small(avatarsPath + fileNameSmall);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             logger.debug("Ошибка записи аватара");
         }
     }
@@ -98,7 +98,7 @@ public class ImageUtil {
             writeImage(fileName, bytes);
             org.setHeaderPath(headerPath);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             logger.debug("Ошибка записи хэдера");
         }
     }
@@ -109,7 +109,7 @@ public class ImageUtil {
             if (file.exists()) FileUtils.forceDelete(file);
             FileUtils.writeByteArrayToFile(file, imageBytes);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             logger.debug("Ошибка записи картинки");
         }
     }

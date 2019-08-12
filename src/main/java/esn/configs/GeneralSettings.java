@@ -50,7 +50,7 @@ public class GeneralSettings {
             TIME_PATTERN = getOptProperty("date_time_pattern").orElse("HH:mm:ss / dd.MM");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             logger.debug("ERROR: Ошибка загрузки файла свойств");
         }
 
@@ -64,16 +64,16 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME блок posts - ширина по контенту сделать шире. border max на маленьком экране
-    //FIXME post - добавить padding
+    //FIXME
     //FIXME
     //FIXME запись админа оказалась сверху
     //FIXME test index js net status
-    //FIXME файл не переименовывается, ошибки пути
+    //FIXME
     //FIXME storage file не влезает на маленьком экране
-    //TODO задать вопрос. провернуть страницу вниз
-    //TODO увеличение картинки пример разобраться
-    //TODO добавить перечень должностей - подсказка о необязательности
-    //TODO сменить в ген чат и может в других цвет мета текста
+    //TODO
+    //TODO
+    //TODO
+    //TODO
     //TODO восстановление пароля
     //TODO
 

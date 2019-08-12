@@ -15,6 +15,8 @@ import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.services.WebSocketService;
 import esn.utils.DateFormatUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,8 @@ import java.util.List;
 
 @Controller
 public class WallController {
+
+    private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
     private WallDAO wallDAO;
     private WebSocketService webSocketService;
@@ -63,7 +67,7 @@ public class WallController {
             wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
             webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -87,7 +91,7 @@ public class WallController {
             messages = wallDAO.getMessages(orgId, oldIndex);
             newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         session.setAttribute("lastIdx_wall", newIdx);
         ObjectMapper om = new ObjectMapper();
@@ -95,7 +99,7 @@ public class WallController {
         try {
             json = om.writeValueAsString(messages);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");

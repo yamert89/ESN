@@ -78,7 +78,7 @@ public class StaffController {
             json = om.writeValueAsString(res); // TODO exception
             logger.debug(json);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return null;
         }
 
@@ -109,7 +109,7 @@ public class StaffController {
             session.setAttribute("org", organization);
 
         } catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -138,7 +138,7 @@ public class StaffController {
             department.getEmployers().addAll(employers);
             departmentDAO.merge(department);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return ResponseEntity.ok().body(department.getId());
     }

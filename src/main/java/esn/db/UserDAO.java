@@ -2,6 +2,9 @@ package esn.db;
 
 import esn.entities.Session;
 import esn.entities.User;
+import esn.viewControllers.main.GroupsController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,8 @@ import java.util.Optional;
 @Transactional
 public class UserDAO {
 
+    private final static Logger logger = LogManager.getLogger(GroupsController.class);
+
     @PersistenceContext
     private EntityManager em;
 
@@ -30,7 +35,7 @@ public class UserDAO {
         try {
             return em.merge(user);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

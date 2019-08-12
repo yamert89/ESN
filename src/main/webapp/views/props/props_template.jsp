@@ -17,5 +17,8 @@
 </head>
 <body>
 <t:insertAttribute name="pref_page"/>
+<div class="progress_wr_hidden">
+    <img src="/resources/data/app/progress.gif" class="progress_hidden">
+</div>
 </body>
 </html>

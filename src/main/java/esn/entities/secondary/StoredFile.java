@@ -4,6 +4,7 @@ import esn.entities.Organization;
 import esn.entities.User;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class StoredFile {
     @Column(length = 7)
     private String extension;
 
-    private LocalDateTime time;
+    private Timestamp time;
 
     @ManyToOne
     private User owner;
@@ -30,7 +31,7 @@ public class StoredFile {
     private boolean shared;
 
 
-    public StoredFile(String name, LocalDateTime time, User owner, boolean shared) {
+    public StoredFile(String name, Timestamp time, User owner, boolean shared) {
         int point = name.lastIndexOf(".");
         this.name = name.substring(0, point);
         extension = name.substring(point + 1);
@@ -51,7 +52,7 @@ public class StoredFile {
         return name;
     }
 
-    public LocalDateTime getTime() {
+    public Timestamp getTime() {
         return time;
     }
 

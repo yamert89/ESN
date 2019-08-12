@@ -45,7 +45,7 @@ public class ErrorController {
                 error = getErrorCode(httpRequest);
                 httpErrorCode = (int) error[0];
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
                 httpErrorCode = Integer.parseInt(httpRequest.getParameter("status"));
             }
 
@@ -85,7 +85,7 @@ public class ErrorController {
             logger.debug("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

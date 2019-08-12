@@ -30,13 +30,18 @@ public abstract class AbstractMessage {
 
 
     public AbstractMessage(long id, String text, int orgId, User user) {
-        if (user == null) user = new User("Пользователь удалён", null);
-        this.userId = user.getId();
-        userName = user.getName();
-        imgUrl = user.getPhoto_small();
         this.text = text;
         this.orgId = orgId;
         this.id = id;
+        if (user == null) {
+            user = new User("Пользователь удалён", null);
+            userName = user.getName();
+            return;
+        }
+        this.userId = user.getId();
+        userName = user.getName();
+        imgUrl = user.getPhoto_small();
+
     }
 
     public long getUserId() {
