@@ -2,7 +2,9 @@ package esn.viewControllers;
 
 import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
+import esn.db.UserDAO;
 import esn.entities.Organization;
+import esn.entities.User;
 import esn.utils.ImageUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +35,12 @@ public class OrgController {
     private final static Logger logger = LogManager.getLogger(OrgController.class);
 
     private OrganizationDAO orgDAO;
+    private UserDAO userDAO;
+
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Autowired
     public void setOrgDao(OrganizationDAO dao){
@@ -74,6 +82,8 @@ public class OrgController {
             return "neworg";
         }
         session.setAttribute("org", org);
+        userDAO.persistUser(new User("Пользователь удалён", "deleted", "p", true, "ROLE_USER", orgDAO.getOrgByURL(org.getUrlName()),
+                "/app/deleted.jpg", "/app/deleted_small.jpg"));
         return "redirect:/" + org.getUrlName() + "/profile";
     }
 

@@ -82,7 +82,7 @@ public class ErrorController {
                 }
             }
             errorPage.addObject("errorMsg", errorMsg);
-            logger.debug("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
+            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
             logger.error(e.getMessage(), e);
@@ -102,7 +102,7 @@ public class ErrorController {
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
     public void err(@RequestParam String error, HttpSession session){
-        logger.debug("CLIENT ERROR :  " + error);
+        logger.error("CLIENT ERROR :  " + error);
         User user = (User) session.getAttribute("user");
         Organization org = (Organization) session.getAttribute("org");
         emailService.send("CLIENT ERROR", error,

@@ -91,6 +91,17 @@ public class User implements Cloneable{
     public User() {
     }
 
+    public User(@Size(min = 4, max = 50, message = "введите имя от 4х до 50 символов") String name, @Size(min = 4, max = 20, message = "введите логин от 3х до 20 символов") String login, @Size(min = 6, max = 60, message = "введите пароль от 6 до 60 символов") String password, boolean male, String authority, Organization organization, String photo, String photo_small) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.male = male;
+        this.authority = authority;
+        this.organization = organization;
+        this.photo = photo;
+        this.photo_small = photo_small;
+    }
+
     public User(String name, Organization org) {
         this.name = name;
         this.organization = org;

@@ -167,6 +167,7 @@ iframe{
     border-left: 3px double rgba(0, 0, 0, 0.2);
     display: inline-block;
     /* margin-right: 10px;*/
+    position: relative;
     flex: 0.5 2 200px;
     overflow: hidden;
 

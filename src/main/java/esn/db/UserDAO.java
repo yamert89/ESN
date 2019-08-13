@@ -52,9 +52,14 @@ public class UserDAO {
 
     @Transactional
     public void deleteUser(User user)throws Exception {
+        User deleted = (User) em.createQuery("select u from User u where login = 'deleted'").getSingleResult();
         user = contains(user) ? user : getUserById(user.getId());
         em.createQuery("delete from StoredFile f where f.owner = :u and f.shared = false").setParameter("u", user).executeUpdate();
-        em.createQuery("update StoredFile s set owner = null").executeUpdate();
+        em.createQuery("update StoredFile s set owner = :deleted").setParameter("deleted", deleted).executeUpdate();
+        em.createNativeQuery("update wall set userid = ? where userid = ?")
+                .setParameter(1, user.getId())
+                .setParameter(2, deleted.getId())
+                .executeUpdate();
         em.remove(user);
     }
 

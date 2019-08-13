@@ -136,8 +136,10 @@ public class UserController {
             String org = organization.getUrlName();
 
             if (bindingResult.hasErrors()) return "reg";
-            if (user.getLogin().equals("admin") || orgDAO.getLogins(organization).contains(user.getLogin())) {
-                bindingResult.addError(new FieldError("loginError", "login", "Такой логин уже есть"));
+            if (user.getLogin().equals("admin") ||
+                    orgDAO.getLogins(organization).contains(user.getLogin()) ||
+                    user.getLogin().equals("deleted")) {
+                bindingResult.addError(new FieldError("loginError", "login", "Логин занят. Придумайте другой"));
                 return "reg";
             }
 
@@ -219,21 +221,6 @@ public class UserController {
         }
 
         userFromSession.getUserInformation().setBoss(userDAO.getUserById(Integer.parseInt(boss)));
-       /* String position = user.getPosition();
-        UserInformation inf = user.getUserInformation();
-        birth = inf.getBirthDate();
-        String phoneMobile = inf.getPhoneMobile();
-        String phoneWork = inf.getPhoneWork();
-        String phoneInternal = inf.getPhoneInternal();
-        String email = inf.getEmail();
-
-        UserInformation inf2 = userFromSession.getUserInformation();
-        if ( position != null) userFromSession.setPosition(position);
-        if (birth != null) inf2.setBirthDate(birth);
-        if (phoneMobile != null) inf2.setPhoneMobile(phoneMobile);
-        if (phoneWork != null) inf2.setPhoneWork(phoneWork);
-        if (phoneInternal != null) inf2.setPhoneInternal(phoneInternal);
-        if (email != null) inf2.setEmail(email);*/
 
         userFromSession.updateFromForm(user);
 
@@ -257,7 +244,7 @@ public class UserController {
             Organization org = user.getOrganization();
             org.getAllEmployers().remove(user);
             orgDAO.update(org);
-            userDAO.deleteUser(user); //TODO test
+            userDAO.deleteUser(user);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }

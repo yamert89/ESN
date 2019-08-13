@@ -51,7 +51,7 @@ public class GeneralSettings {
 
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
-            logger.debug("ERROR: Ошибка загрузки файла свойств");
+            logger.error("ERROR: Ошибка загрузки файла свойств");
         }
 
     }
@@ -69,8 +69,8 @@ public class GeneralSettings {
     //FIXME запись админа оказалась сверху
     //FIXME test index js net status
     //FIXME
-    //FIXME storage file не влезает на маленьком экране
-    //TODO
+    //FIXME
+    //TODO протестировать удаленного пользователя
     //TODO
     //TODO
     //TODO

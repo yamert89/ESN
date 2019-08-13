@@ -52,14 +52,13 @@
     </div>
     <div class="center">
         <t:insertAttribute name="center"/>
-        <div class="progress_wr_hidden">
-            <img src="/resources/data/app/progress.gif" class="progress_hidden">
-        </div>
     </div>
     <div class="contacts">
         <div class="contacts-frame"></div>
     </div>
-
+    <div class="progress_wr_hidden">
+        <img src="/resources/data/app/progress.gif" class="progress_hidden">
+    </div>
 </div>
 </body>
 </html>
