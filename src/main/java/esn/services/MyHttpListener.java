@@ -1,17 +1,14 @@
 package esn.services;
 
-import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.http.HttpSession;
