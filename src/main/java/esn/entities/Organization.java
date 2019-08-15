@@ -38,7 +38,7 @@ public class Organization {
     @Column(columnDefinition = "varchar(255) default '/header.jpg'", nullable = false)
     private String headerPath;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.MERGE})
     private Set<Department> departments = new HashSet<>(0);
 
     @OneToMany(orphanRemoval = true, mappedBy = "organization", fetch = FetchType.EAGER)
