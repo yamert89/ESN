@@ -65,11 +65,14 @@ public class StaffController {
         //org = orgDAO.getOrgByURLWithEmployers(org.getUrlName());
 
         String json = "";
-        StringBuilder jsonS = null;
         try {
 
             Set<Department> deps = departmentDAO.getHeadDepartments(org);
-            Department head = new Department("default", 0L, -1L, deps, org.getAllEmployers());
+            Set<User> allEmployers = org.getAllEmployers();
+            User del = new User();
+            del.setLogin("deleted");
+            allEmployers.remove(del);
+            Department head = new Department("default", 0L, -1L, deps, allEmployers);
             /*deps.add(0, departmentDAO.getDefaultDepartment(org));
              */
             Object[] res = new Object[]{head, user.getAuthority().equals("ROLE_ADMIN")};
@@ -97,7 +100,7 @@ public class StaffController {
             for (Department d :
                     deps) {
                 if (d.getParentId() == 0) d.setParent(null);
-                else if (d.getParentId() != null && d.getParentId() != 0) d.setParent(departmentDAO.getDepartmentById(d.getParentId()));
+                else if (d.getParentId() != null && d.getParentId() != 0) d.setParent(departmentDAO.getReference(d.getParentId()));
 
                 d.setOrganization(organization);
                 d.initParentForTree();

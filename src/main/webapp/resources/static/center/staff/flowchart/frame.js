@@ -100,5 +100,5 @@ function nodePlusOnClick() {
     node_pluse.on("click", function () {
         addChild($(this).parent().parent().attr('id'));
     });
-    node_pluse.attr("src", "/resources/plus.png");
+    node_pluse.attr("src", "/resources/data/app/plus.png");
 }

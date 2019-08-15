@@ -20,16 +20,16 @@ public class User implements Cloneable{
     private Integer id;
 
     @Size(min = 4, max = 50, message = "введите имя от 4х до 50 символов")
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Size(min = 4, max = 20, message = "введите логин от 3х до 20 символов")
     @JsonIgnore
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20, unique = true)
     private String login;
 
     @Size(min = 6, max = 60, message = "введите пароль от 6 до 60 символов")
-    @Column(nullable = false)
+    @Column(nullable = false, length = 60)
     @JsonIgnore
     private String password;
 
@@ -41,7 +41,7 @@ public class User implements Cloneable{
     private String position = "";
 
     @JsonIgnore
-    @Column(columnDefinition = "varchar(15) default 'ROLE_USER'")
+    @Column(columnDefinition = "varchar(15) default 'ROLE_USER'", nullable = false)
     private String authority;
 
     @ManyToOne
@@ -244,14 +244,12 @@ public class User implements Cloneable{
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return  Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getLogin(), user.getLogin()) &&
-                Objects.equals(getPosition(), user.getPosition());
+        return  Objects.equals(getLogin(), user.getLogin());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getLogin(), getPosition());
+        return Objects.hash(getLogin());
     }
 
     @Override

@@ -43,8 +43,9 @@
     text-align: left;
 }
 
-p{
+p, h1, h2, h3{
     padding: 0 10px;
+    line-height: 1em;
 }
 
 .message_info_w{

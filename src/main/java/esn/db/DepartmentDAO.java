@@ -41,6 +41,11 @@ public class DepartmentDAO {
     }
 
     @Transactional
+    public Department getReference(Long id){
+        return em.getReference(Department.class, id);
+    }
+
+    @Transactional
     public Department getDepartmentByName(String name, Organization org){
         try {
 

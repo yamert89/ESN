@@ -1,6 +1,8 @@
 import esn.db.OrganizationDAO;
+import esn.db.UserDAO;
 import esn.db.message.WallDAO;
 import esn.entities.Organization;
+import esn.entities.User;
 import esn.entities.secondary.Post;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
+import java.util.Set;
 
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/app_context.xml",
         "file:src/main/webapp/WEB-INF/dao.xml",})
@@ -18,6 +22,9 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
 
     @Autowired
     OrganizationDAO organizationDAO;
+
+    @Autowired
+    UserDAO userDAO;
 
     @Autowired
     WallDAO wallDAO;
@@ -43,9 +50,14 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
     }
     
     @Test
-    @Rollback(false)
-    public void test(){
-
+    public void equals(){
+        User user = userDAO.getUserByLogin("yamert");
+        Set<User> set = new HashSet<>();
+        set.add(user);
+        User us2 = new User();
+        us2.setLogin("yamert");
+        set.remove(us2);
+        Assert.assertEquals(0, set.size());
     }
 
 }

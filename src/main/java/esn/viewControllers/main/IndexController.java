@@ -76,6 +76,9 @@ public class IndexController {
             org = (Organization) session.getAttribute("org");
             Set<User> users = new HashSet<>(org.getAllEmployers());
             users.remove(user);
+            User def = new User();
+            def.setLogin("deleted");
+            users.remove(def);
 
             JSONObject js = new JSONObject();
             JSONArray usrs = new JSONArray();

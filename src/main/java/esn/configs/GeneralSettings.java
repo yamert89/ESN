@@ -64,7 +64,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME блок posts - ширина по контенту сделать шире. border max на маленьком экране
-    //FIXME remove deleted user from contacts
+    //FIXME remember me dont saving
     //FIXME
     //FIXME запись админа оказалась сверху
     //FIXME test index js net status

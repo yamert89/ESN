@@ -69,7 +69,7 @@ $(document).ready(function () {
                 '                    <div class="file_author"><a href="">'  + userName + '</a></div>\n' +
                 '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                 '                </div>');
-            $(this).attr("src", "/resources/unshare.png");
+            $(this).attr("src", "/resources/data/app/unshare.png");
             $(this).attr("data-shared", "1");
 
 

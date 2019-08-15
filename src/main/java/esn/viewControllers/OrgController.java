@@ -60,8 +60,8 @@ public class OrgController {
         if (result.hasErrors()) return "neworg";
         logger.debug(result.getFieldErrors().size());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String corpKey = encoder.encode(org.getName() + "3ff42fsf2423fsdf");
-        String adminKey = encoder.encode(org.getName() + "3ff42fsf24hjgfdsesdf23fsdf");
+        String corpKey = encoder.encode(org.getName() + System.currentTimeMillis() * Math.random());
+        String adminKey = encoder.encode(org.getName() + System.currentTimeMillis() * Math.random());
 
         if (!pos.equals("")){
             String[] poss = pos.split(", ");

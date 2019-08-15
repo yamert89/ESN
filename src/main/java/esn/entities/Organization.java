@@ -14,10 +14,10 @@ public class Organization {
     @GeneratedValue(generator = "ID_GENERATOR")
     private Integer id;
 
-    @Column(length = 60)
+    @Column(length = 60, nullable = false)
     private String corpKey;
 
-    @Column(length = 60)
+    @Column(length = 60, nullable = false)
     private String adminKey;
 
     @NotNull(message = "введите название организации")

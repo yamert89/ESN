@@ -1,5 +1,5 @@
 $(document).ready(function () {
-   $(document).on("click", "a", startProgress);
+   $(document).on("click", ".user_name", startProgress);
    $(document).on("submit", "form", startProgress);
    $(document).on("click", ".tool", startProgress);
 });
