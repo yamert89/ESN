@@ -69,6 +69,11 @@ public class UserDAO {
     }
 
     @Transactional
+    public User getReference(Integer id){
+        return em.getReference(User.class,id);
+    }
+
+    @Transactional
     public User getUserByLogin(String login) {
         try {
             return (User) em.createQuery("select u from User u where u.login = :login").setParameter("login", login).getSingleResult();

@@ -1,12 +1,7 @@
 package esn.viewControllers.main;
 
-import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.db.message.GenDAO;
 import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
@@ -102,7 +97,7 @@ public class PrivateChatController {
         User user = (User) session.getAttribute("user");
         int orgId = ((Organization) session.getAttribute("org")).getId();
         int cId = Integer.valueOf(companionId);
-        User compan = userDAO.getUserById(cId); 
+        User compan = userDAO.getReference(cId);
        /* if (text.length() > 800) {
             String[] messages = text.split(".{800}");
             for (String m :

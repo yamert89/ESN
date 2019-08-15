@@ -1,6 +1,5 @@
 package esn.viewControllers;
 
-import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
@@ -82,7 +81,7 @@ public class OrgController {
             return "neworg";
         }
         session.setAttribute("org", org);
-        userDAO.persistUser(new User("Пользователь удалён", "deleted", "p", true, "ROLE_USER", orgDAO.getOrgByURL(org.getUrlName()),
+        userDAO.persistUser(new User("Пользователь удалён", "deleted", "pppppp", true, "ROLE_USER", orgDAO.getOrgByURL(org.getUrlName()),
                 "/app/deleted.jpg", "/app/deleted_small.jpg"));
         return "redirect:/" + org.getUrlName() + "/profile";
     }

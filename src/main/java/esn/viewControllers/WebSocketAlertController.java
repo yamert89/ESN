@@ -2,13 +2,10 @@ package esn.viewControllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.db.message.GenDAO;
 import esn.db.message.PrivateDAO;
 import esn.entities.User;
-import esn.entities.secondary.GenChatMessage;
-import esn.entities.secondary.PrivateChatMessage;
 import esn.entities.secondary.PrivateMesReadAlert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +17,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.NoResultException;
-import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 
 @Controller
@@ -65,7 +61,7 @@ public class WebSocketAlertController {
         try {
             logger.debug("_______ ASKING NEW MES__________");
             int userId = Integer.parseInt(us);
-            User user = userDAO.getUserById(userId);
+            User user = userDAO.getReference(userId);
             //User user = (User) session.getAttribute("user");
             Calendar lastVisitTime = null;
             try {

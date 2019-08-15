@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,7 +131,6 @@ public class UserController {
                 bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
                 return "reg";
             }
-            String org = organization.getUrlName();
 
             if (bindingResult.hasErrors()) return "reg";
             if (user.getLogin().equals("admin") ||
@@ -143,12 +140,10 @@ public class UserController {
                 return "reg";
             }
 
-
             logger.debug(user);
             logger.debug(user.getPassword());
 
-
-            user.setOrganization(orgDAO.getOrgByURL(org));
+            user.setOrganization(organization);
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setAuthority(orgDAO.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
@@ -165,7 +160,7 @@ public class UserController {
 
             userDAO.persistUser(user);
 
-            SimpleUtils.createUserFolders(org, user.getLogin());
+            SimpleUtils.createUserFolders(organization.getUrlName(), user.getLogin());
         }catch (Exception e){
             logger.error("REG_USER ERROR", e);
         }
@@ -220,18 +215,18 @@ public class UserController {
             ImageUtil.writeAvatar(user, image);
         }
 
-        userFromSession.getUserInformation().setBoss(userDAO.getUserById(Integer.parseInt(boss)));
+        userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
 
         userFromSession.updateFromForm(user);
 
-        userDAO.updateUser(userFromSession);
+        user = userDAO.updateUser(userFromSession);
         model.addAttribute("saved", 1);
         //User us = userDAO.getUserWithInfo(userFromSession.getId());
-        model.addAttribute(userFromSession);
+        //model.addAttribute(userFromSession);
         model.addAttribute("bosses", allUsers);
         model.addAttribute("saved", true);
-        model.addAttribute("user", userFromSession);
-        session.setAttribute("user", userFromSession);
+        model.addAttribute("user", user);
+        session.setAttribute("user", user);
         return "userSettings";
     }
 
