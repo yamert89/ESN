@@ -56,8 +56,9 @@
       />
 
        <csrf disabled="true"/>
+       <!--<logout delete-cookies="JSESSIONID" />-->
       <!--<session-management invalid-session-url="/views/service/invalid_session.jsp" session-authentication-error-url="/views/service/error_auth.jsp"/>-->
-       <remember-me token-validity-seconds="10"/>
+       <remember-me key="SERV4WWB'SKM4LSDDVTBO44DCVCV.,O4"/>
        <anonymous username="guest" granted-authority="ROLE_ANONYMOUSLY"/>
    </http>
     <authentication-manager>
