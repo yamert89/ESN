@@ -63,7 +63,7 @@ public class GeneralSettings {
     //TODO CSRF Protection security.xml
     //FIXME
     //FIXME
-    //FIXME блок posts - ширина по контенту сделать шире. border max на маленьком экране
+    //FIXME
     //FIXME
     //FIXME
     //FIXME запись админа оказалась сверху
