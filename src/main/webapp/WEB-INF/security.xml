@@ -33,7 +33,7 @@
        <intercept-url pattern="/error" access="permitAll" />
        <intercept-url pattern="/**/profile" access="permitAll" />
        <intercept-url pattern="/neworg" access="permitAll" />
-       <intercept-url pattern="/auth" access='hasRole("ROLE_ANONYMOUSLY")' />
+       <intercept-url pattern="/auth" access="permitAll" />
 
        <intercept-url pattern="/" access="permitAll"/>
        <intercept-url pattern="/notice_cloud" access="permitAll"/>
@@ -59,6 +59,7 @@
        <!--<logout delete-cookies="JSESSIONID" />-->
       <!--<session-management invalid-session-url="/views/service/invalid_session.jsp" session-authentication-error-url="/views/service/error_auth.jsp"/>-->
        <remember-me key="SERV4WWB'SKM4LSDDVTBO44DCVCV.,O4"/>
+      <!-- <logout delete-cookies="JSESSIONID" />-->
        <anonymous username="guest" granted-authority="ROLE_ANONYMOUSLY"/>
    </http>
     <authentication-manager>

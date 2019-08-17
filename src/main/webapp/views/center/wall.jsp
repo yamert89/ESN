@@ -34,7 +34,7 @@
                 <div class="message_info_w">
                     <img src='<c:url value="/resources/data${mes.imgUrl}"/>' class="person_photo_small">
                     <div class="person_name_w">${mes.userName}</div>
-                    <div class="message_time_w"><fmt:formatDate value="${mes.time.getTime()}" pattern="HH:mm:ss / dd.MM"/></div>
+                    <div class="message_time_w"><fmt:formatDate value="${mes.time.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>
             </div>
             ${mes.text}

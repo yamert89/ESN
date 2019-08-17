@@ -11,6 +11,7 @@ public class DateFormatUtil {
         date.setHours(Integer.valueOf(arr[0]));
         date.setMinutes(Integer.valueOf(arr[1]));
         date.setSeconds(Integer.valueOf(arr[2]));
+        Timestamp timestamp = new Timestamp(date.getTime());
         return new Timestamp(date.getTime());
     }
 }

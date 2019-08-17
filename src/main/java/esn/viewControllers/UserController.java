@@ -215,7 +215,7 @@ public class UserController {
             ImageUtil.writeAvatar(user, image);
         }
 
-        userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
+        userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss))); //TODO exception
 
         userFromSession.updateFromForm(user);
 

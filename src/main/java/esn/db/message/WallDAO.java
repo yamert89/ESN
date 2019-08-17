@@ -8,13 +8,15 @@ import esn.entities.secondary.Post;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+
 @Repository("wallDao")
 @Transactional
 public class WallDAO extends MessagesDAO {
 
     @Override
-    AbstractMessage createMessage(long id, String text, int orgId, User user) {
-        return new Post(id, text, orgId, user);
+    AbstractMessage createMessage(long id, String text, Timestamp time, int orgId, User user) {
+        return new Post(id, text, time, orgId, user);
     }
 
     @Override
