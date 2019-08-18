@@ -63,7 +63,7 @@ public class GeneralSettings {
     //TODO CSRF Protection security.xml
     //FIXME exception for empty group
     //FIXME заметка сохранилась без даты. только текст
-    //FIXME если публикуешь файл в общие, то сменить картинку на отшарить
+    //FIXME
     //FIXME exception on saving prefs user не указан
     //FIXME  remember me without check on
     //FIXME
@@ -73,7 +73,7 @@ public class GeneralSettings {
     //TODO протестировать удаленного пользователя
     //TODO progress on submit fix empty click on org props
     //TODO
-    //TODO staff notice only firs load/ add notice
+    //TODO staff notice only first load/ add notice
     //TODO восстановление пароля
     //TODO расширить поле ввода ген чат
     //TODO перечень должностей как инпут, а надо как список
