@@ -1,6 +1,5 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="esn.entities.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: porohin
@@ -23,13 +22,13 @@
             });
         });
     </script>
+    <title>Заметки</title>
 </head>
 <body>
 <div class="notes_container">
 <div class="post_add_wrapper">
     <button class="post_add post_submit">Добавить заметку</button></div>
-<div class="notes"><%System.out.println(new Date());
-System.out.println(((User) session.getAttribute("user")).getNotes());%>
+<div class="notes">
     <c:forEach var="note" items='${sessionScope.get("user").notes}'>
         <div class="note">
             <div class="date"><fmt:formatDate value="${note.key}" pattern="HH:mm:ss / dd.MM"/></div>

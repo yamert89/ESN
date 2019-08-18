@@ -91,7 +91,7 @@ public class GroupsController {
         User user = (User) session.getAttribute("user");
         try {
             String[] ids_s = personIds.split(",");
-            int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
+            int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray(); //FIXME exception for empty group
             user = userDAO.getUserById(user.getId());
             user.getGroups().add(new ContactGroup(groupName, user, ids, true));
             // userDAO.refresh(user);

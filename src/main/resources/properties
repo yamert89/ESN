@@ -3,7 +3,7 @@
 #---- НЕККОРЕКТНОЕ ЗНАЧЕНИЕ В ФАЙЛЕ КОНФИГУРАЦИИ МОЖЕТ ПРИВЕСТИ К НЕРАБОТОСПОСОБНОСТИ ПРИЛОЖЕНИЯ!!! ----!
 
 #---- База дынных: [mysql] / [postgresql]----!
-jdbc.db_type=postgresql
+jdbc.db_type=mysql
 
 #---- Подключение к базе данных ----!
 jdbc.mysql.url=jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import esn.entities.User;
 import esn.entities.converters.JsonTimeSerializer;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 
@@ -22,17 +23,19 @@ public abstract class AbstractMessage {
     public String text;
 
     @JsonSerialize(using = JsonTimeSerializer.class)
-    public Calendar time = Calendar.getInstance();
+    public Calendar time;
 
     @JsonIgnore
     public int orgId; //TODO delete?
 
 
 
-    public AbstractMessage(long id, String text, int orgId, User user) {
+    public AbstractMessage(long id, String text, Timestamp time, int orgId, User user) {
         this.text = text;
         this.orgId = orgId;
         this.id = id;
+        this.time = Calendar.getInstance();
+        this.time.setTime(time);
         if (user == null) {
             user = new User("Пользователь удалён", null);
             userName = user.getName();

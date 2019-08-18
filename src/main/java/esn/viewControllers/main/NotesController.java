@@ -43,8 +43,8 @@ public class NotesController {
 
     @GetMapping(value = "/{organization}/notes")
     public String notes(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        /*logger.debug(" /notes Main   " + user);
+       /* User user = (User) session.getAttribute("user");
+        *//*logger.debug(" /notes Main   " + user);
         session.setAttribute("user", userDAO.getUserById(user.getId()));*/
         return "notes";
     }

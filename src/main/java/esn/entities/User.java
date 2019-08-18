@@ -224,7 +224,7 @@ public class User implements Cloneable{
         this.authority = authority;
     }
 
-    public void updateFromForm(User source){
+    public void updateFromForm(User source)throws Exception{
         UserInformation inf = source.getUserInformation();
         Calendar birth = inf.getBirthDate();
         String phoneMobile = inf.getPhoneMobile();
@@ -232,6 +232,7 @@ public class User implements Cloneable{
         String phoneInternal = inf.getPhoneInternal();
         String email = inf.getEmail();
         if (source.position != null) this.position = source.position;
+        if (userInformation == null) userInformation = new UserInformation();
         if (birth != null) userInformation.setBirthDate(birth);
         if (phoneMobile != null) userInformation.setPhoneMobile(phoneMobile);
         if (phoneWork != null) userInformation.setPhoneWork(phoneWork);

@@ -54,8 +54,8 @@ public abstract class MessagesDAO {
     int abstractGetMessagesQueryAmountMessages(){return GeneralSettings.AMOUNT_GENCHAT_MESSAGES;}
     String abstractTableName(){return "generalchat";}
 
-    AbstractMessage createMessage(long id, String text, int orgId, User user){
-        return new GenChatMessage(id, text, orgId, user);
+    AbstractMessage createMessage(long id, String text,Timestamp time, int orgId, User user){
+        return new GenChatMessage(id, text, time, orgId, user);
     };
 
     public List<AbstractMessage> getMessages(int orgId, long lastIdx){
@@ -85,7 +85,7 @@ public abstract class MessagesDAO {
                     logger.debug("Postgres cast exception. Processing...");
                     id = Long.parseLong(String.valueOf(row[0]));
                 }
-                list.add(createMessage(id , (String) row[1], (int) row[4], userDAO.getUserById((int) row[2])));
+                list.add(createMessage(id , (String) row[1], (Timestamp) row[3], (int) row[4], userDAO.getUserById((int) row[2])));
             }
 
         }catch (Exception e){
