@@ -81,7 +81,7 @@ public class GeneralSettings {
     //TODO добавить дату регистрации орг и юзера?
     //TODO overflow storage check and message
     //TODO ddos blocking
-    //TODO
+    //TODO сокращение имен
     //TODO
 
 
