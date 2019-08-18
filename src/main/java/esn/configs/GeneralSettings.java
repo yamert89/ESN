@@ -62,7 +62,7 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME exception for empty group
-    //FIXME user null in change profile
+    //FIXME
     //FIXME
     //FIXME
     //FIXME  remember me without check on

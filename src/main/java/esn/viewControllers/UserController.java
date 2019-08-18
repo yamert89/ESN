@@ -199,7 +199,7 @@ public class UserController {
     public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
         User userFromSession = (User) session.getAttribute("user");
-        try { //FIXME user null
+        try {
 
             Calendar birth = null;
             Set<User> allUsers = ((Organization) session.getAttribute("org")).getAllEmployers();
@@ -211,14 +211,16 @@ public class UserController {
                 model.addAttribute("saved", false);
                 return "userSettings";
             }
+            userFromSession.updateFromForm(user);
+
             if (!image.isEmpty()) {
-                ImageUtil.writeAvatar(user, image);
-            }
+                ImageUtil.writeAvatar(userFromSession, image);
+                model.addAttribute("update_avatar", true);
+            } else model.addAttribute("update_avatar", false);
 
             if (!boss.equals("Не указан"))
                 userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
 
-            userFromSession.updateFromForm(user);
 
             user = userDAO.updateUser(userFromSession);
             model.addAttribute("saved", 1);

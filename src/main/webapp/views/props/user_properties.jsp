@@ -9,6 +9,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.lang.System" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +25,8 @@
         <div class="inline">
             <h3 class="title_pref">${user.name}</h3>
         </div>
-        <img class="user_photo inline" src='<c:url value="/resources/data${user.photo}"/>'>
+        <c:if test="${update_avatar}"><img class="user_photo inline" src='<c:url value="/resources/data${user.photo}?new=${System.currentTimeMillis()}"/>'></c:if>
+        <c:if test="${!update_avatar}"><img class="user_photo inline" src='<c:url value="/resources/data${user.photo}"/>'></c:if>
         <input type="file" name="image" accept="image/*" class="inline"/>
 
     </div>
