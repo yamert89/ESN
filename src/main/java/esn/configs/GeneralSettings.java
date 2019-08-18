@@ -62,9 +62,9 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME exception for empty group
-    //FIXME заметка сохранилась без даты. только текст
+    //FIXME user null in change profile
     //FIXME
-    //FIXME exception on saving prefs user не указан
+    //FIXME
     //FIXME  remember me without check on
     //FIXME
     //FIXME test index js net status

@@ -199,34 +199,36 @@ public class UserController {
     public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
         User userFromSession = (User) session.getAttribute("user");
+        try { //FIXME user null
 
+            Calendar birth = null;
+            Set<User> allUsers = ((Organization) session.getAttribute("org")).getAllEmployers();
+            if (bindingResult.hasErrors()) {
+                /*birth = userDAO.getBirthDate(user.getId());*/
+                birth = userFromSession.getUserInformation().getBirthDate();
+                user.getUserInformation().setBirthDate(birth);
+                model.addAttribute("bosses", allUsers);
+                model.addAttribute("saved", false);
+                return "userSettings";
+            }
+            if (!image.isEmpty()) {
+                ImageUtil.writeAvatar(user, image);
+            }
 
-        Calendar birth = null;
-        Set<User> allUsers = ((Organization)session.getAttribute("org")).getAllEmployers();
-        if (bindingResult.hasErrors()) {
-            /*birth = userDAO.getBirthDate(user.getId());*/
-            birth = userFromSession.getUserInformation().getBirthDate();
-            user.getUserInformation().setBirthDate(birth);
+            if (!boss.equals("Не указан"))
+                userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
+
+            userFromSession.updateFromForm(user);
+
+            user = userDAO.updateUser(userFromSession);
+            model.addAttribute("saved", 1);
+            //User us = userDAO.getUserWithInfo(userFromSession.getId());
+            //model.addAttribute(userFromSession);
             model.addAttribute("bosses", allUsers);
-            model.addAttribute("saved", false);
-            return "userSettings";
-        }
-        if (!image.isEmpty()) {
-            ImageUtil.writeAvatar(user, image);
-        }
-
-        userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss))); //TODO exception
-
-        userFromSession.updateFromForm(user);
-
-        user = userDAO.updateUser(userFromSession);
-        model.addAttribute("saved", 1);
-        //User us = userDAO.getUserWithInfo(userFromSession.getId());
-        //model.addAttribute(userFromSession);
-        model.addAttribute("bosses", allUsers);
-        model.addAttribute("saved", true);
-        model.addAttribute("user", user);
-        session.setAttribute("user", user);
+            model.addAttribute("saved", true);
+            model.addAttribute("user", user);
+            session.setAttribute("user", user);
+        }catch (Exception e){logger.error("change profile", e);}
         return "userSettings";
     }
 
