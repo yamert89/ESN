@@ -77,7 +77,7 @@
         </div>
         <div><hr></div>
         <div class="prop_line">
-            <input class="commit" type="submit" value="Применить Настройки" id="settings_submit"><span class="prop_log_view"></span>
+            <input class="commit" type="submit" value="Применить Настройки" id="settings_submit" disabled><span class="prop_log_view"></span>
         </div>
     </s:form>
     <div><hr></div>

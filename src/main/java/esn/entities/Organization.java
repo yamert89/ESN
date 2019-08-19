@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,8 @@ public class Organization {
 
     @Column(columnDefinition = "varchar(255) default '/header.jpg'", nullable = false)
     private String headerPath;
+
+    private Calendar registerDate;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.MERGE})
     private Set<Department> departments = new HashSet<>(0);
@@ -168,6 +171,14 @@ public class Organization {
 
     public String getAdminKey() {
         return adminKey;
+    }
+
+    public Calendar getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Calendar registerDate) {
+        this.registerDate = registerDate;
     }
 
     public void setAdminKey(String adminKey) {

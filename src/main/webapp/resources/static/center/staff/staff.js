@@ -78,7 +78,7 @@ $(document).ready(function(){
 
     });
 
-    notify("Вачале добавьте подразделения. Затем сохраните структуру и распределите сотрудников", 5500);
+
 
 
 
@@ -167,18 +167,13 @@ function fillStaff(staff) {
     if (staff.length < 1) return;
     var container = $(".staff_container");
     staff.forEach(function (el) {
-        container.append('<table class="person_staff" data-id=' + el.id + '>\n' +
-            '            <tr>\n' +
-            '                <td width="100px">\n' +
-            '                    <img src="/resources/data' + el.photo + '" class="person_photo_staff"></td>\n' +
-            '                <td valign="middle">\n' +
+        container.append('<div class="person_staff" data-id=' + el.id + '>\n' +
+            '                    <img src="/resources/data' + el.photo + '" class="person_photo_staff">' +
             '                    <div class="person_point">\n' +
             '                        <div class="person_name_staff">' + el.name + '</div>\n' +
             '                        <div class="person_position">' + el.position + '</div>\n' +
             '                    </div>\n' +
-            '                </td>\n' +
-            '            </tr>\n' +
-            '        </table>')
+            '        </div>')
     });
 
     $(".person_staff").on("click", function () {

@@ -71,14 +71,14 @@ public class GeneralSettings {
     //FIXME
     //FIXME ERROR [ErrorController]- ERROR :  CODE: 404 |  URL: /rosles/wall/style=%22display: |  MESSAGE: Http Error Code: 404. Запрашиваемая страница не найдена
     //TODO протестировать удаленного пользователя
-    //TODO progress on submit fix empty click on org props
     //TODO
-    //TODO staff notice only first load/ add notice
+    //TODO
+    //TODO
     //TODO восстановление пароля
-    //TODO расширить поле ввода ген чат
+    //TODO
     //TODO перечень должностей как инпут, а надо как список
     //TODO вход в настройки для организации для админа
-    //TODO добавить дату регистрации орг и юзера?
+    //TODO
     //TODO overflow storage check and message
     //TODO ddos blocking
     //TODO сокращение имен

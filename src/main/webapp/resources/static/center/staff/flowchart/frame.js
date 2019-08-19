@@ -43,7 +43,13 @@ function createTree() {
 
 function createData(data) {
 
-    if (data[0].name !== 'default') return;
+    if (data[0].name !== 'default') {
+        return;
+    }
+    if (data[0].children.length === 0)  {
+        $('.staff_choose_btn').attr('disabled', '');
+        notify("Вачале добавьте подразделения. Затем сохраните структуру и распределите сотрудников", 5500);
+    }
 
     window.ALL_EMPLOYERS = data[0].employers;
 

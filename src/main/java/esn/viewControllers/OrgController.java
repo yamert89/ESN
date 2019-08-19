@@ -25,6 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -73,6 +74,7 @@ public class OrgController {
         org.setCorpKey(corpKey);
         org.setAdminKey(adminKey);
         org.setHeaderPath("/app/header.jpg");
+        org.setRegisterDate(Calendar.getInstance());
         try {
             if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
             orgDAO.persistOrg(org);

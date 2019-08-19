@@ -14,6 +14,7 @@
     <link rel="stylesheet" href='<c:url value="/resources/static/gen.css"/>'>
     <script type="text/javascript" src='<c:url value="/resources/libs/jquery-3.4.1.min.js"/>'></script>
     <script src="<c:url value="/resources/static/progress.js"/>"></script>
+    <script src="<c:url value="/resources/static/changeListener.js"/>"></script>
 </head>
 <body>
 <t:insertAttribute name="pref_page"/>
