@@ -16,32 +16,31 @@ input{
 .message{
     margin: 10px 10px;
     border-radius: 5px;
-    display: table;
+    display: flex;
     width: calc(100% - 30px);
     text-align: right;
     padding: 10px 0 10px 10px;
-
 }
 
 .message_text{
-    display: table-cell;
     max-width: 80%;
     text-align: left;
     font-size: 1.2em;
     line-height: 1em;
+    flex: 5 1 auto;
 }
 .message_info{
-    width: calc(355px + 1.2em);
-    display: inline-table;
+    /* width: calc(355px + 1.2em); */
     margin: 0 10px 0 10px;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
 }
 .message_time{
-    display: table-cell;
     vertical-align: middle;
 }
 .person_name{
     float: none;
-    display: table-cell;
     vertical-align: middle;
 }
 .new_message_container{

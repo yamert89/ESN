@@ -2,19 +2,12 @@ package esn.viewControllers.main;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import esn.configs.GeneralSettings;
-import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.db.message.GenDAO;
-import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.PseudoContactGroup;
-import esn.services.WebSocketService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +47,9 @@ public class GroupsController {
         //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
         Set<User> employers = org.getAllEmployers();
         employers.remove(user);
+        User del = new User();
+        del.setLogin("deleted");
+        employers.remove(del);
         model.addAttribute("employers", employers);
         Set<ContactGroup> groups = user.getGroups();
         /*Set<String> groupNames = new HashSet<>();
@@ -91,7 +87,8 @@ public class GroupsController {
         User user = (User) session.getAttribute("user");
         try {
             String[] ids_s = personIds.split(",");
-            int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray(); //FIXME exception for empty group
+            if (ids_s.length == 1 && ids_s[0].equals("")) return;
+            int[] ids = Stream.of(ids_s).mapToInt(Integer::parseInt).toArray();
             user = userDAO.getUserById(user.getId());
             user.getGroups().add(new ContactGroup(groupName, user, ids, true));
             // userDAO.refresh(user);

@@ -61,14 +61,14 @@ public class GeneralSettings {
     }
 
     //TODO CSRF Protection security.xml
-    //FIXME exception for empty group
+    //FIXME
     //FIXME
     //FIXME
     //FIXME
     //FIXME  remember me without check on
     //FIXME
     //FIXME test index js net status
-    //FIXME gen chat text in not middle
+    //FIXME
     //FIXME ERROR [ErrorController]- ERROR :  CODE: 404 |  URL: /rosles/wall/style=%22display: |  MESSAGE: Http Error Code: 404. Запрашиваемая страница не найдена
     //TODO протестировать удаленного пользователя
     //TODO progress on submit fix empty click on org props

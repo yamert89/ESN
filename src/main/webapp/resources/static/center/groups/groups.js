@@ -107,6 +107,10 @@ function saveGroup(){
    // if (groupList.names.indexOf(gr_name) !== -1) return;
 
     var persons = $("#group_staff_cont").children();
+    if (persons.length === 0) {
+        notify("Добавьте людей или удалите пустую группу");
+        return;
+    }
     var p_ids = [];
 
     persons.each(function (i) {
