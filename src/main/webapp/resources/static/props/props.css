@@ -17,6 +17,7 @@ input, select{
 }
 select{
     margin: 2px;
+    flex: 10 1 auto;
 }
 .properties_board{
     /*max-width: 70%;*/

@@ -1,16 +1,11 @@
 package esn.viewControllers.main;
 
 import esn.configs.GeneralSettings;
-import esn.db.DepartmentDAO;
 import esn.db.GlobalDAO;
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.db.message.GenDAO;
-import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
+import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.StoredFile;
-import esn.services.WebSocketService;
 import esn.utils.SimpleUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Iterator;
 
 @Controller
@@ -40,6 +34,12 @@ public class StorageController {
 
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
+    private HttpHeaders headers;
+
+    @Autowired
+    public void setHeaders(HttpHeaders headers) {
+        this.headers = headers;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -70,10 +70,17 @@ public class StorageController {
     }
 
     @PostMapping("/savefile")
-    @ResponseStatus(code = HttpStatus.OK)
-    public void saveFile(@RequestParam(name = "file") MultipartFile file, @RequestParam String shared,
+    @ResponseBody
+    public ResponseEntity<String> saveFile(@RequestParam(name = "file") MultipartFile file, @RequestParam String shared,
             /* */HttpSession session){
         User user = (User) session.getAttribute("user");
+        String orgUrl = ((Organization) session.getAttribute("org")).getUrlName();
+        if (SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize()/1024d/1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100 ||
+                SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize()/1024d/1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100)
+        {
+            return ResponseEntity.ok().headers(headers).body("{\"success\" : false, \"overflow\" : true}");
+        }
+
         String name = file.getOriginalFilename();
         logger.debug("FILE " + name);
         String path = GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" +  user.getLogin() + "\\" + name;
@@ -87,6 +94,7 @@ public class StorageController {
         user.getStoredFiles().add(new StoredFile(name, Timestamp.from(Instant.now()), user, shared.equals("1")));
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
+        return ResponseEntity.ok().headers(headers).body("{\"success\" : true}");
     }
 
     @GetMapping("/savefile")
@@ -136,9 +144,7 @@ public class StorageController {
         User user = (User) session.getAttribute("user");
         int publicS = SimpleUtils.getPublicStoragePercentageSize(user.getOrganization().getUrlName());
         int privateS = SimpleUtils.getPrivateStoragePercentageSize(user.getOrganization().getUrlName(), user.getLogin());
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return ResponseEntity.ok().headers(responseHeaders).body("{\"public\":" + publicS + ", \"private\":" + privateS + "}");
+        return ResponseEntity.ok().headers(headers).body("{\"public\":" + publicS + ", \"private\":" + privateS + "}");
 
     }
 }

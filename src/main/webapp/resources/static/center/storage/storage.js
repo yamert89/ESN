@@ -94,8 +94,9 @@ $(document).ready(function () {
         var shared = input.attr("data-shared");
         data.append( 'file', file);
         data.append('shared', shared);
-        $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data, success: function () {
-                notify('Файл загружен');
+        $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data, success: function (data) {
+                var not = data.success ? 'Файл загружен' : data.overflow ? 'Недостаточно свободного места' : 'Неихвестная ошибка';
+                notify(not);
             }});
 
         input.get(0).value = '';

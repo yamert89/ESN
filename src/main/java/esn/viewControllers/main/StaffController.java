@@ -2,18 +2,12 @@ package esn.viewControllers.main;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import esn.configs.GeneralSettings;
 import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.db.message.GenDAO;
-import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
-import esn.services.WebSocketService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +30,12 @@ public class StaffController {
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
+    private HttpHeaders headers;
+
+    @Autowired
+    public void setHeaders(HttpHeaders headers) {
+        this.headers = headers;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -85,9 +85,7 @@ public class StaffController {
             return null;
         }
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return ResponseEntity.ok().headers(responseHeaders).body(json);
+        return ResponseEntity.ok().headers(headers).body(json);
     }
 
     @PostMapping("/{org}/savestructure")

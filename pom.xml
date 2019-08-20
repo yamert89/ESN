@@ -116,6 +116,11 @@
       <artifactId>spring-security-config</artifactId>
       <version>5.1.5.RELEASE</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>5.1.5.RELEASE</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/javax.annotation/jsr250-api -->
     <dependency>
       <groupId>javax.annotation</groupId>

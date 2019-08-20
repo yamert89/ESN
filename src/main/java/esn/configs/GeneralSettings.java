@@ -62,11 +62,11 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME
-    //FIXME
+    //FIXME bag on unshare file только что добавлкнный
     //FIXME
     //FIXME
     //FIXME  remember me without check on
-    //FIXME
+    //FIXME reauth user null
     //FIXME test index js net status
     //FIXME
     //FIXME ERROR [ErrorController]- ERROR :  CODE: 404 |  URL: /rosles/wall/style=%22display: |  MESSAGE: Http Error Code: 404. Запрашиваемая страница не найдена
@@ -76,10 +76,10 @@ public class GeneralSettings {
     //TODO
     //TODO восстановление пароля
     //TODO
-    //TODO перечень должностей как инпут, а надо как список
-    //TODO вход в настройки для организации для админа
     //TODO
-    //TODO overflow storage check and message
+    //TODO
+    //TODO
+    //TODO
     //TODO ddos blocking
     //TODO сокращение имен
     //TODO

@@ -1,15 +1,7 @@
 package esn.viewControllers.main;
 
-import esn.configs.GeneralSettings;
-import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.db.message.GenDAO;
-import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
 import esn.entities.User;
-import esn.services.WebSocketService;
 import esn.utils.DateFormatUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,6 +27,12 @@ public class NotesController {
     private final static Logger logger = LogManager.getLogger(NotesController.class);
 
     private UserDAO userDAO;
+    private HttpHeaders headers;
+
+    @Autowired
+    public void setHeaders(HttpHeaders headers) {
+        this.headers = headers;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -102,9 +100,7 @@ public class NotesController {
                 sb.append(node);
             }
             sb.append("]");
-            HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-            return ResponseEntity.ok().headers(responseHeaders).body(sb.toString());
+            return ResponseEntity.ok().headers(headers).body(sb.toString());
 
         }catch (Exception e){
             logger.error(e.getMessage(), e);

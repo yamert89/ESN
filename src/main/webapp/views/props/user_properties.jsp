@@ -18,7 +18,8 @@
 </head>
 <body>
 <c:set var="userProp" value='${user.userInformation}'/>
-<div class="properties_board" data-orgurl="${sessionScope.get("org").getUrlName()}" data-login="${user.login}" data-saved="${saved}" id="user_props">
+<c:set var="org" value='${sessionScope.get("org")}' />
+<div class="properties_board" data-orgurl='${org.urlName}' data-login="${user.login}" data-saved="${saved}" id="user_props">
     <div class="prop_line title_pref"><h2>Настройки профиля</h2></div>
     <s:form enctype="multipart/form-data" modelAttribute="user" method="post">
     <div class="prop_line">
@@ -33,14 +34,30 @@
     <div class="prop_line">
     <div class="inline">
         <div class="prop_label">Должность:</div>
-        <s:input path="position" type="text" value="${user.position}"/>
-        <s:errors path="position" cssClass="jspError"/>
+        <select name="position" id="position">
+            <c:if test='${user.position.equals("")}'><option selected>Не указана</option></c:if>
+            <c:forEach var="pos" items="${org.positions}">
+                <c:choose>
+                    <c:when test="${user.position == pos}">
+                        <option selected value="${user.position}">
+                    </c:when>
+                    <c:otherwise>
+                        <option  value="${pos}">
+                    </c:otherwise>
+                </c:choose>
+                ${pos}
+                </option>
+            </c:forEach>
+        </select>
     </div>
     </div>
     <div class="prop_line">
     <div class="inline">
-        <div class="prop_label">Отдел:</div>
-        <span>${user.department.name}</span>
+        <div class="prop_label" title="Назначается администратором">Отдел:</div>
+        <c:choose>
+            <c:when test="${user.department == null}"><span>Не указан</span></c:when>
+            <c:otherwise><span>${user.department.name}</span></c:otherwise>
+        </c:choose>
     </div>
     </div>
     <div class="prop_line">

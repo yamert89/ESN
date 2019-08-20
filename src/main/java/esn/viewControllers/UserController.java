@@ -196,7 +196,7 @@ public class UserController {
 
 
     @PostMapping("{org}/users/{login}")
-    public String changeProfile(@PathVariable String login, @PathVariable String org, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+    public String changeProfile(@RequestParam String position, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
         User userFromSession = (User) session.getAttribute("user");
         try {
@@ -218,8 +218,8 @@ public class UserController {
                 model.addAttribute("update_avatar", true);
             } else model.addAttribute("update_avatar", false);
 
-            if (!boss.equals("Не указан"))
-                userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
+            if (!boss.equals("Не указан")) userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
+            if (!position.equals("Не указана")) userFromSession.setPosition(position);
 
 
             user = userDAO.updateUser(userFromSession);

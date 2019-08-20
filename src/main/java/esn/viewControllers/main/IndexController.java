@@ -1,18 +1,11 @@
 package esn.viewControllers.main;
 
-import esn.configs.GeneralSettings;
-import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
-import esn.db.message.GenDAO;
-import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.EmailService;
 import esn.services.LiveStat;
-import esn.services.WebSocketService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
@@ -39,6 +32,12 @@ public class IndexController {
     private UserDAO userDAO;
     private LiveStat liveStat;
     private EmailService emailService;
+    private HttpHeaders headers;
+
+    @Autowired
+    public void setHeaders(HttpHeaders headers) {
+        this.headers = headers;
+    }
 
     @Autowired
     @Qualifier("adminEmailService")
@@ -66,10 +65,8 @@ public class IndexController {
     @ResponseBody
     public ResponseEntity<String> fullContactsList(@PathVariable String organization, HttpSession session){
         User user = (User) session.getAttribute("user");
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type",
-                "application/json; charset=UTF-8");
-        ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(responseHeaders);
+
+        ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(headers);
         Organization org = (Organization) session.getAttribute("org");
         if (user.getGroups().size() == 0){
            /* Organization org = orgDAO.getOrgByURLWithEmployers(organization);*/

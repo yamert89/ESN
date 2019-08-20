@@ -3,13 +3,7 @@ package esn.viewControllers.main;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.configs.GeneralSettings;
-import esn.db.DepartmentDAO;
-import esn.db.GlobalDAO;
-import esn.db.OrganizationDAO;
-import esn.db.UserDAO;
 import esn.db.message.GenDAO;
-import esn.db.message.PrivateDAO;
-import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
@@ -36,6 +30,12 @@ public class GenChatController {
 
     private GenDAO genDAO;
     private WebSocketService webSocketService;
+    private HttpHeaders headers;
+
+    @Autowired
+    public void setHeaders(HttpHeaders headers) {
+        this.headers = headers;
+    }
 
     @Autowired
     public void setGenDAO(GenDAO genDAO) {
@@ -99,9 +99,7 @@ public class GenChatController {
         } catch (JsonProcessingException e) {
             logger.error(e.getMessage(), e);
         }
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return ResponseEntity.ok().headers(responseHeaders).body(json);
+        return ResponseEntity.ok().headers(headers).body(json);
     }
 
 }
