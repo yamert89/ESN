@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -47,7 +48,7 @@ public class WallController {
     }
 
     @GetMapping(value = "/{organization}/wall")
-    public String wall(Model model, HttpSession session){
+    public String wall(Model model, HttpSession session, Principal principal){
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
         List<AbstractMessage> messages = wallDAO.getMessages(orgId, -1);

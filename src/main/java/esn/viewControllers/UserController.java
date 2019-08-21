@@ -10,6 +10,7 @@ import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.utils.ImageUtil;
 import esn.utils.SimpleUtils;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,13 @@ public class UserController {
     private WebSocketService webSocketService;
     private LiveStat liveStat;
     private EmailService emailService;
+    private SessionUtil sessionUtil;
     private final static Logger logger = LogManager.getLogger(UserController.class);
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     @Qualifier("adminEmailService")
@@ -81,21 +88,13 @@ public class UserController {
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
 
-
         User user = userDAO.getUserByLogin(login);
 
-        liveStat.userLogged(user.getId());
         Organization organization = user.getOrganization();
 
-        session.setMaxInactiveInterval(1800);
-        session.setAttribute("user", user);
-        session.setAttribute("org", organization);
-        model.addAttribute("org", organization);
-        session.setAttribute("loginUrl", user.getLogin());
-        session.setAttribute("ip", request.getRemoteAddr());
-        webSocketService.sendStatus(organization.getId(), user.getId(), true);
-        //session.setMaxInactiveInterval(10);
+        session.setMaxInactiveInterval(15);
         logger.debug(session.getMaxInactiveInterval());
+
 
         return "redirect:/" + organization.getUrlName() + "/wall/";
         //return "wall";

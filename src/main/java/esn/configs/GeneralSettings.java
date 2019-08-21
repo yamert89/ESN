@@ -65,7 +65,7 @@ public class GeneralSettings {
     //FIXME bag on unshare file только что добавлкнный
     //FIXME
     //FIXME
-    //FIXME  remember me without check on
+    //FIXME
     //FIXME reauth user null
     //FIXME test index js net status
     //FIXME

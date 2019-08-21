@@ -11,6 +11,23 @@
 <html>
 <head>
     <title>Авторизация</title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (getCookie('remember') === '1') $("#remember-me").prop('checked', true);
+            $("#send").submit(function () {
+                if ($("#remember-me").is(":checked")) document.cookie = 'remember=1; max-age=604800';
+                else document.cookie = 'remember=0'
+            });
+        });
+
+        function getCookie(name){
+            console.log("cookies : " + document.cookie);
+            var matches = document.cookie.match((new RegExp(name + "=[^;]*")));
+            var res = matches != null ? matches.toString().replace(/.*=/, "") : null;
+            console.log("get cookie : " + res);
+            return res;
+        }
+    </script>
 </head>
 <body>
 <div class="properties_board" id="auth">
