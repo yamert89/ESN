@@ -62,8 +62,8 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME
-    //FIXME bag on unshare file только что добавлкнный
     //FIXME
+    //FIXME new gen message bag for remember auth
     //FIXME
     //FIXME
     //FIXME

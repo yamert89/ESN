@@ -142,6 +142,10 @@ public class UserController {
             logger.debug(user);
             logger.debug(user.getPassword());
 
+            String[] nameArr = user.getName().split("_");
+            user.setName(user.getName().replaceAll("_", " "));
+            user.setShortName(nameArr[0] + " " + nameArr[1].substring(0, 1) + ". " + nameArr[2].substring(0, 1) + ".");
+
             user.setOrganization(organization);
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));

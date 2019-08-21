@@ -76,7 +76,7 @@ $(document).ready(function () {
         } else {
             $.ajax({url:"/savefile", method:"GET", contentType:false, data:{fname: fname, update: "unshare"}});
             fileContainer.find('[title="' + $(this).prev().prev().attr('title') + '"]').parent().remove();
-            $(this).attr("src", "/resources/share.png");
+            $(this).attr("src", "/resources/data/app/share.png");
             $(this).attr("data-shared", "0");
         }
 
@@ -103,6 +103,7 @@ $(document).ready(function () {
         var ico = getFileIco(file.name);
         var fileContainer;
         var ico_shared = "/resources/data/app/share.png";
+        var sh = '0';
         if (shared === "1") {
             fileContainer = $("#shared_files");
             fileContainer.append('<div class="file">\n' +
@@ -111,14 +112,15 @@ $(document).ready(function () {
                 '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +
                 '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                 '            </div>');
-            ico_shared = "/resources/data/app/unshare.png"
+            ico_shared = "/resources/data/app/unshare.png";
+            sh = '1';
         }
         fileContainer = $("#private_files");
         fileContainer.append('<div class="file">\n' +
             '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
             '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '" onchange="rename(this)">\n' +
             '                    <img src="/resources/data/app/cross.png" class="file_delete" title="Удалить">\n' +
-            '                    <img src=" ' + ico_shared + '" data-shared=\'0\' class="file_share" title="Опубликовать в общие">\n' +
+            '                    <img src=" ' + ico_shared + '" data-shared="' + sh + '" class="file_share" title="Опубликовать в общие">\n' +
             '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
             '                </div>');
 

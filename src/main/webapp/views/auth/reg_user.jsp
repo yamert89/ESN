@@ -29,6 +29,19 @@
                 }
 
             });
+
+            $("form").submit(function () {
+                var res = '';
+                try{
+                    $("#name #firstName #thirdName").each(function (idx, el) {
+                        res = res + '_' + el.getAttribute('value');
+                    });
+
+                    $("#input").val(res.substr(1));
+                }catch (e) {
+                    console.log(e);
+                }
+            })
         });
 
         function checkboxSateChange(regfield, constrains) {
@@ -51,8 +64,24 @@
         </div>
         <div class="prop_line">
             <div class="inline">
-                <label class="prop_label">Введите Ваше имя:</label>
-                <sf:input path="name" size="50" maxlength="50" cssClass="reg_field"/>
+                <label class="prop_label">Фамилия:</label>
+                <sf:input path="name" size="20" maxlength="20" cssClass="reg_field"/>
+                <span class="star">*</span>
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
+            </div>
+        </div>
+        <div class="prop_line">
+            <div class="inline">
+                <label class="prop_label">Имя:</label>
+                <input id="firstName" size="20" maxlength="20" class="reg_field"/>
+                <span class="star">*</span>
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
+            </div>
+        </div>
+        <div class="prop_line">
+            <div class="inline">
+                <label class="prop_label">Отчество:</label>
+                <input id="thirdName" size="20" maxlength="20" class="reg_field"/>
                 <span class="star">*</span>
                 <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
