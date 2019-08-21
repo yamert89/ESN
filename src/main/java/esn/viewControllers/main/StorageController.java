@@ -7,6 +7,7 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.StoredFile;
 import esn.utils.SimpleUtils;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Iterator;
@@ -35,6 +38,12 @@ public class StorageController {
     private GlobalDAO globalDAO;
     private UserDAO userDAO;
     private HttpHeaders headers;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setHeaders(HttpHeaders headers) {
@@ -52,8 +61,8 @@ public class StorageController {
     }
 
     @GetMapping(value = "/{organization}/storage")
-    public String storage(/*@SessionAttribute User user*/ Model model, SessionStatus status, HttpSession session, @PathVariable String organization){
-        User user = (User) session.getAttribute("user");
+    public String storage(/*@SessionAttribute User user*/ Model model, SessionStatus status, HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         status.setComplete();
         try{
             user.getStoredFiles().size();

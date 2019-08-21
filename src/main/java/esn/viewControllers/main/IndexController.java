@@ -6,6 +6,7 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.EmailService;
 import esn.services.LiveStat;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
@@ -18,7 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +36,12 @@ public class IndexController {
     private LiveStat liveStat;
     private EmailService emailService;
     private HttpHeaders headers;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setHeaders(HttpHeaders headers) {
@@ -121,7 +130,9 @@ public class IndexController {
     }
 
     @GetMapping("/{organization}/calendar")
-    public String calendar(){
+    public String calendar(HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        logger.debug(user.getName() + "get calendar");
         return "calendar";
     }
 

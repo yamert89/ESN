@@ -3,6 +3,7 @@ package esn.viewControllers.main;
 import esn.db.UserDAO;
 import esn.entities.User;
 import esn.utils.DateFormatUtil;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +31,12 @@ public class NotesController {
 
     private UserDAO userDAO;
     private HttpHeaders headers;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setHeaders(HttpHeaders headers) {
@@ -40,10 +49,9 @@ public class NotesController {
     }
 
     @GetMapping(value = "/{organization}/notes")
-    public String notes(HttpSession session){
-       /* User user = (User) session.getAttribute("user");
-        *//*logger.debug(" /notes Main   " + user);
-        session.setAttribute("user", userDAO.getUserById(user.getId()));*/
+    public String notes(HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        logger.debug(user.getName() + " get notes");
         return "notes";
     }
 

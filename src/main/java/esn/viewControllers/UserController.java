@@ -88,7 +88,7 @@ public class UserController {
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
 
-        User user = userDAO.getUserByLogin(login);
+        User user = sessionUtil.getUser(request, principal);
 
         Organization organization = user.getOrganization();
 
@@ -169,8 +169,8 @@ public class UserController {
 
     @GetMapping("{org}/users/{login}")
     public String showUserProfile(@PathVariable String login, @PathVariable String org,
-                                  Model model, HttpSession session){
-        User user = (User) session.getAttribute("user");
+                                  Model model, HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         user = userDAO.getUserWithInfo(user.getLogin());
         try {
             if (user.getLogin().equals(login)) {
@@ -201,7 +201,7 @@ public class UserController {
         try {
 
             Calendar birth = null;
-            Set<User> allUsers = ((Organization) session.getAttribute("org")).getAllEmployers();
+            Set<User> allUsers = userFromSession.getOrganization().getAllEmployers();
             if (bindingResult.hasErrors()) {
                 /*birth = userDAO.getBirthDate(user.getId());*/
                 birth = userFromSession.getUserInformation().getBirthDate();

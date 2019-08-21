@@ -60,6 +60,6 @@ public class SessionUtil {
     public User getUser(HttpServletRequest request, Principal principal){
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) initSession(request, principal);
-        return (User) session.getAttribute("org");
+        return (User) session.getAttribute("user");
     }
 }

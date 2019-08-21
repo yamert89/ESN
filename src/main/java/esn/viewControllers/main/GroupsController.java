@@ -8,6 +8,7 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.PseudoContactGroup;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,6 +32,12 @@ public class GroupsController {
 
     private OrganizationDAO orgDAO;
     private UserDAO userDAO;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -41,8 +50,8 @@ public class GroupsController {
     }
 
     @GetMapping("/{organization}/groups")
-    public String groups(@PathVariable String organization, Model model, HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public String groups(@PathVariable String organization, Model model, HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         Organization org = (Organization) session.getAttribute("org");
         //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
         Set<User> employers = org.getAllEmployers();

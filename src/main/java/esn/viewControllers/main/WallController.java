@@ -9,6 +9,7 @@ import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.services.WebSocketService;
 import esn.utils.DateFormatUtil;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
@@ -31,6 +33,12 @@ public class WallController {
     private WallDAO wallDAO;
     private WebSocketService webSocketService;
     private HttpHeaders headers;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setHeaders(HttpHeaders headers) {
@@ -48,8 +56,8 @@ public class WallController {
     }
 
     @GetMapping(value = "/{organization}/wall")
-    public String wall(Model model, HttpSession session, Principal principal){
-        Organization org = (Organization) session.getAttribute("org");
+    public String wall(Model model, HttpSession session, HttpServletRequest request, Principal principal){
+        Organization org = sessionUtil.getOrg(request, principal);
         int orgId = org.getId();
         List<AbstractMessage> messages = wallDAO.getMessages(orgId, -1);
         long newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();

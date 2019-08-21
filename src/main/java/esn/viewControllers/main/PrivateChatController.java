@@ -9,13 +9,16 @@ import esn.entities.secondary.PrivateChatMessage;
 import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.viewControllers.WebSocketAlertController;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -29,6 +32,12 @@ public class PrivateChatController {
     private WebSocketService webSocketService;
     private WebSocketAlertController webSocketAlertController;
     private LiveStat liveStat;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setLiveStat(LiveStat liveStat) {
@@ -57,10 +66,11 @@ public class PrivateChatController {
 
     @GetMapping("/{organization}/private-chat/{companion}")
     public String privateChat(@PathVariable String organization,
-                              @PathVariable String companion, Model model, HttpSession session){
+                              @PathVariable String companion, Model model, HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         Organization org = (Organization) session.getAttribute("org");
         int orgId = org.getId();
-        User user = (User) session.getAttribute("user");
+
        // User compan = userDAO.getUserByLogin(companion);
         User compan = org.getEmployerByLogin(companion);
         model.addAttribute("companion", compan);

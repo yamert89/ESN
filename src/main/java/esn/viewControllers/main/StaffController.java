@@ -8,6 +8,7 @@ import esn.db.UserDAO;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +34,12 @@ public class StaffController {
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
     private HttpHeaders headers;
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setHeaders(HttpHeaders headers) {
@@ -52,9 +61,9 @@ public class StaffController {
     }
 
     @GetMapping(value = "/{organization}/staff")
-    public String staff(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        return user.getAuthority().equals("ROLE_ADMIN") ? "staff_admin" : "staff";
+    public String staff(HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        return user.getAuthority().equals("ROLE_ADMIN") ? "staff_admin" : "staff"; //TODO replace with jsp security
     }
 
     @GetMapping("/getstaff")
