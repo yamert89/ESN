@@ -23,7 +23,7 @@ public class User implements Cloneable{
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 20)
     private String shortName;
 
     @Size(min = 4, max = 20, message = "введите логин от 3х до 20 символов")
@@ -103,6 +103,7 @@ public class User implements Cloneable{
         this.organization = organization;
         this.photo = photo;
         this.photo_small = photo_small;
+        this.shortName = shortName;
     }
 
     public User(String name, Organization org) {

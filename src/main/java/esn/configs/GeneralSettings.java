@@ -69,10 +69,10 @@ public class GeneralSettings {
     //FIXME
     //FIXME test index js net status
     //FIXME
-    //FIXME ERROR [ErrorController]- ERROR :  CODE: 404 |  URL: /rosles/wall/style=%22display: |  MESSAGE: Http Error Code: 404. Запрашиваемая страница не найдена
+    //FIXME
     //TODO протестировать удаленного пользователя
-    //TODO
-    //TODO
+    //TODO транзакционное сохранение сущнос
+    //TODO notice reg success
     //TODO
     //TODO восстановление пароля
     //TODO
@@ -81,7 +81,7 @@ public class GeneralSettings {
     //TODO
     //TODO
     //TODO ddos blocking
-    //TODO сокращение имен
+    //TODO
     //TODO
 
 

@@ -15,7 +15,7 @@ $(document).ready(function () {
             notify('Максимальный размер сообщения ' + sizeMes +' символов.');
             return;
         }
-        mes.userName = window.userName;
+        mes.userName = window.shortName;
         mes.imgUrl = $(".new_genchat_message").attr("data-img");
         mes.time = window.getDate(new Date());
         renderMessage(mes, 'my');
@@ -60,7 +60,7 @@ function renderMessage(mes, type) {
         '                <img src="/resources/data' + mes.imgUrl + '" class="person_photo_small">\n' +
         '                <div class="person_name">' + mes.userName + '</div>\n' +
         '                <div class="message_time">' + mes.time + '</div>\n' +
-        '                <img class="delete_message" src=' + visibleCross + '"/resources/data/app/cross.png">' +
+        '                <img class="delete_message" ' + visibleCross + ' src="/resources/data/app/cross.png">' +
         '        </div>';
     if(type === "piece") $(".message_container").append(data);
     else $(".message_container").prepend(data);

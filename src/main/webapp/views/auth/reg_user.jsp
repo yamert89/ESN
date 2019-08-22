@@ -14,35 +14,34 @@
         $(document).ready(function () {
 
 
-            $(".reg_field").keyup(function () {
-                var pass1 = $("#pass1");
-                var pass2 = $("#pass2");
-                var regfield = $(this);
-                var constraint = regfield[0] == $("#small_input")[0] ? 59 :
-                    regfield[0] == pass1[0] ? 6 : 3;
-
-                checkboxSateChange(regfield, constraint);
-
-                if (pass1.val() === pass2.val()) $("#error_pass").text("");
-                else {
-                    $("#error_pass").text("Пароли не совпадают");
-                }
-
-            });
-
+            $(".reg_field").change(checkboksListener);
+            $(".reg_field").keyup(checkboksListener);
             $("form").submit(function () {
                 var res = '';
                 try{
-                    $("#name #firstName #thirdName").each(function (idx, el) {
-                        res = res + '_' + el.getAttribute('value');
-                    });
-
-                    $("#input").val(res.substr(1));
+                    res = $("#name").val() + '_' + $("#firstName").val() + '_' + $("#thirdName").val();
+                    $("#name").val(res);
                 }catch (e) {
                     console.log(e);
                 }
             })
         });
+
+        function checkboksListener(){
+            var pass1 = $("#pass1");
+            var pass2 = $("#pass2");
+            var regfield = $(this);
+            var constraint = regfield[0] == $("#small_input")[0] ? 59 :
+                regfield[0] == pass1[0] ? 6 : 3;
+
+            checkboxSateChange(regfield, constraint);
+
+            if (pass1.val() === pass2.val()) $("#error_pass").text("");
+            else {
+                $("#error_pass").text("Пароли не совпадают");
+            }
+        }
+
 
         function checkboxSateChange(regfield, constrains) {
             if (regfield.val().length > constrains) regfield.next().next().removeClass("off");
@@ -67,7 +66,6 @@
                 <label class="prop_label">Фамилия:</label>
                 <sf:input path="name" size="20" maxlength="20" cssClass="reg_field"/>
                 <span class="star">*</span>
-                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
@@ -75,15 +73,14 @@
                 <label class="prop_label">Имя:</label>
                 <input id="firstName" size="20" maxlength="20" class="reg_field"/>
                 <span class="star">*</span>
-                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
+
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
                 <label class="prop_label">Отчество:</label>
                 <input id="thirdName" size="20" maxlength="20" class="reg_field"/>
-                <span class="star">*</span>
-                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
+
             </div>
         </div>
         <div class="prop_line">

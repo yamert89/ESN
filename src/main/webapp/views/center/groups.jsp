@@ -23,7 +23,7 @@
                 <img src='<c:url value="/resources/data${person.photo}"/>' class="person_photo_staff"></td>
             <td valign="middle">
                 <div class="person_point" data-p-id="${person.id}" data-p-login="${person.login}">
-                    <div class="person_name_staff">${person.name}</div>
+                    <div class="person_name_staff">${person.shortName}</div>
                     <div class="person_position">${person.position}</div>
                 </div>
             </td>
@@ -62,7 +62,7 @@
                             <img src='<c:url value="/resources/data${person.photo}"/>' class="person_photo_staff"></td>
                         <td valign="middle">
                             <div class="person_point" data-p-id="${person.id}" data-p-login="${person.login}">
-                                <div class="person_name_staff">${person.name}</div>
+                                <div class="person_name_staff">${person.shortName}</div>
                                 <div class="person_position">${person.position}</div>
                             </div>
                         </td>

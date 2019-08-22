@@ -1,8 +1,6 @@
 package esn.db;
 
 import esn.configs.GeneralSettings;
-import esn.db.syntax.MySQLSyntax;
-import esn.db.syntax.PostgresSyntax;
 import esn.db.syntax.Syntax;
 import esn.entities.Organization;
 import esn.entities.secondary.ContactGroup;
@@ -57,8 +55,8 @@ public class GlobalDAO implements InitializingBean {
             em.createNativeQuery("insert into wall (id, message, userid, time, orgid) values (0, '<p>Приветствуем Вас в нашем чате!</p>', 0, " + syntax.currentDate() + ", 0)").executeUpdate();
             em.createNativeQuery("insert into organizations(id, adminkey, corpkey, description, disabled, hasadmin, headerpath, name, urlname) values " +
                     "(0, '777', '777', '', false, true, '', 'root', '')").executeUpdate();
-            em.createNativeQuery("insert into users(id, authority, login, male, name, password, photo, photo_small, org_id, boss_id) " +
-                    "values(0, 'ROLE_ADMIN', 'admin', true, 'Администратор EnChat', '$2a$10$YiGmQU.QDMGYvu0xK7HbueLGQ/rFDNfntMKUT6RKEw8391Hgt.wWS', '/app/man.jpg', '/app/man_small.jpg', 0, null);").executeUpdate();
+            em.createNativeQuery("insert into users(id, authority, login, male, name, shortname, password, photo, photo_small, org_id, boss_id) " +
+                    "values(0, 'ROLE_ADMIN', 'admin', true, 'Администратор EnChat', 'Администратор EnChat', '$2a$10$YiGmQU.QDMGYvu0xK7HbueLGQ/rFDNfntMKUT6RKEw8391Hgt.wWS', '/app/man.jpg', '/app/man_small.jpg', 0, null);").executeUpdate();
             txManager.commit(ts);
         }catch (Exception e){
             txManager.rollback(ts);

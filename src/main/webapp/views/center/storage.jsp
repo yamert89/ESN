@@ -36,7 +36,7 @@
                         <div class="file_author">пользователь удалён</div>
                     </c:if>
                     <c:if test="${file.owner != null}">
-                        <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.name}</a></div>
+                        <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.shortName}</a></div>
                     </c:if>
                     <div class="file_time"><fmt:formatDate value="${file.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>

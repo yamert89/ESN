@@ -25,7 +25,7 @@
     <c:set var="orgUrl" value='${sessionScope.get("org").getUrlName()}'/>
     <div class="title" align="center" data-url='${orgUrl}' data-org-id='${sessionScope.get("org").getId()}'>${user.organization.name}</div>
     <div class="user">
-        <span class="user_name" data-login="${user.login}" data-user_id="${user.id}">${user.name}</span>
+        <span class="user_name" data-login="${user.login}" data-user_id="${user.id}" data-user_shortName="${user.shortName}">${user.name}</span>
         <div class="wr">
             <img src='<c:url value="/resources/data${user.photo}"/>' class="user_photo">
             <a href="/logout" class="logout">выход</a>

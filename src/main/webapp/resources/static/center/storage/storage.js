@@ -66,7 +66,7 @@ $(document).ready(function () {
             fileContainer.append('<div class="file">\n' +
                 '                    <img src="../resources/icons/' + ico + '" class="file_ico">\n' +
                 '                    <input class="fileName" readonly title="' + fname + '" value="' + fname +'">\n' +
-                '                    <div class="file_author"><a href="">'  + userName + '</a></div>\n' +
+                '                    <div class="file_author"><a href="">'  + shortName + '</a></div>\n' +
                 '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                 '                </div>');
             $(this).attr("src", "/resources/data/app/unshare.png");
@@ -109,7 +109,7 @@ $(document).ready(function () {
             fileContainer.append('<div class="file">\n' +
                 '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
                 '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'" onchange="rename(this)">\n' +
-                '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + userName + '</a></div>\n' +
+                '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + shortName + '</a></div>\n' +
                 '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                 '            </div>');
             ico_shared = "/resources/data/app/unshare.png";

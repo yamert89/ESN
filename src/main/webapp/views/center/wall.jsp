@@ -22,7 +22,7 @@
 <c:set var="orgUrl" value="${sessionScope.get('org').getUrlName()}"/>
 <div class="wall_container">
 <div class="post_add_wrapper">
-    <button class="post_add" data-name="${user.name}" data-img="${user.photo}"
+    <button class="post_add" data-name="${user.shortName}" data-img="${user.photo}"
             data-userId="${user.id}" data-ogrUrl="${orgUrl}"  data-img-small="${user.photo_small}">Добавить новость</button></div>
 <textarea name="editor" class="editor" rows="10" cols="80"></textarea>
 <button class="post_submit">Опубликовать новость</button>

@@ -30,6 +30,7 @@ $(document).ready(function () {
     var uTitle = $(".title");
 
     window.userName = uName.text();
+    window.shortName = uName.attr("data-user_shortName");
     window.login = uName.attr("data-login");
     window.userId = uName.attr("data-user_id");
     window.orgName = uTitle.text();

@@ -25,6 +25,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -121,22 +123,29 @@ public class UserController {
 
     @PostMapping(value = "/reg")
     @ResponseStatus(code = HttpStatus.SEE_OTHER)
-    public String addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
-                                  @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey){
+    public ModelAndView addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
+                                        @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey,
+                                        RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("redirect:/auth");
         try {
             logger.debug("orgKey = " + orgKey);
             Organization organization = orgDAO.getOrgByKey(orgKey);
             if (organization == null) {
                 bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
-                return "reg";
+                modelAndView.setViewName("reg");
+                return modelAndView;
             }
 
-            if (bindingResult.hasErrors()) return "reg";
+            if (bindingResult.hasErrors()){
+                modelAndView.setViewName("reg");
+                return modelAndView;
+            }
             if (user.getLogin().equals("admin") ||
                     orgDAO.getLogins(organization).contains(user.getLogin()) ||
                     user.getLogin().equals("deleted")) {
                 bindingResult.addError(new FieldError("loginError", "login", "Логин занят. Придумайте другой"));
-                return "reg";
+                modelAndView.setViewName("reg");
+                return modelAndView;
             }
 
             logger.debug(user);
@@ -144,7 +153,10 @@ public class UserController {
 
             String[] nameArr = user.getName().split("_");
             user.setName(user.getName().replaceAll("_", " "));
-            user.setShortName(nameArr[0] + " " + nameArr[1].substring(0, 1) + ". " + nameArr[2].substring(0, 1) + ".");
+            String shortName = nameArr.length == 3 ?
+                    nameArr[0] + " " + nameArr[1].substring(0, 1) + ". " + nameArr[2].substring(0, 1) + "." :
+                    nameArr[0] + " " + nameArr[1].substring(0, 1) + ".";
+            user.setShortName(shortName);
 
             user.setOrganization(organization);
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
@@ -166,9 +178,17 @@ public class UserController {
             SimpleUtils.createUserFolders(organization.getUrlName(), user.getLogin());
         }catch (Exception e){
             logger.error("REG_USER ERROR", e);
+            redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при регистрации пользователя. Сообщите разработчику");
+            /*RedirectView rw = new RedirectView("error");
+            rw.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+            modelAndView.setView(rw);*/
+            redirectAttributes.addAttribute("status", 500);
+            modelAndView.setViewName("redirect:/error");
+            return modelAndView;
+
         }
 
-        return "redirect:/auth";
+        return modelAndView;
     }
 
     @GetMapping("{org}/users/{login}")

@@ -34,7 +34,9 @@ $(document).ready(function () {
 
     $(window).on("beforeunload", function () {
         var groups = [];
-        $("details").each(function (idx, el) {
+        var details = $("details");
+        if (details.length < 2) return;
+        details.each(function (idx, el) {
             groups.push(new Group(el.firstChild.firstChild.innerHTML, el.hasAttribute("open")))
         });
         $.ajax({url : "/expand-props", data : {groups : JSON.stringify(groups)}});

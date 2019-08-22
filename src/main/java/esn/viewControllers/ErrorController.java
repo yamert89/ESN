@@ -1,6 +1,5 @@
 package esn.viewControllers;
 
-import esn.configs.GeneralSettings;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.EmailService;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.NestedServletException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +43,7 @@ public class ErrorController {
                 error = getErrorCode(httpRequest);
                 httpErrorCode = (int) error[0];
             } catch (Exception e) {
-                logger.error(e.getMessage(), e);
+                logger.debug("Альтернативное получение [status] ошибки");
                 httpErrorCode = Integer.parseInt(httpRequest.getParameter("status"));
             }
 
@@ -70,7 +68,7 @@ public class ErrorController {
                 case 500: {
                     // errorMsg = "Ошибка на сервере"; //TODO replace
 
-                    if (error.length > 1) errorMsg = (String) error[1];
+                    /*if (error.length > 1)*/ errorMsg = (String) error[1];
                     if (errorMsg.contains("has already been invalidated")) {
                         errorPage.setViewName("auth");
                         return errorPage;
@@ -81,6 +79,7 @@ public class ErrorController {
                     errorMsg = "Неизвестная ошибка";
                 }
             }
+            logger.error(errorMsg);
             errorPage.addObject("errorMsg", errorMsg);
             logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
@@ -93,7 +92,8 @@ public class ErrorController {
     private Object[] getErrorCode(HttpServletRequest httpRequest) throws Exception{
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
         Optional<ServletException> ex = Optional.ofNullable((ServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
-        String message = ex.isPresent() ? ex.get().getMessage() : "";
+        String message = ex.isPresent() ? ex.get().getMessage() :
+                String.valueOf(((Map)httpRequest.getAttribute("org.springframework.web.servlet.DispatcherServlet.INPUT_FLASH_MAP")).get("flash"));
         String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
         return new Object[]{code, message, errorUrl};
     }
