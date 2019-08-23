@@ -47,6 +47,7 @@ $(document).ready(function () {
     });
 
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+        if (ajaxSettings.url == '/clienterror') return;
         notify("Запрос к серверу завершился с ошибкой");
 
         console.log(event);

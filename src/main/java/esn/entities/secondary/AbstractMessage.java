@@ -42,7 +42,7 @@ public abstract class AbstractMessage {
             return;
         }
         this.userId = user.getId();
-        userName = user.getName();
+        userName = user.getShortName();
         imgUrl = user.getPhoto_small();
 
     }

@@ -61,9 +61,9 @@ public class GeneralSettings {
     }
 
     //TODO CSRF Protection security.xml
+    //FIXME storage svg works not always
+    //FIXME недостаточно места, а временный файл отображается / отображать только после загрузки
     //FIXME
-    //FIXME
-    //FIXME new gen message bag for remember auth
     //FIXME
     //FIXME
     //FIXME

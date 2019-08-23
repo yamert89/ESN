@@ -25,17 +25,7 @@ $(document).ready(function () {
          var form = $(".form_file");
          var filename = $(this).get(0).files[0].name;
      });*/
-
-    $.get("/storage_size", function (data) {
-        var publ = $("#publicDiagram");
-        publ.find(".donut-segment").attr("stroke-dasharray", data.public + ' ' + (100 - data.public));
-        publ.find("text").text(data.public + '%');
-
-        var priv = $("#privateDiagram");
-        priv.find(".donut-segment").attr("stroke-dasharray", data.private + ' ' + (100 - data.private));
-        priv.find("text").text(data.private + '%');
-    }, "json");
-
+    storageSize();
     $(".fileName").keyup(function(event){
         if(event.keyCode === 13){
             event.preventDefault();
@@ -109,7 +99,7 @@ $(document).ready(function () {
             fileContainer.append('<div class="file">\n' +
                 '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
                 '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'" onchange="rename(this)">\n' +
-                '                <div class="file_author"><a href="/"' + orgUrl + '"/users/"' + login + '>' + shortName + '</a></div>\n' +
+                '                <div class="file_author"><a href="/' + orgUrl + '/users/' + login + '">' + shortName + '</a></div>\n' +
                 '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
                 '            </div>');
             ico_shared = "/resources/data/app/unshare.png";
@@ -124,6 +114,8 @@ $(document).ready(function () {
             '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
             '                </div>');
 
+        storageSize();
+
     });
     filesPath = $(".storage").attr('data-path');
 
@@ -135,6 +127,18 @@ $(document).ready(function () {
         link.click();
     })
 });
+
+function storageSize(){
+    $.get("/storage_size", function (data) {
+        var publ = $("#publicDiagram");
+        publ.find(".donut-segment").attr("stroke-dasharray", data.public + ' ' + (100 - data.public));
+        publ.find("text").text(data.public + '%');
+
+        var priv = $("#privateDiagram");
+        priv.find(".donut-segment").attr("stroke-dasharray", data.private + ' ' + (100 - data.private));
+        priv.find("text").text(data.private + '%');
+    }, "json");
+}
 
 
 function rename(el) {

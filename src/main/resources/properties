@@ -27,9 +27,9 @@ wall_messages_amount=12
 
 #---- Максимальный размер файлового хранилища (MB): ----!
 #---- - общее ----!
-public_storage_max_size=100
+public_storage_max_size=10
 #---- - личных файлов ----!
-private_storage_max_size=50
+private_storage_max_size=5
 
 
 

@@ -46,7 +46,7 @@ input{
 .new_message_container{
     display: flex;
     align-items: center;
-    max-width: 100px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 

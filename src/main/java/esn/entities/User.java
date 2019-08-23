@@ -68,7 +68,7 @@ public class User implements Cloneable{
     @Column(nullable = false)
     private String photo_small; //filename
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "owner")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "owner")
     @JsonIgnore
     private Set<StoredFile> storedFiles;
 
