@@ -62,12 +62,21 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME storage svg works not always
-    //FIXME
+    //FIXME example img выходит за границы
     //FIXME gen chat new mes icon bag for remember session
-    //FIXME
-    //FIXME
-    //FIXME
+    //FIXME пользователь онлайн не отображается у только что залогиненного юзера
+    //FIXME всегда женщина при регистрации
+    //FIXME если пришло сообщение ген и приват, при прочтении ген исчезает иконка и у приват
     //FIXME test index js net status
+    //FIXME если юзер находится на ген чат и приходит сообщение с полным именем
+    //FIXME выровнять поля в рег формах
+    //FIXME регистрация пользователя чекбокся в имени не срабатывают
+    //FIXME в структуре сокращенное имя вместо длинного/ выходит за границы блока
+    //FIXME уведомление о сохранении структуры
+    //FIXME при нажатии на поддотдел схема увеличивается и скрывает персонал
+    //FIXME
+    //FIXME
+    //FIXME
     //FIXME
     //FIXME
     //TODO протестировать удаленного пользователя
@@ -75,9 +84,13 @@ public class GeneralSettings {
     //TODO
     //TODO
     //TODO восстановление пароля
+    //TODO описание нигде не используется
     //TODO
     //TODO
     //TODO
+    //TODO
+    //TODO
+    //TODO перенаправить все ошибки контроллера пользователю
     //TODO
     //TODO
     //TODO

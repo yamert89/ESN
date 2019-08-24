@@ -1,5 +1,6 @@
 package esn.viewControllers.main;
 
+import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.db.message.PrivateDAO;
 import esn.entities.Organization;
@@ -10,6 +11,8 @@ import esn.services.LiveStat;
 import esn.services.WebSocketService;
 import esn.viewControllers.WebSocketAlertController;
 import esn.viewControllers.accessoryFunctions.SessionUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -33,6 +36,7 @@ public class PrivateChatController {
     private WebSocketAlertController webSocketAlertController;
     private LiveStat liveStat;
     private SessionUtil sessionUtil;
+    private final static Logger logger = LogManager.getLogger(PrivateChatController.class);
 
     @Autowired
     public void setSessionUtil(SessionUtil sessionUtil) {
@@ -104,10 +108,11 @@ public class PrivateChatController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
                                    HttpSession session){
-        User user = (User) session.getAttribute("user");
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        int cId = Integer.valueOf(companionId);
-        User compan = userDAO.getReference(cId);
+        try {
+            User user = (User) session.getAttribute("user");
+            int orgId = ((Organization) session.getAttribute("org")).getId();
+            int cId = Integer.valueOf(companionId);
+
        /* if (text.length() > 800) {
             String[] messages = text.split(".{800}");
             for (String m :
@@ -115,8 +120,11 @@ public class PrivateChatController {
                 privateDAO.persist(new PrivateChatMessage(m, user.getId(), compan.getId(), orgId));
             }
         }*/
-        privateDAO.persist(new PrivateChatMessage(text, user.getId(), compan.getId(), orgId));
-        webSocketService.newPrivateMessageAlert(cId, user.getId(), text);
+            privateDAO.persist(new PrivateChatMessage(text, user.getId(), cId, orgId));
+            webSocketService.newPrivateMessageAlert(cId, user.getId(), text);
+        }catch (Exception e){
+            logger.error("save private message", e);
+        }
     }
 
 

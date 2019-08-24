@@ -1,11 +1,14 @@
 package esn.viewControllers.accessoryFunctions;
 
+import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.LiveStat;
 import esn.services.WebSocketService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ public class SessionUtil {
     private OrganizationDAO orgDAO;
     private LiveStat liveStat;
     private WebSocketService webSocketService;
+    private final static Logger logger = LogManager.getLogger(SessionUtil.class);
 
     @Autowired
     public void setWebSocketService(WebSocketService webSocketService) {
@@ -40,15 +44,17 @@ public class SessionUtil {
     }
 
     public void initSession(HttpServletRequest request, Principal principal){
-        User user = userDAO.getUserByLogin(principal.getName());
-        HttpSession session = request.getSession();
-        Organization organization = user.getOrganization();
-        liveStat.userLogged(user.getId());
-        session.setAttribute("user", user);
-        session.setAttribute("org", organization);
-        session.setAttribute("loginUrl", user.getLogin());
-        session.setAttribute("ip", request.getRemoteAddr());
-        webSocketService.sendStatus(organization.getId(), user.getId(), true);
+        try {
+            User user = userDAO.getUserByLogin(principal.getName());
+            HttpSession session = request.getSession();
+            Organization organization = user.getOrganization();
+            liveStat.userLogged(user.getId());
+            session.setAttribute("user", user);
+            session.setAttribute("org", organization);
+            session.setAttribute("loginUrl", user.getLogin());
+            session.setAttribute("ip", request.getRemoteAddr());
+            webSocketService.sendStatus(organization.getId(), user.getId(), true);
+        }catch (Exception e){logger.error("init session", e);}
     }
 
     public Organization getOrg(HttpServletRequest request, Principal principal){

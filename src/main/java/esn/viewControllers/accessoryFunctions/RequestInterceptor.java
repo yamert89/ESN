@@ -21,6 +21,9 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return liveStat.canRequest(request.getRemoteAddr()) && super.preHandle(request, response, handler); //TODO не каждый запрос
+        liveStat.request(request.getRemoteAddr());
+        return System.currentTimeMillis()%2 != 0 ?
+                super.preHandle(request, response, handler) :
+                liveStat.canRequest(request.getRemoteAddr()) && super.preHandle(request, response, handler); //TODO не каждый запрос
     }
 }
