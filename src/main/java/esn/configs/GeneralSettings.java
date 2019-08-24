@@ -64,7 +64,7 @@ public class GeneralSettings {
     //FIXME storage svg works not always
     //FIXME example img выходит за границы
     //FIXME gen chat new mes icon bag for remember session
-    //FIXME пользователь онлайн не отображается у только что залогиненного юзера
+    //FIXME
     //FIXME всегда женщина при регистрации
     //FIXME если пришло сообщение ген и приват, при прочтении ген исчезает иконка и у приват
     //FIXME test index js net status

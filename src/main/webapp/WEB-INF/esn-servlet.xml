@@ -12,7 +12,7 @@
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
 
-    <context:component-scan base-package="esn.viewControllers, esn.entities, esn.services"/>
+    <context:component-scan base-package="esn.viewControllers"/>
     <mvc:interceptors>
         <bean id="requestInterceptor" class="esn.viewControllers.accessoryFunctions.RequestInterceptor"/>
     </mvc:interceptors>

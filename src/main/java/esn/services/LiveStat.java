@@ -2,6 +2,7 @@ package esn.services;
 
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -40,6 +41,11 @@ public class LiveStat {
 
     public boolean canRequest(String ip){
         return countRequest.get(ip) < 1000;
+    }
+
+    @PostConstruct
+    public void post(){
+        System.out.println("POST CONSTRUCT " + this);
     }
 
     private class RequestCountCleaner extends TimerTask{
