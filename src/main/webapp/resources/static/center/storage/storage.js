@@ -87,34 +87,36 @@ $(document).ready(function () {
         $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data, success: function (data) {
                 var not = data.success ? 'Файл загружен' : data.overflow ? 'Недостаточно свободного места' : 'Неихвестная ошибка';
                 notify(not);
+                if (data.overflow) return;
+                input.get(0).value = '';
+                var ico = getFileIco(file.name);
+                var fileContainer;
+                var ico_shared = "/resources/data/app/share.png";
+                var sh = '0';
+                if (shared === "1") {
+                    fileContainer = $("#shared_files");
+                    fileContainer.append('<div class="file">\n' +
+                        '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
+                        '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'" onchange="rename(this)">\n' +
+                        '                <div class="file_author"><a href="/' + orgUrl + '/users/' + login + '">' + shortName + '</a></div>\n' +
+                        '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
+                        '            </div>');
+                    ico_shared = "/resources/data/app/unshare.png";
+                    sh = '1';
+                }
+                fileContainer = $("#private_files");
+                fileContainer.append('<div class="file">\n' +
+                    '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
+                    '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '" onchange="rename(this)">\n' +
+                    '                    <img src="/resources/data/app/cross.png" class="file_delete" title="Удалить">\n' +
+                    '                    <img src=" ' + ico_shared + '" data-shared="' + sh + '" class="file_share" title="Опубликовать в общие">\n' +
+                    '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
+                    '                </div>');
+
+                storageSize();
             }});
 
-        input.get(0).value = '';
-        var ico = getFileIco(file.name);
-        var fileContainer;
-        var ico_shared = "/resources/data/app/share.png";
-        var sh = '0';
-        if (shared === "1") {
-            fileContainer = $("#shared_files");
-            fileContainer.append('<div class="file">\n' +
-                '                <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
-                '                <input class="fileName" readonly title="' + newFileName + '" value="' + newFileName +'" onchange="rename(this)">\n' +
-                '                <div class="file_author"><a href="/' + orgUrl + '/users/' + login + '">' + shortName + '</a></div>\n' +
-                '                <div class="file_time">' + getDate(new Date()) + '</div>\n' +
-                '            </div>');
-            ico_shared = "/resources/data/app/unshare.png";
-            sh = '1';
-        }
-        fileContainer = $("#private_files");
-        fileContainer.append('<div class="file">\n' +
-            '                    <img src="../resources/icons/' + ico + '" class="file_ico" data-ext="' + extension +'"  title="Скачать">\n' +
-            '                    <input class="fileName" type="text" title="' + newFileName + '" value="' + newFileName + '" onchange="rename(this)">\n' +
-            '                    <img src="/resources/data/app/cross.png" class="file_delete" title="Удалить">\n' +
-            '                    <img src=" ' + ico_shared + '" data-shared="' + sh + '" class="file_share" title="Опубликовать в общие">\n' +
-            '                    <div class="file_time">' + getDate(new Date()) + '</div>\n' +
-            '                </div>');
 
-        storageSize();
 
     });
     filesPath = $(".storage").attr('data-path');

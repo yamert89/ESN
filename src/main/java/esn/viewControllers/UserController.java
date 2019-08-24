@@ -79,8 +79,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/auth", headers = "Accept=text/html")
-    public String showAuthPage(@RequestParam(required = false) String error, Model model){
+    public String showAuthPage(@RequestParam(required = false) String error,
+                               @RequestParam(required = false) String reg, Model model){
         model.addAttribute("error", error != null);
+        model.addAttribute("reg", reg != null);
         logger.debug("AUTHENTICATION......");
         return "auth";
     }
@@ -104,13 +106,15 @@ public class UserController {
 
     @GetMapping("/logout")
     public String exit(HttpSession session, HttpServletRequest request){
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        User user = (User) session.getAttribute("user");
-        liveStat.userLogout(user.getId());
-        webSocketService.sendStatus(orgId, user.getId(), false);
-        userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr(),
-                session.getCreationTime(), System.currentTimeMillis()));
-        session.invalidate();
+        try {
+            int orgId = ((Organization) session.getAttribute("org")).getId();
+            User user = (User) session.getAttribute("user");
+            liveStat.userLogout(user.getId());
+            webSocketService.sendStatus(orgId, user.getId(), false);
+            userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr(),
+                    session.getCreationTime(), System.currentTimeMillis()));
+            session.invalidate();
+        }catch (Exception e){logger.error("logout error", e);}
         return "redirect:/auth";
     }
 
@@ -126,7 +130,7 @@ public class UserController {
     public ModelAndView addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                         @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey,
                                         RedirectAttributes redirectAttributes){
-        ModelAndView modelAndView = new ModelAndView("redirect:/auth");
+        ModelAndView modelAndView = new ModelAndView("redirect:/auth?reg=success");
         try {
             logger.debug("orgKey = " + orgKey);
             Organization organization = orgDAO.getOrgByKey(orgKey);

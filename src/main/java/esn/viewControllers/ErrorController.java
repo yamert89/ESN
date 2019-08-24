@@ -102,11 +102,13 @@ public class ErrorController {
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
     public void err(@RequestParam String error, HttpSession session){
-        logger.error("CLIENT ERROR :  " + error);
-        User user = (User) session.getAttribute("user");
-        Organization org = (Organization) session.getAttribute("org");
-        emailService.send("CLIENT ERROR", error,
-                "User: " + user + "\n org: " + org.getUrlName(), null);
+        try {
+            logger.error("CLIENT ERROR :  " + error);
+            User user = (User) session.getAttribute("user");
+            Organization org = (Organization) session.getAttribute("org");
+            emailService.send("CLIENT ERROR", error,
+                    "User: " + user + "\n org: " + org.getUrlName(), null);
+        }catch (Exception e){logger.error("client error handler exc", e);}
 
     }
 }

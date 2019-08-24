@@ -62,8 +62,8 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME storage svg works not always
-    //FIXME недостаточно места, а временный файл отображается / отображать только после загрузки
     //FIXME
+    //FIXME gen chat new mes icon bag for remember session
     //FIXME
     //FIXME
     //FIXME
@@ -72,7 +72,7 @@ public class GeneralSettings {
     //FIXME
     //TODO протестировать удаленного пользователя
     //TODO транзакционное сохранение сущнос
-    //TODO notice reg success
+    //TODO
     //TODO
     //TODO восстановление пароля
     //TODO
@@ -80,7 +80,7 @@ public class GeneralSettings {
     //TODO
     //TODO
     //TODO
-    //TODO ddos blocking
+    //TODO
     //TODO
     //TODO
 

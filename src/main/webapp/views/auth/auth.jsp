@@ -60,7 +60,10 @@
             </div>
 
         </div>
-        <div class="reg_block jspError"><c:if test="${error}">Неправильный логин или пароль</c:if></div>
+        <div class="reg_block jspError">
+            <c:if test="${error}">Неправильный логин или пароль</c:if>
+            <c:if test="${reg}">Регистрация завершена</c:if>
+        </div>
 
     </form>
 </div>
