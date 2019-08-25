@@ -24,7 +24,7 @@ public class WebSocketService {
         JSONObject jsonObject = new JSONObject();
         JSONObject mes = new JSONObject();
         mes.put("text", text)
-                .put("userName", initiator.getName())
+                .put("userName", initiator.getShortName())
                 .put("imgUrl", initiator.getPhoto_small())
                 .put("time", time);
         jsonObject.put("_alert", "genmessage")

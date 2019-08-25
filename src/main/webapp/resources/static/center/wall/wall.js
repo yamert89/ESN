@@ -117,10 +117,3 @@ function hideEditor() {
 
 }
 
-/*<div class="message_info_wrapper">
-    <div class="message_info_w">
-    <img src="" class="person_photo_small">
-    <div class="person_name_w">Булыгина Мария Ивановна</div>
-<div class="message_time_w">10: 30 21.09.2018</div>
-</div>
-</div>*/

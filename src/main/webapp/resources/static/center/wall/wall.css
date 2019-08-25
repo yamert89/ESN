@@ -49,11 +49,8 @@ p, h1, h2, h3{
 }
 
 .message_info_w{
-    /*width: 390px;*/
     display: inline-flex;
     border-spacing: 20px 0;
-
-
 }
 .message_info_wrapper{
     border-bottom: 1px solid rgba(0, 0, 0, 0.11);
@@ -64,8 +61,6 @@ p, h1, h2, h3{
     line-height: 32px;
 }
 .person_name_w{
-    /*float: none;*/
-
     vertical-align: middle;
     line-height: 32px;
     margin-right: 20px;

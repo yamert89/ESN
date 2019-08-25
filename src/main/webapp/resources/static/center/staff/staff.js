@@ -170,7 +170,7 @@ function fillStaff(staff) {
         container.append('<div class="person_staff" data-id=' + el.id + '>\n' +
             '                    <img src="/resources/data' + el.photo + '" class="person_photo_staff">' +
             '                    <div class="person_point">\n' +
-            '                        <div class="person_name_staff">' + el.name + '</div>\n' +
+            '                        <div class="person_name_staff" title="' + el.shortName + '">' + el.shortName + '</div>\n' +
             '                        <div class="person_position">' + el.position + '</div>\n' +
             '                    </div>\n' +
             '        </div>')

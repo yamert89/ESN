@@ -3,20 +3,15 @@
     display: inline-block;
 }
 .staff_container{
-    /* min-width: 200px; */
-    /* overflow-y: auto; */
+     min-width: 200px;
     display: flex;
-    /* max-height: 95%; */
     margin-left: 5px;
     flex: 1 1 auto;
     margin-right: 5px;
     flex-direction: column;
-    /* padding: 5px; */
 }
 canvas{
     overflow: auto;
-    /* width: 2000px;
-     height: 2000px;*/
 }
 .block_item_container{
     margin-top: 10px;
@@ -29,17 +24,12 @@ canvas{
     opacity: 0.5;
     border: 2px solid rgba(0, 0, 0, 0.51);
     width: 96px;
-
 }
 
 .person_staff{
-    /* width: 100%; */
-    /* height: 100px; */
     display: flex;
     align-items: center;
-    /* margin-top: 20px; */
-    /* margin: 10px 0; */
-    /* overflow: hidden; */
+    overflow-x: hidden;
     flex-direction: row;
 }
 
@@ -55,15 +45,10 @@ canvas{
 .flowchart_wrapper{
     display: flex;
     min-width: 300px;
-    /* height: calc(100% - 41px);
-     line-height: calc(100% - 41px);
-     max-height: calc(100% - 41px);*/
     flex: 5 1 auto;
     flex-direction: column;
 }
 .flowchart_frame{
-    /*width: 100%;
-    height: 100%;*/
     margin-bottom: 7px;
     flex: 1 1 auto;
     overflow: auto;

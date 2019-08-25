@@ -96,7 +96,7 @@ img{
     box-shadow: 0 0 10px;
 }
 .example{
-    margin: 100px 0;
+    margin: 50px 0;
     height: 42vh;
     max-width: fit-content;
     transition: height 1s ease, margin 1s ease;
@@ -104,7 +104,7 @@ img{
 }
 
 .example:hover{
-    height: calc(42vh + 200px);
+    height: calc(42vh + 100px);
     margin: 0;
     transition: height 1s ease, margin 1s ease;
 }

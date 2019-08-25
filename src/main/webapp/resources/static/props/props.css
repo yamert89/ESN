@@ -1,9 +1,6 @@
 body{
-    /*text-align: center;*/
-    /*vertical-align: middle;*/
     display: flex;
     flex-direction: column;
-    /*height: 800px;*/
     background: url("../../data/app/office2.jpg") no-repeat;
     background-size: 100%;
     align-items: center;
@@ -20,16 +17,9 @@ select{
     flex: 10 1 auto;
 }
 .properties_board{
-    /*max-width: 70%;*/
     width: fit-content;
-    /* min-width: 768px;*/
-    /*margin: 50px auto;
-    padding: 10px 0;
-    border: 3px ridge #c3cda9;
-    border-radius: 10px;*/
     margin: auto;
     padding: 10px 0;
-
     border-radius: 20px;
     border: 1px solid #8ad5f4;
     box-shadow: 0 0 20px #000000;
@@ -39,13 +29,9 @@ select{
     margin: 5px 30px;
 }
 .prop_label{
-    /*display: inline-block;*/
     flex: 1 0 auto;
     margin-right: 10px;
     white-space: nowrap;
-
-    /*width: 38%;*/
-
 }
 textarea{
     flex: 1 1 auto;
@@ -69,18 +55,13 @@ input[type=file]{
 .title_pref{
     text-align: center;
 }
-/*input[type='checkbox']{
-    width: auto;
-}*/
+
 input[type=button]{
     margin: 0 5px;
     width: 30%;
 }
 input[type='text']{
     background-color: white;
-}
-h3{
-    /*transform: translateX(100%);*/
 }
 
 .password_board{
@@ -163,9 +144,7 @@ img{
     width: 17px;
     margin-left: 5px;
 }
-/*#reg{
-    width: 50%;
-}*/
+
 .small_input, #corpKey{
     flex: 1 1 auto;
 }
@@ -181,15 +160,7 @@ input[type=radio], input[type=checkbox]{
     justify-items: left;
     justify-self: left;
 }
-/*#auth{
-    width: 45%;
-}
-#org_props{
-    width: 60%;
-}
-#reg{
-    width: 50%;
-}*/
+
 .auth_submit_button{
     flex: 0 1 200px!important;
 }
