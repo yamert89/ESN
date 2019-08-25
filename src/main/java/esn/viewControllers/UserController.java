@@ -129,7 +129,7 @@ public class UserController {
     @ResponseStatus(code = HttpStatus.SEE_OTHER)
     public ModelAndView addUserFromForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
                                         @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String orgKey,
-                                        RedirectAttributes redirectAttributes){
+                                        @RequestParam String sex, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("redirect:/auth?reg=success");
         try {
             logger.debug("orgKey = " + orgKey);
@@ -161,6 +161,7 @@ public class UserController {
                     nameArr[0] + " " + nameArr[1].substring(0, 1) + ". " + nameArr[2].substring(0, 1) + "." :
                     nameArr[0] + " " + nameArr[1].substring(0, 1) + ".";
             user.setShortName(shortName);
+            user.setMale(sex.equals("m"));
 
             user.setOrganization(organization);
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/

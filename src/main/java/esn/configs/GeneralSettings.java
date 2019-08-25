@@ -65,7 +65,7 @@ public class GeneralSettings {
     //FIXME example img выходит за границы
     //FIXME gen chat new mes icon bag for remember session
     //FIXME
-    //FIXME всегда женщина при регистрации
+    //FIXME
     //FIXME если пришло сообщение ген и приват, при прочтении ген исчезает иконка и у приват
     //FIXME test index js net status
     //FIXME если юзер находится на ген чат и приходит сообщение с полным именем
@@ -82,10 +82,10 @@ public class GeneralSettings {
     //TODO протестировать удаленного пользователя
     //TODO транзакционное сохранение сущнос
     //TODO
-    //TODO
+    //TODO заменить импуты спец тегами
     //TODO восстановление пароля
     //TODO описание нигде не используется
-    //TODO
+    //TODO передать обекты под управление контейнера
     //TODO
     //TODO
     //TODO

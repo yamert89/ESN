@@ -31,7 +31,7 @@
             var pass1 = $("#pass1");
             var pass2 = $("#pass2");
             var regfield = $(this);
-            var constraint = regfield[0] == $("#small_input")[0] ? 59 :
+            var constraint = regfield[0] == $(".small_input")[0] ? 59 :
                 regfield[0] == pass1[0] ? 6 : 3;
 
             checkboxSateChange(regfield, constraint);
@@ -56,7 +56,7 @@
         <div class="prop_line">
             <div class="inline">
                 <label class="prop_label fixed_max">Введите корпоративный ключ:</label>
-                <input name="orgKey" size="60" maxlength="60" class="reg_field fixed_min" id="small_input"/>
+                <input name="orgKey" size="60" maxlength="60" class="reg_field fixed_min small_input"/>
                 <span class="star">*</span>
                 <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
@@ -114,9 +114,9 @@
             <div class="inline">
                 <label class="prop_label fixed_max">Укажите ваш пол:</label>
                 <label class="prop_label fixed_min">Мужской:</label>
-                <sf:radiobutton path="male" value="true" id="small_input"/>
+                <input type="radio" name="sex" value="m" class="small_input"/>
                 <label class="prop_label fixed_min">Женский:</label>
-                <sf:radiobutton path="male" value="false" id="small_input"/>
+                <input type="radio" name="sex" value="f" class="small_input"/>
                 <span class="star">*</span>
                 <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>

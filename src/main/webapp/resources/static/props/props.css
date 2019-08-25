@@ -166,7 +166,7 @@ img{
 /*#reg{
     width: 50%;
 }*/
-#small_input, #corpKey{
+.small_input, #corpKey{
     flex: 1 1 auto;
 }
 .fixed_min{

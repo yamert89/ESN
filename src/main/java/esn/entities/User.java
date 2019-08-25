@@ -236,6 +236,10 @@ public class User implements Cloneable{
         this.shortName = shortName;
     }
 
+    public void setMale(boolean male) {
+        this.male = male;
+    }
+
     public void updateFromForm(User source)throws Exception{
         UserInformation inf = source.getUserInformation();
         Calendar birth = inf.getBirthDate();
