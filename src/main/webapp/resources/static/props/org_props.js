@@ -42,7 +42,7 @@ $(document).ready(function () {
 
         if (res) {
             var id = $(".properties_board").attr('data-id');
-            $.ajax({url:"/delete_org", data:{orgId:id}})
+            $.get("/delete_org");
         }
     });
 

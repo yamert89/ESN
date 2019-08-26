@@ -96,6 +96,7 @@ public class UserController {
 
         Organization organization = user.getOrganization();
 
+
         //session.setMaxInactiveInterval(15);
         logger.debug(session.getMaxInactiveInterval());
 

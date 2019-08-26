@@ -1,6 +1,5 @@
 package esn.viewControllers.accessoryFunctions;
 
-import esn.configs.GeneralSettings;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
@@ -43,7 +42,7 @@ public class SessionUtil {
         this.liveStat = liveStat;
     }
 
-    public void initSession(HttpServletRequest request, Principal principal){
+    private void initSession(HttpServletRequest request, Principal principal){
         try {
             User user = userDAO.getUserByLogin(principal.getName());
             HttpSession session = request.getSession();

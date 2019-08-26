@@ -3,7 +3,6 @@ package esn.viewControllers;
 import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
-import esn.entities.User;
 import esn.utils.ImageUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,14 +76,13 @@ public class OrgController {
         org.setRegisterDate(Calendar.getInstance());
         try {
             if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
-            orgDAO.persistOrg(org);
+            org = orgDAO.update(org);
         } catch (DataIntegrityViolationException e){
             result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
             return "neworg";
         }
         session.setAttribute("org", org);
-        userDAO.persistUser(new User("Пользователь удалён", "","deleted",  "pppppp", true, "ROLE_USER", orgDAO.getOrgByURL(org.getUrlName()),
-                "/app/deleted.jpg", "/app/deleted_small.jpg"));
+
         return "redirect:/" + org.getUrlName() + "/profile";
     }
 
@@ -130,8 +128,8 @@ public class OrgController {
 
     @GetMapping("/delete_org")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrg(@RequestParam int orgId){
-        Organization organization = orgDAO.getOrgById(orgId);
+    public void deleteOrg(HttpSession session){
+        Organization organization = (Organization) session.getAttribute("org");
         organization.setDisabled(true);
         orgDAO.update(organization);
     }
