@@ -1,11 +1,9 @@
 var submit;
 var blocker = false;
-var wall = $("#wall");
-wall.addClass("selected");
-wall.find("img").css("display", "none");
-
-
 $(document).ready(function () {
+    var wall = $("#wall");
+    wall.addClass("selected");
+    wall.find("img").css("display", "none");
     var addButton = $('.post_add').first();
     window.userId = addButton.attr("data-userId");
     window.orgUrl = addButton.attr("data-ogrUrl");

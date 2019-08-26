@@ -7,6 +7,7 @@ function DayWithText(day){
 
 window.listOfDatesNoted = [];
 $(document).ready(function () {
+    console.log("index works");
     if (sessionStorage.getItem("gen") == "on") $("#chat").find("img").css("display", "inline-block");
     $(".person_item").each(function () {
         if (sessionStorage.getItem("private" + $(this).attr("data-id")) == "on") $(this).children().first().next().css("display", "inline-block");

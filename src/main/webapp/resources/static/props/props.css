@@ -126,6 +126,7 @@ form{
 input{
     flex: 10 1 auto;
     border-radius: 3px;
+    max-width: 70%;
 }
 button, input[type=submit], input[type=button], input[type=file]{
     font-size: 0.8em!important;
@@ -159,6 +160,7 @@ input[type=radio], input[type=checkbox]{
     justify-content: left;
     justify-items: left;
     justify-self: left;
+    margin: 0 20px;
 }
 
 .auth_submit_button{

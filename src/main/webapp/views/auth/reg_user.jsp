@@ -31,15 +31,21 @@
             var pass1 = $("#pass1");
             var pass2 = $("#pass2");
             var regfield = $(this);
-            var constraint = regfield[0] == $(".small_input")[0] ? 59 :
-                regfield[0] == pass1[0] ? 6 : 3;
+            var firstName = $("#firstName");
+            var name = $("#name");
+            var lg = $("#login");
 
-            checkboxSateChange(regfield, constraint);
+            var constraint = regfield[0] === $(".small_input")[0] ? 59 :
+                regfield[0] === pass1[0] ? 6 :
+                    regfield[0] === name[0] || regfield[0] === firstName[0] || regfield[0] === lg[0] ? 4 :
+                        0;
 
-            if (pass1.val() === pass2.val()) $("#error_pass").text("");
-            else {
-                $("#error_pass").text("Пароли не совпадают");
-            }
+            if (pass1.val() === pass2.val()) {
+                $("#error_pass").text("");
+            } else $("#error_pass").text("Пароли не совпадают");
+
+           checkboxSateChange(regfield, constraint);
+
         }
 
 
@@ -66,6 +72,7 @@
                 <label class="prop_label">Фамилия:</label>
                 <sf:input path="name" size="20" maxlength="20" cssClass="reg_field"/>
                 <span class="star">*</span>
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
@@ -73,14 +80,15 @@
                 <label class="prop_label">Имя:</label>
                 <input id="firstName" size="20" maxlength="20" class="reg_field"/>
                 <span class="star">*</span>
-
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <div class="prop_line">
             <div class="inline">
                 <label class="prop_label">Отчество:</label>
                 <input id="thirdName" size="20" maxlength="20" class="reg_field"/>
-
+                <span class="star" style="opacity: 0">*</span>
+                <img src="/resources/data/app/checkbox.jpg" class="checkbox off"  style="opacity: 0">
             </div>
         </div>
         <div class="prop_line">
@@ -117,8 +125,6 @@
                 <input type="radio" name="sex" value="m" class="small_input"/>
                 <label class="prop_label fixed_min">Женский:</label>
                 <input type="radio" name="sex" value="f" class="small_input"/>
-                <span class="star">*</span>
-                <img src="/resources/data/app/checkbox.jpg" class="checkbox off">
             </div>
         </div>
         <sf:errors path="name" cssClass="jspError"/>

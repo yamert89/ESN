@@ -19,7 +19,7 @@ public class User implements Cloneable{
     @GeneratedValue(generator = "ID_GENERATOR")
     private Integer id;
 
-    @Size(min = 4, max = 50, message = "введите имя от 4х до 50 символов")
+    @Size(min = 8, max = 50, message = "слишком короткое имя")
     @Column(nullable = false, length = 50)
     private String name;
 

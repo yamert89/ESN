@@ -69,8 +69,8 @@ public class GeneralSettings {
     //FIXME если пришло сообщение ген и приват, при прочтении ген исчезает иконка и у приват
     //FIXME test index js net status
     //FIXME
-    //FIXME выровнять поля в рег формах
-    //FIXME регистрация пользователя чекбокся в имени не срабатывают
+    //FIXME
+    //FIXME
     //FIXME
     //FIXME
     //FIXME

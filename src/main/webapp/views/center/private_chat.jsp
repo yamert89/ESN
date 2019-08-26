@@ -32,9 +32,6 @@
                 currentCompanion.find("img").css("display", "none");
             }
 
-
-
-
             var sizeMes = 500;
             var textField = $(".new_genchat_message");
             var messBtn = $(".new_genchat_message_btn");
