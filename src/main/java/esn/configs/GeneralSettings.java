@@ -60,7 +60,7 @@ public class GeneralSettings {
         return Optional.ofNullable(properties.getProperty(name));
     }
 
-    //TODO CSRF Protection security.xml
+    //TODO
     //FIXME storage svg works not always
     //FIXME
     //FIXME gen chat new mes icon bag for remember session
@@ -81,14 +81,12 @@ public class GeneralSettings {
     //FIXME
     //TODO протестировать удаленного пользователя
     //TODO LONG транзакционное сохранение сущнос
-    //TODO
     //TODO LONG заменить импуты спец тегами
     //TODO LONG восстановление пароля
-    //TODO
     //TODO LONG передать обекты под управление контейнера
     //TODO LONG оформить ошибку удаленной организации для сохранненых юзеров
     //TODO LONG example img выходит за границы
-    //TODO
+    //TODO LONG CSRF Protection security.xml
     //TODO
     //TODO
     //TODO

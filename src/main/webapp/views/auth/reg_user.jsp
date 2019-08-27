@@ -42,7 +42,10 @@
 
             if (pass1.val() === pass2.val()) {
                 $("#error_pass").text("");
+                constraint = 0;
+                checkboxSateChange(regfield, constraint);
             } else $("#error_pass").text("Пароли не совпадают");
+            if (constraint == 0 && regfield[0] == pass2[0]) return;
 
            checkboxSateChange(regfield, constraint);
 
