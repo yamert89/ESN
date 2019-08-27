@@ -1,7 +1,7 @@
 package esn.viewControllers;
 
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.db.service.OrgService;
 import esn.entities.Organization;
 import esn.entities.Session;
 import esn.entities.User;
@@ -39,7 +39,7 @@ import java.util.Set;
 public class UserController {
 
     private UserDAO userDAO;
-    private OrganizationDAO orgDAO;
+    private OrgService orgService;
     private WebSocketService webSocketService;
     private LiveStat liveStat;
     private EmailService emailService;
@@ -67,15 +67,14 @@ public class UserController {
         this.webSocketService = service;
     }
 
-
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
     @Autowired
-    public void setOrgDAO(OrganizationDAO orgDAO) {
-        this.orgDAO = orgDAO;
+    public void setOrgService(OrgService orgService) {
+        this.orgService = orgService;
     }
 
     @GetMapping(value = "/auth", headers = "Accept=text/html")
@@ -88,20 +87,23 @@ public class UserController {
     }
 
     @GetMapping("/postauth")
-    public String confirmAuth(Model model, HttpSession session, HttpServletRequest request, Principal principal){
+    public ModelAndView confirmAuth(RedirectAttributes redirectAttributes, HttpSession session, HttpServletRequest request, Principal principal){
         SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
         String  login = ((org.springframework.security.core.userdetails.User) context.getAuthentication().getPrincipal()).getUsername();
-
+        ModelAndView modelAndView = new ModelAndView("redirect:/error");
+        Organization organization = sessionUtil.getOrg(request, principal);
+        if (organization == null){
+            redirectAttributes.addFlashAttribute("flash", "Профиль организации удалён.");
+            redirectAttributes.addAttribute("status", 777);
+            return modelAndView;
+        }
         User user = sessionUtil.getUser(request, principal);
-
-        Organization organization = user.getOrganization();
-
-
         //session.setMaxInactiveInterval(15);
         logger.debug(session.getMaxInactiveInterval());
+        logger.debug(user.getName() + " logged");
+        modelAndView.setViewName("redirect:/" + organization.getUrlName() + "/wall/");
 
-
-        return "redirect:/" + organization.getUrlName() + "/wall/";
+        return modelAndView;
         //return "wall";
     }
 
@@ -134,7 +136,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("redirect:/auth?reg=success");
         try {
             logger.debug("orgKey = " + orgKey);
-            Organization organization = orgDAO.getOrgByKey(orgKey);
+            Organization organization = orgService.findByKey(orgKey);
             if (organization == null) {
                 bindingResult.addError(new FieldError("keyError", "name", "Ключ не найден"));
                 modelAndView.setViewName("reg");
@@ -146,7 +148,7 @@ public class UserController {
                 return modelAndView;
             }
             if (user.getLogin().equals("admin") ||
-                    orgDAO.getLogins(organization).contains(user.getLogin()) ||
+                    orgService.getLogins(organization).contains(user.getLogin()) ||
                     user.getLogin().equals("deleted")) {
                 bindingResult.addError(new FieldError("loginError", "login", "Логин занят. Придумайте другой"));
                 modelAndView.setViewName("reg");
@@ -167,7 +169,7 @@ public class UserController {
             user.setOrganization(organization);
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-            user.setAuthority(orgDAO.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
+            user.setAuthority(orgService.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
 
             if (!image.isEmpty()) {
                 ImageUtil.writeAvatar(user, image);
@@ -188,7 +190,7 @@ public class UserController {
             /*RedirectView rw = new RedirectView("error");
             rw.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
             modelAndView.setView(rw);*/
-            redirectAttributes.addAttribute("status", 500);
+            redirectAttributes.addAttribute("status", 777);
             modelAndView.setViewName("redirect:/error");
             return modelAndView;
 
@@ -271,7 +273,7 @@ public class UserController {
             User user = (User) session.getAttribute("user");
             Organization org = user.getOrganization();
             org.getAllEmployers().remove(user);
-            orgDAO.update(org);
+            orgService.merge(org);
             userDAO.deleteUser(user);
         }catch (Exception e){
             logger.error(e.getMessage(), e);

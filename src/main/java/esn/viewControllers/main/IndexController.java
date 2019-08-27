@@ -1,7 +1,5 @@
 package esn.viewControllers.main;
 
-import esn.db.OrganizationDAO;
-import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
 import esn.services.EmailService;
@@ -30,9 +28,6 @@ import java.util.Set;
 public class IndexController {
     private final static Logger logger = LogManager.getLogger(IndexController.class);
 
-
-    private OrganizationDAO orgDAO;
-    private UserDAO userDAO;
     private LiveStat liveStat;
     private EmailService emailService;
     private HttpHeaders headers;
@@ -57,17 +52,6 @@ public class IndexController {
     @Autowired
     public void setLiveStat(LiveStat liveStat) {
         this.liveStat = liveStat;
-    }
-
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-
-
-    @Autowired
-    public void setOrgDAO(OrganizationDAO orgDAO) {
-        this.orgDAO = orgDAO;
     }
 
     @GetMapping("/{organization}/contacts")

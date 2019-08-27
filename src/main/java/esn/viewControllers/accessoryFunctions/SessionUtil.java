@@ -1,6 +1,5 @@
 package esn.viewControllers.accessoryFunctions;
 
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -17,7 +16,6 @@ import java.security.Principal;
 public class SessionUtil {
 
     private UserDAO userDAO;
-    private OrganizationDAO orgDAO;
     private LiveStat liveStat;
     private WebSocketService webSocketService;
     private final static Logger logger = LogManager.getLogger(SessionUtil.class);
@@ -33,20 +31,16 @@ public class SessionUtil {
     }
 
     @Autowired
-    public void setOrgDAO(OrganizationDAO orgDAO) {
-        this.orgDAO = orgDAO;
-    }
-
-    @Autowired
     public void setLiveStat(LiveStat liveStat) {
         this.liveStat = liveStat;
     }
 
-    private void initSession(HttpServletRequest request, Principal principal){
+    private boolean initSession(HttpServletRequest request, Principal principal){
         try {
             User user = userDAO.getUserByLogin(principal.getName());
             HttpSession session = request.getSession();
             Organization organization = user.getOrganization();
+            if (organization.isDisabled()) return false;
             liveStat.userLogged(user.getId());
             session.setAttribute("user", user);
             session.setAttribute("org", organization);
@@ -54,11 +48,14 @@ public class SessionUtil {
             session.setAttribute("ip", request.getRemoteAddr());
             webSocketService.sendStatus(organization.getId(), user.getId(), true);
         }catch (Exception e){logger.error("init session", e);}
+        return true;
     }
 
     public Organization getOrg(HttpServletRequest request, Principal principal){
         HttpSession session = request.getSession();
-        if (session.getAttribute("org") == null) initSession(request, principal);
+        if (session.getAttribute("org") == null) {
+            return initSession(request, principal) ? (Organization) session.getAttribute("org") : null;
+        }
         return (Organization) session.getAttribute("org");
     }
 

@@ -24,10 +24,6 @@ public class OrganizationDAO {
         return em.merge(org);
     }
 
-    public Organization getOrgById(Integer id){
-       return em.find(Organization.class, id);
-    }
-
     public Organization getOrgByURL(String url){
         return getOrgByUrlTrans(url);
     }
@@ -97,8 +93,9 @@ public class OrganizationDAO {
         return res;
     }
 
-    public void deleteAllDepartmentsInUsers(){
-        em.createQuery("update User u set u.department = null").executeUpdate();
+    public void deleteAllDepartmentsInUsers(Organization org){
+        em.createQuery("update User u set u.department = null where u.organization = :org")
+                .setParameter("org", org).executeUpdate();
     }
 
     public boolean isAdminKey(String key, int orgId){

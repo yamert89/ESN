@@ -75,6 +75,10 @@ public class ErrorController {
                     }
                     break;
                 }
+                case 777: {
+                    errorMsg = error[1].toString();
+                    break;
+                }
                 default: {
                     errorMsg = "Неизвестная ошибка";
                 }
@@ -92,8 +96,9 @@ public class ErrorController {
     private Object[] getErrorCode(HttpServletRequest httpRequest) throws Exception{
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
         Optional<ServletException> ex = Optional.ofNullable((ServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
-        String message = ex.isPresent() ? ex.get().getMessage() :
-                String.valueOf(((Map)httpRequest.getAttribute("org.springframework.web.servlet.DispatcherServlet.INPUT_FLASH_MAP")).get("flash"));
+        Map<String, String> controllerErrorMap = (Map<String, String>)httpRequest.getAttribute("org.springframework.web.servlet.DispatcherServlet.INPUT_FLASH_MAP");
+        String message = ex.isPresent() ? ex.get().getMessage() : controllerErrorMap.getOrDefault("flash", "Неизвестная ошибка контроллера");
+
         String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
         return new Object[]{code, message, errorUrl};
     }

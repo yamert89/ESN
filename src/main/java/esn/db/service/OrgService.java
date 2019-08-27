@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class OrgService {
@@ -31,6 +33,38 @@ public class OrgService {
                 "/app/deleted.jpg", "/app/deleted_small.jpg"));
         return org;
     }
+
+    @Transactional
+    public Organization findByUrl(String url, boolean needDepartments){
+        return needDepartments ? orgDao.getOrgByURLWithDepartments(url) : orgDao.getOrgByURL(url);
+    }
+
+    @Transactional
+    public Organization findByKey(String key){
+        return orgDao.getOrgByKey(key);
+    }
+
+    @Transactional
+    public List<String> getLogins(Organization org){return  orgDao.getLogins(org);}
+
+    @Transactional
+    public  List<Organization> getAllOrgs(){return orgDao.getAllOrgs();}
+
+    @Transactional
+    public boolean hasAdmin(String orgUrl){return orgDao.hasAdmin(orgUrl);}
+
+    @Transactional
+    public void clearStructure(Organization org){
+        orgDao.deleteAllDepartmentsInUsers(org);
+    }
+
+    @Transactional
+    public boolean isAdminKey(String key, int orgId){return orgDao.isAdminKey(key, orgId);}
+
+
+
+
+
 
 
 

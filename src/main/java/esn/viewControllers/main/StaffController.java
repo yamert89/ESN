@@ -3,8 +3,8 @@ package esn.viewControllers.main;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.db.DepartmentDAO;
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.db.service.OrgService;
 import esn.entities.Department;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -30,7 +30,7 @@ import java.util.Set;
 public class StaffController {
     private final static Logger logger = LogManager.getLogger(StaffController.class);
 
-    private OrganizationDAO orgDAO;
+    private OrgService orgService;
     private UserDAO userDAO;
     private DepartmentDAO departmentDAO;
     private HttpHeaders headers;
@@ -52,9 +52,10 @@ public class StaffController {
     }
 
     @Autowired
-    public void setOrgDAO(OrganizationDAO orgDAO) {
-        this.orgDAO = orgDAO;
+    public void setOrgService(OrgService orgService) {
+        this.orgService = orgService;
     }
+
     @Autowired
     public void setDepartmentDAO(DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
@@ -103,7 +104,7 @@ public class StaffController {
         ObjectMapper om = new ObjectMapper();
         try {
             Department[] deps = om.readValue(data, new TypeReference<Department[]>(){});
-            Organization organization = orgDAO.getOrgByURLWithDepartments(org);
+            Organization organization = orgService.findByUrl(org, true);
             for (Department d :
                     deps) {
                 if (d.getParentId() == 0) d.setParent(null);
@@ -114,9 +115,8 @@ public class StaffController {
                 d.initOrgForChildren();
             }
             organization.getDepartments().addAll(Arrays.asList(deps));
-            //organization.setDepartments(set);
-            orgDAO.update(organization);
-            session.setAttribute("org", organization);
+
+            session.setAttribute("org", orgService.merge(organization));
 
         } catch (Exception e){
             logger.error(e.getMessage(), e);
@@ -161,11 +161,11 @@ public class StaffController {
         try {
             org.getDepartments().clear();
         }catch (Exception e){
-            org = orgDAO.getOrgByURLWithDepartments(org.getUrlName());
-            orgDAO.deleteAllDepartmentsInUsers();
+            org = orgService.findByUrl(org.getUrlName(), true);
+            orgService.clearStructure(org);
             org.getDepartments().clear();
         }
-        session.setAttribute("org", orgDAO.update(org));
+        session.setAttribute("org", orgService.merge(org));
     }
 
 

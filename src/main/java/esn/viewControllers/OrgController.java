@@ -1,7 +1,7 @@
 package esn.viewControllers;
 
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
+import esn.db.service.OrgService;
 import esn.entities.Organization;
 import esn.utils.ImageUtil;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +33,7 @@ import java.util.Set;
 public class OrgController {
     private final static Logger logger = LogManager.getLogger(OrgController.class);
 
-    private OrganizationDAO orgDAO;
+    private OrgService orgService;
     private UserDAO userDAO;
 
     @Autowired
@@ -42,8 +42,8 @@ public class OrgController {
     }
 
     @Autowired
-    public void setOrgDao(OrganizationDAO dao){
-        orgDAO = dao;
+    public void setOrgDao(OrgService orgService){
+        this.orgService = orgService;
     }
 
 
@@ -76,7 +76,7 @@ public class OrgController {
         org.setRegisterDate(Calendar.getInstance());
         try {
             if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
-            org = orgDAO.update(org);
+            org = orgService.merge(org);
         } catch (DataIntegrityViolationException e){
             result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
             return "neworg";
@@ -91,7 +91,7 @@ public class OrgController {
     @PreAuthorize("!@orgDao.hasAdmin(#organ) or hasRole('ROLE_ADMIN')")
     public ModelAndView orgProfile(@PathVariable @P("organ") String organ, Model model, HttpSession session, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("org_profile");
-        Organization organization = orgDAO.getOrgByURL(organ);
+        Organization organization = orgService.findByUrl(organ, false);
         if (organization == null){
             RedirectView rw = new RedirectView("error");
             rw.setStatusCode(HttpStatus.NOT_FOUND);
@@ -120,7 +120,7 @@ public class OrgController {
         /*String headerPath*/
         if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
         orgFromSession.updateFromForm(org);
-        orgDAO.update(orgFromSession);
+        orgService.merge(orgFromSession);
         model.addAttribute("org", orgFromSession);
         model.addAttribute("saved", true);
         return "org_profile";
@@ -131,6 +131,6 @@ public class OrgController {
     public void deleteOrg(HttpSession session){
         Organization organization = (Organization) session.getAttribute("org");
         organization.setDisabled(true);
-        orgDAO.update(organization);
+        orgService.merge(organization);
     }
 }

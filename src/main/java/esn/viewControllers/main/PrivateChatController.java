@@ -1,7 +1,5 @@
 package esn.viewControllers.main;
 
-import esn.configs.GeneralSettings;
-import esn.db.UserDAO;
 import esn.db.message.PrivateDAO;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -30,7 +28,7 @@ import java.util.TreeMap;
 public class PrivateChatController {
 
 
-    private UserDAO userDAO;
+
     private PrivateDAO privateDAO;
     private WebSocketService webSocketService;
     private WebSocketAlertController webSocketAlertController;
@@ -51,11 +49,6 @@ public class PrivateChatController {
     @Autowired
     public void setWebSocketAlertController(WebSocketAlertController webSocketAlertController) {
         this.webSocketAlertController = webSocketAlertController;
-    }
-
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
     }
 
     @Autowired

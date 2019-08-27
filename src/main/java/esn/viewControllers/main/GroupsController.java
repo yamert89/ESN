@@ -2,7 +2,6 @@ package esn.viewControllers.main;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import esn.db.OrganizationDAO;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -29,8 +28,6 @@ import java.util.stream.Stream;
 public class GroupsController {
     private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
-
-    private OrganizationDAO orgDAO;
     private UserDAO userDAO;
     private SessionUtil sessionUtil;
 
@@ -42,11 +39,6 @@ public class GroupsController {
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
-    }
-
-    @Autowired
-    public void setOrgDAO(OrganizationDAO orgDAO) {
-        this.orgDAO = orgDAO;
     }
 
     @GetMapping("/{organization}/groups")
