@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,43 +44,50 @@ public class GroupsController {
     }
 
     @GetMapping("/{organization}/groups")
-    public String groups(@PathVariable String organization, Model model, HttpSession session, HttpServletRequest request, Principal principal){
-        User user = sessionUtil.getUser(request, principal);
-        Organization org = (Organization) session.getAttribute("org");
-        //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
-        Set<User> employers = org.getAllEmployers();
-        employers.remove(user);
-        User del = new User();
-        del.setLogin("deleted");
-        employers.remove(del);
-        model.addAttribute("employers", employers);
-        Set<ContactGroup> groups = user.getGroups();
+    public ModelAndView groups(Model model, HttpSession session, HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("groups");
+        try {
+            User user = sessionUtil.getUser(request, principal);
+            Organization org = (Organization) session.getAttribute("org");
+            //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
+            Set<User> employers = org.getAllEmployers();
+            employers.remove(user);
+            User del = new User();
+            del.setLogin("deleted");
+            employers.remove(del);
+            modelAndView.addObject("employers", employers);
+            Set<ContactGroup> groups = user.getGroups();
         /*Set<String> groupNames = new HashSet<>();
         for (ContactGroup group :
                 groups) {
             groupNames.add(group.getName());
         }*/
-        Set<String> groupNames = user.getGroups()
-                .stream()
-                .map(ContactGroup::getName)
-                .collect(Collectors.toSet());
+            Set<String> groupNames = user.getGroups()
+                    .stream()
+                    .map(ContactGroup::getName)
+                    .collect(Collectors.toSet());
 
-        model.addAttribute("groupsNames", groupNames);
-        Map<String, Set<User>> resMap = new HashMap<>();
-        for (ContactGroup group : groups){
-            Set<User> resVal = new HashSet<>(groups.size());
-            int [] ids = group.getPersonIds();
-            for (int id : ids) {
-                User u = userDAO.getUserById(id);
-                resVal.add(u);
+            modelAndView.addObject("groupsNames", groupNames);
+            Map<String, Set<User>> resMap = new HashMap<>();
+            for (ContactGroup group : groups) {
+                Set<User> resVal = new HashSet<>(groups.size());
+                int[] ids = group.getPersonIds();
+                for (int id : ids) {
+                    User u = userDAO.getUserById(id);
+                    resVal.add(u);
+                }
+                resMap.put(group.getName(), resVal);
+
             }
-            resMap.put(group.getName(), resVal);
-
+            modelAndView.addObject("groups", resMap);
+            logger.debug(user);
+        }catch (Exception e){
+            logger.error("groups", e);
+            redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при получении списка групп. Сообщите разработчику");
+            redirectAttributes.addAttribute("status", 777);
         }
-        model.addAttribute("groups", resMap);
-        logger.debug(user);
 
-        return "groups";
+        return modelAndView;
     }
 
     @PostMapping("/savegroup")

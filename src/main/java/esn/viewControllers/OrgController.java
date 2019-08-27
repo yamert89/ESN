@@ -54,7 +54,7 @@ public class OrgController {
     }
 
     @PostMapping("/neworg")
-    @ResponseStatus(code = HttpStatus.SEE_OTHER)
+    //@ResponseStatus(code = HttpStatus.SEE_OTHER)
     public ModelAndView regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result,
                                        @RequestParam(required = false) String pos, HttpSession session, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("neworg");

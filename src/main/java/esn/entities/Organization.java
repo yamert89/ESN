@@ -28,7 +28,6 @@ public class Organization {
 
     @NotNull(message = "введите относительный URL")
     @Column(nullable = false, length = 20, unique = true)
-    @Size(min = 4, max = 20, message = "")
     @Pattern(regexp = "[A-Za-z0-9]{4,20}", message = "URL должен иметь от 4 до 20 латинских символов или цифр")
     private String urlName;
 

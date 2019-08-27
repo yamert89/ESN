@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -62,39 +64,48 @@ public class PrivateChatController {
     }
 
     @GetMapping("/{organization}/private-chat/{companion}")
-    public String privateChat(@PathVariable String organization,
-                              @PathVariable String companion, Model model, HttpSession session, HttpServletRequest request, Principal principal){
-        User user = sessionUtil.getUser(request, principal);
-        Organization org = (Organization) session.getAttribute("org");
-        int orgId = org.getId();
+    public ModelAndView privateChat(@PathVariable String organization, RedirectAttributes redirectAttributes,
+                                    @PathVariable String companion, Model model, HttpSession session,
+                                    HttpServletRequest request, Principal principal){
+        ModelAndView modelAndView = new ModelAndView("private_chat");
+        try {
+            User user = sessionUtil.getUser(request, principal);
+            Organization org = (Organization) session.getAttribute("org");
+            int orgId = org.getId();
 
-       // User compan = userDAO.getUserByLogin(companion);
-        User compan = org.getEmployerByLogin(companion);
-        model.addAttribute("companion", compan);
-        Set<PrivateChatMessage> privateMessages = privateDAO.getMessages(user, compan, orgId);
+            // User compan = userDAO.getUserByLogin(companion);
+            User compan = org.getEmployerByLogin(companion);
+            model.addAttribute("companion", compan);
+            Set<PrivateChatMessage> privateMessages = privateDAO.getMessages(user, compan, orgId);
 
-        Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
-        if (privateMessages == null) {
-            model.addAttribute("messages", null);
-            return "private_chat";
-        }
-        Long[] ids = new Long[privateMessages.size()];
-        int i = 0;
-        for (PrivateChatMessage mes :
-                privateMessages) {
-            Boolean userMessage = mes.getSender_id() == user.getId();
-            if (!userMessage) {
-                mes.setReaded(true);
-                ids[i++] = mes.getId();
+            Map<PrivateChatMessage, Boolean> messages = new TreeMap<>();
+            if (privateMessages == null) {
+                modelAndView.addObject("messages", null);
+                return modelAndView;
             }
-            messages.put(mes, userMessage);
+            Long[] ids = new Long[privateMessages.size()];
+            int i = 0;
+            for (PrivateChatMessage mes :
+                    privateMessages) {
+                Boolean userMessage = mes.getSender_id() == user.getId();
+                if (!userMessage) {
+                    mes.setReaded(true);
+                    ids[i++] = mes.getId();
+                }
+                messages.put(mes, userMessage);
 
+            }
+            privateDAO.updateReadedMessages(ids);
+            webSocketAlertController.readPrivateMessageAlertAll(compan.getId());
+            modelAndView.addObject("messages", messages);
+            modelAndView.addObject("online", liveStat.userIsOnline(user.getId()));
+        }catch (Exception e){
+            logger.error("privateChat", e);
+            redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при получении личных сообщений. Сообщите разработчику");
+            redirectAttributes.addAttribute("status", 777);
+            modelAndView.setViewName("redirect:/error");
         }
-        privateDAO.updateReadedMessages(ids);
-        webSocketAlertController.readPrivateMessageAlertAll(compan.getId());
-        model.addAttribute("messages", messages);
-        model.addAttribute("online", liveStat.userIsOnline(user.getId()));
-        return "private_chat";
+        return modelAndView;
     }
 
     @PostMapping("/save_private_message/{companionId}")
@@ -125,15 +136,17 @@ public class PrivateChatController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroupMessage(@RequestParam String text, @RequestParam String groupName,
                                  HttpSession session){
-        User user = (User) session.getAttribute("user");
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        ContactGroup group = user.getGroups().stream()
-                .filter(g -> g.getName().equals(groupName)).findAny().get();
+        try {
+            User user = (User) session.getAttribute("user");
+            int orgId = ((Organization) session.getAttribute("org")).getId();
+            ContactGroup group = user.getGroups().stream()
+                    .filter(g -> g.getName().equals(groupName)).findAny().get();
 
-        for (int id :
-                group.getPersonIds()) {
-            privateDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
-        }
+            for (int id :
+                    group.getPersonIds()) {
+                privateDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
+            }
+        }catch (Exception e){logger.error("saveGroupMessage", e);}
 
 
     }

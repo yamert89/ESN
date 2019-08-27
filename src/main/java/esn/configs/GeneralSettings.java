@@ -90,7 +90,7 @@ public class GeneralSettings {
     //TODO LONG example img выходит за границы
     //TODO
     //TODO
-    //TODO перенаправить все ошибки контроллера пользователю
+    //TODO
     //TODO
     //TODO
     //TODO

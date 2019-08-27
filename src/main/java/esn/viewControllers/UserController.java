@@ -197,8 +197,9 @@ public class UserController {
     }
 
     @GetMapping("{org}/users/{login}")
-    public String showUserProfile(@PathVariable String login, @PathVariable String org,
+    public ModelAndView showUserProfile(@PathVariable String login, RedirectAttributes redirectAttributes,
                                   Model model, HttpSession session, HttpServletRequest request, Principal principal){
+        ModelAndView modelAndView = new ModelAndView("userSettings");
         User user = sessionUtil.getUser(request, principal);
         user = userDAO.getUserWithInfo(user.getLogin());
         try {
@@ -207,25 +208,30 @@ public class UserController {
                 /*Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();*/
                 Set<User> allUsers = ((Organization)session.getAttribute("org")).getAllEmployers();
                 allUsers.remove(user);
-                model.addAttribute("bosses", allUsers);
-                model.addAttribute(user);
-                model.addAttribute("saved", 0);
-                return "userSettings";
+                modelAndView.addObject("bosses", allUsers);
+                modelAndView.addObject(user);
+                modelAndView.addObject("saved", 0);
+                return modelAndView;
             }
             session.setAttribute("profile", user);
 
         }catch (Exception e){
             logger.error(e.getMessage(), e);
+            redirectAttributes.addAttribute("status", 500);
+            modelAndView.setViewName("redirect:/error");
         }
+        modelAndView.setViewName("profile");
 
-        return "profile";
+        return modelAndView;
 
     }
 
 
     @PostMapping("{org}/users/{login}")
-    public String changeProfile(@RequestParam String position, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-                                @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss, Model model, HttpSession session){
+    public ModelAndView changeProfile(@RequestParam String position, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+                                @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss,
+                                      Model model, HttpSession session, RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("userSettings");
         User userFromSession = (User) session.getAttribute("user");
         try {
 
@@ -237,7 +243,7 @@ public class UserController {
                 user.getUserInformation().setBirthDate(birth);
                 model.addAttribute("bosses", allUsers);
                 model.addAttribute("saved", false);
-                return "userSettings";
+                return modelAndView;
             }
             userFromSession.updateFromForm(user);
 
@@ -258,8 +264,13 @@ public class UserController {
             model.addAttribute("saved", true);
             model.addAttribute("user", user);
             session.setAttribute("user", user);
-        }catch (Exception e){logger.error("change profile", e);}
-        return "userSettings";
+        }catch (Exception e){
+            logger.error("change profile", e);
+            redirectAttributes.addAttribute("status", 777);
+            redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при изменении профиля пользователя. Сообщите разработчику");
+            modelAndView.setViewName("redirect:/error");
+        }
+        return modelAndView;
     }
 
     @DeleteMapping("{org}/users/{login}")

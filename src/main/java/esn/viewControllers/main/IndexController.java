@@ -56,59 +56,64 @@ public class IndexController {
 
     @GetMapping("/{organization}/contacts")
     @ResponseBody
-    public ResponseEntity<String> fullContactsList(@PathVariable String organization, HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public ResponseEntity<String> fillContactsList(@PathVariable String organization, HttpSession session){
 
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(headers);
-        Organization org = (Organization) session.getAttribute("org");
-        if (user.getGroups().size() == 0){
-           /* Organization org = orgDAO.getOrgByURLWithEmployers(organization);*/
-            org = (Organization) session.getAttribute("org");
-            Set<User> users = new HashSet<>(org.getAllEmployers());
-            users.remove(user);
-            User def = new User();
-            def.setLogin("deleted");
-            users.remove(def);
-
-            JSONObject js = new JSONObject();
-            JSONArray usrs = new JSONArray();
-            users.forEach(u -> {
-                JSONObject us = new JSONObject();
-                us.put("name", u.getName())
-                        .put("status", liveStat.userIsOnline(u.getId()))
-                        .put("id", u.getId())
-                        .put("login", u.getLogin());
-                usrs.put(us);
-            });
-            js.put("name", "Все").put("users", usrs).put("expanded", true);
-            return bb.body(js.toString());
-        }
-        long start = System.currentTimeMillis();
         JSONArray js = new JSONArray();
+        try {
+            User user = (User) session.getAttribute("user");
+            Organization org = (Organization) session.getAttribute("org");
+            if (user.getGroups().size() == 0) {
+                /* Organization org = orgDAO.getOrgByURLWithEmployers(organization);*/
+                org = (Organization) session.getAttribute("org");
+                Set<User> users = new HashSet<>(org.getAllEmployers());
+                users.remove(user);
+                User def = new User();
+                def.setLogin("deleted");
+                users.remove(def);
 
-        Organization finalOrg = org;
-        user.getGroups().forEach(g -> {
-            JSONObject group = new JSONObject();
-            JSONArray usrs = new JSONArray();
-            Arrays.stream(g.getPersonIds()).forEach(id -> {
-                /*User u = userDAO.getUserById(id);*/
-                User u = finalOrg.getEmployerById(id);
-                JSONObject us = new JSONObject();
-                us.put("name", u.getName())
-                        .put("status", liveStat.userIsOnline(u.getId()))
-                        .put("id", u.getId())
-                        .put("login", u.getLogin());
-                usrs.put(us);
+                JSONObject jsOb = new JSONObject();
+                JSONArray usrs = new JSONArray();
+                users.forEach(u -> {
+                    JSONObject us = new JSONObject();
+                    us.put("name", u.getName())
+                            .put("status", liveStat.userIsOnline(u.getId()))
+                            .put("id", u.getId())
+                            .put("login", u.getLogin());
+                    usrs.put(us);
+                });
+                jsOb.put("name", "Все").put("users", usrs).put("expanded", true);
+                return bb.body(js.toString());
+            }
+            long start = System.currentTimeMillis();
+
+
+            Organization finalOrg = org;
+            user.getGroups().forEach(g -> {
+                JSONObject group = new JSONObject();
+                JSONArray usrs = new JSONArray();
+                Arrays.stream(g.getPersonIds()).forEach(id -> {
+                    /*User u = userDAO.getUserById(id);*/
+                    User u = finalOrg.getEmployerById(id);
+                    JSONObject us = new JSONObject();
+                    us.put("name", u.getName())
+                            .put("status", liveStat.userIsOnline(u.getId()))
+                            .put("id", u.getId())
+                            .put("login", u.getLogin());
+                    usrs.put(us);
+                });
+
+                group.put("name", g.getName())
+                        .put("expanded", g.isExpandable())
+                        .put("users", usrs);
+                js.put(group);
             });
 
-            group.put("name", g.getName())
-                    .put("expanded", g.isExpandable())
-                    .put("users", usrs);
-            js.put(group);
-        });
-
-        logger.debug("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
-        logger.debug(user);
+            logger.debug("BENCHMARK STREAM_1 : " + String.valueOf(System.currentTimeMillis() - start));
+            logger.debug(user);
+        }catch (Exception e){
+            logger.error("fillContactsList", e);
+        }
 
         return bb.body(js.toString());
     }

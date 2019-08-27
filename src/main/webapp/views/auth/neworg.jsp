@@ -70,7 +70,7 @@
         <div class="inline">
             <label class="prop_label">Введите URL на латинице:</label>
             <springform:input path="urlName"  type="text" class="reg_el" title="Относительный путь, который будет отображаться в строке браузера.
-         Должен состоять только из символов латинского алфавита и цифр, исключая другие символы"></springform:input>
+         Должен состоять не менее чем из 4 символов латинского алфавита / цифр, исключая другие символы"></springform:input>
             <span class="star">*</span>
         </div>
 

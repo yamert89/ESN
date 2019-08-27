@@ -19,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,17 +59,25 @@ public class GenChatController {
     }
 
     @GetMapping("/{organization}/chat")
-    public String genChat(Model model, HttpSession session, HttpServletRequest request, Principal principal){
-        User user = sessionUtil.getUser(request, principal);
-        Organization org = (Organization) session.getAttribute("org");
-        int orgId = org.getId();
+    public ModelAndView genChat(Model model, HttpSession session, HttpServletRequest request,
+                                RedirectAttributes redirectAttributes, Principal principal){
+        ModelAndView modelAndView = new ModelAndView("gen_chat");
+        try {
+            User user = sessionUtil.getUser(request, principal);
+            Organization org = (Organization) session.getAttribute("org");
+            int orgId = org.getId();
 
-        model.addAttribute("photo", user.getPhoto_small());
-        List<AbstractMessage> messages = genDAO.getMessages(orgId, -1);
-        long newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
-        session.setAttribute("lastIdx_genchat", newIdx);
-        model.addAttribute("messages", messages);
-        return "gen_chat";
+            modelAndView.addObject("photo", user.getPhoto_small());
+            List<AbstractMessage> messages = genDAO.getMessages(orgId, -1);
+            long newIdx = messages.size() < GeneralSettings.AMOUNT_GENCHAT_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
+            session.setAttribute("lastIdx_genchat", newIdx);
+            modelAndView.addObject("messages", messages);
+        }catch (Exception e){
+            logger.error("genchat", e);
+            redirectAttributes.addAttribute("status", 500);
+            modelAndView.setViewName("redirect:/error");
+        }
+        return modelAndView;
     }
 
     @PostMapping("/savemessage")

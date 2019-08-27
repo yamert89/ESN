@@ -71,6 +71,7 @@ public class NotesController {
             session.setAttribute("user", user);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
+            return false;
         }
         logger.debug(" /note   after  " + user);
         return true;

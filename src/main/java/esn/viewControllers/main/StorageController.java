@@ -21,6 +21,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,48 +63,59 @@ public class StorageController {
     }
 
     @GetMapping(value = "/{organization}/storage")
-    public String storage(/*@SessionAttribute User user*/ Model model, SessionStatus status, HttpSession session, HttpServletRequest request, Principal principal){
-        User user = sessionUtil.getUser(request, principal);
-        status.setComplete();
-        try{
-            user.getStoredFiles().size();
-        }catch (LazyInitializationException e){
-            user = userDAO.getUserWithFiles(user.getId());
+    public ModelAndView storage(RedirectAttributes redirectAttributes, Model model, SessionStatus status, HttpSession session, HttpServletRequest request, Principal principal){
+        ModelAndView modelAndView = new ModelAndView("storage");
+        try {
+            User user = sessionUtil.getUser(request, principal);
+            status.setComplete();
+            try {
+                user.getStoredFiles().size();
+            } catch (LazyInitializationException e) {
+                user = userDAO.getUserWithFiles(user.getId());
+            }
+            modelAndView.addObject("sharedFiles", globalDAO.getSharedFiles(user.getOrganization()));
+            modelAndView.addObject("filesPath", "/resources/data/" + user.getOrganization().getUrlName() + "/stored_files/" + user.getLogin() + "/");
+
+            modelAndView.addObject("user", user);
+            session.setAttribute("user", user);
+        }catch (Exception e){
+            logger.error("storage", e);
+            redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при загрузке страницы хранилища. Сообщите разработчику");
+            redirectAttributes.addAttribute("status", 777);
+            modelAndView.setViewName("redirect:/error");
         }
-        model.addAttribute("sharedFiles", globalDAO.getSharedFiles(user.getOrganization()));
-        model.addAttribute("filesPath", "/resources/data/" + user.getOrganization().getUrlName() + "/stored_files/" + user.getLogin() + "/");
 
-        model.addAttribute("user", user);
-        session.setAttribute("user", user);
-
-        return "storage";
+        return modelAndView;
     }
 
     @PostMapping("/savefile")
     @ResponseBody
     public ResponseEntity<String> saveFile(@RequestParam(name = "file") MultipartFile file, @RequestParam String shared,
             /* */HttpSession session){
-        User user = (User) session.getAttribute("user");
-        String orgUrl = ((Organization) session.getAttribute("org")).getUrlName();
-        if (SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize()/1024d/1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100 ||
-                SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize()/1024d/1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100)
-        {
-            return ResponseEntity.ok().headers(headers).body("{\"success\" : false, \"overflow\" : true}");
-        }
-
-        String name = file.getOriginalFilename();
-        logger.debug("FILE " + name);
-        String path = GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" +  user.getLogin() + "\\" + name;
-        logger.debug("PATH " + path);
         try {
-            FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-        }
+            User user = (User) session.getAttribute("user");
+            String orgUrl = ((Organization) session.getAttribute("org")).getUrlName();
+            if (SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100 ||
+                    SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100) {
+                return ResponseEntity.ok().headers(headers).body("{\"success\" : false, \"overflow\" : true}");
+            }
 
-        user.getStoredFiles().add(new StoredFile(name, Timestamp.from(Instant.now()), user, shared.equals("1")));
-        user = userDAO.updateUser(user);
-        session.setAttribute("user", user);
+            String name = file.getOriginalFilename();
+            logger.debug("FILE " + name);
+            String path = GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\" + name;
+            logger.debug("PATH " + path);
+            try {
+                FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
+            } catch (IOException e) {
+                logger.error(e.getMessage(), e);
+            }
+
+            user.getStoredFiles().add(new StoredFile(name, Timestamp.from(Instant.now()), user, shared.equals("1")));
+            user = userDAO.updateUser(user);
+            session.setAttribute("user", user);
+        }catch (Exception e){
+            logger.error("saveFile", e);
+        }
         return ResponseEntity.ok().headers(headers).body("{\"success\" : true}");
     }
 
@@ -111,13 +124,14 @@ public class StorageController {
     public void updateFile(@RequestParam String fname, @RequestParam String update,
                            @RequestParam(required = false) String newName, HttpSession session){
         User user = (User) session.getAttribute("user");
-        Iterator<StoredFile> it = user.getStoredFiles().iterator();
-        StoredFile storedFile = null;
-        while (it.hasNext()){
-            storedFile = it.next();
-            if (storedFile.getName().equals(fname)) break;
-        }
-        try {
+        try{
+            Iterator<StoredFile> it = user.getStoredFiles().iterator();
+            StoredFile storedFile = null;
+            while (it.hasNext()){
+                storedFile = it.next();
+                if (storedFile.getName().equals(fname)) break;
+            }
+
             switch (update) {
                 case "share":
                     storedFile.setShared(true);
@@ -139,9 +153,9 @@ public class StorageController {
                     storedFile.setName(newName);
                     break;
             }
-        }catch (IOException e){
-            logger.error(e.getMessage(), e);
-        }
+            }catch (IOException e){
+                logger.error(e.getMessage(), e);
+            }
         //user = userDAO.getUserWithFiles(user.getId());
         user = userDAO.updateUser(user);
         session.setAttribute("user", user);
@@ -150,9 +164,13 @@ public class StorageController {
     @GetMapping("/storage_size")
     @ResponseBody
     public ResponseEntity<String> getStorageSizes(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        int publicS = SimpleUtils.getPublicStoragePercentageSize(user.getOrganization().getUrlName());
-        int privateS = SimpleUtils.getPrivateStoragePercentageSize(user.getOrganization().getUrlName(), user.getLogin());
+        int publicS = 0;
+        int privateS = 0;
+        try {
+            User user = (User) session.getAttribute("user");
+            publicS = SimpleUtils.getPublicStoragePercentageSize(user.getOrganization().getUrlName());
+            privateS = SimpleUtils.getPrivateStoragePercentageSize(user.getOrganization().getUrlName(), user.getLogin());
+        }catch (Exception e){logger.error("getStorageSIze",e);}
         return ResponseEntity.ok().headers(headers).body("{\"public\":" + publicS + ", \"private\":" + privateS + "}");
 
     }
