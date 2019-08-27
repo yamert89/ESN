@@ -187,9 +187,6 @@ public class UserController {
         }catch (Exception e){
             logger.error("REG_USER ERROR", e);
             redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при регистрации пользователя. Сообщите разработчику");
-            /*RedirectView rw = new RedirectView("error");
-            rw.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            modelAndView.setView(rw);*/
             redirectAttributes.addAttribute("status", 777);
             modelAndView.setViewName("redirect:/error");
             return modelAndView;

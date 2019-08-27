@@ -55,35 +55,44 @@ public class OrgController {
 
     @PostMapping("/neworg")
     @ResponseStatus(code = HttpStatus.SEE_OTHER)
-    public String regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result, @RequestParam(required = false) String pos, HttpSession session){
-        logger.debug("positions : " + pos);
-        if (result.hasErrors()) return "neworg";
-        logger.debug(result.getFieldErrors().size());
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String corpKey = encoder.encode(org.getName() + System.currentTimeMillis() * Math.random());
-        String adminKey = encoder.encode(org.getName() + System.currentTimeMillis() * Math.random());
-
-        if (!pos.equals("")){
-            String[] poss = pos.split(", ");
-            if (org.getPositions() == null) org.setPositions(new HashSet<>());
-            org.getPositions().clear();
-            Collections.addAll(org.getPositions(), poss );
-        }
-
-        org.setCorpKey(corpKey);
-        org.setAdminKey(adminKey);
-        org.setHeaderPath("/app/header.jpg");
-        org.setRegisterDate(Calendar.getInstance());
+    public ModelAndView regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result,
+                                       @RequestParam(required = false) String pos, HttpSession session, RedirectAttributes redirectAttributes){
+        ModelAndView modelAndView = new ModelAndView("neworg");
         try {
-            if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
-            org = orgService.merge(org);
-        } catch (DataIntegrityViolationException e){
-            result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
-            return "neworg";
-        }
-        session.setAttribute("org", org);
+            logger.debug("positions : " + pos);
+            if (result.hasErrors()) return modelAndView;
+            logger.debug(result.getFieldErrors().size());
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String corpKey = encoder.encode(org.getName() + System.currentTimeMillis() * Math.random());
+            String adminKey = encoder.encode(org.getName() + System.currentTimeMillis() * Math.random());
 
-        return "redirect:/" + org.getUrlName() + "/profile";
+            if (!pos.equals("")) {
+                String[] poss = pos.split(", ");
+                if (org.getPositions() == null) org.setPositions(new HashSet<>());
+                org.getPositions().clear();
+                Collections.addAll(org.getPositions(), poss);
+            }
+
+            org.setCorpKey(corpKey);
+            org.setAdminKey(adminKey);
+            org.setHeaderPath("/app/header.jpg");
+            org.setRegisterDate(Calendar.getInstance());
+            try {
+                if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
+                org = orgService.merge(org);
+            } catch (DataIntegrityViolationException e) {
+                result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
+                return modelAndView;
+            }
+            session.setAttribute("org", org);
+        }catch (Exception e){
+            logger.error("REG_ORG ERROR", e);
+            redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при регистрации профиля. Сообщите разработчику");
+            redirectAttributes.addAttribute("status", 777);
+            modelAndView.setViewName("redirect:/error");
+        }
+        modelAndView.setViewName("redirect:/" + org.getUrlName() + "/profile");
+        return modelAndView;
     }
 
     @GetMapping("/{organ}/profile")
@@ -108,22 +117,31 @@ public class OrgController {
     }
 
     @PostMapping("/{organ}/profile")
-    public String profileSubmit(@Valid @ModelAttribute Organization org, @RequestParam String pos,
-                                @RequestParam MultipartFile header, @PathVariable String organ, BindingResult bindingResult, Model model, HttpSession session){
-        Organization orgFromSession = (Organization) session.getAttribute("org");
-        if (bindingResult.hasErrors()) return "org_profile";
-        String[] poss = pos.split(", ");
-        Set<String> positions = orgFromSession.getPositions();
-        if (positions == null) orgFromSession.setPositions(new HashSet<>());
-        orgFromSession.getPositions().clear();
-        Collections.addAll(orgFromSession.getPositions(), poss );
-        /*String headerPath*/
-        if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
-        orgFromSession.updateFromForm(org);
-        orgService.merge(orgFromSession);
+    public ModelAndView profileSubmit(@Valid @ModelAttribute Organization org, @RequestParam String pos,
+                                @RequestParam MultipartFile header, RedirectAttributes redirectAttributes,
+                                      BindingResult bindingResult, Model model, HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("org_profile");
+        Organization orgFromSession = null;
+        try {
+            orgFromSession = (Organization) session.getAttribute("org");
+            if (bindingResult.hasErrors()) return modelAndView;
+            String[] poss = pos.split(", ");
+            Set<String> positions = orgFromSession.getPositions();
+            if (positions == null) orgFromSession.setPositions(new HashSet<>());
+            orgFromSession.getPositions().clear();
+            Collections.addAll(orgFromSession.getPositions(), poss);
+            /*String headerPath*/
+            if (!header.isEmpty()) ImageUtil.writeHeader(orgFromSession, header);
+            orgFromSession.updateFromForm(org);
+            orgService.merge(orgFromSession);
+        }catch (Exception e){
+            logger.error("ORG PROFILE ERROR", e);
+            redirectAttributes.addAttribute("status", 500);
+            modelAndView.setViewName("redirect:/error");
+        }
         model.addAttribute("org", orgFromSession);
         model.addAttribute("saved", true);
-        return "org_profile";
+        return modelAndView;
     }
 
     @GetMapping("/delete_org")
