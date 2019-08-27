@@ -68,7 +68,7 @@ iframe{
     padding-left: 20%;
     text-shadow: 0 0 3px white;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-
+    cursor: default;
 }
 
 .user_photo{

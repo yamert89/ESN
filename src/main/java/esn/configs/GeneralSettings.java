@@ -62,7 +62,7 @@ public class GeneralSettings {
 
     //TODO CSRF Protection security.xml
     //FIXME storage svg works not always
-    //FIXME example img выходит за границы
+    //FIXME
     //FIXME gen chat new mes icon bag for remember session
     //FIXME
     //FIXME
@@ -80,14 +80,14 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //TODO протестировать удаленного пользователя
-    //TODO транзакционное сохранение сущнос
+    //TODO LONG транзакционное сохранение сущнос
     //TODO
-    //TODO заменить импуты спец тегами
-    //TODO восстановление пароля
-    //TODO описание нигде не используется
-    //TODO передать обекты под управление контейнера
-    //TODO оформить ошибку удаленной организации для сохранненых юзеров
+    //TODO LONG заменить импуты спец тегами
+    //TODO LONG восстановление пароля
     //TODO
+    //TODO LONG передать обекты под управление контейнера
+    //TODO LONG оформить ошибку удаленной организации для сохранненых юзеров
+    //TODO LONG example img выходит за границы
     //TODO
     //TODO
     //TODO перенаправить все ошибки контроллера пользователю

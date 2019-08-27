@@ -23,7 +23,7 @@
 <header style='background-image: url(${"/resources/data".concat(sessionScope.get("org").getHeaderPath())}); background-size: auto 100%;'>
     <c:set var="user" value='${sessionScope.get("user")}'/>
     <c:set var="orgUrl" value='${sessionScope.get("org").getUrlName()}'/>
-    <div class="title" align="center" data-url='${orgUrl}' data-org-id='${sessionScope.get("org").getId()}'>${user.organization.name}</div>
+    <div class="title" title="${user.organization.description}" data-url='${orgUrl}' data-org-id='${sessionScope.get("org").getId()}'>${user.organization.name}</div>
     <div class="user">
         <span class="user_name" data-login="${user.login}" data-user_id="${user.id}" data-user_shortName="${user.shortName}">${user.name}</span>
         <div class="wr">
