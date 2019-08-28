@@ -69,9 +69,9 @@ public class StaffController {
 
     @GetMapping("/getstaff")
     @ResponseBody
-    public ResponseEntity<String> getStaff(HttpSession session){
-        User user = (User) session.getAttribute("user");
-        Organization org = (Organization) session.getAttribute("org");
+    public ResponseEntity<String> getStaff(HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        Organization org = sessionUtil.getOrg(request, principal);
         //org = orgDAO.getOrgByURLWithEmployers(org.getUrlName());
 
         String json = "";
@@ -126,9 +126,9 @@ public class StaffController {
     @PostMapping("/department")
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<Long> saveDepartment(@RequestParam String newname,
-                                               @RequestParam String oldname, @RequestParam String ids, HttpSession session){
+                                               @RequestParam String oldname, @RequestParam String ids, HttpServletRequest request, Principal principal){
 
-        Organization organization = (Organization) session.getAttribute("org");
+        Organization organization = sessionUtil.getOrg(request, principal);
         ObjectMapper om = new ObjectMapper();
         Department department = null;
         try {
@@ -156,8 +156,8 @@ public class StaffController {
     @DeleteMapping("/departments")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public void clearDeps(HttpSession session){
-        Organization org = (Organization) session.getAttribute("org");
+    public void clearDeps(HttpSession session, HttpServletRequest request, Principal principal){
+        Organization org = sessionUtil.getOrg(request, principal);
         try {
             org.getDepartments().clear();
         }catch (Exception e){

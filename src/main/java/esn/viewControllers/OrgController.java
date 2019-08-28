@@ -4,6 +4,7 @@ import esn.db.UserDAO;
 import esn.db.service.OrgService;
 import esn.entities.Organization;
 import esn.utils.ImageUtil;
+import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,6 +38,13 @@ public class OrgController {
 
     private OrgService orgService;
     private UserDAO userDAO;
+
+    private SessionUtil sessionUtil;
+
+    @Autowired
+    public void setSessionUtil(SessionUtil sessionUtil) {
+        this.sessionUtil = sessionUtil;
+    }
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
@@ -146,8 +156,8 @@ public class OrgController {
 
     @GetMapping("/delete_org")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrg(HttpSession session){
-        Organization organization = (Organization) session.getAttribute("org");
+    public void deleteOrg(HttpServletRequest request, Principal principal){
+        Organization organization = sessionUtil.getOrg(request, principal);
         organization.setDisabled(true);
         orgService.merge(organization);
     }

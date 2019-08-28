@@ -108,10 +108,10 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String exit(HttpSession session, HttpServletRequest request){
+    public String exit(HttpSession session, HttpServletRequest request, Principal principal){
         try {
             int orgId = ((Organization) session.getAttribute("org")).getId();
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             liveStat.userLogout(user.getId());
             webSocketService.sendStatus(orgId, user.getId(), false);
             userDAO.saveSession(new Session(session.getId(), user, request.getRemoteAddr(),
@@ -276,9 +276,9 @@ public class UserController {
     @DeleteMapping("{org}/users/{login}")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public void deleteProfile(HttpSession session, @PathVariable String login){
+    public void deleteProfile(HttpServletRequest request, Principal principal){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             Organization org = user.getOrganization();
             org.getAllEmployers().remove(user);
             orgService.merge(org);
@@ -290,8 +290,8 @@ public class UserController {
     @PostMapping("{org}/users/{login}/p")
     @ResponseBody
     public ResponseEntity<Boolean> changePassword(@RequestParam(required = false) String newPass, @RequestParam(required = false) String oldPass,
-                                  @PathVariable String login, @PathVariable String org, HttpSession session, HttpServletRequest request){
-        User user = (User) session.getAttribute("user");
+                                  HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (!encoder.encode(oldPass).equals(user.getPassword())) ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
         user.setPassword(encoder.encode(newPass));
@@ -302,9 +302,8 @@ public class UserController {
 
     @GetMapping("{org}/users/{login}/p")
     @ResponseBody
-    public ResponseEntity<Boolean> checkPassword(@PathVariable String login,  @PathVariable String org,
-                                                 @RequestParam String pass, HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public ResponseEntity<Boolean> checkPassword(HttpServletRequest request, Principal principal, @RequestParam String pass){
+        User user = sessionUtil.getUser(request, principal);
         boolean res = new BCryptPasswordEncoder().encode(pass).equals(user.getPassword());
         return ResponseEntity.ok().contentLength(res ? 4 : 5).body(res);
     }

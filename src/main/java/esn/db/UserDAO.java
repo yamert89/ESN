@@ -70,7 +70,8 @@ public class UserDAO {
 
     @Transactional
     public User getReference(Integer id){
-        return em.getReference(User.class,id);
+        User user = em.getReference(User.class,id);
+        return user;
     }
 
     @Transactional

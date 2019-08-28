@@ -64,7 +64,7 @@ public class GenChatController {
         ModelAndView modelAndView = new ModelAndView("gen_chat");
         try {
             User user = sessionUtil.getUser(request, principal);
-            Organization org = (Organization) session.getAttribute("org");
+            Organization org = sessionUtil.getOrg(request, principal);
             int orgId = org.getId();
 
             modelAndView.addObject("photo", user.getPhoto_small());
@@ -82,10 +82,11 @@ public class GenChatController {
 
     @PostMapping("/savemessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveMessage(@RequestParam String userId, @RequestParam String text,
-                            @RequestParam String time, HttpSession session){
-        int orgId = ((Organization) session.getAttribute("org")).getId();
-        User user = (User) session.getAttribute("user");
+    public void saveMessage(@RequestParam String text,
+                            @RequestParam String time, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        int orgId = user.getOrganization().getId();
+
         try {
             genDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
             webSocketService.newGenChatMessageAlert(user, time, text);
@@ -97,8 +98,8 @@ public class GenChatController {
 
     @PostMapping("/deletemessage") //TODO удалять у других через ws
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteGenMessage(@RequestParam String text, HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public void deleteGenMessage(@RequestParam String text, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         //int orgId = ((Organization) session.getAttribute("org")).getId();
         genDAO.deleteMessage(user.getId(), text);
     }

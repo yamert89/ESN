@@ -48,7 +48,7 @@ public class GroupsController {
         ModelAndView modelAndView = new ModelAndView("groups");
         try {
             User user = sessionUtil.getUser(request, principal);
-            Organization org = (Organization) session.getAttribute("org");
+            Organization org = sessionUtil.getOrg(request, principal);
             //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
             Set<User> employers = org.getAllEmployers();
             employers.remove(user);
@@ -93,8 +93,8 @@ public class GroupsController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-                          HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
+            HttpServletRequest request, Principal principal, Model model){
+        User user = sessionUtil.getUser(request, principal);
         try {
             String[] ids_s = personIds.split(",");
             if (ids_s.length == 1 && ids_s[0].equals("")) return;
@@ -115,8 +115,8 @@ public class GroupsController {
 
     @GetMapping("/deletegroup")
     @ResponseStatus(code = HttpStatus.OK)
-    public void deleteGroup(@RequestParam String groupName,  HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public void deleteGroup(@RequestParam String groupName,  HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         try {
             Iterator<ContactGroup> it = user.getGroups().iterator();
             ContactGroup group = null;
@@ -134,8 +134,8 @@ public class GroupsController {
 
     @GetMapping("/expand-props")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void saveExpandStatus(@RequestParam String groups,  HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public void saveExpandStatus(@RequestParam String groups,  HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         //[{"name" : "ddsf", "expand" : true},{}]
         ObjectMapper om = new ObjectMapper();
         List<PseudoContactGroup> grps = null;

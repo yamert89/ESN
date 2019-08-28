@@ -79,9 +79,9 @@ public class WallController {
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestParam String userId, @RequestParam String text,
-                         @RequestParam String time, HttpSession session){
+                         @RequestParam String time, HttpSession session, HttpServletRequest request, Principal principal){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             int orgId = ((Organization) session.getAttribute("org")).getId();
 
                 wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
@@ -93,9 +93,9 @@ public class WallController {
 
     @PostMapping("/deletepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletePost(@RequestParam String text, HttpSession session){
+    public void deletePost(@RequestParam String text, HttpServletRequest request, Principal principal){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             wallDAO.deleteMessage(user.getId(), text);
         }catch (Exception e){logger.error("deletePost", e);}
     }

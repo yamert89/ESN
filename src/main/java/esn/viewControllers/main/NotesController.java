@@ -57,8 +57,8 @@ public class NotesController {
 
     @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.OK)
-    public boolean saveNote(@RequestParam String time, @RequestParam String text, HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public boolean saveNote(@RequestParam String time, @RequestParam String text, HttpSession session, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         try {
             logger.debug(" /note   before   " + user);
             //time = "15.03.2019, 00:00:00";
@@ -78,8 +78,8 @@ public class NotesController {
     }
 
     @GetMapping("/notes")
-    public ResponseEntity<String> getNotes(HttpSession session){
-        User user = (User) session.getAttribute("user");
+    public ResponseEntity<String> getNotes(HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
         try {
             Map<Timestamp, String> notes = user.getNotes();
             Calendar today = Calendar.getInstance();

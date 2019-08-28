@@ -6,13 +6,18 @@ function DayWithText(day){
 }
 
 window.listOfDatesNoted = [];
+
+/*$(window).on("beforeunload", function () {
+    sessionStorage.clear();
+});*/
+
 $(document).ready(function () {
     console.log("index works");
-    if (sessionStorage.getItem("gen") == "on") $("#chat").find("img").css("display", "inline-block");
-    $(".person_item").each(function () {
-        if (sessionStorage.getItem("private" + $(this).attr("data-id")) == "on") $(this).children().first().next().css("display", "inline-block");
 
+    $(".logout").click(function () {
+       sessionStorage.clear();
     });
+
 
     $(".problem").click(function () {
        var mes = prompt("Введите текст сообщения", "");
@@ -206,7 +211,10 @@ function connectWS() {
             switch (resp._alert) {
                 case 'genmessage':
                     if (resp.initiatorId == userId) return;
-                    if (!$("#chat").hasClass("selected")) $("#chat_m").css("display", "block");
+                    if (!$("#chat").hasClass("selected")) {
+                        $("#chat_m").css("display", "block");
+                        sessionStorage.setItem("gen", "on");
+                    }
                     else {
                         renderMessage(resp.mes , 'mailing');
                         //location.reload();
@@ -313,7 +321,8 @@ function connectWS() {
 function privateMessageAlert(senderId){
     $(".contacts-frame").find("[data-id=" + senderId + "]").each(function () {
         $(this).children().first().next().css("display", "inline-block") ;
-    })
+    });
+    sessionStorage.setItem("private" + senderId, "on");
 }
 
 

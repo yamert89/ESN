@@ -87,7 +87,7 @@ public class GeneralSettings {
     //TODO LONG оформить ошибку удаленной организации для сохранненых юзеров
     //TODO LONG example img выходит за границы
     //TODO LONG CSRF Protection security.xml
-    //TODO
+    //TODO LONG get reference for save entity
     //TODO
     //TODO
     //TODO

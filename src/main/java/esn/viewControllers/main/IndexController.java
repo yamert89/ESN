@@ -56,13 +56,13 @@ public class IndexController {
 
     @GetMapping("/{organization}/contacts")
     @ResponseBody
-    public ResponseEntity<String> fillContactsList(@PathVariable String organization, HttpSession session){
+    public ResponseEntity<String> fillContactsList(HttpSession session, HttpServletRequest request, Principal principal){
 
         ResponseEntity.BodyBuilder bb = ResponseEntity.ok().headers(headers);
         JSONArray js = new JSONArray();
         try {
-            User user = (User) session.getAttribute("user");
-            Organization org = (Organization) session.getAttribute("org");
+            User user = sessionUtil.getUser(request, principal);
+            Organization org = sessionUtil.getOrg(request, principal);
             if (user.getGroups().size() == 0) {
                 /* Organization org = orgDAO.getOrgByURLWithEmployers(organization);*/
                 org = (Organization) session.getAttribute("org");
@@ -83,7 +83,7 @@ public class IndexController {
                     usrs.put(us);
                 });
                 jsOb.put("name", "Все").put("users", usrs).put("expanded", true);
-                return bb.body(js.toString());
+                return bb.body(jsOb.toString());
             }
             long start = System.currentTimeMillis();
 
@@ -133,9 +133,9 @@ public class IndexController {
     @PostMapping("/problem")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void problem(@RequestParam String message, HttpSession session){
-        User user = (User) session.getAttribute("user");
-        Organization org = (Organization) session.getAttribute("org");
+    public void problem(@RequestParam String message, HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        Organization org = sessionUtil.getOrg(request, principal);
         emailService.send("Problem", message, "User: " + user + "\n org: " + org.getUrlName(), null);
     }
 

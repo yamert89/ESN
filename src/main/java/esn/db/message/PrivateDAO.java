@@ -63,10 +63,10 @@ public class PrivateDAO extends MessagesDAO {
     }
 
     @Transactional
-    public Object[] getOfflinePrivateMSenderIds(Calendar visitTime, User recipient, int orgId){
+    public Object[] getOfflinePrivateMSenderIds(Calendar visitTime, int recipientId, int orgId){
         return em.createQuery("select m.sender_id from PrivateChatMessage m where m.orgId = :orgId and m.recipient_id = :recipient and m.time > :visitTime")
                 .setParameter("orgId", orgId)
-                .setParameter("recipient", recipient.getId())
+                .setParameter("recipient", recipientId)
                 .setParameter("visitTime", visitTime)
                 .getResultList().toArray();
     }

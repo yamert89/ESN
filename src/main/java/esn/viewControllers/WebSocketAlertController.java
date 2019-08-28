@@ -62,7 +62,7 @@ public class WebSocketAlertController {
             logger.debug("_______ ASKING NEW MES__________");
             int userId = Integer.parseInt(us);
             User user = userDAO.getReference(userId);
-            //User user = (User) session.getAttribute("user");
+            //User user = sessionUtil.getUser(request, principal);
             Calendar lastVisitTime = null;
             try {
                 lastVisitTime = userDAO.getLastSession(user);
@@ -80,7 +80,7 @@ public class WebSocketAlertController {
 
             if (private_) {
                 try {
-                    privIds = om.writeValueAsString(privateDAO.getOfflinePrivateMSenderIds(lastVisitTime, user, orgID));
+                    privIds = om.writeValueAsString(privateDAO.getOfflinePrivateMSenderIds(lastVisitTime, userId, orgID));
                 } catch (JsonProcessingException e) {
                     logger.error(e.getMessage(), e);
                 }

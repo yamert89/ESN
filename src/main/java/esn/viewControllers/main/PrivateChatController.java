@@ -70,7 +70,7 @@ public class PrivateChatController {
         ModelAndView modelAndView = new ModelAndView("private_chat");
         try {
             User user = sessionUtil.getUser(request, principal);
-            Organization org = (Organization) session.getAttribute("org");
+            Organization org = sessionUtil.getOrg(request, principal);
             int orgId = org.getId();
 
             // User compan = userDAO.getUserByLogin(companion);
@@ -98,7 +98,7 @@ public class PrivateChatController {
             privateDAO.updateReadedMessages(ids);
             webSocketAlertController.readPrivateMessageAlertAll(compan.getId());
             modelAndView.addObject("messages", messages);
-            modelAndView.addObject("online", liveStat.userIsOnline(user.getId()));
+            modelAndView.addObject("online", liveStat.userIsOnline(compan.getId()));
         }catch (Exception e){
             logger.error("privateChat", e);
             redirectAttributes.addFlashAttribute("flash", "Произошла ошибка при получении личных сообщений. Сообщите разработчику");
@@ -111,9 +111,9 @@ public class PrivateChatController {
     @PostMapping("/save_private_message/{companionId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePrivateMessage(@RequestParam String text, @PathVariable String companionId,
-                                   HttpSession session){
+                                   HttpSession session, HttpServletRequest request, Principal principal){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             int orgId = ((Organization) session.getAttribute("org")).getId();
             int cId = Integer.valueOf(companionId);
 
@@ -135,9 +135,9 @@ public class PrivateChatController {
     @PostMapping("/groupmessage")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroupMessage(@RequestParam String text, @RequestParam String groupName,
-                                 HttpSession session){
+                                 HttpSession session, HttpServletRequest request, Principal principal){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             int orgId = ((Organization) session.getAttribute("org")).getId();
             ContactGroup group = user.getGroups().stream()
                     .filter(g -> g.getName().equals(groupName)).findAny().get();

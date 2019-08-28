@@ -91,9 +91,9 @@ public class StorageController {
     @PostMapping("/savefile")
     @ResponseBody
     public ResponseEntity<String> saveFile(@RequestParam(name = "file") MultipartFile file, @RequestParam String shared,
-            /* */HttpSession session){
+            /* */HttpSession session, HttpServletRequest request, Principal principal){
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             String orgUrl = ((Organization) session.getAttribute("org")).getUrlName();
             if (SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100 ||
                     SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100) {
@@ -121,9 +121,9 @@ public class StorageController {
 
     @GetMapping("/savefile")
     @ResponseStatus(code = HttpStatus.OK)
-    public void updateFile(@RequestParam String fname, @RequestParam String update,
+    public void updateFile(@RequestParam String fname, @RequestParam String update, HttpServletRequest request, Principal principal,
                            @RequestParam(required = false) String newName, HttpSession session){
-        User user = (User) session.getAttribute("user");
+        User user = sessionUtil.getUser(request, principal);
         try{
             Iterator<StoredFile> it = user.getStoredFiles().iterator();
             StoredFile storedFile = null;
@@ -163,11 +163,11 @@ public class StorageController {
 
     @GetMapping("/storage_size")
     @ResponseBody
-    public ResponseEntity<String> getStorageSizes(HttpSession session){
+    public ResponseEntity<String> getStorageSizes(HttpServletRequest request, Principal principal){
         int publicS = 0;
         int privateS = 0;
         try {
-            User user = (User) session.getAttribute("user");
+            User user = sessionUtil.getUser(request, principal);
             publicS = SimpleUtils.getPublicStoragePercentageSize(user.getOrganization().getUrlName());
             privateS = SimpleUtils.getPrivateStoragePercentageSize(user.getOrganization().getUrlName(), user.getLogin());
         }catch (Exception e){logger.error("getStorageSIze",e);}

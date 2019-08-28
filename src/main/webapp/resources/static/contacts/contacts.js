@@ -5,6 +5,14 @@ function Group(name, expanded){
     this.expanded = expanded;
 }
 
+function checkNewMessages(){
+    console.log("check new mes");
+    if (sessionStorage.getItem("gen") == "on") $("#chat").find("img").css("display", "inline-block");
+    $(".person_item").each(function () {
+        if (sessionStorage.getItem("private" + $(this).attr("data-id")) == "on") $(this).children().first().next().css("display", "inline-block");
+    });
+}
+
 $(document).ready(function () {
     var date = new Date();
     console.log('contacts ready ' + new Date().getSeconds() + ':' + date.getMilliseconds());
@@ -43,6 +51,8 @@ $(document).ready(function () {
         //disconnectWS();
     });
 
+
+
 });
 
 function f() {
@@ -65,6 +75,7 @@ function contactsFill(data) {
     }
 
     $(".contacts-frame").children().last().remove();
+    checkNewMessages();
 }
 
 function renderGroup(group) {
