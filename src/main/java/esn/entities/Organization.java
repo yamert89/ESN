@@ -113,7 +113,7 @@ public class Organization {
     }
 
     public Set<User> getAllEmployers() {
-        return allEmployers;
+        return new HashSet<>(allEmployers);
     }
 
     public Set<String> getPositions() {

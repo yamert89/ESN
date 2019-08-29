@@ -68,7 +68,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME если пришло сообщение ген и приват, при прочтении ген исчезает иконка и у приват
     //FIXME test index js net status
-    //FIXME
+    //FIXME groups not saving
     //FIXME
     //FIXME
     //FIXME

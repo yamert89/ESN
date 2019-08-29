@@ -17,18 +17,13 @@
 <div class="groups_container">
     <div class="staff_container" id="all_staff_cont">
 <c:forEach var="person" items="${employers}">
-    <table class="person_staff">
-        <tr>
-            <td width="100px">
-                <img src='<c:url value="/resources/data${person.photo}"/>' class="person_photo_staff"></td>
-            <td valign="middle">
-                <div class="person_point" data-p-id="${person.id}" data-p-login="${person.login}">
-                    <div class="person_name_staff">${person.shortName}</div>
-                    <div class="person_position">${person.position}</div>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="person_staff">
+        <img src='<c:url value="/resources/data${person.photo}"/>' class="person_photo_staff">
+        <div class="person_point" data-p-id="${person.id}" data-p-login="${person.login}">
+            <div class="person_name_staff">${person.shortName}</div>
+            <div class="person_position">${person.position}</div>
+        </div>
+    </div>
 </c:forEach>
     </div>
 
@@ -56,18 +51,13 @@
     <c:forEach var="group" items="${groups}">
         <div class="group_temp" data-name="${group.key}">
             <c:forEach var="person" items="${group.value}">
-                <table class="person_staff">
-                    <tr>
-                        <td width="100px">
-                            <img src='<c:url value="/resources/data${person.photo}"/>' class="person_photo_staff"></td>
-                        <td valign="middle">
-                            <div class="person_point" data-p-id="${person.id}" data-p-login="${person.login}">
-                                <div class="person_name_staff">${person.shortName}</div>
-                                <div class="person_position">${person.position}</div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div class="person_staff">
+                    <img src='<c:url value="/resources/data${person.photo}"/>' class="person_photo_staff">
+                    <div class="person_point" data-p-id="${person.id}" data-p-login="${person.login}">
+                        <div class="person_name_staff">${person.shortName}</div>
+                        <div class="person_position">${person.position}</div>
+                    </div>
+                </div>
             </c:forEach>
 
         </div>

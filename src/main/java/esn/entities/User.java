@@ -265,17 +265,17 @@ public class User implements Cloneable{
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return  Objects.equals(getLogin(), user.getLogin());
+        return  Objects.equals(login, user.getLogin());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLogin());
+        return Objects.hash(login);
     }
 
     @Override
     public String toString() {
-        return name;//groups.stream().map(ContactGroup::getName).collect(Collectors.joining(", "));
+        return "id: " + id + " | name: " + name ;//groups.stream().map(ContactGroup::getName).collect(Collectors.joining(", "));
         /*"hashGroups: " + groups.hashCode() + "user Createtime: " + new Date();*/
         /*return "User{" +
                 "name='" + name + '\'' +

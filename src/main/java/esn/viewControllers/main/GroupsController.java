@@ -54,6 +54,7 @@ public class GroupsController {
             employers.remove(user);
             User del = new User();
             del.setLogin("deleted");
+            del.setId(0);
             employers.remove(del);
             modelAndView.addObject("employers", employers);
             Set<ContactGroup> groups = user.getGroups();
@@ -93,7 +94,7 @@ public class GroupsController {
     @PostMapping("/savegroup")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroup(@RequestParam String groupName, @RequestParam String personIds,
-            HttpServletRequest request, Principal principal, Model model){
+            HttpServletRequest request, Principal principal, Model model, HttpSession session){
         User user = sessionUtil.getUser(request, principal);
         try {
             String[] ids_s = personIds.split(",");
@@ -104,8 +105,8 @@ public class GroupsController {
             // userDAO.refresh(user);
 
             user = userDAO.updateUser(user);
-            //session.setAttribute("user", user);
-            model.addAttribute(user);
+            session.setAttribute("user", user);
+            //model.addAttribute(user);
 
         }catch (Exception e){
             logger.error(e.getMessage(), e);

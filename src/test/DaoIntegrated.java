@@ -3,17 +3,16 @@ import esn.db.UserDAO;
 import esn.db.message.WallDAO;
 import esn.entities.Organization;
 import esn.entities.User;
-import esn.entities.secondary.Post;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/app_context.xml",
@@ -58,6 +57,26 @@ public class DaoIntegrated extends org.springframework.test.context.junit4.Abstr
         us2.setLogin("yamert");
         set.remove(us2);
         Assert.assertEquals(0, set.size());
+    }
+
+    @Test
+    public void eq(){
+        Set<User> users = organizationDAO.find(1).getAllEmployers();
+        User user = userDAO.getUserById(3);
+        System.out.println(user.getName() + "   " + user.getId() + "   " + user.hashCode());
+        System.out.println("---------------------");
+
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()){
+            User user1 = iterator.next();
+            System.out.println(user1.getName() + "   " + user1.getId() + "   " + user1.hashCode());
+        }
+        users.remove(user);
+        Assert.assertEquals(2,users.size());
+
+
+
+
     }
 
 }

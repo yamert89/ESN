@@ -48,27 +48,21 @@ form{
 .person_staff {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(245, 255, 215, 0.71);
+    display: flex;
 }
 
-tr{
-    background-color: rgba(245, 255, 215, 0.71);
-}
-tr:hover{
+.person_staff:hover{
     background-color: rgba(226, 236, 200, 0.85);
 }
+.person_point{
+    display: flex;
+    flex-direction: column;
+}
+
 .person_selected{
     background-color: rgba(195, 255, 255, 0.77);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
-}
-td{
-    padding: 0;
-    height: 100px;
-}
-table{
-    border-spacing: 0;
-    padding: 0;
-    border-collapse: collapse;
-
 }
 
 .delete_message{

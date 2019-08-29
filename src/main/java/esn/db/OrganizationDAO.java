@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,6 +19,11 @@ public class OrganizationDAO {
 
     @PersistenceContext
     EntityManager em;
+
+    @Transactional
+    public Organization find(int id){
+        return em.find(Organization.class, id);
+    }
 
 
     public Organization update(Organization org){
