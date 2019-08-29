@@ -251,7 +251,6 @@ public class User implements Cloneable{
         String phoneWork = inf.getPhoneWork();
         String phoneInternal = inf.getPhoneInternal();
         String email = inf.getEmail();
-        if (source.position != null) this.position = source.position;
         if (userInformation == null) userInformation = new UserInformation();
         if (birth != null) userInformation.setBirthDate(birth);
         if (phoneMobile != null) userInformation.setPhoneMobile(phoneMobile);

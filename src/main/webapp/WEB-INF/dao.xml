@@ -65,7 +65,7 @@
                 <prop key="hibernate.use_sql_comments">true</prop>
                 <prop key="hibernate.generate_statistics">false</prop>
                 <prop key="hibernate.show_sql">false</prop>
-                <prop key="log4j.logger.org.hibernate.SQL">debug</prop>
+                <prop key="log4j2.logger.org.hibernate.SQL">debug</prop>
 
             </props>
         </property>

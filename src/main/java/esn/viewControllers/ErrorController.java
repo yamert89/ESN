@@ -44,7 +44,8 @@ public class ErrorController {
                 httpErrorCode = (int) error[0];
             } catch (Exception e) {
                 logger.debug("Альтернативное получение [status] ошибки");
-                httpErrorCode = Integer.parseInt(httpRequest.getParameter("status"));
+                String par = httpRequest.getParameter("status");
+                if (par != null) httpErrorCode = Integer.parseInt(par);
             }
 
             switch (httpErrorCode) {

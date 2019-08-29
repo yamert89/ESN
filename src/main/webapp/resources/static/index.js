@@ -230,6 +230,7 @@ function connectWS() {
                     break;
                 case 'netstatus':
                     var user = JSON.parse(data.body);
+                    if (user.initiatorId == userId) sessionStorage.clear();
                     var usDom = $(".contacts-frame").find("[data-id='" + user.initiatorId + "']");
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                     usDom.find(":first-child").attr("id", stat);
@@ -237,6 +238,7 @@ function connectWS() {
                     var netStatus = $(".person_photo_chat").next(); //TODo test
                     netStatus.attr("id", stat);
                     netStatus.next().text(user.statusOn ? "в сети" : "не в сети");
+
 
                     break;
 

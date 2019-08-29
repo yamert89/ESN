@@ -31,7 +31,7 @@ public class UserInformation implements Serializable {
     @Email(message = "неверный e-mail")
     private String email;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User boss;
 
     public String getPhoneMobile() {

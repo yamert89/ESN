@@ -156,7 +156,7 @@ button:hover{
     display: inline-block;
 }
 .private_chat_container{
-
+    background-color: #dedec6;
     flex-direction: column;
     overflow-y: auto;
     max-width: 1200px;
@@ -166,9 +166,10 @@ button:hover{
     margin: 0 auto;
     line-height: 120%;
     top: calc(2.2em + 196px)!important;
-
-
-
+}
+.private_chat_wrapper{
+    max-width: 1200px;
+    background-color: #d9f3ce38;
 }
 .time-right, .time-left{
     font-size: 0.7em;

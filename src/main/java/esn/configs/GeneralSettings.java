@@ -61,14 +61,14 @@ public class GeneralSettings {
     }
 
     //TODO
-    //FIXME storage svg works not always
-    //FIXME
-    //FIXME gen chat new mes icon bag for remember session
+    //FIXME заметки сохраняются в текущую дату
     //FIXME
     //FIXME
-    //FIXME если пришло сообщение ген и приват, при прочтении ген исчезает иконка и у приват
-    //FIXME test index js net status
-    //FIXME groups not saving
+    //FIXME
+    //FIXME
+    //FIXME
+    //FIXME
+    //FIXME
     //FIXME
     //FIXME
     //FIXME

@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 @Controller
@@ -201,13 +202,16 @@ public class UserController {
                                   Model model, HttpSession session, HttpServletRequest request, Principal principal){
         ModelAndView modelAndView = new ModelAndView("userSettings");
         User user = sessionUtil.getUser(request, principal);
-        user = userDAO.getUserWithInfo(user.getLogin());
+        user = userDAO.getUserWithInfo(user.getId());
         try {
             if (user.getLogin().equals(login)) {
                 session.setAttribute("user", user);
                 /*Set<User> allUsers = orgDAO.getOrgByURLWithEmployers(org).getAllEmployers();*/
-                Set<User> allUsers = ((Organization)session.getAttribute("org")).getAllEmployers();
+                Set<User> allUsers = new HashSet<>(user.getOrganization().getAllEmployers());
                 allUsers.remove(user);
+                User del = new User();
+                del.setLogin("deleted");
+                allUsers.remove(del);
                 modelAndView.addObject("bosses", allUsers);
                 modelAndView.addObject(user);
                 modelAndView.addObject("saved", 0);

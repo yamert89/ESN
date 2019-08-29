@@ -78,7 +78,7 @@ p, h1, h2, h3{
     margin: 5px;
 }
 .wall_container{
-    max-width: 1400px;
+    max-width: 1200px;
     display: flex;
     align-items: center;
     align-content: center;

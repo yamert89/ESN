@@ -50,7 +50,7 @@ public class GroupsController {
             User user = sessionUtil.getUser(request, principal);
             Organization org = sessionUtil.getOrg(request, principal);
             //Set<User> employers = new HashSet<>(orgDAO.getOrgByURLWithEmployers(organization).getAllEmployers());
-            Set<User> employers = org.getAllEmployers();
+            Set<User> employers = new HashSet<>(org.getAllEmployers());
             employers.remove(user);
             User del = new User();
             del.setLogin("deleted");

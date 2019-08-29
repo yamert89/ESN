@@ -11,10 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,7 +54,8 @@ public class NotesController {
 
     @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.OK)
-    public boolean saveNote(@RequestParam String time, @RequestParam String text, HttpSession session, HttpServletRequest request, Principal principal){
+    @ResponseBody
+    public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session, HttpServletRequest request, Principal principal){
         User user = sessionUtil.getUser(request, principal);
         try {
             logger.debug(" /note   before   " + user);
@@ -71,10 +69,10 @@ public class NotesController {
             session.setAttribute("user", user);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
-            return false;
+
         }
         logger.debug(" /note   after  " + user);
-        return true;
+
     }
 
     @GetMapping("/notes")

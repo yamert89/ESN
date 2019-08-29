@@ -52,16 +52,21 @@ public class UserDAO {
 
     @Transactional
     public void deleteUser(User user)throws Exception {
+        logger.debug("prepare deleting user " + user);
         User deleted = (User) em.createQuery("select u from User u where login = 'deleted'").getSingleResult();
         user = contains(user) ? user : getUserById(user.getId());
         em.createQuery("delete from StoredFile f where f.owner = :u and f.shared = false").setParameter("u", user).executeUpdate();
         em.createQuery("update StoredFile s set owner = :deleted").setParameter("deleted", deleted).executeUpdate();
+        em.createQuery("delete from Session s where s.user = :u").setParameter("u", user).executeUpdate();
         em.createNativeQuery("update wall set userid = ? where userid = ?")
-                .setParameter(1, user.getId())
-                .setParameter(2, deleted.getId())
+                .setParameter(1, deleted.getId())
+                .setParameter(2, user.getId())
                 .executeUpdate();
-        em.remove(user);
+        logger.debug("deleteng entity user " + user);
+        em.remove(getReference(user.getId()));
     }
+
+
 
     @Transactional
     public User getUserById(Integer id) {
@@ -73,6 +78,7 @@ public class UserDAO {
         User user = em.getReference(User.class,id);
         return user;
     }
+
 
     @Transactional
     public User getUserByLogin(String login) {
@@ -109,6 +115,13 @@ public class UserDAO {
         Hibernate.initialize(user.getUserInformation());
         return user;
     }
+    @Transactional
+    public User getUserWithInfo(int id){
+        User user = getUserById(id);
+        Hibernate.initialize(user.getUserInformation());
+        return user;
+    }
+
 
     @Transactional
     public User getUserByNameAndPosition(String name, String position){

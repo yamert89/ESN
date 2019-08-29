@@ -37,8 +37,6 @@ public abstract class AbstractMessage {
         this.time = Calendar.getInstance();
         this.time.setTime(time);
         if (user == null) {
-            user = new User("Пользователь удалён", null);
-            userName = user.getName();
             return;
         }
         this.userId = user.getId();

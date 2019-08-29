@@ -29,7 +29,8 @@ public class OrgService {
     @Transactional
     public Organization merge(Organization org){
         org = orgDao.update(org);
-        userDAO.persistUser(new User("Пользователь удалён", "","deleted",  "pppppp", true, "ROLE_USER", org,
+        if (userDAO.contains(userDAO.getUserByLogin("deleted"))) return org;
+        userDAO.persistUser(new User("Пользователь удалён", "Пользователь удалён","deleted",  "pppppp", true, "ROLE_USER", org,
                 "/app/deleted.jpg", "/app/deleted_small.jpg"));
         return org;
     }
