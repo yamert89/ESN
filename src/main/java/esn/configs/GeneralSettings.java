@@ -25,7 +25,7 @@ public class GeneralSettings {
     public static int AMOUNT_WALL_MESSAGES;
     public static int PUBLIC_STORAGE_MAX_SIZE; //MB
     public static int PRIVATE_STORAGE_MAX_SIZE; //MB
-    public static String TIME_PATTERN;
+    public static String TIME_PATTERN = "HH:mm:ss / dd.MM"; //TODO
     public static Syntax DB_SYNTAX;
     public static String ADMIN_EMAIL = "softoad2@gmail.com";
 
@@ -47,7 +47,7 @@ public class GeneralSettings {
             PRIVATE_STORAGE_MAX_SIZE = getOptProperty("private_storage_max_size").map(Integer::parseInt).orElse(512);
             String res = getOptProperty("jdbc.db_type").orElse("postgresql");
             DB_SYNTAX = res.equals("postgresql") ? new PostgresSyntax() : new MySQLSyntax();
-            TIME_PATTERN = getOptProperty("date_time_pattern").orElse("HH:mm:ss / dd.MM");
+            /*TIME_PATTERN = getOptProperty("date_time_pattern").orElse("HH:mm:ss / dd.MM");*/
 
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
@@ -79,7 +79,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //TODO протестировать удаленного пользователя
+    //TODO
     //TODO LONG транзакционное сохранение сущнос
     //TODO LONG заменить импуты спец тегами
     //TODO LONG восстановление пароля
@@ -88,7 +88,7 @@ public class GeneralSettings {
     //TODO LONG example img выходит за границы
     //TODO LONG CSRF Protection security.xml
     //TODO LONG get reference for save entity
-    //TODO
+    //TODO LONG custom date format
     //TODO
     //TODO
     //TODO

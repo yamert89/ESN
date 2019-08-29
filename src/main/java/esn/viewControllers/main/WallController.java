@@ -84,7 +84,7 @@ public class WallController {
             User user = sessionUtil.getUser(request, principal);
             int orgId = ((Organization) session.getAttribute("org")).getId();
 
-                wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
+                wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time, false), orgId);
                 webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
             logger.error(e.getMessage(), e);

@@ -88,7 +88,7 @@ public class GenChatController {
         int orgId = user.getOrganization().getId();
 
         try {
-            genDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time), orgId);
+            genDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time, false), orgId);
             webSocketService.newGenChatMessageAlert(user, time, text);
 
         }catch (Exception e){

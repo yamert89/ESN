@@ -13,9 +13,6 @@ jdbc.postgres.url=jdbc:postgresql://localhost:3306/esn
 jdbc.postgres.username=yamert89
 jdbc.postgres.password=yamert0511
 
-#----  Формат вывода времени ----!
-date_time_pattern=dd.MM.yyyy, HH:mm:ss
-
 #---- Количество подгружаемых сообщений на сранице чата за один раз ----!
 gen_chat_messages_amount=30
 

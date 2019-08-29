@@ -55,12 +55,12 @@ public class NotesController {
     @PostMapping("/note")
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
-    public void saveNote(@RequestParam String time, @RequestParam String text, HttpSession session, HttpServletRequest request, Principal principal){
+    public ResponseEntity saveNote(@RequestParam String time, @RequestParam String text, HttpSession session, HttpServletRequest request, Principal principal){
         User user = sessionUtil.getUser(request, principal);
         try {
             logger.debug(" /note   before   " + user);
             //time = "15.03.2019, 00:00:00";
-            Timestamp timestamp = DateFormatUtil.parseDate(time);
+            Timestamp timestamp = DateFormatUtil.parseDate(time, true);
             /*Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time, DateTimeFormatter.ofPattern(TIME_PATTERN)));*/
             //Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse(time));
             user.getNotes().put(timestamp, text);
@@ -72,6 +72,7 @@ public class NotesController {
 
         }
         logger.debug(" /note   after  " + user);
+        return ResponseEntity.ok().headers(headers).body(true);
 
     }
 
