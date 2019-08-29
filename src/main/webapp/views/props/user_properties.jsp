@@ -35,7 +35,7 @@
     <div class="inline">
         <div class="prop_label">Должность:</div>
         <select name="position" id="position">
-            <c:if test='${user.position.equals("")}'><option selected>Не указана</option></c:if>
+            <c:if test='${user.position.equals("")}'><option selected>-</option></c:if>
             <c:forEach var="pos" items="${org.positions}">
                 <c:choose>
                     <c:when test="${user.position == pos}">
@@ -55,7 +55,7 @@
     <div class="inline">
         <div class="prop_label" title="Назначается администратором">Отдел:</div>
         <c:choose>
-            <c:when test="${user.department == null}"><span>Не указан</span></c:when>
+            <c:when test="${user.department == null}"><span>-</span></c:when>
             <c:otherwise><span>${user.department.name}</span></c:otherwise>
         </c:choose>
     </div>
@@ -99,7 +99,7 @@
     <div class="inline">
         <div class="prop_label">Непосредственный начальник:</div>
         <select name="boss" id="boss">
-            <c:if test="${userProp.boss == null}"><option selected>Не указан</option></c:if>
+            <c:if test="${userProp.boss == null}"><option selected>-</option></c:if>
         <c:forEach var="usr" items="${bosses}">
             <c:choose>
                 <c:when test="${userProp.boss == usr}">

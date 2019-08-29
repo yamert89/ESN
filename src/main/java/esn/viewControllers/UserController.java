@@ -213,6 +213,7 @@ public class UserController {
                 modelAndView.addObject("saved", 0);
                 return modelAndView;
             }
+            user = userDAO.getUserWithInfo(login);
             session.setAttribute("profile", user);
 
         }catch (Exception e){
@@ -252,8 +253,8 @@ public class UserController {
                 model.addAttribute("update_avatar", true);
             } else model.addAttribute("update_avatar", false);
 
-            if (!boss.equals("Не указан")) userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
-            if (!position.equals("Не указана")) userFromSession.setPosition(position);
+            if (!boss.equals("-")) userFromSession.getUserInformation().setBoss(userDAO.getReference(Integer.parseInt(boss)));
+            if (!position.equals("-")) userFromSession.setPosition(position);
 
 
             user = userDAO.updateUser(userFromSession);

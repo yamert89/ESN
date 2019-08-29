@@ -150,6 +150,7 @@ button:hover{
     position: absolute;
     height: 100px;
     line-height: 100px;
+    margin-left: 20px;
 }
 .person_container{
     display: inline-block;

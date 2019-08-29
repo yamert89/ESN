@@ -19,7 +19,7 @@
                 location.href = "/" + orgUrl + "/wall/"
             });
             $("span").each(function (i, el) {
-                if (el.innerHTML === '' || el.firstChild.innerHTML === '') el.innerHTML = 'Не указан';
+                if (el.innerHTML === '' || el.firstChild.innerHTML === '') el.innerHTML = '-';
 
             })
 

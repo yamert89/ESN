@@ -76,7 +76,7 @@ public class IndexController {
                 JSONArray usrs = new JSONArray();
                 users.forEach(u -> {
                     JSONObject us = new JSONObject();
-                    us.put("name", u.getName())
+                    us.put("name", u.getShortName())
                             .put("status", liveStat.userIsOnline(u.getId()))
                             .put("id", u.getId())
                             .put("login", u.getLogin());
@@ -93,7 +93,6 @@ public class IndexController {
                 JSONObject group = new JSONObject();
                 JSONArray usrs = new JSONArray();
                 Arrays.stream(g.getPersonIds()).forEach(id -> {
-                    /*User u = userDAO.getUserById(id);*/
                     User u = finalOrg.getEmployerById(id);
                     JSONObject us = new JSONObject();
                     us.put("name", u.getName())
