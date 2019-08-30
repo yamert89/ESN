@@ -88,6 +88,8 @@ input[type='text']{
 span{
     flex: 1 0 auto;
     text-align: right;
+}
+.spanVal{
     min-width: 50%;
 }
 

@@ -37,8 +37,8 @@
 
             var constraint = regfield[0] === $(".small_input")[0] ? 59 :
                 regfield[0] === pass1[0] ? 6 :
-                    regfield[0] === name[0] || regfield[0] === firstName[0] || regfield[0] === lg[0] ? 4 :
-                        0;
+                    regfield[0] === name[0] || regfield[0] === firstName[0] ? 1 :
+                        regfield[0] === lg[0] ? 3 : 0;
 
             if (pass1.val() === pass2.val()) {
                 $("#error_pass").text("");

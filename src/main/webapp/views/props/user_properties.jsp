@@ -55,8 +55,8 @@
     <div class="inline">
         <div class="prop_label" title="Назначается администратором">Отдел:</div>
         <c:choose>
-            <c:when test="${user.department == null}"><span>-</span></c:when>
-            <c:otherwise><span>${user.department.name}</span></c:otherwise>
+            <c:when test="${user.department == null}"><span class="spanVal">-</span></c:when>
+            <c:otherwise><span class="spanVal">${user.department.name}</span></c:otherwise>
         </c:choose>
     </div>
     </div>

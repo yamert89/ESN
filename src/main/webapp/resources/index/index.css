@@ -4,7 +4,7 @@ body{
     background: linear-gradient(right, color-stop(0%, #fffbce), color-stop(50%, #d7f7c7));
     background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(210, 245, 255, 0.61)), color-stop(50%, rgba(215, 247, 199, 0.37)));
     text-shadow: 0 0 10px #f6f6f6, 0 0 2px white;
-    font-size: 5vh;
+    font-size: 4.5vh;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     overflow-x: hidden;
     overflow-y: hidden;

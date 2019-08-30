@@ -37,43 +37,43 @@
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Должность:</div>
-        <span>${user.position}</span>
+        <span class="spanVal">${user.position}</span>
         </div>
     </div>
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Отдел:</div>
-        <span>${user.department.name}</span>
+        <span class="spanVal">${user.department.name}</span>
         </div>
     </div>
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Непосредственный начальник:</div>
-        <span><a href="user_profile.html">${user.userInformation.boss}</a></span>
+        <span class="spanVal"><a href="user_profile.html">${user.userInformation.boss}</a></span>
         </div>
     </div>
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">E-mail:</div>
-        <span><a href="mailto:shurikporohin@rambler.ru">${user.userInformation.email}</a></span>
+        <span class="spanVal"><a href="mailto:shurikporohin@rambler.ru">${user.userInformation.email}</a></span>
         </div>
     </div>
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Мобильный телефон:</div>
-        <span>${user.userInformation.phoneMobile}</span>
+        <span class="spanVal">${user.userInformation.phoneMobile}</span>
         </div>
     </div>
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Рабочий телефон:</div>
-        <span>${user.userInformation.phoneWork}</span>
+        <span class="spanVal">${user.userInformation.phoneWork}</span>
         </div>
     </div>
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Внутренний телефон:</div>
-        <span>${user.userInformation.phoneInternal}</span>
+        <span class="spanVal">${user.userInformation.phoneInternal}</span>
         </div>
     </div>
 

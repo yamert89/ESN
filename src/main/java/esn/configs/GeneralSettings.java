@@ -60,8 +60,9 @@ public class GeneralSettings {
         return Optional.ofNullable(properties.getProperty(name));
     }
 
-    //TODO
-    //FIXME заметки сохраняются в текущую дату
+    //FIXME очищать поля при ошибке регистрации
+    //FIXME офлайн сообщения приват не отображаются
+    //FIXME имена у админа длинные в контактах
     //FIXME
     //FIXME
     //FIXME
@@ -77,9 +78,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //FIXME
-    //FIXME
-    //TODO
+    //TODO отметить администратора
     //TODO LONG транзакционное сохранение сущнос
     //TODO LONG заменить импуты спец тегами
     //TODO LONG восстановление пароля
@@ -89,7 +88,7 @@ public class GeneralSettings {
     //TODO LONG CSRF Protection security.xml
     //TODO LONG get reference for save entity
     //TODO LONG custom date format
-    //TODO
+    //TODO LONG время сессии
     //TODO
     //TODO
     //TODO
