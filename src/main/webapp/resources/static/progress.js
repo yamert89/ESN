@@ -10,5 +10,14 @@ function startProgress() {
     pr.addClass("progress");
     wr.removeClass("progress_wr_hidden");
     wr.addClass("progress_wr");
+}
+
+function stopProgress() {
+    var pr = $(".progress");
+    var wr = $(".progress_wr");
+    pr.removeClass("progress");
+    pr.addClass("progress_hidden");
+    wr.removeClass("progress_wr");
+    wr.addClass("progress_wr_hidden");
 
 }

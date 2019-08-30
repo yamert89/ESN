@@ -16,15 +16,25 @@
 
             $(".reg_field").change(checkboksListener);
             $(".reg_field").keyup(checkboksListener);
-            $("form").submit(function () {
+            $("form").submit(function (e) {
                 var res = '';
+                var fstName = $("#firstName");
+                var name = $("#name");
+                var trdName = $("#thirdName");
                 try{
-                    res = $("#name").val() + '_' + $("#firstName").val() + '_' + $("#thirdName").val();
-                    $("#name").val(res);
+                    res = name.val() + '_' + fstName.val() + '_' + trdName.val();
+                    name.val(res);
                 }catch (e) {
                     console.log(e);
                 }
+                if (fstName.val() == "") {
+                    e.preventDefault();
+                   $("#error_sex").text("Введите имя");
+                   setTimeout(stopProgress, 500);
+                }
+
             })
+
         });
 
         function checkboksListener(){
@@ -125,7 +135,7 @@
             <div class="inline">
                 <label class="prop_label fixed_max">Укажите ваш пол:</label>
                 <label class="prop_label fixed_min">Мужской:</label>
-                <input type="radio" name="sex" value="m" class="small_input"/>
+                <input type="radio" name="sex" value="m" checked class="small_input"/>
                 <label class="prop_label fixed_min">Женский:</label>
                 <input type="radio" name="sex" value="f" class="small_input"/>
             </div>

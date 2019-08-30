@@ -35,6 +35,8 @@ input{
 }
 .message_time{
     vertical-align: middle;
+    margin-left: 10px;
+    font-size: 0.7em;
 }
 .person_name{
     float: none;

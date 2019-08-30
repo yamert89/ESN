@@ -57,8 +57,8 @@ function renderMessage(mes, type) {
     var data = '<div class="message">\n' +
         '            <div class="message_text">' + mes.text + '</div>\n' +
         '            <div class="message_info">\n' +
-        '                <img src="/resources/data' + mes.imgUrl + '" class="person_photo_small">\n' +
         '                <div class="person_name">' + mes.userName + '</div>\n' +
+        '                <img src="/resources/data' + mes.imgUrl + '" class="person_photo_small">\n' +
         '                <div class="message_time">' + mes.time + '</div>\n' +
         '                <img class="delete_message" ' + visibleCross + ' src="/resources/data/app/cross.png">' +
         '        </div>';

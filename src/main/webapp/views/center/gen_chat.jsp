@@ -23,8 +23,8 @@
         <div class="message">
             <div class="message_text">${mes.text}</div>
             <div class="message_info">
-                <img src='<c:url value="/resources/data${mes.imgUrl}"/>' class="person_photo_small">
                 <div class="person_name">${mes.userName}</div>
+                <img src='<c:url value="/resources/data${mes.imgUrl}"/>' class="person_photo_small">
                 <div class="message_time"><fmt:formatDate value="${mes.time.getTime()}" pattern="HH:mm:ss / dd.MM"/></div>
             </div>
         </div>

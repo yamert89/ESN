@@ -21,8 +21,10 @@
             $(".lets_go").click(function () {
                 location.href = $(this).attr("id") === "cloud" ? "/notice_cloud" : "/notice_local";
             });
-            var example = $(".example");
-            example.attr("src", example.attr("data-src"));
+            var ex1 = $("#ex1");
+            var ex2 = $("#ex2");
+            ex1.attr("src", ex1.attr("data-src"));
+            ex2.attr("src", ex2.attr("data-src"));
             arrow = $(".arrow");
 
              setTimeout(function () {
@@ -97,7 +99,8 @@
             <li>производственный календарь</li>
         </div>
 
-        <img class="example" src="" data-src="/resources/data/app/example.JPG">
+        <img class="example" id="ex1" src="" data-src="/resources/data/app/example.JPG">
+        <img class="example" id="ex2" src="" data-src="/resources/data/app/example2.JPG">
     </div>
     <div class="variants">
         <p>Варианты развертывания:</p>

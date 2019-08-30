@@ -125,7 +125,7 @@ public class UserController {
 
     @GetMapping("/reg")
     public String regUser(Model model){
-        model.addAttribute(new User());
+        if (!model.containsAttribute("user")) model.addAttribute(new User());
         return "reg";
     }
 
@@ -145,6 +145,8 @@ public class UserController {
             }
 
             if (bindingResult.hasErrors()){
+                user.setName("");
+                modelAndView.addObject(user);
                 modelAndView.setViewName("reg");
                 return modelAndView;
             }

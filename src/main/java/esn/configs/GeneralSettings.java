@@ -60,9 +60,9 @@ public class GeneralSettings {
         return Optional.ofNullable(properties.getProperty(name));
     }
 
-    //FIXME очищать поля при ошибке регистрации
+    //FIXME
     //FIXME офлайн сообщения приват не отображаются
-    //FIXME имена у админа длинные в контактах
+    //FIXME
     //FIXME
     //FIXME
     //FIXME
@@ -89,8 +89,8 @@ public class GeneralSettings {
     //TODO LONG get reference for save entity
     //TODO LONG custom date format
     //TODO LONG время сессии
-    //TODO
-    //TODO
+    //TODO LONG доработать форму регистрации
+    //TODO LONG выбор полного или краткого имени для каждого юзера
     //TODO
     //TODO
 
