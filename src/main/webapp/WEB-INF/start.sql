@@ -1,1 +1,1 @@
-insert into users(id, authority, login, male, name, password, photo, photo_small, org_id, boss_id) values(0, 'ROLE_ADMIN', 'admin', true, 'Разработчик', '$2a$10$YiGmQU.QDMGYvu0xK7HbueLGQ/rFDNfntMKUT6RKEw8391Hgt.wWS', '/man.jpg', '/man_small.jpg', 0, null);
+CREATE SCHEMA if not exists `esn` DEFAULT CHARACTER SET utf8 ;
