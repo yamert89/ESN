@@ -72,7 +72,7 @@ public class NotesController {
 
         }
         logger.debug(" /note   after  " + user);
-        return ResponseEntity.ok().headers(headers).body(true);
+        return ResponseEntity.ok().headers(headers).body("{\"res\" : true}");
 
     }
 

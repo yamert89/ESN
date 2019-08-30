@@ -30,7 +30,7 @@ public class OrgService {
     public Organization merge(Organization org){
         org = orgDao.update(org);
         if (userDAO.contains(userDAO.getUserByLogin("deleted"))) return org;
-        userDAO.persistUser(new User("Пользователь удалён", "Пользователь удалён","deleted",  "pppppp", true, "ROLE_USER", org,
+        userDAO.persistUser(new User("Профиль удалён", "Профиль удалён","deleted",  "pppppp", true, "ROLE_USER", org,
                 "/app/deleted.jpg", "/app/deleted_small.jpg"));
         return org;
     }

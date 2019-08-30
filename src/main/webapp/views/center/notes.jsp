@@ -27,7 +27,7 @@
 <body>
 <div class="notes_container">
 <div class="post_add_wrapper">
-    <button class="post_add post_submit">Добавить заметку</button></div>
+    <button class="post_add post_submit" title="Добавить заметку на сегодняшнее число">Добавить заметку</button></div>
 <div class="notes">
     <c:forEach var="note" items='${sessionScope.get("user").notes}'>
         <div class="note">

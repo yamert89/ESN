@@ -154,13 +154,13 @@ $(document).ready(function () {
                 var now = new Date();
                 date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
-                $.ajax({type:"POST", url:"/note", data:{time:getDate(date), text:note, success: function (data) {
-                            if (data != 'true') notify('Ошибка сохранения заметки');
+                $.ajax({type:"POST", url:"/note", dataType : "json", data:{time:getDate(date), text:note} , success: function (data) {
+                            if (data.res != true) notify('Ошибка сохранения заметки');
                             setTimeout(function () {
                                 location.reload();
                             }, 500)
 
-                        }}});
+                        }});
 
 
             },

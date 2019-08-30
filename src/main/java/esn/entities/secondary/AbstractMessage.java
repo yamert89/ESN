@@ -37,6 +37,8 @@ public abstract class AbstractMessage {
         this.time = Calendar.getInstance();
         this.time.setTime(time);
         if (user == null) {
+            imgUrl = "/app/deleted_small.jpg";
+            userName = "Профиль удалён";
             return;
         }
         this.userId = user.getId();
