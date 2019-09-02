@@ -99,8 +99,6 @@ public class UserController {
             return modelAndView;
         }
         User user = sessionUtil.getUser(request, principal);
-        //session.setMaxInactiveInterval(15);
-        logger.debug(session.getMaxInactiveInterval());
         logger.debug(user.getName() + " logged");
         modelAndView.setViewName("redirect:/" + organization.getUrlName() + "/wall/");
 

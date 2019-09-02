@@ -28,6 +28,11 @@ public_storage_max_size=10
 #---- - личных файлов ----!
 private_storage_max_size=5
 
+#---- Таймаут сессии (сек): ----!
+session_timeout=15
+
+#---- Таймаут функции "Запомнить меня" (сек): ----!
+remember_me_timeout=604800
 
 
 #---- &amp\;useLegacyDatetimeCode=false&amp\;serverTimezone=UTC&amp\;useUnicode=true&amp\;characterEncoding=utf8 ----!

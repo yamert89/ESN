@@ -37,6 +37,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         logger.debug(" configureMessageBroker");
 
+
     }
 
 
@@ -48,6 +49,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint(urls);*/
 
         logger.debug("registerStompEndpoints");
+
 
     }
 

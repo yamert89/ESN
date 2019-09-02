@@ -1,5 +1,6 @@
 package esn.viewControllers.accessoryFunctions;
 
+import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.entities.Organization;
 import esn.entities.User;
@@ -47,6 +48,9 @@ public class SessionUtil {
             session.setAttribute("loginUrl", user.getLogin());
             session.setAttribute("ip", request.getRemoteAddr());
             webSocketService.sendStatus(organization.getId(), user.getId(), true);
+            session.setMaxInactiveInterval(GeneralSettings.SESSION_TIMEOUT);
+            logger.debug("SESSION TIMEOUT = " + session.getMaxInactiveInterval());
+            logger.debug("SESSION started " + user.getName() + "     id:" + user.getId() + "      orid:" + organization.getId());
         }catch (Exception e){logger.error("init session", e);}
         return true;
     }

@@ -67,7 +67,6 @@
        <url-pattern>/*</url-pattern>
      </filter-mapping>-->
     <session-config>
-        <session-timeout>30</session-timeout>
         <!-- Disables URL-based sessions (no more 'jsessionid' in the URL using Tomcat) -->
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>

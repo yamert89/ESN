@@ -2,7 +2,6 @@ package esn.services;
 
 import esn.db.UserDAO;
 import esn.entities.Organization;
-import esn.entities.Session;
 import esn.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +23,7 @@ public class MyHttpListener extends HttpSessionEventPublisher {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
-        logger.debug("SESSION DESTROYED");
+
         try {
             HttpSession session = event.getSession();
             if (webSocketService == null) webSocketService = (WebSocketService) getBean(WebSocketService.class, session);
@@ -35,11 +34,13 @@ public class MyHttpListener extends HttpSessionEventPublisher {
             if (org == null) return;
             int orgId = org.getId();
             User user = (User) session.getAttribute("user");
+            logger.debug("SESSION DESTROYED " + user.getName() + "   id:" + user.getId() + "        orgId:" + orgId);
             liveStat.userLogout(user.getId());
             String ip = (String) session.getAttribute("ip");
             webSocketService.sendStatus(orgId, user.getId(), false);
-            userDAO.saveSession(new Session(session.getId(), user, ip,
-                    session.getCreationTime(), System.currentTimeMillis()));
+            return;
+            /*userDAO.saveSession(new Session(session.getId(), user, ip,
+                    session.getCreationTime(), System.currentTimeMillis()));*/
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }

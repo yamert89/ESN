@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     $(".logout").click(function () {
        sessionStorage.clear();
+        localStorage.clear();
     });
 
 
@@ -203,7 +204,8 @@ function connectWS() {
     var stompClient = Stomp.over(socket);
 
     var subscribePrefix = "/user/" + userId;
-    stompClient.connect({}, function(frame) {
+    var connect_callback = function(){
+
 
         stompClient.subscribe('/allusers' + orgId , function(data){
             var resp = JSON.parse(data.body);
@@ -229,8 +231,10 @@ function connectWS() {
                     }
                     break;
                 case 'netstatus':
+
                     var user = JSON.parse(data.body);
-                    if (user.initiatorId == userId) sessionStorage.clear();
+                    console.log("receive status " + userId + " " + user.initiatorId);
+
                     var usDom = $(".contacts-frame").find("[data-id='" + user.initiatorId + "']");
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                     usDom.find(":first-child").attr("id", stat);
@@ -238,8 +242,6 @@ function connectWS() {
                     var netStatus = $(".person_photo_chat").next(); //TODo test
                     netStatus.attr("id", stat);
                     netStatus.next().text(user.statusOn ? "в сети" : "не в сети");
-
-
                     break;
 
             }
@@ -296,9 +298,10 @@ function connectWS() {
 
         });
 
-        if (!sessionStorage.getItem("reloaded")){
+
+        if (localStorage.getItem("reloaded") != "true"){
             sendNewMReq();
-            sessionStorage.setItem("reloaded", "true");
+            localStorage.setItem("reloaded", "true");
             //console.log("write first cookie");
             function sendNewMReq() {
                 try{
@@ -313,9 +316,20 @@ function connectWS() {
             }
         }
 
+      console.log("ws connected...");
+        stompClient.disconnect(function () {
+            sessionStorage.clear();
+            console.log("session storage cleared");
+        });
+    };
 
+    var err_callback = function(){
+        console.log("ws error");
+        sessionStorage.clear();
+        localStorage.clear();
+    };
+    stompClient.connect({}, connect_callback, err_callback);
 
-    } );
 
 
 }

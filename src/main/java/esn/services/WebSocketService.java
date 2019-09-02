@@ -16,6 +16,7 @@ public class WebSocketService {
     }
 
     public void sendStatus(int orgId, int initiatorId, boolean on){
+        System.out.println("SEND STATUS");
         template.convertAndSend("/allusers" + orgId,
                 "{\"_alert\":\"netstatus\",\"initiatorId\":" + initiatorId + ", \"statusOn\": " + on + "}");
     }

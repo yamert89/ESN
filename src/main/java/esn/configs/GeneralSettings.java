@@ -28,6 +28,8 @@ public class GeneralSettings {
     public static String TIME_PATTERN = "HH:mm:ss / dd.MM"; //TODO
     public static Syntax DB_SYNTAX;
     public static String ADMIN_EMAIL = "softoad2@gmail.com";
+    public static int SESSION_TIMEOUT;
+
 
     static {
         try {
@@ -45,7 +47,9 @@ public class GeneralSettings {
             AMOUNT_WALL_MESSAGES = getOptProperty("wall_messages_amount").map(Integer::parseInt).orElse(25);
             PUBLIC_STORAGE_MAX_SIZE = getOptProperty("public_storage_max_size").map(Integer::parseInt).orElse(1024);
             PRIVATE_STORAGE_MAX_SIZE = getOptProperty("private_storage_max_size").map(Integer::parseInt).orElse(512);
+            SESSION_TIMEOUT = getOptProperty("session_timeout").map(Integer::parseInt).orElse(300);
             String res = getOptProperty("jdbc.db_type").orElse("postgresql");
+
             DB_SYNTAX = res.equals("postgresql") ? new PostgresSyntax() : new MySQLSyntax();
             /*TIME_PATTERN = getOptProperty("date_time_pattern").orElse("HH:mm:ss / dd.MM");*/
 
