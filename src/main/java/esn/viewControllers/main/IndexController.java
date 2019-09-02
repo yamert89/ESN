@@ -82,7 +82,11 @@ public class IndexController {
                             .put("login", u.getLogin());
                     usrs.put(us);
                 });
-                jsOb.put("name", "Все").put("users", usrs).put("expanded", true);
+                jsOb.put("name", "Все")
+                        .put("users", usrs)
+                        .put("expanded", true)
+                        .put("newSession", (boolean) session.getAttribute("new"));
+                session.setAttribute("new", false);
                 return bb.body(jsOb.toString());
             }
             long start = System.currentTimeMillis();
@@ -104,7 +108,8 @@ public class IndexController {
 
                 group.put("name", g.getName())
                         .put("expanded", g.isExpandable())
-                        .put("users", usrs);
+                        .put("users", usrs)
+                .put("newSession", (boolean) session.getAttribute("new"));
                 js.put(group);
             });
 
@@ -113,7 +118,7 @@ public class IndexController {
         }catch (Exception e){
             logger.error("fillContactsList", e);
         }
-
+        session.setAttribute("new", false);
         return bb.body(js.toString());
     }
 

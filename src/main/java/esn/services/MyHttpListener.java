@@ -2,6 +2,7 @@ package esn.services;
 
 import esn.db.UserDAO;
 import esn.entities.Organization;
+import esn.entities.Session;
 import esn.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,9 +39,8 @@ public class MyHttpListener extends HttpSessionEventPublisher {
             liveStat.userLogout(user.getId());
             String ip = (String) session.getAttribute("ip");
             webSocketService.sendStatus(orgId, user.getId(), false);
-            return;
-            /*userDAO.saveSession(new Session(session.getId(), user, ip,
-                    session.getCreationTime(), System.currentTimeMillis()));*/
+            userDAO.saveSession(new Session(session.getId(), user, ip,
+                    session.getCreationTime(), System.currentTimeMillis()));
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }

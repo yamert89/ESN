@@ -47,6 +47,7 @@ public class SessionUtil {
             session.setAttribute("org", organization);
             session.setAttribute("loginUrl", user.getLogin());
             session.setAttribute("ip", request.getRemoteAddr());
+            session.setAttribute("new", true);
             webSocketService.sendStatus(organization.getId(), user.getId(), true);
             session.setMaxInactiveInterval(GeneralSettings.SESSION_TIMEOUT);
             logger.debug("SESSION TIMEOUT = " + session.getMaxInactiveInterval());

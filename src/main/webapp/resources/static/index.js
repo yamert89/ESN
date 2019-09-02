@@ -14,6 +14,8 @@ window.listOfDatesNoted = [];
 $(document).ready(function () {
     console.log("index works");
 
+
+
     $(".logout").click(function () {
        sessionStorage.clear();
         localStorage.clear();
@@ -203,6 +205,10 @@ function connectWS() {
     var socket = new SockJS('/messages');
     var stompClient = Stomp.over(socket);
 
+    $(window).bind('hashchange', function() {
+        stompClient.disconnect();
+    });
+
     var subscribePrefix = "/user/" + userId;
     var connect_callback = function(){
 
@@ -317,18 +323,19 @@ function connectWS() {
         }
 
       console.log("ws connected...");
-        stompClient.disconnect(function () {
-            sessionStorage.clear();
-            console.log("session storage cleared");
-        });
+
     };
 
     var err_callback = function(){
         console.log("ws error");
-        sessionStorage.clear();
-        localStorage.clear();
+        //sessionStorage.clear();
+        //localStorage.clear();
     };
     stompClient.connect({}, connect_callback, err_callback);
+    /*stompClient.disconnect(function () {
+        sessionStorage.clear();
+        console.log("session storage cleared");
+    });*/
 
 
 

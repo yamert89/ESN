@@ -68,7 +68,17 @@ function err(ex, stat) {
 function contactsFill(data) {
     if (!$.isArray(data)) {
         renderGroup(data);
+        if (data.newSession) {
+            localStorage.clear();
+            sessionStorage.clear();
+            console.log("clear LS with contacts");
+        }
     }else {
+        if (data[0].newSession) {
+            localStorage.clear();
+            sessionStorage.clear();
+            console.log("clear LS with contacts");
+        }
         data.forEach(function (item) {
             renderGroup(item);
         });
