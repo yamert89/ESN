@@ -66,7 +66,7 @@
                 <prop key="hibernate.generate_statistics">false</prop>
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="log4j2.logger.org.hibernate.SQL">debug</prop>
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
                 <prop key="log4j.logger.org.hibernate.SQL">trace</prop>
                 <!--<prop key="hibernate.hbm2ddl.import_files">start.sql</prop>-->
                 <!--<prop key="javax.persistence.schema-generation.database.action">drop-and-create</prop>

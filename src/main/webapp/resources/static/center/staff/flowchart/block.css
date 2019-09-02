@@ -9,6 +9,8 @@
     flex: 1 1 auto;
     margin-right: 5px;
     flex-direction: column;
+    max-height: 100%;
+    overflow-y: auto;
 }
 canvas{
     overflow: auto;
@@ -31,12 +33,14 @@ canvas{
     align-items: center;
     overflow-x: hidden;
     flex-direction: row;
+    min-height: 104px;
 }
 
 .person_point{
     display: inline-block;
     line-height: 2em;
     flex: 1 0 auto;
+
 }
 .person_name_staff{
 }

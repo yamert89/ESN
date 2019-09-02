@@ -73,8 +73,14 @@ public class DepartmentDAO {
     public Department getDepartmentWithUsersAndChildrenALTER(long id){
         Department d = em.find(Department.class, id);
         depsInit(d);
-
         return d;
+    }
+
+    @Transactional
+    public Department getDepartmentWithUsers(String name, Organization org){
+        Department dep = getDepartmentByName(name, org);
+        Hibernate.initialize(dep.getEmployers());
+        return dep;
     }
 
     private void depsInit(Department d){

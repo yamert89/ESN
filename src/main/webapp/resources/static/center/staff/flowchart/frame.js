@@ -21,7 +21,7 @@ function clickNode(tree, targetid, nodeid) {
     //alert('tree ' + tree + ' targetid: .' + targetid + '. nodeid: ' + nodeid);
     loadSt(nodeid);
     ECOTree._canvasNodeClickHandler(tree, targetid, nodeid);
-
+    if (!window.ADMIN) $(".node_tools").remove();
 }
 
 
@@ -58,7 +58,10 @@ function createData(data) {
         addChildFromData(data[0].children[i]);
     }
 
-    if (!data[1]) $(".node_tools").remove();
+    if (!data[1]) {
+        $(".node_tools").remove();
+        window.ADMIN = false;
+    } else window.ADMIN = true;
 
 }
 

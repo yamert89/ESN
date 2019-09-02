@@ -133,7 +133,7 @@ public class StaffController {
         Department department = null;
         try {
             int[] empls = om.readValue(ids, int[].class);
-            department = departmentDAO.getDepartmentByName(oldname, organization);
+            department = departmentDAO.getDepartmentWithUsers(oldname, organization);
 
             department.setName(newname);
             Set<User> employers = new HashSet<>();
@@ -142,8 +142,7 @@ public class StaffController {
                     empls) {
                 user = userDAO.getUserById(id);
                 user.setDepartment(department);
-                userDAO.updateUser(user);
-                employers.add(user);
+                employers.add(userDAO.updateUser(user));
             }
             department.getEmployers().addAll(employers);
             departmentDAO.merge(department);
