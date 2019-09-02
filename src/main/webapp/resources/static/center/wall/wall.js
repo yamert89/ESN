@@ -30,11 +30,11 @@ $(document).ready(function () {
         mes.text = data;
         if (mes.text == "") return;
 
-        var sizeMes = 500;
+        /*var sizeMes = 500;
         if (mes.text.length > sizeMes) {
             notify('Максимальный размер сообщения ' + sizeMes +' символов.');
             return;
-        }
+        }*/
 
         renderPost(mes, 'my');
 
