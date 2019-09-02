@@ -29,12 +29,14 @@ $(document).ready(function () {
 
 
     $("#add_group").click(function () {
+        $(this).attr("disabled", "1");
         if (!emptyGroups()) checkEmptyGroup();
         var title = prompt("Введите название группы", "Без названия");
         if (title == undefined) return;
         $(".groups").prepend("<div class='group'>" + title + "</div>");
 
         $(".groups").children().first().click();
+
     });
 
     $("#right_arrow").click(function () {
@@ -117,7 +119,8 @@ function saveGroup(){
         p_ids[i] = $(this).find($(".person_point")).attr("data-p-id");
     });
     $.ajax({type:"post", url:"/savegroup", data:{groupName:gr_name, personIds: p_ids.join(",")},
-        success: successSave, error: error})
+        success: successSave, error: error});
+    $("#add_group").removeAttr("disabled");
 
 }
 
