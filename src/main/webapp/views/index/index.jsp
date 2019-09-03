@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="Description" content="enChat - корпоративный чат, вобравший в себя идеи корпоративных социальных сетей и простоты использования"/>
+    <meta name="Keywords" content="корпоративный чат, корпоративная социальная сеть, общение внутри организации, чат сотрудников, enterprise chat, social network, чат на предприятии"/>
     <title>enChat</title>
     <link rel="stylesheet" href="/resources/index/index.css">
     <script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js"></script>
