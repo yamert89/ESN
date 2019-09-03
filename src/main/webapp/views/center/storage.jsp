@@ -12,8 +12,7 @@
 <html>
 <head>
     <title>Хранилище</title>
-    <link rel="stylesheet" href="<c:url value="/resources/static/center/storage/storage.css"/>">
-    <script type="text/javascript" src='<c:url value="/resources/static/center/storage/storage.js"/>'></script>
+    <script type="text/javascript">$(document).ready(function (){$("#storage").addClass("selected");})</script>
 </head>
 <body>
 

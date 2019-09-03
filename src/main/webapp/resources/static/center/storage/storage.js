@@ -1,5 +1,4 @@
 var filesPath;
-$("#storage").addClass("selected");
 var extensions = {'.xls' : 'excel.png', '.xlsx' : 'excel.png',
     '.doc' : 'word.png', '.docx' : 'word.png',
     '.mp3' : 'music.png', '.wave' : 'music.png', '.wma' : 'music.png', '.mid' : 'music.png', '.ac3' : 'music.png', '.aac' : 'music.png', '.ogg' : 'music.png', '.flac' : 'music.png',
@@ -26,7 +25,7 @@ $(document).ready(function () {
          var filename = $(this).get(0).files[0].name;
      });*/
     storageSize();
-    $(".fileName").keyup(function(event){
+    $(document).on("keyup", ".fileName", function(event){
         if(event.keyCode === 13){
             event.preventDefault();
             $(this).blur();
@@ -72,7 +71,7 @@ $(document).ready(function () {
 
     });
 
-    $(".btn_load_file").click(function () {
+    $(document).on("click", ".btn_load_file", function () {
         var url = '/savefile';
         var input = $(this).prev();
 
@@ -119,16 +118,26 @@ $(document).ready(function () {
 
 
     });
-    filesPath = $(".storage").attr('data-path');
+
 
     $(document).on('click', '.file_ico', function () {
         var name = $(this).next().val() + '.' + $(this).attr('data-ext');
-        var link = document.createElement('a');
-        link.setAttribute('href',filesPath + name);
-        link.setAttribute('download', name);
-        link.click();
-    })
+        filesPath = $(".storage").attr('data-path');
+        download(name, filesPath);
+    });
+    $(document).on('click', '.post_file_ico', function () {
+        var name = $(this).attr('data-name');
+        filesPath = $(".wall_container").attr('data-files-path');
+        download(name, filesPath);
+    });
 });
+
+function download(name, path) {
+    var link = document.createElement('a');
+    link.setAttribute('href',path + name);
+    link.setAttribute('download', name);
+    link.click();
+}
 
 function storageSize(){
     $.get("/storage_size", function (data) {
