@@ -7,7 +7,7 @@ public class PostgresSyntax implements Syntax{
     }
 
     @Override
-    public final String createTableConstraints() {return " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)";}
+    public final String createTableConstraints() {return " (id SERIAL, message text, userId int, time timestamp, orgId int)";}
 
     @Override
     public final String createTableConstraintsPrivate() {

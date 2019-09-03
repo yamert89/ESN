@@ -79,7 +79,8 @@ public class IndexController {
                     us.put("name", u.getShortName())
                             .put("status", liveStat.userIsOnline(u.getId()))
                             .put("id", u.getId())
-                            .put("login", u.getLogin());
+                            .put("login", u.getLogin())
+                            .put("role", u.getAuthority());
                     usrs.put(us);
                 });
                 jsOb.put("name", "Все")
@@ -102,7 +103,8 @@ public class IndexController {
                     us.put("name", u.getShortName())
                             .put("status", liveStat.userIsOnline(u.getId()))
                             .put("id", u.getId())
-                            .put("login", u.getLogin());
+                            .put("login", u.getLogin())
+                            .put("role", u.getAuthority());
                     usrs.put(us);
                 });
 

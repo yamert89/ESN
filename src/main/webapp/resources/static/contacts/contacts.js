@@ -103,6 +103,7 @@ function renderGroup(group) {
 
 function renderItem(user) {
     var idStat = user.status ? 'net_status_on' : 'net_status_off';
-    return "<div class='person_item' data-id='" + user.id + "' data-login='" + user.login +
+    var divContent = user.role == "ROLE_ADMIN" ? "class='person_item admin' title='Администратор'" : "class='person_item'";
+    return "<div " + divContent + " data-id='" + user.id + "' data-login='" + user.login +
         "'><div class='net_status_circle' id='" + idStat + "'></div><img src='/resources/data/app/new_message.png' class='new_priv_mes'><div class='person_name'>" + user.name + "</div></div>"
 }

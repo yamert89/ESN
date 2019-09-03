@@ -65,7 +65,7 @@ public class GeneralSettings {
     }
 
     //FIXME
-    //FIXME офлайн сообщения приват не отображаются
+    //FIXME
     //FIXME
     //FIXME
     //FIXME

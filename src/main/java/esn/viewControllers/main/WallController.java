@@ -109,7 +109,8 @@ public class WallController {
             List<AbstractMessage> messages = null;
             try {
                 int orgId = ((Organization) session.getAttribute("org")).getId();
-                long oldIndex = (long) session.getAttribute("lastIdx_wall");
+                Object i = session.getAttribute("lastIdx_wall");
+                long oldIndex = i == null ? -1 : (long)i;
                 if (oldIndex == -1) return ResponseEntity.ok("{}");
                 messages = wallDAO.getMessages(orgId, oldIndex);
                 newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
