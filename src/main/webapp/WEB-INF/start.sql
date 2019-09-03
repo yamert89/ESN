@@ -1,1 +1,0 @@
-CREATE SCHEMA if not exists `esn` DEFAULT CHARACTER SET utf8 ;
