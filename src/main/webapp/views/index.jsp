@@ -14,7 +14,7 @@
     <script src='<c:url value="/resources/libs/air-datepicker-master/dist/js/datepicker.js"/>'></script>
     <script src='<c:url value="/resources/libs/sock.js"/>'></script>
     <script src='<c:url value="/resources/libs/stomp.js"/>'></script>
-    <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>" async></script>
+    <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript" src='<c:url value="/resources/static/index.js"/>'></script>
     <script type="text/javascript" src='<c:url value="/resources/static/contacts/contacts.js"/>'></script>
     <script src="<c:url value="/resources/static/progress.js"/>" async></script>
