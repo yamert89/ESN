@@ -61,12 +61,14 @@ public class WallController {
     public ModelAndView wall(Model model, HttpSession session, HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("wall");
         try {
-            Organization org = sessionUtil.getOrg(request, principal);
+            User user = sessionUtil.getUser(request, principal);
+            Organization org = user.getOrganization();
             int orgId = org.getId();
             List<AbstractMessage> messages = wallDAO.getMessages(orgId, -1);
             long newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
             session.setAttribute("lastIdx_wall", newIdx);
             model.addAttribute("messages", messages);
+            modelAndView.addObject("filesPath", "/resources/data/" + org.getUrlName() + "/stored_files/" + user.getLogin() + "/");
         }catch (Exception e){
             logger.error("wall", e);
             redirectAttributes.addFlashAttribute("flash", "Произошла загрузки главной страницы. Сообщите разработчику");

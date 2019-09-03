@@ -93,7 +93,7 @@ public class StorageController {
     public ResponseEntity<String> saveFile(@RequestParam(name = "file") MultipartFile file, @RequestParam String shared,
             /* */HttpSession session, HttpServletRequest request, Principal principal){
         try {
-            User user = sessionUtil.getUser(request, principal);
+            User user = userDAO.getUserWithFiles(sessionUtil.getUser(request, principal).getId());
             String orgUrl = ((Organization) session.getAttribute("org")).getUrlName();
             if (SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100 ||
                     SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100) {

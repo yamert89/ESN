@@ -17,6 +17,8 @@
     <script src="<c:url value="/resources/libs/ckeditor/ckeditor.js"/>"></script>
     <script type="text/javascript" src='<c:url value="/resources/static/index.js"/>'></script>
     <script type="text/javascript" src='<c:url value="/resources/static/contacts/contacts.js"/>'></script>
+    <script type="text/javascript" src='<c:url value="/resources/static/center/storage/storage.js"/>' async></script>
+    <link rel="stylesheet" href="<c:url value="/resources/static/center/storage/storage.css"/>">
     <script src="<c:url value="/resources/static/progress.js"/>" async></script>
     <title>enChat</title>
 </head>

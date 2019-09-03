@@ -8,6 +8,18 @@ html{
 .tools{
 
 }
+.post_file{
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+.post_file_ico{
+    height: 64px;
+}
+.post_file_ico:hover{
+    box-shadow: 0 0 8px 1px #00000036;
+    background-color: #b2efb259;
+}
 
 header{
     min-width: 100%;

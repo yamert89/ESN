@@ -622,7 +622,7 @@
 			if ( !cssLoaded ) {
 				// Load fallback styles.
 				CKEDITOR.document.appendStyleSheet( this.path + 'skins/default.css' );
-				CKEDITOR.document.appendStyleSheet( this.path + 'skins/' + CKEDITOR.skin.name + '/balloontoolbar.css' );
+				CKEDITOR.document.appendStyleSheet( this.path + 'skins/' + 'moono' + '/balloontoolbar.css' );
 				cssLoaded = true;
 			}
 

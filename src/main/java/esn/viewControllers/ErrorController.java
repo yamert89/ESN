@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,12 +82,19 @@ public class ErrorController {
                     break;
                 }
                 default: {
-                    errorMsg = "Неизвестная ошибка";
+                    //errorMsg = "Неизвестная ошибка";
+                    Enumeration<String> attrs = httpRequest.getAttributeNames();
+                    StringBuilder builder = new StringBuilder(errorMsg);
+                    while (attrs.hasMoreElements()) {
+                        String par = attrs.nextElement();
+                        builder.append("\n").append(par).append("   :    ").append(httpRequest.getAttribute(par));
+                    }
+                    errorMsg = builder.toString();
                 }
             }
-            logger.error(errorMsg);
             errorPage.addObject("errorMsg", errorMsg);
-            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] + " |  MESSAGE: " + errorMsg);
+
+            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] == null ? "empty" : error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
             logger.error(e.getMessage(), e);
@@ -98,7 +106,8 @@ public class ErrorController {
         Integer code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
         Optional<ServletException> ex = Optional.ofNullable((ServletException) httpRequest.getAttribute("javax.servlet.error.exception"));
         Map<String, String> controllerErrorMap = (Map<String, String>)httpRequest.getAttribute("org.springframework.web.servlet.DispatcherServlet.INPUT_FLASH_MAP");
-        String message = ex.isPresent() ? ex.get().getMessage() : controllerErrorMap.getOrDefault("flash", "Неизвестная ошибка контроллера");
+        String message = ex.isPresent() ? ex.get().getMessage() : controllerErrorMap == null ? "" :
+                controllerErrorMap.getOrDefault("flash", "Неизвестная ошибка контроллера");
 
         String errorUrl = (String) httpRequest.getAttribute("javax.servlet.error.request_uri");
         return new Object[]{code, message, errorUrl};

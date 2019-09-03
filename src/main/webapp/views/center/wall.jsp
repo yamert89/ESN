@@ -20,7 +20,7 @@
 
 <c:set var="user" value="${sessionScope.get('user')}"/>
 <c:set var="orgUrl" value="${sessionScope.get('org').getUrlName()}"/>
-<div class="wall_container">
+<div class="wall_container" data-files-path="${filesPath}">
 <div class="post_add_wrapper">
     <button class="post_add" data-name="${user.shortName}" data-img="${user.photo}"
             data-userId="${user.id}" data-ogrUrl="${orgUrl}"  data-img-small="${user.photo_small}">Добавить новость</button></div>
