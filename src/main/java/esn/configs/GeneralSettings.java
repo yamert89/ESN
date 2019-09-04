@@ -64,6 +64,8 @@ public class GeneralSettings {
         return Optional.ofNullable(properties.getProperty(name));
     }
 
+    //FIXME приходит свое сообщение ген чат
+    //FIXME цвет импута в storage перебивает другие
     //FIXME
     //FIXME
     //FIXME
@@ -80,9 +82,8 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //FIXME
-    //FIXME
-    //TODO отметить администратора
+    //TODO LONG файл был изьят из публичного пользования
+    //TODO
     //TODO LONG транзакционное сохранение сущнос
     //TODO LONG заменить импуты спец тегами
     //TODO LONG восстановление пароля
