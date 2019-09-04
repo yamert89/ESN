@@ -12,7 +12,12 @@
 <html>
 <head>
     <title>Хранилище</title>
-    <script type="text/javascript">$(document).ready(function (){$("#storage").addClass("selected");})</script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("#storage").addClass("selected");
+            storageSize();
+        });
+    </script>
 </head>
 <body>
 

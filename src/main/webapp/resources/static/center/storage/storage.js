@@ -6,7 +6,7 @@ var extensions = {'.xls' : 'excel.png', '.xlsx' : 'excel.png',
     '.ico' : 'image.png', '.png' : 'image.png', '.jpg' : 'image.png', '.jpeg' : 'image.png', '.bmp' : 'image.png', '.tga' : 'image.png', '.tif' : 'image.png', '.tiff' : 'image.png', '.djvu' : 'image.png',
     '.log' : 'text.png', '.txt' : 'text.png', '.text' : 'text.png', '.err' : 'text.png',
     '.zip' : 'compressed.png', '.rar' : 'compressed.png', '.7z' : 'compressed.png', '.cab' : 'compressed.png', '.tar' : 'compressed.png', '.tgz' : 'compressed.png', '.tar-gz' : 'compressed.png', '.zipx' : 'compressed.png', '.pak' : 'compressed.png',
-    '.pdf' : 'powerpoint.png'
+    '.pdf' : 'pdf.png'
 };
 
 var unknownExt = "fileicon_bg.png";
@@ -24,7 +24,7 @@ $(document).ready(function () {
          var form = $(".form_file");
          var filename = $(this).get(0).files[0].name;
      });*/
-    storageSize();
+
     $(document).on("keyup", ".fileName", function(event){
         if(event.keyCode === 13){
             event.preventDefault();
@@ -84,7 +84,7 @@ $(document).ready(function () {
         data.append( 'file', file);
         data.append('shared', shared);
         $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data, success: function (data) {
-                var not = data.success ? 'Файл загружен' : data.overflow ? 'Недостаточно свободного места' : 'Неихвестная ошибка';
+                var not = data.success ? 'Файл загружен' : data.overflow ? 'Недостаточно свободного места' : 'Неизвестная ошибка';
                 notify(not);
                 if (data.overflow) return;
                 input.get(0).value = '';

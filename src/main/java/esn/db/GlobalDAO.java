@@ -3,6 +3,7 @@ package esn.db;
 import esn.configs.GeneralSettings;
 import esn.db.syntax.Syntax;
 import esn.entities.Organization;
+import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
 import org.springframework.beans.factory.InitializingBean;
@@ -39,6 +40,12 @@ public class GlobalDAO implements InitializingBean {
     public List<StoredFile> getSharedFiles(Organization org){
         return em.createQuery("select f from StoredFile f where f.org = :org and shared = true")
                 .setParameter("org",org).getResultList();
+    }
+
+    @Transactional
+    public List<StoredFile> getSharedAndMyFiles(User user){
+        return em.createQuery("select f from StoredFile f where f.org = :org and (f.shared = true or f.owner = :owner)")
+                .setParameter("org", user.getOrganization()).setParameter("owner",user).getResultList();
     }
 
     @Transactional

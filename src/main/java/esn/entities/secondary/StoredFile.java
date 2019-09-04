@@ -1,11 +1,11 @@
 package esn.entities.secondary;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import esn.entities.Organization;
 import esn.entities.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -17,7 +17,9 @@ public class StoredFile {
     @Column(unique = false)
     private String name;
 
+
     @ManyToOne
+    @JsonIgnore
     private Organization org;
 
     @Column(length = 7)
@@ -26,6 +28,7 @@ public class StoredFile {
     private Timestamp time;
 
     @ManyToOne
+    @JsonIgnore
     private User owner;
 
     private boolean shared;

@@ -1,5 +1,7 @@
 package esn.viewControllers.main;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import esn.configs.GeneralSettings;
 import esn.db.GlobalDAO;
 import esn.db.UserDAO;
@@ -32,6 +34,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Iterator;
+import java.util.List;
 
 @Controller
 public class StorageController {
@@ -88,6 +91,21 @@ public class StorageController {
         return modelAndView;
     }
 
+    @GetMapping("/storage")
+    @ResponseBody
+    public ResponseEntity<String> getFiles(HttpServletRequest request, Principal principal){
+        User user = sessionUtil.getUser(request, principal);
+        List<StoredFile> files = globalDAO.getSharedAndMyFiles(user);
+        ObjectMapper om = new ObjectMapper();
+        String js = "";
+        try {
+            js = om.writeValueAsString(files);
+        } catch (JsonProcessingException e) {
+            logger.error("getFiles", e);
+        }
+        return ResponseEntity.ok().headers(headers).body(js);
+    }
+
     @PostMapping("/savefile")
     @ResponseBody
     public ResponseEntity<String> saveFile(@RequestParam(name = "file") MultipartFile file, @RequestParam String shared,
@@ -123,7 +141,7 @@ public class StorageController {
     @ResponseStatus(code = HttpStatus.OK)
     public void updateFile(@RequestParam String fname, @RequestParam String update, HttpServletRequest request, Principal principal,
                            @RequestParam(required = false) String newName, HttpSession session){
-        User user = sessionUtil.getUser(request, principal);
+        User user = userDAO.getUserWithFiles(sessionUtil.getUser(request, principal).getId());
         try{
             Iterator<StoredFile> it = user.getStoredFiles().iterator();
             StoredFile storedFile = null;
