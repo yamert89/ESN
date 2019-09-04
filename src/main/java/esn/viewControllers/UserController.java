@@ -174,7 +174,11 @@ public class UserController {
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setAuthority(orgService.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
-            Files.createDirectory(Paths.get(GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\"));
+            try {
+                Files.createDirectory(Paths.get(GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\"));
+            }catch (Exception e){
+                logger.error("ReCreate user directory");
+            }
 
             if (!image.isEmpty()) {
                 ImageUtil.writeAvatar(user, image);
@@ -239,9 +243,9 @@ public class UserController {
     @PostMapping("{org}/users/{login}")
     public ModelAndView changeProfile(@RequestParam String position, @Valid @ModelAttribute("user") User user, BindingResult bindingResult,
                                 @RequestParam(value = "image", required = false) MultipartFile image, @RequestParam String boss,
-                                      Model model, HttpSession session, RedirectAttributes redirectAttributes){
+                                      Model model, HttpSession session, RedirectAttributes redirectAttributes, HttpServletRequest request, Principal principal){
         ModelAndView modelAndView = new ModelAndView("userSettings");
-        User userFromSession = (User) session.getAttribute("user");
+        User userFromSession = sessionUtil.getUser(request, principal);
         try {
 
             Calendar birth = null;
