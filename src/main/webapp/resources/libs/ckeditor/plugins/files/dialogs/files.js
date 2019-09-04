@@ -38,6 +38,7 @@ CKEDITOR.dialog.add( 'filesDialog', function ( editor ) {
 
             var name = editor.document.createElement('span');
             name.setText(f.name);
+            name.addClass('post_file_name');
 
             file.append(name);
             var data = new FormData();
