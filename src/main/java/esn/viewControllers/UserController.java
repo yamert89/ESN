@@ -1,5 +1,6 @@
 package esn.viewControllers;
 
+import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
 import esn.db.service.OrgService;
 import esn.entities.Organization;
@@ -31,6 +32,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -171,6 +174,7 @@ public class UserController {
             /*       user.setPassword(SimpleUtils.getEncodedPassword(user.getPassword()));*/
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setAuthority(orgService.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
+            Files.createDirectory(Paths.get(GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\"));
 
             if (!image.isEmpty()) {
                 ImageUtil.writeAvatar(user, image);
