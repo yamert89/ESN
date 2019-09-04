@@ -175,7 +175,7 @@ public class UserController {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
             user.setAuthority(orgService.isAdminKey(orgKey, organization.getId()) ? "ROLE_ADMIN" : "ROLE_USER");
             try {
-                Files.createDirectory(Paths.get(GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\"));
+                Files.createDirectories(Paths.get(GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\"));
             }catch (Exception e){
                 logger.error("ReCreate user directory");
             }

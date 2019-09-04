@@ -97,9 +97,7 @@
     margin-right: 15px;
     white-space: nowrap;
 }
-input[type=text]{
-    background-color: transparent;
-}
+
 .diagram_text{
     font-size: 0.7em;
     transform: translateY(0.25em);

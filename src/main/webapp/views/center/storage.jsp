@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>Хранилище</title>
+    <link rel="stylesheet" href='<c:url value="/resources/static/center/storage/storage2.css"/>'>
     <script type="text/javascript">
         $(document).ready(function (){
             $("#storage").addClass("selected");
@@ -29,7 +30,7 @@
             <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut"  id="publicDiagram">
                 <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
                 <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="5"></circle>
-                <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#000000" stroke-width="5" stroke-dasharray="0 100" stroke-dashoffset="0"></circle>
+                <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#000000" stroke-width="5" stroke-dasharray="0 100" stroke-dashoffset="60%"></circle>
                 <text x="50%" y="50%" class="diagram_text">0%</text>
             </svg>
             <c:forEach var="file" items='${sharedFiles}'>
@@ -61,7 +62,7 @@
             <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut"  id="privateDiagram">
                 <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
                 <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="5"></circle>
-                <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#000000" stroke-width="5" stroke-dasharray="0 100" stroke-dashoffset="0"></circle>
+                <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#000000" stroke-width="5" stroke-dasharray="0 100" stroke-dashoffset="60%"></circle>
                 <text x="50%" y="50%" class="diagram_text">0%</text>
             </svg>
             <c:set var="files" value='${user.storedFiles}'/>
