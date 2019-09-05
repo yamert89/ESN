@@ -22,10 +22,10 @@ public class PrivateDAO extends MessagesDAO {
 
     private final static Logger logger = LogManager.getLogger(GroupsController.class);
 
-    @Override
+    /*@Override
     final String abstractLastTimeOfMessageQuery() {
-        return "select time from private_chat_history where orgId = :orgId order by time desc limit 1";
-    }
+        return "select time from private_chat_history where orgId = :orgId and sender_id <> :userid order by time desc limit 1";
+    }*/
 
     @Transactional
     public void persist(PrivateChatMessage message) {

@@ -71,21 +71,23 @@ public class WebSocketAlertController {
                 return;
             }
             int orgID = Integer.parseInt(orgId);
-            Calendar lastGenM = genDAO.getLastTimeOfMessage(orgID);
-            Calendar lastPrivateM = privateDAO.getLastTimeOfMessage(orgID);
+            Calendar lastGenM = genDAO.getLastTimeOfMessage(orgID, userId);
+            //Calendar lastPrivateM = privateDAO.getLastTimeOfMessage(orgID, userId);
             boolean gen = lastGenM != null && lastVisitTime.before(lastGenM);
-            boolean private_ = lastPrivateM != null && lastVisitTime.before(lastPrivateM);
+            //boolean private_ = lastPrivateM != null && lastVisitTime.before(lastPrivateM);
             String privIds = null;
+            boolean private_ = false;
+            Object[] ids = privateDAO.getOfflinePrivateMSenderIds(lastVisitTime, userId, orgID);
             ObjectMapper om = new ObjectMapper();
 
-            if (private_) {
+            if (ids.length > 0) {
+                private_ = true;
                 try {
-                    privIds = om.writeValueAsString(privateDAO.getOfflinePrivateMSenderIds(lastVisitTime, userId, orgID));
+                    privIds = om.writeValueAsString(ids);
                 } catch (JsonProcessingException e) {
                     logger.error(e.getMessage(), e);
                 }
-            }
-            if (privIds == null) privIds = "{}";
+            } else privIds = "{}";
             template.convertAndSendToUser(String.valueOf(userId), "/message",
                     "{\"type\" : \"new_messages\", \"gen\":" + gen + ", \"private\" : " + private_ + ", \"private_ids\" : " + privIds  + "}");
         }catch (Exception e){

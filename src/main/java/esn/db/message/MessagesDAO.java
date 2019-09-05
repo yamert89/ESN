@@ -3,17 +3,12 @@ package esn.db.message;
 
 import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
-import esn.db.syntax.MySQLSyntax;
-import esn.db.syntax.PostgresSyntax;
 import esn.db.syntax.Syntax;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.entities.secondary.GenChatMessage;
-import esn.entities.secondary.Post;
-import esn.entities.secondary.PrivateChatMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +22,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 @Transactional
@@ -48,7 +42,7 @@ public abstract class MessagesDAO {
 
     //all defaults for generalChat
 
-    String abstractLastTimeOfMessageQuery(){return "select time from generalchat where orgId = :orgId order by time desc limit 1";}
+    String abstractLastTimeOfMessageQuery(){return "select time from generalchat where orgId = :orgId and userid <> :userid order by time desc limit 1";}
     String abstractGetMessagesQuery(){return syntax.selectChatMessages();}
     String abstractGetMessagesQueryWithIdx(){return syntax.selectChatMessagesWithIdx();}
     int abstractGetMessagesQueryAmountMessages(){return GeneralSettings.AMOUNT_GENCHAT_MESSAGES;}
@@ -117,9 +111,11 @@ public abstract class MessagesDAO {
                 "order by time desc limit 1)").executeUpdate();
     }
     @Transactional
-    public Calendar getLastTimeOfMessage(int orgId){
+    public Calendar getLastTimeOfMessage(int orgId, int userid){
         try {
-            Timestamp timestamp = (Timestamp) em.createNativeQuery(abstractLastTimeOfMessageQuery()).setParameter("orgId", orgId).getSingleResult();
+            Timestamp timestamp = (Timestamp) em.createNativeQuery(abstractLastTimeOfMessageQuery())
+                    .setParameter("orgId", orgId)
+                    .setParameter("userid", userid).getSingleResult();
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(timestamp.getTime());
             return calendar;

@@ -24,14 +24,15 @@ wall_messages_amount=12
 
 #---- Максимальный размер файлового хранилища (MB): ----!
 #---- - общее ----!
-public_storage_max_size=10000
+public_storage_max_size=10
 #---- - личных файлов ----!
-private_storage_max_size=100
+private_storage_max_size=5
 
 #---- Таймаут сессии (сек): ----!
-session_timeout=300
+session_timeout=1800
 
 #---- Таймаут функции "Запомнить меня" (сек): ----!
 remember_me_timeout=604800
 
 
+#---- &amp\;useLegacyDatetimeCode=false&amp\;serverTimezone=UTC&amp\;useUnicode=true&amp\;characterEncoding=utf8 ----!
