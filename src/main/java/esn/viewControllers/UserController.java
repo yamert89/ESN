@@ -112,7 +112,7 @@ public class UserController {
     @GetMapping("/logout")
     public String exit(HttpSession session, HttpServletRequest request, Principal principal){
         try {
-            int orgId = ((Organization) session.getAttribute("org")).getId();
+            int orgId = sessionUtil.getOrg(request, principal).getId();
             User user = sessionUtil.getUser(request, principal);
             liveStat.userLogout(user.getId());
             webSocketService.sendStatus(orgId, user.getId(), false);

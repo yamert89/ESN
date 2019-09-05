@@ -65,8 +65,8 @@ public class GeneralSettings {
     }
 
     //FIXME
-    //FIXME цвет импута в storage перебивает другие
-    //FIXME
+    //FIXME ген чат приходит самому себе
+    //FIXME удаление буквы в орг пропс. там же засвечивать применить при изменении персонала
     //FIXME
     //FIXME
     //FIXME
