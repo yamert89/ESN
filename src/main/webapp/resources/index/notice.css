@@ -1,0 +1,67 @@
+
+body{
+    background: url('../data/app/office2.jpg') no-repeat;
+    background-size: cover;
+    /*font-size: 2em;*/
+    text-align: center;
+    text-shadow: 0 0 2px black;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+html, body, .container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.notice, .link{
+    max-width: 800px;
+    flex: 1 1 auto;
+}
+
+.notice{
+    padding: 160px 100px 100px 100px;
+}
+
+.text_wrapper{
+    text-align: justify;
+    background-color: rgba(169, 169, 169, 0.5);
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.link{
+    transition: font-size 0.2s;
+}
+
+.link:hover{
+
+    cursor: default;
+    font-size: 1.4em;
+    transition: font-size 0.2s;
+}
+
+span{
+    text-align: justify;
+}
+
+.a_wr{
+    padding: 50px;
+    /*flex: 1 1 100px;*/
+
+}
+a{
+    color: #00d0e7;
+    text-decoration: none;
+}
+a:hover{
+    color: red;
+}

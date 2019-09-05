@@ -1,0 +1,189 @@
+body{
+    margin: 0;
+   /* display: flex;*/
+    background: linear-gradient(right, color-stop(0%, #fffbce), color-stop(50%, #d7f7c7));
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(210, 245, 255, 0.61)), color-stop(50%, rgba(215, 247, 199, 0.37)));
+    text-shadow: 0 0 10px #f6f6f6, 0 0 2px white;
+    font-size: 4.5vh;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+h2{
+    color: #fff8e1;
+    text-shadow: 0 0 10px #000000, 0 0 2px black;
+    font-size: 8vh;
+}
+
+.header_text_wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 100px 20px;
+}
+#header{
+    text-align: center;
+    vertical-align: middle;
+    /*background: url("../data/office.jpg")  no-repeat center center fixed;
+    background-size: cover;*/
+    /*-webkit-background-size: 100%;*/
+    height: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.51);
+}
+.features {
+    margin: 0 auto;
+    display: flex;
+    /* width: 80%; */
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    padding: 50px;
+    /* text-align: center; */
+}
+
+.variants {
+    margin: 0 auto;
+    /* width: 80%; */
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+    padding: 50px;
+    /* text-align: center; */
+}
+.features_li{
+    text-align: left;
+    padding: 10px;
+}
+.lets_go{
+   transform: translateX(1000px);
+    position: absolute;
+    opacity: 0;
+    font-size: 4vh;
+
+
+}
+.lets_go_showed{
+    position: absolute;
+    transform: translate(20px);
+    opacity: 100%;
+    transition: transform 0.5s, opacity 0.5s;
+    color: #0e9aff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.45);
+    font-size: 4vh;
+    /*transition: transform 0.4s ease;*/
+}
+.lets_go_showed:hover, .lets_go:hover{
+    color: red;
+    cursor: default;
+}
+
+.wrapper{
+    padding: 0;
+    display: inline-block;
+    /*width: 30%;*/
+}
+.wrapper:hover{
+    cursor: default;
+}
+
+p{
+    margin: 80px auto;
+}
+
+img{
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px;
+}
+.example{
+    margin: 50px 0;
+    height: 42vh;
+    max-width: fit-content;
+    transition: height 1s ease, margin 1s ease;
+
+}
+
+.example:hover{
+    height: calc(42vh + 100px);
+    margin: 0;
+    transition: height 1s ease, margin 1s ease;
+}
+.name{
+    color: red;
+    font-size: 10vh;
+}
+.main_wrapper{
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.11);
+}
+.arrow{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    box-shadow: none;
+    border: none;
+}
+.arrow:hover{
+    height: 120px;
+}
+br{
+    height: 20px;
+}
+input[type=text], .email_label{
+    /* height: 4vh; */
+    font-size: 1.6vh;
+    /* width: 15vh; */
+    margin: 20px;
+}
+.question{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 1s ease, height 1s ease, border 1s ease, padding 1s ease;
+}
+.hidden{
+    height: 0;
+    opacity: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    transition: opacity 1.5s ease, height 1.5s ease, border 1.5s ease, padding 1.5s ease;
+}
+.email_wr, textarea, button{
+
+}
+.email_wr{
+    display: flex;
+    font-size: 1.6vh;
+}
+textarea{
+    width: 50%;
+    font-size: 0.4em;
+}
+.q{
+    text-align: center;
+    cursor: pointer;
+    margin: 10vh
+}
+.q:hover{
+    color: red;
+}
+
+button, input[type=submit], input[type=button]{
+    border-radius: 10px;
+    background-color: #F0F4C3;
+    font-size: 1.6vh;
+    margin: 20px;
+}
+button:hover{
+    background-color: #e7ebb9;
+}
+input[type=text]{
+
+}
+
+
+
