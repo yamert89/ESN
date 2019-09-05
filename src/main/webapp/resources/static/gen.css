@@ -148,7 +148,7 @@ button:hover{
 /*COLORS*/
 
 input[type=text]{
-     background-color: #f5f5f5;
+     /*background-color: #f5f5f5;*/
 }
 
 .message_info, .message_info_w, .file_author, .file_time, .time-right, .time-left{
