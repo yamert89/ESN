@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('.position_add_button').click(addPosition);
     $(document).on('click', '.position_delete', function () {
         $(this).parent().remove();
+        activateCommit();
     });
     $(document).keypress(function (event) {
         if (event.which === 13) {
@@ -78,6 +79,7 @@ function addPosition() {
     $('.positions').append('<div class="position">\n' +
         '                            <div class="position_name">' + name + '</div>\n' +
         '                            <img class="position_delete" src="/resources/data/app/cross.png" title="Удалить должность"/>\n' +
-        '                    </div>')
+        '                    </div>');
     positionChange = true;
+    activateCommit();
 }
