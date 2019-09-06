@@ -96,8 +96,13 @@ public class GeneralSettings {
     //TODO LONG время сессии
     //TODO LONG доработать форму регистрации
     //TODO LONG выбор полного или краткого имени для каждого юзера
-    //TODO
-    //TODO
+    //TODO LONG доп прога для перезагрузки сервера
+    //TODO LONG сохранять сессию при входе. время окончания + время сессии, при выходе обновлять
+    //TODO LONG
+    //TODO LONG
+    //TODO LONG
+    //TODO LONG
+    //TODO LONG
 
 
 }
