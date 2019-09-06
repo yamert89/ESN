@@ -83,7 +83,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //TODO LONG файл был изьят из публичного пользования
-    //TODO
+    //TODO java -jar c.jar --js stomp.js --js_output_file hello-compiled.js
     //TODO LONG транзакционное сохранение сущнос
     //TODO LONG заменить импуты спец тегами
     //TODO LONG восстановление пароля
