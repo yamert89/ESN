@@ -264,6 +264,13 @@
             <artifactId>log4j-core</artifactId>
             <version>2.12.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.alchim31.maven/yuicompressor-maven-plugin -->
+        <!--<dependency>
+            <groupId>net.alchim31.maven</groupId>
+            <artifactId>yuicompressor-maven-plugin</artifactId>
+            <version>1.5.1</version>
+        </dependency>-->
+
 
 
     </dependencies>
@@ -278,7 +285,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
                 <plugin>
@@ -289,6 +296,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.7.0</version>
                 </plugin>
+
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.20.1</version>
@@ -307,5 +315,109 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/webapp/</directory>
+                            <includes>
+                                <include>**/af.js</include>
+                                <include>**/ar.js</include>
+                                <include>**/az.js</include>
+                                <include>**/bg.js</include>
+                                <include>**/bn.js</include>
+                                <include>**/bs.js</include>
+                                <include>**/ca.js</include>
+                                <include>**/cs.js</include>
+                                <include>**/cy.js</include>
+                                <include>**/da.js</include>
+                                <include>**/de.js</include>
+                                <include>**/de-ch.js</include>
+                                <include>**/el.js</include>
+                                <include>**/eo.js</include>
+                                <include>**/es.js</include>
+                                <include>**/es-mx.js</include>
+                                <include>**/et.js</include>
+                                <include>**/eu.js</include>
+                                <include>**/fa.js</include>
+                                <include>**/fi.js</include>
+                                <include>**/fo.js</include>
+                                <include>**/fr.js</include>
+                                <include>**/fr-ca.js</include>
+                                <include>**/gl.js</include>
+                                <include>**/gu.js</include>
+                                <include>**/he.js</include>
+                                <include>**/hi.js</include>
+                                <include>**/hr.js</include>
+                                <include>**/hu.js</include>
+                                <include>**/id.js</include>
+                                <include>**/is.js</include>
+                                <include>**/ja.js</include>
+                                <include>**/ka.js</include>
+                                <include>**/km.js</include>
+                                <include>**/ko.js</include>
+                                <include>**/ku.js</include>
+                                <include>**/lt.js</include>
+                                <include>**/lv.js</include>
+                                <include>**/mk.js</include>
+                                <include>**/mn.js</include>
+                                <include>**/ms.js</include>
+                                <include>**/nb.js</include>
+                                <include>**/nl.js</include>
+                                <include>**/no.js</include>
+                                <include>**/oc.js</include>
+                                <include>**/pl.js</include>
+                                <include>**/pt.js</include>
+                                <include>**/pt-br.js</include>
+                                <include>**/ro.js</include>
+                                <include>**/si.js</include>
+                                <include>**/sk.js</include>
+                                <include>**/sl.js</include>
+                                <include>**/sq.js</include>
+                                <include>**/sr.js</include>
+                                <include>**/sr-latn.js</include>
+                                <include>**/sv.js</include>
+                                <include>**/th.js</include>
+                                <include>**/tr.js</include>
+                                <include>**/tt.js</include>
+                                <include>**/ug.js</include>
+                                <include>**/vi.js</include>
+                                <include>**/zh.js</include>
+                                <include>**/zh-cn.js</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nosuffix>true</nosuffix>
+                    <excludes>
+                        <exclude>**/air-datepicker-master/*.js</exclude>
+                        <exclude>**/sock.js</exclude>
+                        <exclude>**/staff.js</exclude>
+                        <exclude>**/storage.js</exclude>
+                        <exclude>**/index.js</exclude>
+
+                    </excludes>
+
+                    <force>false</force>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
