@@ -32,7 +32,7 @@ $(document).ready(function () {
             str += ", " + el.innerHTML;
         });
         console.log(str);
-        $('.position_add_input').val(str.substr(3));
+        $('.position_add_input').val(str.substr(2));
 
 
 

@@ -41,7 +41,7 @@ $(document).ready(function(){
 
     $(".staff_choose_btn").click(function () {
         if (window.SELECTED_DEP == undefined || window.SELECTED_DEP == null) {
-            alert("Выберите отдел, который нужно отредактировать");
+            notify("Выберите отдел, который нужно отредактировать");
             return;
         }
         window.EDIT_DEP_NAME = prompt("Изменить название отдела?", window.SELECTED_DEP.name);

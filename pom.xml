@@ -407,12 +407,15 @@
                 <configuration>
                     <nosuffix>true</nosuffix>
                     <excludes>
-                        <exclude>**/air-datepicker-master/*.js</exclude>
+                        <exclude>**/air-datepicker-master/</exclude>
                         <exclude>**/sock.js</exclude>
                         <exclude>**/staff.js</exclude>
                         <exclude>**/storage.js</exclude>
                         <exclude>**/index.js</exclude>
-
+                        <exclude>**/chat.css</exclude>
+                        <exclude>**/*min.js</exclude>
+                        <exclude>**/wall.js</exclude>
+                        <exclude>**/*.css</exclude>
                     </excludes>
 
                     <force>false</force>

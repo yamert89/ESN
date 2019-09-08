@@ -108,7 +108,7 @@ public abstract class MessagesDAO {
         String tableName = abstractTableName();
         em.createNativeQuery("delete from " + tableName + " where userId in (" +
                 "select userId from " + tableName + " where userId = " + userId + " and message = '" + text + "' " +
-                "order by time desc limit 1)").executeUpdate();
+                "order by time desc limit 1)").executeUpdate(); //TODO mysql не поддерживает
     }
     @Transactional
     public Calendar getLastTimeOfMessage(int orgId, int userid){

@@ -46,9 +46,15 @@ function createData(data) {
     if (data[0].name !== 'default') {
         return;
     }
+
+    if (!data[1]) {
+        $(".node_tools").remove();
+        window.ADMIN = false;
+    } else window.ADMIN = true;
+
     if (data[0].children.length === 0)  {
         $('.staff_choose_btn').attr('disabled', '');
-        notify("Вачале добавьте подразделения. Затем сохраните структуру и распределите сотрудников", 5500);
+        if (window.ADMIN) notify("Вачале добавьте подразделения. Затем сохраните структуру и распределите сотрудников", 5500);
     }
 
     window.ALL_EMPLOYERS = data[0].employers;
@@ -58,10 +64,7 @@ function createData(data) {
         addChildFromData(data[0].children[i]);
     }
 
-    if (!data[1]) {
-        $(".node_tools").remove();
-        window.ADMIN = false;
-    } else window.ADMIN = true;
+
 
 }
 

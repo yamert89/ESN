@@ -80,7 +80,7 @@ public class WallController {
 
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePost(@RequestParam String userId, @RequestParam String text,
+    public void savePost(@RequestParam String text,
                          @RequestParam String time, HttpSession session, HttpServletRequest request, Principal principal){
         try {
             User user = sessionUtil.getUser(request, principal);
