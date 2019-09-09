@@ -47,7 +47,7 @@ $(document).ready(function () {
             '</div>' +
             '</div>' + data + '</div>');*/
 
-        $.ajax({type:"POST", url:"/savepost", data:{"userId":userId, "text":data, "time":mes.time, "orgUrl":orgUrl}})
+        $.ajax({method:"POST", url:"/savepost", contentType: "text/plain", processData:false, data: data})
 
 
     });

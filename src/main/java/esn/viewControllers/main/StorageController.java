@@ -113,10 +113,13 @@ public class StorageController {
         try {
             User user = userDAO.getUserWithFiles(sessionUtil.getUser(request, principal).getId());
             String orgUrl = ((Organization) session.getAttribute("org")).getUrlName();
-            if (SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100 ||
-                    SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize() / 1024d / 1024d / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100 > 100) {
-                return ResponseEntity.ok().headers(headers).body("{\"success\" : false, \"overflow\" : true}");
-            }
+            double privateSize = SimpleUtils.getPrivateStoragePercentageSize(orgUrl, user.getLogin()) + file.getSize() / 1024d / 1024d;
+            double publicSize = SimpleUtils.getPublicStoragePercentageSize(orgUrl) + file.getSize() / 1024d / 1024d;
+            double percentagePrivate = privateSize / GeneralSettings.PRIVATE_STORAGE_MAX_SIZE * 100;
+            double percentagePublic = publicSize / GeneralSettings.PUBLIC_STORAGE_MAX_SIZE * 100;
+            logger.debug("Storage Size :  - private :" + privateSize + " - " + percentagePrivate + "%   - public : " + publicSize + " - " + percentagePublic + "%");
+
+            if (percentagePublic > 100 || percentagePrivate > 100) return ResponseEntity.ok().headers(headers).body("{\"success\" : false, \"overflow\" : true}");
 
             String name = file.getOriginalFilename();
             logger.debug("FILE " + name);

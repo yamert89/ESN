@@ -66,7 +66,7 @@ public class GeneralSettings {
 
     //FIXME
     //FIXME ген чат приходит самому себе
-    //FIXME удаление буквы в орг пропс. там же засвечивать применить при изменении персонала
+    //FIXME
     //FIXME
     //FIXME
     //FIXME
@@ -83,7 +83,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //TODO LONG файл был изьят из публичного пользования
-    //TODO
+    //TODO java -jar c.jar --js stomp.js --js_output_file hello-compiled.js
     //TODO LONG транзакционное сохранение сущнос
     //TODO LONG заменить импуты спец тегами
     //TODO LONG восстановление пароля
@@ -96,8 +96,13 @@ public class GeneralSettings {
     //TODO LONG время сессии
     //TODO LONG доработать форму регистрации
     //TODO LONG выбор полного или краткого имени для каждого юзера
-    //TODO
-    //TODO
+    //TODO LONG доп прога для перезагрузки сервера
+    //TODO LONG сохранять сессию при входе. время окончания + время сессии, при выходе обновлять
+    //TODO LONG
+    //TODO LONG
+    //TODO LONG
+    //TODO LONG
+    //TODO LONG
 
 
 }

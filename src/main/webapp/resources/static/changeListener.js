@@ -5,6 +5,9 @@ $(document).ready(function () {
         tempValue = $(this).val();
     });
     input.blur(function () {
-        if (tempValue != $(this).val()) $(".commit").removeAttr('disabled');
+        if (tempValue != $(this).val()) activateCommit();
     });
 });
+function activateCommit() {
+    $(".commit").removeAttr('disabled')
+}

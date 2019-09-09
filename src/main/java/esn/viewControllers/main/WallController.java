@@ -8,7 +8,6 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.services.WebSocketService;
-import esn.utils.DateFormatUtil;
 import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,14 +79,17 @@ public class WallController {
 
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePost(@RequestParam String userId, @RequestParam String text,
-                         @RequestParam String time, HttpSession session, HttpServletRequest request, Principal principal){
+    public void savePost(@RequestBody byte[] text,
+                          HttpSession session, HttpServletRequest request, Principal principal){
+       /* for (int i = 0; i < text.length; i++) {
+            System.out.print(Character.toChars(text[i]));
+        }*/
         try {
             User user = sessionUtil.getUser(request, principal);
             int orgId = ((Organization) session.getAttribute("org")).getId();
 
-                wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time, false), orgId);
-                webSocketService.newPostAlert(user, time, text);
+               // wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time, false), orgId);
+               // webSocketService.newPostAlert(user, time, text);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }

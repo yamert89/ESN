@@ -34,7 +34,7 @@
                 $("datalist").children().each(function (idx, el) {
                     res = res + ', ' + el.getAttribute('value');
                 });
-                $("#input").val(res.substr(3));
+                $("#input").val(res.substr(2));
             }catch (e) {
                 console.log(e);
             }

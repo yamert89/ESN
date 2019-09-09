@@ -10,10 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,8 +25,8 @@ public class PrivateDAO extends MessagesDAO {
     }*/
 
     @Transactional
-    public void persist(PrivateChatMessage message) {
-        em.persist(message);
+    public void persist(PrivateChatMessage ... messages) {
+        Arrays.stream(messages).forEach(m -> em.persist(m));
     }
     @Transactional
     public Set<PrivateChatMessage> getMessages(User owner, User companion, int orgId) {

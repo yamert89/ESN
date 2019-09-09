@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -136,16 +137,29 @@ public class PrivateChatController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void saveGroupMessage(@RequestParam String text, @RequestParam String groupName,
                                  HttpSession session, HttpServletRequest request, Principal principal){
+        Set<PrivateChatMessage> messages = new HashSet<>();
         try {
             User user = sessionUtil.getUser(request, principal);
-            int orgId = ((Organization) session.getAttribute("org")).getId();
-            ContactGroup group = user.getGroups().stream()
-                    .filter(g -> g.getName().equals(groupName)).findAny().get();
+            int orgId = user.getOrganization().getId();
+            Set<ContactGroup> groups = user.getGroups();
+            int[] ids = null;
+            if (groups.size() > 0){
+                ContactGroup group = groups.stream()
+                        .filter(g -> g.getName().equals(groupName)).findAny().get();
+                ids = group.getPersonIds();
 
-            for (int id :
-                    group.getPersonIds()) {
-                privateDAO.persist(new PrivateChatMessage(text, user.getId(), id, orgId));
+            } else {
+                ids = user.getOrganization().getAllEmployers().stream().mapToInt(el -> el.getId()).toArray();
             }
+
+            for (int id : ids) {
+                messages.add(new PrivateChatMessage(text, user.getId(), id, orgId));
+            }
+
+
+
+            privateDAO.persist(messages.toArray(new PrivateChatMessage[]{}));
+
         }catch (Exception e){logger.error("saveGroupMessage", e);}
 
 
