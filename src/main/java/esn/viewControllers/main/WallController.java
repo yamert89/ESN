@@ -24,6 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.List;
 
 @Controller
@@ -81,15 +84,15 @@ public class WallController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void savePost(@RequestBody byte[] text,
                           HttpSession session, HttpServletRequest request, Principal principal){
-       /* for (int i = 0; i < text.length; i++) {
-            System.out.print(Character.toChars(text[i]));
-        }*/
+
         try {
             User user = sessionUtil.getUser(request, principal);
-            int orgId = ((Organization) session.getAttribute("org")).getId();
-
-               // wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time, false), orgId);
-               // webSocketService.newPostAlert(user, time, text);
+            Timestamp time = Timestamp.from(Instant.now());
+            String txt = new String(text);
+            logger.debug(txt);
+            wallDAO.saveMessage(user.getId(), txt, time, user.getOrganization().getId());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(GeneralSettings.TIME_PATTERN);
+            webSocketService.newPostAlert(user, dateFormat.format(time), txt);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }
