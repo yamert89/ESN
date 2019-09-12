@@ -9,7 +9,7 @@ public class MySQLSyntax implements Syntax{
 
     @Override
     public final String createTableConstraints() {
-        return " (id int not null auto_increment primary key, message text, userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+        return " (id int not null auto_increment primary key, message mediumtext, userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
     }
 
     @Override
@@ -40,6 +40,11 @@ public class MySQLSyntax implements Syntax{
     @Override
     public String currentDate() {
         return "NOW()";
+    }
+
+    @Override
+    public String deleteWallMessage() {
+        return "delete from wall inner join (select * from wall where userId = 1 and message = 'text' order by time desc limit 1)";
     }
 
 

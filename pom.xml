@@ -405,6 +405,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <skip>true</skip>
                     <nosuffix>true</nosuffix>
                     <excludes>
                         <exclude>**/air-datepicker-master/</exclude>
