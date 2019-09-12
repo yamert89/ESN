@@ -8,7 +8,6 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
 import esn.services.WebSocketService;
-import esn.utils.DateFormatUtil;
 import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.List;
 
 @Controller
@@ -80,14 +82,17 @@ public class WallController {
 
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePost(@RequestParam String text,
-                         @RequestParam String time, HttpSession session, HttpServletRequest request, Principal principal){
+    public void savePost(@RequestBody byte[] text,
+                          HttpSession session, HttpServletRequest request, Principal principal){
+
         try {
             User user = sessionUtil.getUser(request, principal);
-            int orgId = ((Organization) session.getAttribute("org")).getId();
-
-                wallDAO.saveMessage(user.getId(), text, DateFormatUtil.parseDate(time, false), orgId);
-                webSocketService.newPostAlert(user, time, text);
+            Timestamp time = Timestamp.from(Instant.now());
+            String txt = new String(text);
+            logger.debug(txt);
+            wallDAO.saveMessage(user.getId(), txt, time, user.getOrganization().getId());
+            SimpleDateFormat dateFormat = new SimpleDateFormat(GeneralSettings.TIME_PATTERN);
+            webSocketService.newPostAlert(user, dateFormat.format(time), txt);
         }catch (Exception e){
             logger.error(e.getMessage(), e);
         }

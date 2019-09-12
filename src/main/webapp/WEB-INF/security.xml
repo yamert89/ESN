@@ -9,6 +9,7 @@
       http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="esn.viewControllers" />
     <mvc:annotation-driven />
+
     <!--<debug/>-->
 
 
@@ -44,6 +45,7 @@
        <!--<intercept-url pattern="/**/users/**" access="hasRole('USER') or hasRole('ADMIN')"/>-->
        <!--<intercept-url pattern="/**/profile"  access="hasRole('ANONYMOUSLY') or hasRole('USER')"/>-->
       <intercept-url pattern="/**"  access="hasRole('USER') or hasRole('ADMIN')"/>
+
 
 
 
