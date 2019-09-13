@@ -111,11 +111,12 @@ public abstract class MessagesDAO {
         if (syntax instanceof PostgresSyntax) em.createNativeQuery(syntax.deleteMessage(abstractTableName()))
                 .setParameter(1, userId).setParameter(2, text).executeUpdate(); //TODO mysql не поддерживает
         else {
-            Query query = em.createNativeQuery("select userId from " + abstractTableName() + " w where w.userId = ? and w.message = ? order by w.time desc limit 1")
-                    .setParameter(1, userId).setParameter(2, text);
-            int id = (int) query.getSingleResult();
+            /*Query query = em.createNativeQuery("select w.id from " + abstractTableName() + " w where w.userId = ? and w.message like ? order by w.time desc limit 1")
+                    .setParameter(1, userId).setParameter(2, "%" + text + "%");
+            int id = (int) query.getSingleResult();*/
 
-            query = em.createNativeQuery(syntax.deleteMessage(abstractTableName())).setParameter(1, id);
+            Query query = em.createNativeQuery(syntax.deleteMessage(abstractTableName()))
+                    .setParameter(1, userId).setParameter(2, "%" + text + "%");
             query.executeUpdate();
         }
 

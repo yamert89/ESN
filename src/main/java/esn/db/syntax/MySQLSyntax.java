@@ -44,7 +44,7 @@ public class MySQLSyntax implements Syntax{
 
     @Override
     public String deleteMessage(String tableName) {
-        return "delete from " + tableName + " where userid = ?";
+        return "delete from " + tableName + " where userId = ? and message like ? order by time desc limit 1";
     }
 
 
