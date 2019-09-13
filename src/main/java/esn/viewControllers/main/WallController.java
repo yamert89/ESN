@@ -83,14 +83,13 @@ public class WallController {
 
     @PostMapping("/savepost")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void savePost(@RequestBody byte[] text,
-                          HttpSession session, HttpServletRequest request, Principal principal){
+    public void savePost(@RequestBody byte[] text, HttpServletRequest request, Principal principal){
 
         try {
             User user = sessionUtil.getUser(request, principal);
             Timestamp time = Timestamp.from(Instant.now());
             String txt = new String(text, StandardCharsets.UTF_8);
-            logger.debug(txt);
+            logger.debug(txt.substring(0, 100) + " ...");
             wallDAO.saveMessage(user.getId(), txt, time, user.getOrganization().getId());
             SimpleDateFormat dateFormat = new SimpleDateFormat(GeneralSettings.TIME_PATTERN);
             webSocketService.newPostAlert(user, dateFormat.format(time), txt);

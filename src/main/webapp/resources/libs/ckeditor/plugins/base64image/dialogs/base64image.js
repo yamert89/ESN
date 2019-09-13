@@ -415,7 +415,11 @@ CKEDITOR.dialog.add("base64imageDialog", function(editor){
 			if(!selectedImg) editor.insertElement(newImg);
 
 			/* Resize image */
-			if(editor.plugins.imageresize) editor.plugins.imageresize.resize(editor, newImg, 800, 800);
+			var imgH = newImg.$.height;
+			var imgW = newImg.$.width;
+			var w = imgW > 1000 ? 1000 : imgW;
+			var h = imgH > 1000 ? 1000 : imgH;
+			if(editor.plugins.imageresize) editor.plugins.imageresize.resize(editor, newImg, w, h);
 
 		},
 
