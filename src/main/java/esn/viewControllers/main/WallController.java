@@ -89,7 +89,7 @@ public class WallController {
             User user = sessionUtil.getUser(request, principal);
             Timestamp time = Timestamp.from(Instant.now());
             String txt = new String(text, StandardCharsets.UTF_8);
-            logger.debug(txt.substring(0, 100) + " ...");
+            logger.debug(txt.length() > 100 ? txt.substring(0, 100) + " ..." : txt);
             wallDAO.saveMessage(user.getId(), txt, time, user.getOrganization().getId());
             SimpleDateFormat dateFormat = new SimpleDateFormat(GeneralSettings.TIME_PATTERN);
             webSocketService.newPostAlert(user, dateFormat.format(time), txt);
