@@ -43,8 +43,8 @@ public class MySQLSyntax implements Syntax{
     }
 
     @Override
-    public String deleteWallMessage() {
-        return "delete from wall inner join (select * from wall where userId = 1 and message = 'text' order by time desc limit 1)";
+    public String deleteMessage(String tableName) {
+        return "delete from " + tableName + " where userid = ?";
     }
 
 

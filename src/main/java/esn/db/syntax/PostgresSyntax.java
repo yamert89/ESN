@@ -31,5 +31,12 @@ public class PostgresSyntax implements Syntax{
         return "clock_timestamp()";
     }
 
+    @Override
+    public String deleteMessage(String tableName) {
+        return "delete from " + tableName + " where userId in (" +
+                "select userId from " + tableName + " where userId = ? and message = ? " +
+                "order by time desc limit 1)";
+    }
+
 
 }

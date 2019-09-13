@@ -38,4 +38,6 @@ public class WallDAO extends MessagesDAO {
     String abstractTableName() {
         return "wall";
     }
+
+
 }

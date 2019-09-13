@@ -3,6 +3,7 @@ package esn.db.message;
 
 import esn.configs.GeneralSettings;
 import esn.db.UserDAO;
+import esn.db.syntax.PostgresSyntax;
 import esn.db.syntax.Syntax;
 import esn.entities.User;
 import esn.entities.secondary.AbstractMessage;
@@ -47,6 +48,8 @@ public abstract class MessagesDAO {
     String abstractGetMessagesQueryWithIdx(){return syntax.selectChatMessagesWithIdx();}
     int abstractGetMessagesQueryAmountMessages(){return GeneralSettings.AMOUNT_GENCHAT_MESSAGES;}
     String abstractTableName(){return "generalchat";}
+
+
 
     AbstractMessage createMessage(long id, String text,Timestamp time, int orgId, User user){
         return new GenChatMessage(id, text, time, orgId, user);
@@ -105,11 +108,20 @@ public abstract class MessagesDAO {
 
     @Transactional
     public void deleteMessage(int userId, String text){
-        String tableName = abstractTableName();
-        em.createNativeQuery("delete from " + tableName + " where userId in (" +
-                "select userId from " + tableName + " where userId = " + userId + " and message = '" + text + "' " +
-                "order by time desc limit 1)").executeUpdate(); //TODO mysql не поддерживает
+        if (syntax instanceof PostgresSyntax) em.createNativeQuery(syntax.deleteMessage(abstractTableName()))
+                .setParameter(1, userId).setParameter(2, text).executeUpdate(); //TODO mysql не поддерживает
+        else {
+            Query query = em.createNativeQuery("select userId from " + abstractTableName() + " w where w.userId = ? and w.message = ? order by w.time desc limit 1")
+                    .setParameter(1, userId).setParameter(2, text);
+            int id = (int) query.getSingleResult();
+
+            query = em.createNativeQuery(syntax.deleteMessage(abstractTableName())).setParameter(1, id);
+            query.executeUpdate();
+        }
+
     }
+
+
     @Transactional
     public Calendar getLastTimeOfMessage(int orgId, int userid){
         try {

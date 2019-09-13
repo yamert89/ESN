@@ -9,5 +9,6 @@ public interface Syntax {
     String selectChatMessagesWithIdx();
     String selectWallMessagesWithIdx();
     String currentDate();
-    String deleteWallMessage();
+    String deleteMessage(String tableName);
+
 }
