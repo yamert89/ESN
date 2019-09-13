@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -88,7 +89,7 @@ public class WallController {
         try {
             User user = sessionUtil.getUser(request, principal);
             Timestamp time = Timestamp.from(Instant.now());
-            String txt = new String(text);
+            String txt = new String(text, StandardCharsets.UTF_8);
             logger.debug(txt);
             wallDAO.saveMessage(user.getId(), txt, time, user.getOrganization().getId());
             SimpleDateFormat dateFormat = new SimpleDateFormat(GeneralSettings.TIME_PATTERN);
