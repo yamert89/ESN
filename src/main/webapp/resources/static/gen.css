@@ -64,6 +64,10 @@ form{
     background-color: rgba(195, 255, 255, 0.77);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
 }
+.person_selected:hover{
+    background-color: rgba(164, 222, 222, 0.77);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.42);
+}
 
 .delete_message{
     height: 1.2em;

@@ -76,7 +76,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.person_photo_staff', function () {
-        var login = $(this).parent().next().find($(".person_point")).attr("data-p-login");
+        var login = $(this).next().attr("data-p-login");
         location.href = "/" + orgUrl + "/users/" + login;
     })
 

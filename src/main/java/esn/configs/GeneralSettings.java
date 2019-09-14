@@ -67,7 +67,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME ген чат приходит самому себе
     //FIXME
-    //FIXME //TODO mysql не поддерживает messages DAo //Check
+    //FIXME //TODO  messages DAo //Check postgres
     //FIXME
     //FIXME
     //FIXME
