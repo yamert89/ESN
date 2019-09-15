@@ -71,7 +71,7 @@ public class WallController {
             long newIdx = messages.size() < GeneralSettings.AMOUNT_WALL_MESSAGES ? -1 : messages.get(messages.size() - 1).getId();
             session.setAttribute("lastIdx_wall", newIdx);
             model.addAttribute("messages", messages);
-            modelAndView.addObject("filesPath", "/resources/data/" + org.getUrlName() + "/stored_files/" + user.getLogin() + "/");
+            modelAndView.addObject("filesPath", "/resources/data/" + org.getUrlName() + "/stored_files/");
         }catch (Exception e){
             logger.error("wall", e);
             redirectAttributes.addFlashAttribute("flash", "Произошла загрузки главной страницы. Сообщите разработчику");

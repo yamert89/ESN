@@ -77,7 +77,7 @@ public class StorageController {
                 user = userDAO.getUserWithFiles(user.getId());
             }
             modelAndView.addObject("sharedFiles", globalDAO.getSharedFiles(user.getOrganization()));
-            modelAndView.addObject("filesPath", "/resources/data/" + user.getOrganization().getUrlName() + "/stored_files/" + user.getLogin() + "/");
+            modelAndView.addObject("filesPath", "/resources/data/" + user.getOrganization().getUrlName() + "/stored_files/");
 
             modelAndView.addObject("user", user);
             session.setAttribute("user", user);

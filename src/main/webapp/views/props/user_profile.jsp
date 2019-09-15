@@ -49,7 +49,7 @@
     <div class="prop_line">
         <div class="inline">
         <div class="prop_label">Непосредственный начальник:</div>
-        <span class="spanVal"><a href="user_profile.html">${user.userInformation.boss}</a></span>
+        <span class="spanVal"><a href="/${user.organization.urlName}/users/${user.userInformation.boss.login}">${user.userInformation.boss.name}</a></span>
         </div>
     </div>
     <div class="prop_line">

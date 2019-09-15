@@ -122,13 +122,16 @@ $(document).ready(function () {
 
     $(document).on('click', '.file_ico', function () {
         var name = $(this).next().val() + '.' + $(this).attr('data-ext');
-        filesPath = $(".storage").attr('data-path');
-        download(name, filesPath);
+        var dataPath = $(".storage").attr('data-path');
+        filesPath = $(this).parent().attr("data-mode") === '0' ?
+            dataPath + $(".storage_private").attr("data-owner") :
+            dataPath + $(this).next().next().attr("data-login");
+        download(name, filesPath + "/");
     });
     $(document).on('click', '.post_file_ico', function () {
         var name = $(this).attr('data-name');
         filesPath = $(".wall_container").attr('data-files-path');
-        download(name, filesPath);
+        download(name, filesPath + $(this).attr('data-owner') + "/");
     });
 });
 

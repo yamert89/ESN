@@ -61,7 +61,6 @@ CKEDITOR.dialog.add( 'filesDialog', function ( editor ) {
             }else {
                 var select = dialog.getContentElement('storage', '2');
                 //var fileId = select.getValue();
-                var items = select.items;
                 console.log('VALUE   ' + select.getValue());
                 fileName = select.getValue();
                 var fn = select.getValue().substr(0, select.getValue().indexOf('.'));
@@ -75,6 +74,7 @@ CKEDITOR.dialog.add( 'filesDialog', function ( editor ) {
             ic.setAttribute('src', '/resources/icons/' + ico);
             ic.setAttribute('title', 'Скачать');
             ic.setAttribute('data-name', fileName);
+            ic.setAttribute('data-owner', window.login);
             ic.addClass("post_file_ico");
             file.append(ic);
 

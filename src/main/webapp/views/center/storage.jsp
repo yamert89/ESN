@@ -41,7 +41,7 @@
                         <div class="file_author">пользователь удалён</div>
                     </c:if>
                     <c:if test="${file.owner != null}">
-                        <div class="file_author"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.shortName}</a></div>
+                        <div class="file_author" data-login="${file.owner.login}"><a href='/${sessionScope.get("org").getUrlName()}/users/${file.owner.login}'>${file.owner.shortName}</a></div>
                     </c:if>
                     <div class="file_time"><fmt:formatDate value="${file.time}" pattern="HH:mm:ss / dd.MM"/></div>
                 </div>
@@ -55,7 +55,7 @@
             <input type="button" value="Загрузить" class="btn_load_file">
         </form>
     </div>
-    <div class="storage_private">
+    <div class="storage_private" data-owner="${user.login}">
 
         <div class="storage_header">Личные файлы</div>
         <div class="storage_wrapper" id="private_files">
@@ -67,7 +67,7 @@
             </svg>
             <c:set var="files" value='${user.storedFiles}'/>
             <c:forEach var="file" items='${files}'>
-                <div class="file">
+                <div class="file" data-mode="0">
                     <img src="" class="file_ico" data-ext="${file.extension}"  title="Скачать">
                     <input class="fileName" type="text" title="${file.name}" value="${file.name}" onchange="rename(this)">
                     <img src='<c:url value="/resources/data/app/cross.png"/>' class="file_delete" title="Удалить">
