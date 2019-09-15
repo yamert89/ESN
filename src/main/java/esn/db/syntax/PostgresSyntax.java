@@ -11,7 +11,7 @@ public class PostgresSyntax implements Syntax{
 
     @Override
     public final String createTableConstraintsPrivate() {
-        return " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+        return " (id SERIAL, message varchar(500), userId int, time timestamp, orgId int)";
     }
 
     @Override

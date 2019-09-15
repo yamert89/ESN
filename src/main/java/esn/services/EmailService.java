@@ -42,7 +42,6 @@ public class EmailService {
     public EmailService() {}
 
     public void send(String subject, String text, String addsInfo, String toEmail){
-        if (true) return; //TODO uncomment
         logger.debug("Sending email...");
         if (toEmail == null) toEmail = username;
         Session session = Session.getInstance(props, new Authenticator() {

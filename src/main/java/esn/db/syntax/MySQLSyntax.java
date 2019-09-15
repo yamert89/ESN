@@ -9,12 +9,12 @@ public class MySQLSyntax implements Syntax{
 
     @Override
     public final String createTableConstraints() {
-        return " (id int not null auto_increment primary key, message mediumtext, userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+        return " (id int not null auto_increment primary key, message mediumtext, userId int, time timestamp, orgId int)";
     }
 
     @Override
     public final String createTableConstraintsPrivate() {
-        return " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)"; //TODO TIMESTAMP?;
+        return " (id int not null auto_increment primary key, message varchar(500), userId int, time timestamp, orgId int)";
     }
 
     @Override

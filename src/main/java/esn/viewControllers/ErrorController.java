@@ -68,9 +68,9 @@ public class ErrorController {
                     break;
                 }
                 case 500: {
-                    // errorMsg = "Ошибка на сервере"; //TODO replace
+                    errorMsg = "Ошибка на сервере"; //TODO replace
 
-                    /*if (error.length > 1)*/ errorMsg = (String) error[1];
+                    if (error.length > 1) errorMsg = (String) error[1];
                     if (errorMsg.contains("has already been invalidated")) {
                         errorPage.setViewName("auth");
                         return errorPage;

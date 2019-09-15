@@ -245,7 +245,7 @@ function connectWS() {
                     var stat = user.statusOn ? 'net_status_on' : 'net_status_off';
                     usDom.find(":first-child").attr("id", stat);
 
-                    var netStatus = $(".person_photo_chat").next(); //TODo test
+                    var netStatus = $(".person_photo_chat").next();
                     netStatus.attr("id", stat);
                     netStatus.next().text(user.statusOn ? "в сети" : "не в сети");
                     break;

@@ -96,13 +96,6 @@ public class UserDAO {
     }
 
     @Transactional
-    public User getUserWithNotes(Integer id){//TODO delete
-        User user = em.find(User.class, id);
-        Hibernate.initialize(user.getNotes());
-        return user;
-    }
-
-    @Transactional
     public User getUserWithFiles(Integer id){
         User user = em.find(User.class, id);
         Hibernate.initialize(user.getStoredFiles());
