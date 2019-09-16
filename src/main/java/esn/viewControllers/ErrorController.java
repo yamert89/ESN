@@ -78,7 +78,8 @@ public class ErrorController {
                     break;
                 }
                 case 777: {
-                    errorMsg = error[1].toString();
+                    if (error.length > 1) errorMsg = error[1].toString();
+                    else errorMsg = "неизвестная ошибка сервера";
                     break;
                 }
                 default: {
