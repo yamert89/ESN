@@ -64,7 +64,7 @@ public class GeneralSettings {
         return Optional.ofNullable(properties.getProperty(name));
     }
 
-    //FIXME
+    //FIXME при загрузке хедера применить не подсвечивается
     //FIXME ген чат приходит самому себе
     //FIXME
     //FIXME //TODO  messages DAo //Check postgres

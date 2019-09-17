@@ -105,7 +105,7 @@ public class ImageUtil {
 
     private static void writeImage(String fileName, byte[] imageBytes){
         try {
-            File file = new File(fileName);
+            File file = new File("/" + fileName);
             if (file.exists()) FileUtils.forceDelete(file);
             FileUtils.writeByteArrayToFile(file, imageBytes);
         } catch (IOException e) {
