@@ -33,10 +33,11 @@ public class ErrorController {
 
     @GetMapping("/error")
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+        ModelAndView errorPage = new ModelAndView("error");
 
         try {
 
-            ModelAndView errorPage = new ModelAndView("error");
+
             String errorMsg = "";
             int httpErrorCode = 0;
             Object[] error = null;
@@ -99,8 +100,10 @@ public class ErrorController {
             return errorPage;
         }catch (Exception e){
             logger.error(e.getMessage(), e);
+            errorPage.addObject("errorMsg", "Ошибка обработчика ERROR CONTROLLER"); //TODo rename
+            return errorPage;
         }
-        return null;
+
     }
 
     private Object[] getErrorCode(HttpServletRequest httpRequest) throws Exception{

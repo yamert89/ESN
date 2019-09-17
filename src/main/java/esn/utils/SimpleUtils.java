@@ -62,8 +62,12 @@ public class SimpleUtils {
 
     public static void createUserFolders(String orgUrl, String userLogin){
         try {
-            Files.createDirectories(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/stored_files/" + userLogin + "/"));
-            Files.createDirectories(Paths.get(GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/" + userLogin + "/"));
+            String p = GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/stored_files/" + userLogin + "/";
+            String p2 = GeneralSettings.STORAGE_PATH + "/" + orgUrl + "/" + userLogin + "/";
+            logger.debug(p);
+            logger.debug(p2);
+            Files.createDirectories(Paths.get(p));
+            Files.createDirectories(Paths.get(p2));
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         }

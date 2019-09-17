@@ -129,11 +129,11 @@ public class OrgController {
     @PostMapping("/{organ}/profile")
     public ModelAndView profileSubmit(@Valid @ModelAttribute Organization org, @RequestParam String pos,
                                 @RequestParam MultipartFile header, RedirectAttributes redirectAttributes,
-                                      BindingResult bindingResult, Model model, HttpSession session){
+                                      BindingResult bindingResult, Model model, HttpServletRequest request, Principal principal){
         ModelAndView modelAndView = new ModelAndView("org_profile");
         Organization orgFromSession = null;
         try {
-            orgFromSession = (Organization) session.getAttribute("org");
+            orgFromSession = sessionUtil.getOrg(request, principal);
             if (bindingResult.hasErrors()) return modelAndView;
             String[] poss = pos.split(", ");
             Set<String> positions = orgFromSession.getPositions();
