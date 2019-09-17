@@ -7,8 +7,8 @@ jdbc.db_type=mysql
 
 #---- Подключение к базе данных ----!
 jdbc.mysql.url=jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true
-jdbc.mysql.username=user
-jdbc.mysql.password=yamert
+jdbc.mysql.username=new
+jdbc.mysql.password=yamert0511PSWD_89
 jdbc.postgres.url=jdbc:postgresql://localhost:3306/esn
 jdbc.postgres.username=yamert89
 jdbc.postgres.password=yamert0511
