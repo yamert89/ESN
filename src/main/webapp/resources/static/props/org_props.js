@@ -38,6 +38,8 @@ $(document).ready(function () {
 
     });
 
+    $("#header_btn").change(activateCommit);
+
     $("#delete_profile").click(function () {
         var res = confirm('Вы уверены, что хотите удалить профиль организации? В течение месяца его можно будет восстановить, используя корпоративный ключ');
 
