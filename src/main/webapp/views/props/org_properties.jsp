@@ -36,7 +36,7 @@
         <div class="prop_line">
             <div class="inline">
                 <div class="prop_label">Фон хэдера:</div>
-                <input type="file" name="header" accept="image/*" class="inline"/>
+                <input type="file" name="header" accept="image/*" class="inline" id="header_btn"/>
             </div>
         </div>
         <div><hr></div>
