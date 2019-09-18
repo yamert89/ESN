@@ -36,7 +36,7 @@ public class GeneralSettings {
             String path = GeneralSettings.class.getClassLoader().getResource("").getPath().replace("%20", " ");
             Path p = java.nio.file.Paths.get(path.substring(1));
             p = java.nio.file.Paths.get(p.getParent().getParent().toString(), "/resources/data/");
-            STORAGE_PATH = p.toString();
+            STORAGE_PATH = "/" + p.toString();
 
             InputStream inputStream = GeneralSettings.class.getClassLoader().getResourceAsStream("properties");
 
