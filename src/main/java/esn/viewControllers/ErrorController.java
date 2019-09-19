@@ -48,6 +48,7 @@ public class ErrorController {
                 logger.debug("Альтернативное получение [status] ошибки");
                 String par = httpRequest.getParameter("status");
                 if (par != null) httpErrorCode = Integer.parseInt(par);
+                else httpErrorCode = 999;
             }
 
             switch (httpErrorCode) {
@@ -96,7 +97,8 @@ public class ErrorController {
             }
             errorPage.addObject("errorMsg", errorMsg);
 
-            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error[2] == null ? "empty" : error[2] + " |  MESSAGE: " + errorMsg);
+
+            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error.length < 3 || error[2] == null ? "empty" : error[2] + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
             logger.error(e.getMessage(), e);
