@@ -34,6 +34,13 @@ public class ErrorController {
     @GetMapping("/error")
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("error");
+        logger.debug("err> uri: " + httpRequest.getRequestURI()
+         + " | query: " + httpRequest.getQueryString()
+         + "attrs :" );
+        Enumeration<String> attributeNames = httpRequest.getAttributeNames();
+        StringBuilder builder1 = new StringBuilder();
+        while(attributeNames.hasMoreElements()) builder1.append(attributeNames.nextElement()).append(" | ");
+        logger.debug(builder1.toString());
 
         try {
 
@@ -98,7 +105,7 @@ public class ErrorController {
             errorPage.addObject("errorMsg", errorMsg);
 
 
-            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + error.length < 3 || error[2] == null ? "empty" : error[2] + " |  MESSAGE: " + errorMsg);
+            logger.error("ERROR :  CODE: " + httpErrorCode + " |  URL: " + ((error == null || error.length < 3 || error[2] == null) ? "empty" : error[2]) + " |  MESSAGE: " + errorMsg);
             return errorPage;
         }catch (Exception e){
             logger.error(e.getMessage(), e);
