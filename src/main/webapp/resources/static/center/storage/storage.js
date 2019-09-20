@@ -113,10 +113,10 @@ $(document).ready(function () {
                     '                </div>');
 
                 storageSize();
-            }});
-
-
-
+                stopProgress();
+            }
+        });
+        startProgress();
     });
 
 
