@@ -437,6 +437,8 @@ function hash(input){
     return res;
 }
 
+
+
 function getCookie(name){
     console.log("cookies : " + document.cookie);
     var matches = document.cookie.match((new RegExp(name + "=[^;]*")));

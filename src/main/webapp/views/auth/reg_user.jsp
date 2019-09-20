@@ -1,4 +1,5 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Пендальф Синий
@@ -10,13 +11,17 @@
 <html>
 <head>
     <title>Регистрация</title>
+    <script type="text/javascript" src="<c:url value='/resources/static/resizer.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/libs/resize.js-master/resize.js-master/resize.js'/>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            window.photo = {def:true};
 
 
             $(".reg_field").change(checkboksListener);
             $(".reg_field").keyup(checkboksListener);
             $("form").submit(function (e) {
+                e.preventDefault();
                 var res = '';
                 var fstName = $("#firstName");
                 var name = $("#name");
@@ -32,8 +37,23 @@
                    $("#error_sex").text("Введите имя");
                    setTimeout(stopProgress, 500);
                 }
+               /* var data = new FormData();*/
+                var files = $(".select_avatar").get(0).files;
+                resizePhoto(files[0], 0, 0);
+                while (window.photo.def){}
+
+                files[0] = window.photo;
+                console.log("dfs");
+                /*data.append( 'file', file);
+                data.append('shared', shared);*/
+
+
 
             })
+
+            function submitFormManually() {
+
+            }
 
         });
 

@@ -219,6 +219,7 @@ if(module.exports) {
         img.src = originDataURL = this.result;
       };
       reader.readAsDataURL(defaults.file);
+      alert("readed");
     } else if (is(defaults.file) === 'HTMLImageElement') {
       img = defaults.file;
       loadToDataURL(defaults.file.src, function(dataURL) {
