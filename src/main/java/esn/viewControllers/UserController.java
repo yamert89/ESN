@@ -37,6 +37,7 @@ import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Controller
@@ -87,6 +88,7 @@ public class UserController {
         model.addAttribute("error", error != null);
         model.addAttribute("reg", reg != null);
         logger.debug("AUTHENTICATION......");
+        logger.debug(Locale.getDefault());
         return "auth";
     }
 
