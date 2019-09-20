@@ -64,7 +64,11 @@ CKEDITOR.dialog.add( 'filesDialog', function ( editor ) {
                 console.log('VALUE   ' + select.getValue());
                 fileName = select.getValue();
                 var fn = select.getValue().substr(0, select.getValue().indexOf('.'));
-                $.ajax({url : '/savefile', data : {fname: fn, update : 'share'}});
+                $.ajax({url : '/savefile', data : {fname: fn, update : 'share'}, success: function () {
+                        notify("Файл загружен");
+                    }, error : function () {
+                        notify("Ошибка загрузки файла");
+                    }}); //TODO проверка размера хранилища
 
             }
             if (fileName == undefined || fileName == null || fileName == '') return;
