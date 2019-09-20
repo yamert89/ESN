@@ -84,9 +84,9 @@ $(document).ready(function () {
         data.append( 'file', file);
         data.append('shared', shared);
         $.ajax({url:url, method:"POST", contentType:false, processData: false, data:data, success: function (data) {
-                var not = data.success ? 'Файл загружен' : data.overflow ? 'Недостаточно свободного места' : 'Неизвестная ошибка';
+                var not = data.success ? 'Файл загружен' : data.overflow ? 'Недостаточно свободного места' : 'Ошибка сохранения';
                 notify(not);
-                if (data.overflow) return;
+                if (!data.success) return;
                 input.get(0).value = '';
                 var ico = getFileIco(file.name);
                 var fileContainer;

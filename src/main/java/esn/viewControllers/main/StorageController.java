@@ -123,12 +123,13 @@ public class StorageController {
 
             String name = file.getOriginalFilename();
             logger.debug("FILE " + name);
-            String path = GeneralSettings.STORAGE_PATH + "\\" + user.getOrganization().getUrlName() + "\\stored_files\\" + user.getLogin() + "\\" + name;
+            String path = "/" + GeneralSettings.STORAGE_PATH + "/" + user.getOrganization().getUrlName() + "/stored_files/" + user.getLogin() + "/" + name;
             logger.debug("PATH " + path);
             try {
                 FileUtils.writeByteArrayToFile(new File(path), file.getBytes());
             } catch (IOException e) {
                 logger.error(e.getMessage(), e);
+                return ResponseEntity.ok().headers(headers).body("{\"success\" : false}");
             }
 
             user.getStoredFiles().add(new StoredFile(name, Timestamp.from(Instant.now()), user, shared.equals("1")));
@@ -136,6 +137,7 @@ public class StorageController {
             session.setAttribute("user", user);
         }catch (Exception e){
             logger.error("saveFile", e);
+            return ResponseEntity.ok().headers(headers).body("{\"success\" : false}");
         }
         return ResponseEntity.ok().headers(headers).body("{\"success\" : true}");
     }
