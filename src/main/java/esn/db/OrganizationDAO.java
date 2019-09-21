@@ -76,8 +76,8 @@ public class OrganizationDAO {
         return list;
     }
 
-    public List<String> getLogins(Organization org){
-        List<String> list = em.createQuery("select u.login from User u where u.organization = :org").setParameter("org", org).getResultList();
+    public List<String> getLogins(){
+        List<String> list = em.createQuery("select u.login from User u").getResultList();
         logger.debug(list.size());
         list.forEach(item -> item = item.intern());
         return list;

@@ -154,7 +154,7 @@ public class UserController {
                 return modelAndView;
             }
             if (user.getLogin().equals("admin") ||
-                    orgService.getLogins(organization).contains(user.getLogin()) ||
+                    orgService.getLogins().contains(user.getLogin()) ||
                     user.getLogin().equals("deleted")) {
                 bindingResult.addError(new FieldError("loginError", "login", "Логин занят. Придумайте другой"));
                 modelAndView.setViewName("reg");

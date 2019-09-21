@@ -272,7 +272,7 @@ if(module.exports) {
     img = null;
 
     return {
-      file: options.readAsBlob ? dataURLtoBlob(dataURL) : dataURL,
+      file: !options.readAsDataURL ? dataURLtoBlob(dataURL) : dataURL,
       originSize: size(originDataURL),
       size: size(dataURL),
       input: input

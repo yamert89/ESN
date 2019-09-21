@@ -1,4 +1,5 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Пендальф Синий
@@ -10,13 +11,15 @@
 <html>
 <head>
     <title>Регистрация</title>
+    <script type="text/javascript" src="<c:url value='/resources/static/resizer.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/libs/resize.js-master/resize.js-master/resize.js'/>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
 
             $(".reg_field").change(checkboksListener);
             $(".reg_field").keyup(checkboksListener);
             $("form").submit(function (e) {
+                e.preventDefault();
                 var res = '';
                 var fstName = $("#firstName");
                 var name = $("#name");
@@ -32,10 +35,39 @@
                    $("#error_sex").text("Введите имя");
                    setTimeout(stopProgress, 500);
                 }
+               /* var data = new FormData();*/
+                var files = $(".select_avatar").get(0).files;
+                resizePhoto(files[0], 128, 128);
+
+                //files[0] = window.photo;
+                console.log("dfs");
+                /*data.append( 'file', file);
+                data.append('shared', shared);*/
+
+
 
             })
 
+
+
         });
+
+        function submitFormManually(photo) {
+            //$(".select_avatar").get(0).files[0] = photo.file;
+
+            var fData = new FormData();
+            fData.append("orgKey", $("[name=orgKey]").val());
+            fData.append("name", $("[name=name]").val());
+            fData.append("login", $("[name=login]").val());
+            fData.append("password", $("[name=password]").val());
+            fData.append("sex", $("[name=sex]").val());
+            fData.append("image", photo.file);
+            $.ajax({url : '/reg', method : "post", contentType:false, processData: false, data : fData, success : function () {
+                    location.href = '/auth?reg=success';
+                }});
+
+
+        }
 
         function checkboksListener(){
             var pass1 = $("#pass1");
