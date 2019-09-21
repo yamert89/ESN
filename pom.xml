@@ -417,6 +417,7 @@
                         <exclude>**/*min.js</exclude>
                         <exclude>**/wall.js</exclude>
                         <exclude>**/*.css</exclude>
+                        <exclude>**/resize.js</exclude>
                     </excludes>
 
                     <force>false</force>
