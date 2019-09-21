@@ -219,7 +219,6 @@ if(module.exports) {
         img.src = originDataURL = this.result;
       };
       reader.readAsDataURL(defaults.file);
-      alert("readed");
     } else if (is(defaults.file) === 'HTMLImageElement') {
       img = defaults.file;
       loadToDataURL(defaults.file.src, function(dataURL) {
@@ -273,7 +272,7 @@ if(module.exports) {
     img = null;
 
     return {
-      file: options.readAsBlob ? dataURLtoBlob(dataURL) : dataURL,
+      file: !options.readAsDataURL ? dataURLtoBlob(dataURL) : dataURL,
       originSize: size(originDataURL),
       size: size(dataURL),
       input: input

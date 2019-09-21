@@ -85,6 +85,7 @@ public class UserDAO {
         try {
             return (User) em.createQuery("select u from User u where u.login = :login").setParameter("login", login).getSingleResult();
         }catch (Exception e){
+            logger.error("getUserByLogin", e);
             return null;
         }
     }

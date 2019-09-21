@@ -2,12 +2,12 @@ function resizePhoto(img, width, height) {
 
     var options = {
         file : img,
-        maxWidth : 20,
-        maxHeight : 20,
+        maxWidth : width,
+        maxHeight : height,
         keepExif : false,
         callback : function (result) {
             console.log(result);
-            window.photo = result;
+            submitFormManually(result);
         }
     };
     resize(options);

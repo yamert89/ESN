@@ -46,7 +46,7 @@ public class OrgService {
     }
 
     @Transactional
-    public List<String> getLogins(Organization org){return  orgDao.getLogins(org);}
+    public List<String> getLogins(){return  orgDao.getLogins();}
 
     @Transactional
     public  List<Organization> getAllOrgs(){return orgDao.getAllOrgs();}
