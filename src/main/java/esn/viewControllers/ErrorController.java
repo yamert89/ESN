@@ -37,10 +37,10 @@ public class ErrorController {
         logger.debug("err> uri: " + httpRequest.getRequestURI()
          + " | query: " + httpRequest.getQueryString()
          + "attrs :" );
-        Enumeration<String> attributeNames = httpRequest.getAttributeNames();
+        /*Enumeration<String> attributeNames = httpRequest.getAttributeNames();
         StringBuilder builder1 = new StringBuilder();
         while(attributeNames.hasMoreElements()) builder1.append(attributeNames.nextElement()).append(" | ");
-        logger.debug(builder1.toString());
+        logger.debug(builder1.toString());*/
 
         try {
 
@@ -92,14 +92,14 @@ public class ErrorController {
                     break;
                 }
                 default: {
-                    //errorMsg = "Неизвестная ошибка";
-                    Enumeration<String> attrs = httpRequest.getAttributeNames();
+                    errorMsg = "Неизвестная ошибка";
+                    /*Enumeration<String> attrs = httpRequest.getAttributeNames();
                     StringBuilder builder = new StringBuilder(errorMsg);
                     while (attrs.hasMoreElements()) {
                         String par = attrs.nextElement();
                         builder.append("\n").append(par).append("   :    ").append(httpRequest.getAttribute(par));
                     }
-                    errorMsg = builder.toString();
+                    errorMsg = builder.toString();*/
                 }
             }
             errorPage.addObject("errorMsg", errorMsg);
