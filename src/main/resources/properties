@@ -3,15 +3,15 @@
 #---- НЕККОРЕКТНОЕ ЗНАЧЕНИЕ В ФАЙЛЕ КОНФИГУРАЦИИ МОЖЕТ ПРИВЕСТИ К НЕРАБОТОСПОСОБНОСТИ ПРИЛОЖЕНИЯ!!! ----!
 
 #---- База дынных: [mysql] / [postgresql] ----!
-jdbc.db_type=mysql
+jdbc.db_type=postgresql
 
 #---- Подключение к базе данных ----!
 jdbc.mysql.url=jdbc:mysql://localhost:3306/esn?useJDBCCompliantTimezoneShift=true
 jdbc.mysql.username=new
 jdbc.mysql.password=yamert0511PSWD_89
-jdbc.postgres.url=jdbc:postgresql://localhost:3306/esn
-jdbc.postgres.username=yamert89
-jdbc.postgres.password=yamert0511
+jdbc.postgres.url=jdbc:postgresql://localhost:5432/esn
+jdbc.postgres.username=yamert
+jdbc.postgres.password=yamert89
 
 #---- Количество подгружаемых сообщений на сранице чата за один раз ----!
 gen_chat_messages_amount=30
