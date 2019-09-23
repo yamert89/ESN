@@ -19,7 +19,7 @@
             $(".reg_field").change(checkboksListener);
             $(".reg_field").keyup(checkboksListener);
             $("form").submit(function (e) {
-                e.preventDefault();
+
                 var res = '';
                 var fstName = $("#firstName");
                 var name = $("#name");
@@ -37,7 +37,11 @@
                 }
                /* var data = new FormData();*/
                 var files = $(".select_avatar").get(0).files;
-                resizePhoto(files[0], 128, 128);
+                if (files.length > 0){
+                    e.preventDefault();
+                    resizePhoto(files[0], 128, 128);
+                }
+
 
                 //files[0] = window.photo;
                 console.log("dfs");
@@ -62,9 +66,21 @@
             fData.append("password", $("[name=password]").val());
             fData.append("sex", $("[name=sex]").val());
             fData.append("image", photo.file);
-            $.ajax({url : '/reg', method : "post", contentType:false, processData: false, data : fData, success : function () {
+            var x = new XMLHttpRequest();
+            x.open("POST", "/reg", false);
+            x.onload = function () {
+                document.open();
+                document.write(x.responseText);
+                document.close();
+            };
+            x.send(fData);
+
+
+
+
+            /*$.ajax({url : '/reg', method : "post", contentType:false, processData: false, data : fData, success : function () {
                     location.href = '/auth?reg=success';
-                }});
+                }});*/
 
 
         }
