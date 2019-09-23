@@ -82,7 +82,7 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //TODO сжимать картинки на клиенте перед отправкой
+    //TODO
     //TODO LONG файл был изьят из публичного пользования
     //TODO java -jar c.jar --js stomp.js --js_output_file hello-compiled.js
     //TODO LONG транзакционное сохранение сущнос

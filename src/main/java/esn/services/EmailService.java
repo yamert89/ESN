@@ -30,7 +30,7 @@ public class EmailService {
 
     @Bean("adminEmailService")
     public EmailService emailService(){
-        return new EmailService("softoad2@gmail.com", "cjdsytnjxtvjybrf;encz");
+        return new EmailService("", "");
     }
 
 
@@ -42,6 +42,7 @@ public class EmailService {
     public EmailService() {}
 
     public void send(String subject, String text, String addsInfo, String toEmail){
+        if (true) return;
         logger.debug("Sending email...");
         if (toEmail == null) toEmail = username;
         Session session = Session.getInstance(props, new Authenticator() {
