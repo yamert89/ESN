@@ -155,6 +155,8 @@ public class UserController {
                     orgService.getLogins().contains(user.getLogin()) ||
                     user.getLogin().equals("deleted")) {
                 bindingResult.addError(new FieldError("loginError", "login", "Логин занят. Придумайте другой"));
+                user.setName("");
+                modelAndView.addObject(user);
                 modelAndView.setViewName("reg");
                 return modelAndView;
             }
