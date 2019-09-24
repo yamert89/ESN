@@ -103,7 +103,7 @@
     transform: translateY(0.25em);
     text-anchor: middle;
 }
-svg{
+.donut{
     opacity: 0.15;
     position: absolute;
     top:0;
