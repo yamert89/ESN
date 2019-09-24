@@ -1,15 +1,12 @@
 package esn.configs;
 
 import esn.viewControllers.accessoryFunctions.MyStaticHandler;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+/*@Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "esn.viewControllers")
+@ComponentScan(basePackages = "esn.viewControllers")*/
 public class WebResourcesConfig implements WebMvcConfigurer {
 
     @Override

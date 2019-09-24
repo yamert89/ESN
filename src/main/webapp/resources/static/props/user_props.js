@@ -46,6 +46,12 @@ $(document).ready(function () {
 
     $("#delete_profile").click(function () {
         if(confirm("Вы действително хотите удалить аккаунт? Все связанные данные будут удалены без возможности восстановления")){
+            localStorage.clear();
+            sessionStorage.clear();
+            var expires = "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            document.cookie = "remember" + expires;
+            document.cookie = "remember-me" + expires;
+            document.cookie = "JSESSIONID" + expires;
             $.ajax({url:"/" + orgUrl + "/users/" + login, method: "delete"});
             location.href = "/reg";
         }
