@@ -33,7 +33,7 @@ public class PostgresSyntax implements Syntax{
 
     @Override
     public String deleteMessage(String tableName) {
-        return "delete from " + tableName + " where userId = ? and message like ? order by time desc limit 1";
+        return "delete from " + tableName + " where id in (select id from " + tableName + " where userId = ? and message like ? order by time desc limit 1)";
     }
 
 
