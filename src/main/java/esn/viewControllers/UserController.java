@@ -321,7 +321,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<Boolean> checkPassword(HttpServletRequest request, Principal principal, @RequestParam String pass){
         User user = sessionUtil.getUser(request, principal);
-        boolean res = new BCryptPasswordEncoder().encode(pass).equals(user.getPassword());
+        boolean res = new BCryptPasswordEncoder().matches(pass, user.getPassword());
         return ResponseEntity.ok().contentLength(res ? 4 : 5).body(res);
     }
 
