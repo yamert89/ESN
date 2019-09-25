@@ -46,12 +46,13 @@ public class WebSocketAlertController {
 
     @MessageMapping("/readprivate")
     public void readPrivateMessageAlertOne(@Payload PrivateMesReadAlert mesReadAlert){
-
+        logger.debug("readPrivateMessageAlertOne");
         template.convertAndSendToUser(String.valueOf(mesReadAlert.getSenderId()), "/message",
                 "{\"type\" : \"private_alert_read_one\", \"hash\" : \"" + mesReadAlert.getHash() +"\"}");
     }
 
     public void readPrivateMessageAlertAll(int senderId){
+        logger.debug("readPrivateMessageAlertALL");
         template.convertAndSendToUser(String.valueOf(senderId), "/message",
                 "{\"type\" : \"private_alert_read_all\"}");
     }
