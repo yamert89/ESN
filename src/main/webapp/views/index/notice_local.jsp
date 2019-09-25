@@ -13,7 +13,8 @@
             <p>Приложение с инструкцией равзертывания доступно по ссылке ниже.</p>
             </div>
     </div>
-    <div class="link"><a href="/resources/data/adbdriver.zip">Скачать архив</a></div>
+    <div class="link"><a href="/resources/data/adbdriver.zip">Скачать для Windows</a></div>
+    <div class="link" title="В разработке.">Скачать для Linux</div>
     <div class="a_wr"><a href="/">На главную</a></div>
 </div>
 </body>
