@@ -45,6 +45,7 @@
        <!--<intercept-url pattern="/**/users/**" access="hasRole('USER') or hasRole('ADMIN')"/>-->
        <!--<intercept-url pattern="/**/profile"  access="hasRole('ANONYMOUSLY') or hasRole('USER')"/>-->
       <intercept-url pattern="/**"  access="hasRole('USER') or hasRole('ADMIN')"/>
+       <logout invalidate-session="true"/>
 
 
 

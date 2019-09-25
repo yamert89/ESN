@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -59,6 +60,7 @@ public class OrgController {
 
     @GetMapping("/neworg")
     public String newOrg(Model model){
+        SecurityContextHolder.clearContext();
         model.addAttribute("org", new Organization());
         return "neworg";
     }
