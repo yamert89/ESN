@@ -211,10 +211,12 @@ function connectWS() {
 
     var subscribePrefix = "/user/" + userId;
     var connect_callback = function(){
+        console.log("THIS ORGID = " + orgId);
 
 
         stompClient.subscribe('/allusers' + orgId , function(data){
             var resp = JSON.parse(data.body);
+            console.log(resp._alert);
             //if (resp.initiatorId == userId) return;
             switch (resp._alert) {
                 case 'genmessage':
@@ -257,6 +259,7 @@ function connectWS() {
 
         stompClient.subscribe(subscribePrefix + '/message', function (data) {
             var resp = JSON.parse(data.body);
+            console.log(resp._type);
             switch (resp.type) {
                 case 'private':
                     var currentCompanion = $('.contacts-frame').contents().find('.selected');
