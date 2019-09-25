@@ -20,7 +20,7 @@ import java.util.Optional;
 @Transactional
 public class UserDAO {
 
-    private final static Logger logger = LogManager.getLogger(GroupsController.class);
+    private final static Logger logger = LogManager.getLogger(UserDAO.class);
 
     @PersistenceContext
     private EntityManager em;
