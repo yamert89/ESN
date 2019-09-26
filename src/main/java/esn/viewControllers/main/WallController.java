@@ -12,9 +12,12 @@ import esn.viewControllers.accessoryFunctions.SessionUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +64,7 @@ public class WallController {
     }
 
     @GetMapping(value = "/{organization}/wall")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ModelAndView wall(Model model, HttpSession session, HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("wall");
         try {
