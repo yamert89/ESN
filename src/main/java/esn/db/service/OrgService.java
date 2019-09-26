@@ -62,6 +62,11 @@ public class OrgService {
     @Transactional
     public boolean isAdminKey(String key, int orgId){return orgDao.isAdminKey(key, orgId);}
 
+    @Transactional
+    public boolean consistUrl(String url){
+        return orgDao.getOrgByURL(url) != null;
+    }
+
 
 
 

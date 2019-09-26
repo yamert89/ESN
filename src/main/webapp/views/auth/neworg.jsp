@@ -15,12 +15,12 @@
     <script src="<core:url value='/resources/libs/jquery-3.4.1.min.js'/>"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            sessionStorage.clear();
+           /* sessionStorage.clear();
             localStorage.clear();
             var expires = "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
             document.cookie = "remember" + expires;
             document.cookie = "remember-me" + expires;
-            document.cookie = "JSESSIONID" + expires;
+            document.cookie = "JSESSIONID" + expires;*/
             $("button").click(function () {
                 $(this).addClass("clicked");
                 var input = $(".department_adder");
