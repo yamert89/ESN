@@ -23,7 +23,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
-        urls = orgService.getAllOrgs().stream().map(el ->  "/allusers" + el.getId())
+        /*urls = orgService.getAllOrgs().stream().map(el ->  "/allusers" + el.getId())
                 .peek(logger::debug).toArray(String[]::new);
         String[] urls2 = new String[urls.length + 2];
         for (int i = 0; i < urls.length; i++){
@@ -35,7 +35,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app");
         //registry.setApplicationDestinationPrefixes("/" + org.getUrlName() + "/app");
 
-        logger.debug(" configureMessageBroker");
+        logger.debug(" configureMessageBroker");*/
 
 
     }
