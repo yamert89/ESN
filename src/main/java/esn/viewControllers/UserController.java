@@ -306,11 +306,11 @@ public class UserController {
     }
     @PostMapping("{org}/users/{login}/p")
     @ResponseBody
-    public ResponseEntity<Boolean> changePassword(@RequestParam(required = false) String newPass, @RequestParam(required = false) String oldPass,
+    public ResponseEntity<Boolean> changePassword(@RequestParam(required = true) String newPass, @RequestParam(required = true) String oldPass,
                                   HttpSession session, HttpServletRequest request, Principal principal){
         User user = sessionUtil.getUser(request, principal);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (!encoder.encode(oldPass).equals(user.getPassword())) ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
+        if (!encoder.matches(oldPass, user.getPassword())) return ResponseEntity.ok().contentLength(5).body(Boolean.FALSE);
         user.setPassword(encoder.encode(newPass));
         userDAO.updateUser(user);
         session.invalidate();

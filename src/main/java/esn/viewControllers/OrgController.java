@@ -60,14 +60,14 @@ public class OrgController {
 
     @GetMapping("/neworg")
     public String newOrg(Model model){
-        SecurityContextHolder.clearContext();
-        model.addAttribute("org", new Organization());
+        //SecurityContextHolder.clearContext();
+        if (!model.containsAttribute("org")) model.addAttribute("org", new Organization());
         return "neworg";
     }
 
     @PostMapping("/neworg")
-    //@ResponseStatus(code = HttpStatus.SEE_OTHER)
-    public ModelAndView regOrgFromForm(@Valid @ModelAttribute Organization org, BindingResult result,
+    @ResponseStatus(code = HttpStatus.SEE_OTHER)
+    public ModelAndView regOrgFromForm(@Valid @ModelAttribute(name = "org") Organization org, BindingResult result,
                                        @RequestParam(required = false) String pos, HttpSession session, RedirectAttributes redirectAttributes){
         ModelAndView modelAndView = new ModelAndView("neworg");
         try {
@@ -90,10 +90,12 @@ public class OrgController {
             org.setHeaderPath("/app/header.jpg");
             org.setRegisterDate(Calendar.getInstance());
             try {
-                if (org.getUrlName().equals("app")) throw new DataIntegrityViolationException("app url");
+                if (org.getUrlName().equals("app") ||
+                    orgService.consistUrl(org.getUrlName())) throw new DataIntegrityViolationException("app url");
                 org = orgService.merge(org);
             } catch (DataIntegrityViolationException e) {
                 result.addError(new FieldError("url", "urlName", "Этот Url занят. Придумайте другой"));
+                modelAndView.addObject("org", org);
                 return modelAndView;
             }
             session.setAttribute("org", org);
