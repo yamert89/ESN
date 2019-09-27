@@ -24,9 +24,9 @@ wall_messages_amount=12
 
 #---- Максимальный размер файлового хранилища (MB): ----!
 #---- - общее ----!
-public_storage_max_size=30
+public_storage_max_size=1000
 #---- - личных файлов ----!
-private_storage_max_size=15
+private_storage_max_size=50
 
 #---- Таймаут сессии (сек): ----!
 session_timeout=1800

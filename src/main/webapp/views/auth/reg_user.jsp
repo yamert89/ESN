@@ -20,6 +20,8 @@
             $(".reg_field").keyup(checkboksListener);
             $("form").submit(function (e) {
 
+
+
                 var res = '';
                 var fstName = $("#firstName");
                 var name = $("#name");
@@ -34,6 +36,12 @@
                     e.preventDefault();
                    $("#error_sex").text("Введите имя");
                    setTimeout(stopProgress, 500);
+                }
+
+                if ($("#pass1").val() !== $("#pass2").val()) {
+                    e.preventDefault();
+                    $("#error_pass").text("Пароли не совпадают");
+                    return;
                 }
                /* var data = new FormData();*/
                 var files = $(".select_avatar").get(0).files;
