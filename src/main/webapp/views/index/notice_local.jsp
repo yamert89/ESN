@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Скачать приложение</title>
     <link rel="stylesheet" href="/resources/index/notice.css">
+    <script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $("#linux").click(function () {
+            $.get("/stat/path", {dld: "l"});
+        })
+    </script>
 </head>
 <body>
 <div class="container">
@@ -17,8 +23,8 @@
             <p>Приложение с инструкцией равзертывания доступно по ссылке ниже.</p>
             </div>
     </div>
-    <div class="link"><a href="/resources/data/adbdriver.zip">Скачать для Windows</a></div>
-    <div class="link" title="В разработке... уже на подходе...">Скачать для Linux</div>
+    <div class="link" id="linux"><a href="https://yadi.sk/d/s_uCYq2rwJBNmg">Скачать для Windows</a></div>
+    <div class="link" title="В разработке.">Скачать для Linux</div>
     <div class="a_wr"><a href="/">На главную</a></div>
 </div>
 </body>
