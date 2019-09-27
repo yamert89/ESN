@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,8 +34,7 @@ public class ErrorController {
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("error");
         logger.debug("err> uri: " + httpRequest.getRequestURI()
-         + " | query: " + httpRequest.getQueryString()
-         + "attrs :" );
+         + " | query: " + httpRequest.getQueryString() + " | host: " + httpRequest.getRemoteHost());
         /*Enumeration<String> attributeNames = httpRequest.getAttributeNames();
         StringBuilder builder1 = new StringBuilder();
         while(attributeNames.hasMoreElements()) builder1.append(attributeNames.nextElement()).append(" | ");
