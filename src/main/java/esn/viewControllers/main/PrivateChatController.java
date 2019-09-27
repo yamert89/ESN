@@ -154,6 +154,7 @@ public class PrivateChatController {
 
             for (int id : ids) {
                 messages.add(new PrivateChatMessage(text, user.getId(), id, orgId));
+                webSocketService.newPrivateMessageAlert(id, user.getId(), text);
             }
 
 

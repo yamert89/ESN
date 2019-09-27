@@ -31,8 +31,13 @@ $(document).ready(function () {
         var message = prompt('Отправка сообщения участникам группы', '');
         if (message == null)  return;
         var groupName = this.previousSibling.innerHTML;
-        $.ajax({url : "/groupmessage", type: "post", data: {text : message, groupName : groupName}})
-
+        $.ajax({url : "/groupmessage", type: "post", data: {text : message, groupName : groupName}});
+        var currentCompanion = $('.contacts-frame').contents().find('.selected');
+        if (currentCompanion.length > 0 &&
+            currentCompanion.parent().children().first()
+                .find($(".group_name")).text() === groupName) $('.private_chat_container')
+            .prepend('<div class="private_chat comment_bubble_right"><div class="time-left">' +
+                getDate(new Date()) + ' </div>' + message + ' </div>');
     });
 
     $.ajax({url:"/" + orgUrl + "/contacts",
