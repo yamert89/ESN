@@ -1,19 +1,26 @@
 package esn.viewControllers;
 
 import esn.configs.GeneralSettings;
+import esn.db.StatDao;
 import esn.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WebSiteController {
 
     private EmailService emailService;
+    private StatDao statDao;
+
+    @Autowired
+    public void setStatDao(StatDao statDao) {
+        this.statDao = statDao;
+    }
 
     @Autowired
     @Qualifier("adminEmailService")
@@ -22,17 +29,20 @@ public class WebSiteController {
     }
 
     @GetMapping(value = "/")
-    public String index(){
+    public String index(HttpServletRequest request){
+        statDao.stat("/", request.getRemoteHost());
         return "index";
     }
 
     @GetMapping("/notice_cloud")
-    public String noticeC(){
+    public String noticeC(HttpServletRequest request){
+        statDao.stat("/notice_cloud", request.getRemoteHost());
         return "notice_cloud";
     }
 
     @GetMapping("/notice_local")
-    public String noticeL(){
+    public String noticeL(HttpServletRequest request){
+        statDao.stat("/notice_local", request.getRemoteHost());
         return "notice_local";
     }
 
