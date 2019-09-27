@@ -60,7 +60,7 @@ public class OrgController {
 
     @GetMapping("/neworg")
     public String newOrg(Model model){
-        //SecurityContextHolder.clearContext();
+        SecurityContextHolder.clearContext();
         if (!model.containsAttribute("org")) model.addAttribute("org", new Organization());
         return "neworg";
     }
