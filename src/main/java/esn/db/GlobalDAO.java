@@ -6,6 +6,9 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
+import esn.viewControllers.main.GroupsController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +25,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class GlobalDAO implements InitializingBean {
+    private final static Logger logger = LogManager.getLogger(GlobalDAO.class);
 
     @Autowired
     @Qualifier("transactionManager")
@@ -79,6 +83,7 @@ public class GlobalDAO implements InitializingBean {
             txManager.commit(ts);
         }catch (Exception e){
             txManager.rollback(ts);
+            logger.debug("init db", e);
         }
 
     }
