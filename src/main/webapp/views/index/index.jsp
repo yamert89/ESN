@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="yandex-verification" content="2ad2b1ce3643b4f4" />
     <meta name="Description" content="enChat - корпоративный чат, вобравший в себя идеи корпоративных социальных сетей и простоты использования"/>
     <meta name="Keywords" content="корпоративный чат, корпоративная социальная сеть, общение внутри организации, чат сотрудников, enterprise chat, social network, чат на предприятии"/>
     <title>enChat</title>
