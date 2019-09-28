@@ -41,6 +41,7 @@
                 if ($("#pass1").val() !== $("#pass2").val()) {
                     e.preventDefault();
                     $("#error_pass").text("Пароли не совпадают");
+                    stopProgress();
                     return;
                 }
                /* var data = new FormData();*/

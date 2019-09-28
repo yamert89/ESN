@@ -6,6 +6,9 @@ import esn.entities.Organization;
 import esn.entities.User;
 import esn.entities.secondary.ContactGroup;
 import esn.entities.secondary.StoredFile;
+import esn.viewControllers.main.GroupsController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +25,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class GlobalDAO implements InitializingBean {
+    private final static Logger logger = LogManager.getLogger(GlobalDAO.class);
 
     @Autowired
     @Qualifier("transactionManager")
@@ -58,7 +62,7 @@ public class GlobalDAO implements InitializingBean {
 
         TransactionStatus ts = txManager.getTransaction(new DefaultTransactionDefinition());
         try {
-            em.createNativeQuery("create table stat (path varchar(100), host varchar(50), count bigint)");
+            em.createNativeQuery("create table stat (path varchar(100), host varchar(50), count bigint)").executeUpdate();
             em.createNativeQuery("create table wall " + syntax.createTableConstraints()).executeUpdate();
             em.createNativeQuery("insert into wall (id, message, userid, time, orgid) values (0, '<p>Приветствуем Вас в нашем чате!</p>', 0, " + syntax.currentDate() + ", 0)").executeUpdate();
             em.createNativeQuery("insert into organizations(id, adminkey, corpkey, description, disabled, hasadmin, headerpath, name, urlname) values " +
@@ -77,6 +81,7 @@ public class GlobalDAO implements InitializingBean {
             txManager.commit(ts);
         }catch (Exception e){
             txManager.rollback(ts);
+            logger.debug("init db", e);
         }
 
     }
