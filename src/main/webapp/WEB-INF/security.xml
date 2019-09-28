@@ -30,6 +30,7 @@
       <intercept-url pattern="/auth" access="hasRole('ANONYMOUSLY')"/>
       <intercept-url pattern="/auth1" access="hasRole('ANONYMOUSLY')"/>-->
        <intercept-url pattern="/favicon.ico" access="permitAll" />
+       <intercept-url pattern="/robots.txt" access="permitAll" />
        <intercept-url pattern="/question" access="permitAll" />
        <intercept-url pattern="/error" access="permitAll" />
        <intercept-url pattern="/**/profile" access="permitAll" />

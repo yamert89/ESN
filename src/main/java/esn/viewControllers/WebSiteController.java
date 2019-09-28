@@ -53,4 +53,9 @@ public class WebSiteController {
         emailService.send("Question", message, email, GeneralSettings.ADMIN_EMAIL);
     }
 
+    @GetMapping("/robots.txt")
+    public String robots(){
+        return "forward:/resources/data/app/robots.txt";
+    }
+
 }
