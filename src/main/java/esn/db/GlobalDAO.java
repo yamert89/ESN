@@ -83,7 +83,7 @@ public class GlobalDAO implements InitializingBean {
             txManager.commit(ts);
         }catch (Exception e){
             txManager.rollback(ts);
-            logger.debug("init db", e);
+            logger.debug("Ошибка стартовой инициализации таблиц");
         }
 
     }

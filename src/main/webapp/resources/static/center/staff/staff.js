@@ -9,6 +9,10 @@ $(document).ready(function(){
         location.reload();
     });
 
+    $(document).on("click", ".person_photo_staff", function () {
+        location.href = "/" + orgUrl + "/users/" + $(this).parent().attr("data-login");
+    });
+
     $(".save_flowchart").click(function () {
 
         var object = exportData;
@@ -167,7 +171,7 @@ function fillStaff(staff) {
     if (staff.length < 1) return;
     var container = $(".staff_container");
     staff.forEach(function (el) {
-        container.append('<div class="person_staff" data-id=' + el.id + '>\n' +
+        container.append('<div class="person_staff" data-id="' + el.id + '" data-login="' + el.login + '">\n' +
             '                    <img src="/resources/data' + el.photo + '" class="person_photo_staff">' +
             '                    <div class="person_point">\n' +
             '                        <div class="person_name_staff" title="' + el.shortName + '">' + el.shortName + '</div>\n' +

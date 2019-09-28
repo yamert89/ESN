@@ -27,7 +27,6 @@ public class User implements Cloneable{
     private String shortName;
 
     @Size(min = 4, max = 20, message = "введите логин от 3х до 20 символов")
-    @JsonIgnore
     @Column(nullable = false, length = 20, unique = true)
     private String login;
 

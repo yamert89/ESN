@@ -232,8 +232,9 @@ public class UserController {
 
         }catch (Exception e){
             logger.error(e.getMessage(), e);
-            redirectAttributes.addAttribute("status", 500);
+            redirectAttributes.addAttribute("status", 404);
             modelAndView.setViewName("redirect:/error");
+            return modelAndView;
         }
         modelAndView.setViewName("profile");
 
