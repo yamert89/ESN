@@ -1,2 +1,0 @@
-Disallow: /notice_cloud
-Disallow: /notice_local

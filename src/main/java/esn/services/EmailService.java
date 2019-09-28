@@ -30,7 +30,7 @@ public class EmailService {
 
     @Bean("adminEmailService")
     public EmailService emailService(){
-        return new EmailService("softoad2@gmail.com", "dbrnjhatqcldfbrcf");
+        return new EmailService("", "");
     }
 
 

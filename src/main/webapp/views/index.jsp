@@ -53,7 +53,6 @@
         </sec:authorize>
         <%--<div class="tool" id="apps" onclick="location.href = '/${orgUrl}/apps'">Приложения</div>--%>
         <div class="datepicker-here"></div>
-        <a class="problem">Сообщить о проблеме</a>
         <div class="log log_message"></div>
     </div>
     <div class="center">
