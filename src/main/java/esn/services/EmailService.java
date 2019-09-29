@@ -22,15 +22,15 @@ public class EmailService {
         props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        props.put("mail.smtp.ssl.trust", "smtp.yandex.ru");
         //props.put(“mail.smtp.ssl.trust”, “smtp.gmail.com”)
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.host", "smtp.yandex.ru");
+        props.put("mail.smtp.port", "465");
     }
 
     @Bean("adminEmailService")
     public EmailService emailService(){
-        return new EmailService("softoad2@gmail.com", "dbrnjhatqcldfbrcf");
+        return new EmailService("admin@enchat.ru", "J843hdsl777GF");
     }
 
 
