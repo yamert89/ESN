@@ -27,7 +27,7 @@ public class GeneralSettings {
     public static int PRIVATE_STORAGE_MAX_SIZE; //MB
     public static String TIME_PATTERN = "HH:mm:ss / dd.MM"; //TODO
     public static Syntax DB_SYNTAX;
-    public static String ADMIN_EMAIL = "softoad2@gmail.com";
+    public static String ADMIN_EMAIL = "admin@enchat.ru";
     public static int SESSION_TIMEOUT;
 
 
