@@ -21,7 +21,9 @@ public class EmailService {
     {
         props = new Properties();
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.store.protocol", "imap");
+        //props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.ssl.trust", "smtp.yandex.ru");
         //props.put(“mail.smtp.ssl.trust”, “smtp.gmail.com”)
         props.put("mail.smtp.host", "smtp.yandex.ru");
@@ -66,7 +68,9 @@ public class EmailService {
 
             //Отправляем сообщение
             Transport.send(message);
+            logger.debug("Письмо отправлено");
         } catch (MessagingException e) {
+            logger.debug("Не удалось отправить письмо");
             throw new RuntimeException(e);
         }
     }
