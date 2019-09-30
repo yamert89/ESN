@@ -258,8 +258,9 @@ function connectWS() {
 
 
         stompClient.subscribe(subscribePrefix + '/message', function (data) {
-            var resp = JSON.parse(data.body);
-            console.log(resp._type);
+            var resp = {type : 'ds', gen : false, private_ids : [0]};
+            resp = JSON.parse(data.body);
+            console.log(resp.type);
             switch (resp.type) {
                 case 'private':
                     var currentCompanion = $('.contacts-frame').contents().find('.selected');
@@ -294,17 +295,17 @@ function connectWS() {
                         $("#chat_m").css("display", "inline-block");
                         sessionStorage.setItem("gen", "on");
                     }
-                    if (resp.private) resp.private_ids.forEach(function (el) {
-                        privateMessageAlert(el);
-                        sessionStorage.setItem("private" + el, "on");
-                    });
+                    if (resp["private"]) {
+                        resp["private_ids"].forEach(function (el) {
+                            privateMessageAlert(el);
+                            sessionStorage.setItem("private" + el, "on");
+                        });
+                    }
 
 
 
 
             }
-
-
         });
 
 
