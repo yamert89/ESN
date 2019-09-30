@@ -55,7 +55,7 @@
 
 </div>
 
-<script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js" async></script>
-<script type="text/javascript" src="/resources/index/index.js" async></script>
+<script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/resources/index/index.js"></script>
 </body>
 </html>
