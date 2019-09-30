@@ -64,6 +64,6 @@ function hideTree(element) {
 function scroll() {
     $(window).unbind("scroll", scroll);
     //window.scrollTo(0, $("#header").height() + 2);
-    $('html, body').animate({ scrollTop: $("#header").height() + 2 }, 600);
+    $('html, body').animate({ scrollTop: $(".office").height() + 2 }, 600);
     arrow.css("display", "none");
 }
