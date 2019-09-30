@@ -1,5 +1,6 @@
 package esn.services;
 
+import esn.configs.GeneralSettings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,7 @@ public class EmailService {
 
     @Bean("adminEmailService")
     public EmailService emailService(){
-        return new EmailService("admin@enchat.ru", "J843hdsl777GF");
+        return new EmailService(GeneralSettings.ADMIN_EMAIL, GeneralSettings.ADMIN_PASS);
     }
 
 

@@ -34,5 +34,8 @@ session_timeout=1800
 #---- Таймаут функции "Запомнить меня" (сек): ----!
 remember_me_timeout=604800
 
+email=admin@enchat.ru
+email.pass=RT7856H7kslpf3516HP
+
 
 #---- &amp\;useLegacyDatetimeCode=false&amp\;serverTimezone=UTC&amp\;useUnicode=true&amp\;characterEncoding=utf8 ----!

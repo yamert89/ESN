@@ -27,7 +27,8 @@ public class GeneralSettings {
     public static int PRIVATE_STORAGE_MAX_SIZE; //MB
     public static String TIME_PATTERN = "HH:mm:ss / dd.MM"; //TODO
     public static Syntax DB_SYNTAX;
-    public static String ADMIN_EMAIL = "admin@enchat.ru";
+    public static String ADMIN_EMAIL;
+    public static String ADMIN_PASS;
     public static int SESSION_TIMEOUT;
 
 
@@ -51,6 +52,8 @@ public class GeneralSettings {
             String res = getOptProperty("jdbc.db_type").orElse("postgresql");
 
             DB_SYNTAX = res.equals("postgresql") ? new PostgresSyntax() : new MySQLSyntax();
+            ADMIN_EMAIL = getOptProperty("email").orElse("admin@enchat.ru");
+            ADMIN_PASS = getOptProperty("email.pass").orElse("RT7856H7kslpf3516HP");
             /*TIME_PATTERN = getOptProperty("date_time_pattern").orElse("HH:mm:ss / dd.MM");*/
 
         } catch (IOException e) {
