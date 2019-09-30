@@ -25,7 +25,7 @@
    *  }
    */
   function resize(options) {
-    for(let p in options) {
+    for(var p in options) {
       if(options.hasOwnProperty(p)) defaults[p] = options[p];
     }
 
@@ -33,7 +33,7 @@
     var img = new Image();
 
     if (is(defaults.file) === 'File') {
-      let reader = new FileReader();
+      var reader = new FileReader();
       reader.onload = function () {
         img.onload = function() {
           defaults.callback(resizer(img, defaults));

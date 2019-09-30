@@ -101,7 +101,7 @@ window.enableSaveStruct = function(){
 
 window.addChildToData = function(id, name, parentId){
     var parent = findChild(window.DATA, parentId);
-    parent.children.push({id : id, parentId : parentId, name : name, employers:[], children : [], new : true});
+    parent["children"].push({id:id, parentId:parentId, name:name, employers:[], children:[], 'new' : true});
 
 };
 
@@ -128,7 +128,9 @@ function findChild(depsArray, id) {
 function foreachEmpl(dep, nodeid){
     var el = findChild(dep, nodeid);
     $(".staff_container").empty();
-    if (el.new) $(".staff_choose_btn").attr("disabled", "true");
+    if (el["new"]) {
+        $(".staff_choose_btn").attr("disabled", "true");
+    }
     else $(".staff_choose_btn").removeAttr("disabled");
     if (el.selected || el.id === undefined) {
         foreachDeselect(DATA_SUB);
