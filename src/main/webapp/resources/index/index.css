@@ -15,12 +15,12 @@ h2{
     font-size: 8vh;
 }
 
-.header_text_wrapper{
+.header_text_wrapper {
     position: absolute;
-    top: 0;
+    top: 30vh;
     left: 0;
     right: 0;
-    padding: 100px 20px;
+    padding: 0 50px;
 }
 #header{
     text-align: center;
@@ -127,7 +127,8 @@ img{
     border: none;
 }
 .arrow:hover{
-    height: 120px;
+    height: 140px;
+    transform: translateX(-20px);
 }
 br{
     height: 20px;

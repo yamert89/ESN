@@ -8,8 +8,7 @@
     <meta name="Keywords" content="корпоративный чат, корпоративная социальная сеть, общение внутри организации, чат сотрудников, enterprise chat, social network, чат на предприятии"/>
     <title>enChat</title>
     <link rel="stylesheet" href="/resources/index/index.css">
-    <script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="/resources/index/index.js"></script>
+    <script type="text/javascript" src="/resources/index/index.js" defer></script>
 </head>
 <body>
 <!--<div id="header"><h1>Корпоративный чат - програмное решение для связи сотрудников в пределах предприятия</h1></div>-->
@@ -19,7 +18,7 @@
     <img src="/resources/data/app/office.jpg" class="office"/>
 </picture>
 
-<img src="" data-src="/resources/data/app/arrow.gif" class="arrow"/>
+<img src="/resources/data/app/arrow.gif" class="arrow"/>
 <div class="main_wrapper">
     <div class="header_text_wrapper">
         <h2><span class="name">enChat</span> - программное решение для связи сотрудников в пределах предприятия</h2>
@@ -55,12 +54,12 @@
     <div class="variants">
         <p>Варианты развертывания:</p>
         <div>
-            <div class="wrapper"><li class="deployment_type">облачный сервер</li></div>
+            <div class="wrapper" id="cloud_w"><li class="deployment_type">облачный сервер</li></div>
             <span class="lets_go" id="cloud">Начать использование</span>
         </div>
 
         <div>
-            <div class="wrapper"><li class="deployment_type">ваш локальный сервер</li></div>
+            <div class="wrapper" id="local_w"><li class="deployment_type">ваш локальный сервер</li></div>
             <span class="lets_go" id="local">Начать использование</span>
         </div>
 
