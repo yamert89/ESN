@@ -13,7 +13,12 @@
 </head>
 <body>
 <!--<div id="header"><h1>Корпоративный чат - програмное решение для связи сотрудников в пределах предприятия</h1></div>-->
-<img src="../../resources/data/app/office.jpg" class="office"/>
+<picture>
+    <source srcset="/resources/data/app/office.webp" type="image/webp">
+    <source srcset="/resources/data/app/office.jpg" type="image/jpeg">
+    <img src="/resources/data/app/office.jpg" class="office"/>
+</picture>
+
 <img src="" data-src="/resources/data/app/arrow.gif" class="arrow"/>
 <div class="main_wrapper">
     <div class="header_text_wrapper">
@@ -33,8 +38,19 @@
             <li>производственный календарь</li>
         </div>
 
-        <img class="example" id="ex1" src="" data-src="/resources/data/app/example.JPG">
-        <img class="example" id="ex2" src="" data-src="/resources/data/app/example2.JPG">
+        <picture>
+            <source srcset="/resources/data/app/example.webp" type="image/webp">
+            <source srcset="/resources/data/app/example.JPG" type="image/jpeg">
+            <img src="/resources/data/app/example.JPG" class="example"/>
+        </picture>
+        <picture>
+            <source srcset="/resources/data/app/example2.webp" type="image/webp">
+            <source srcset="/resources/data/app/example2.JPG" type="image/jpeg">
+            <img src="/resources/data/app/example2.JPG" class="example"/>
+        </picture>
+
+       <%-- <img class="example" id="ex1" src="" data-src="/resources/data/app/example.webp">
+        <img class="example" id="ex2" src="" data-src="/resources/data/app/example2.webp">--%>
     </div>
     <div class="variants">
         <p>Варианты развертывания:</p>

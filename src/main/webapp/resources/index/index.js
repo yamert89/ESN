@@ -13,10 +13,10 @@ $(document).ready(function () {
     $(".lets_go").click(function () {
         location.href = $(this).attr("id") === "cloud" ? "/notice_cloud" : "/notice_local";
     });
-    var ex1 = $("#ex1");
+    /*var ex1 = $("#ex1");
     var ex2 = $("#ex2");
     ex1.attr("src", ex1.attr("data-src"));
-    ex2.attr("src", ex2.attr("data-src"));
+    ex2.attr("src", ex2.attr("data-src"));*/
     arrow = $(".arrow");
 
     setTimeout(function () {
