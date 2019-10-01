@@ -55,8 +55,8 @@ span{
 
 .a_wr{
     padding: 50px;
+    margin-bottom: 50px;
     /*flex: 1 1 100px;*/
-
 }
 a{
     color: #00d0e7;
@@ -64,4 +64,7 @@ a{
 }
 a:hover{
     color: red;
+}
+#lin{
+    opacity: 0.6;
 }

@@ -416,7 +416,7 @@
                         <exclude>**/chat.css</exclude>
                         <exclude>**/*min.js</exclude>
                         <!--<exclude>**/wall.js</exclude>-->
-                        <exclude>**/*.css</exclude>
+                        <!--<exclude>**/*.css</exclude>-->
                         <exclude>**/resize.js</exclude>
                     </excludes>
 

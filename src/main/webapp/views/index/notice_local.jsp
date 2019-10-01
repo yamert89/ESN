@@ -4,15 +4,7 @@
     <meta charset="UTF-8">
     <title>Скачать приложение</title>
     <link rel="stylesheet" href="/resources/index/notice.css">
-    <script type="text/javascript" src="/resources/libs/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#win").click(function () {
-                $.get("/stat", {dld: "w"});
-            })
-        });
-
-    </script>
+    <script type="text/javascript" src="/resources/index/notice.js" defer></script>
 </head>
 <body>
 <div class="container">
@@ -26,8 +18,8 @@
             <p>Приложение с инструкцией равзертывания доступно по ссылке ниже.</p>
             </div>
     </div>
-    <div class="link"><a id="win" href="https://yadi.sk/d/s_uCYq2rwJBNmg">Скачать для Windows</a></div>
-    <div class="link" title="В разработке.">Скачать для Linux</div>
+    <div class="link"><a id="win" href="https://yadi.sk/d/sWC0ppo0HLz3vA">Скачать для Windows</a></div>
+    <div class="link" id="lin" title="В разработке.">Скачать для Linux</div>
     <div class="a_wr"><a href="/">На главную</a></div>
 </div>
 </body>
