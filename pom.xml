@@ -411,6 +411,10 @@
                     <excludes>
                         <exclude>**/air-datepicker-master/</exclude>
                         <exclude>**/sock.js</exclude>
+                        <exclude>**/gen.css</exclude>
+                        <exclude>**/chat.css</exclude>
+                        <exclude>**/storage.css</exclude>
+                        <exclude>**/index.css</exclude>
                         <!--<exclude>**/staff.js</exclude>-->
                         <!--<exclude>**/storage.js</exclude>-->
                         <!--<exclude>**/index.js</exclude>-->
