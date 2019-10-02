@@ -458,7 +458,7 @@
                     <executable>C:\Program Files\Java\jdk1.8.0_191\bin\jar.exe</executable>
                     <arguments>
                         <argument>-cvf</argument>
-                        <argument>ROOT.war</argument>
+                        <argument>ESN.war</argument>
                         <argument>*</argument>
                     </arguments>
                 </configuration>
