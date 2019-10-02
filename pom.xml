@@ -292,7 +292,6 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>
                 </plugin>
-
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.7.0</version>
@@ -424,6 +423,7 @@
                         <!--<exclude>**/*.css</exclude>-->
                         <exclude>**/resize.js</exclude>
                     </excludes>
+
                     <force>false</force>
                 </configuration>
             </plugin>
@@ -439,6 +439,28 @@
                 <version>2.20.1</version>
                 <configuration>
                     <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <workingDirectory>target/ESN</workingDirectory>
+                    <executable>C:\Program Files\Java\jdk1.8.0_191\bin\jar.exe</executable>
+                    <arguments>
+                        <argument>-cvf</argument>
+                        <argument>ROOT.war</argument>
+                        <argument>*</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
