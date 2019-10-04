@@ -1,6 +1,7 @@
 var arrow = {};
 if (sessionStorage.getItem('scroll') == '1') {
     document.body.style.overflowY = 'auto';
+    document.getElementsByClassName('arrow')[0].style.display = 'none';
 }
 
 var els = document.getElementsByClassName("wrapper");

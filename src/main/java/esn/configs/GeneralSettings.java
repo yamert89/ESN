@@ -70,7 +70,6 @@ public class GeneralSettings {
     //FIXME
     //FIXME ген чат приходит самому себе
     //FIXME
-    //FIXME //TODO  messages DAo //Check postgres
     //FIXME
     //FIXME
     //FIXME
@@ -85,7 +84,8 @@ public class GeneralSettings {
     //FIXME
     //FIXME
     //FIXME
-    //TODO сжимать картинки на клиенте перед отправкой
+    //FIXME
+    //TODO
     //TODO LONG файл был изьят из публичного пользования
     //TODO java -jar c.jar --js stomp.js --js_output_file hello-compiled.js
     //TODO LONG транзакционное сохранение сущнос
