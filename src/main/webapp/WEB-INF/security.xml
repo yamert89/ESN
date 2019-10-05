@@ -37,6 +37,7 @@
        <intercept-url pattern="/neworg" access="permitAll" />
        <intercept-url pattern="/auth" access="permitAll" />
        <intercept-url pattern="/stat" access="permitAll" />
+       <intercept-url pattern="/stat/online" access="permitAll"/>
 
        <intercept-url pattern="/" access="permitAll"/>
        <intercept-url pattern="/notice_cloud" access="permitAll"/>
