@@ -4,6 +4,7 @@ import esn.configs.GeneralSettings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.mail.*;
@@ -12,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Component
+
 public class EmailService {
     private final static Logger logger = LogManager.getLogger(EmailService.class);
 
@@ -32,6 +34,7 @@ public class EmailService {
     }
 
     @Bean("adminEmailService")
+    @Scope(scopeName = "singleton")
     public EmailService emailService(){
         return new EmailService(GeneralSettings.ADMIN_EMAIL, GeneralSettings.ADMIN_PASS);
     }
