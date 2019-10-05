@@ -33,6 +33,10 @@ public class LiveStat {
         return idOfUsersWhichOnline;
     }
 
+    public int getCountUsersOnline(){
+        return idOfUsersWhichOnline.size();
+    }
+
     public void request(String ip){
         Integer count = countRequest.get(ip);
         if (count == null) countRequest.put(ip, 1);
